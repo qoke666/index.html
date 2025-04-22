@@ -8,27 +8,31 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #121212; /* Тёмный фон */
-            /* Для фонового изображения раскомментируй: */
-            /* background-image: url('https://example.com/background.jpg'); */
-            background-size: cover;
+            padding: 20px 20px 80px 20px; /* Отступ снизу для меню */
+            background-color: #121212;
             color: #ffffff;
         }
         h1 {
             text-align: center;
-            color: #D5FD02; /* Голубой заголовок */
+            color: #D5FD02;
             margin-bottom: 20px;
             animation: fadeIn 1s ease-in;
         }
-        .article-container {
+        .content-section {
+            display: none;
+            margin-bottom: 20px;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .grid {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
         }
-        .article-card {
-            background: #1e1e1e; /* Тёмные карточки */
+        .tile {
+            background: #1e1e1e;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             width: 100%;
@@ -40,19 +44,60 @@
             opacity: 0;
             animation-delay: calc(0.1s * var(--index));
         }
-        .article-card:hover {
+        .tile:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 16px rgba(0,0,0,0.3);
         }
-        .article-card img {
+        .tile img {
             width: 100%;
             height: 150px;
             object-fit: cover;
         }
-        .article-card h3 {
+        .tile h3 {
             margin: 10px;
             font-size: 18px;
             color: #ffffff;
+        }
+        .tile p {
+            margin: 10px;
+            font-size: 14px;
+            color: #cccccc;
+        }
+        .section {
+            padding: 20px;
+            background: #1e1e1e;
+            border-radius: 10px;
+        }
+        .nav-menu {
+            display: flex;
+            justify-content: space-around;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #121212;
+            padding: 10px 0;
+            border-top: 1px solid #D5FD02;
+        }
+        .nav-menu a {
+            color: #D5FD02;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .back-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-button a {
+            color: #D5FD02;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        @media (max-width: 600px) {
+            .tile {
+                max-width: 100%;
+            }
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -65,19 +110,79 @@
     </style>
 </head>
 <body>
-    <h1>The Limited CLub</h1>
-    <div class="article-container">
-        <!-- Статья 1 -->
-        <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" class="article-card" style="--index: 1;">
-            <img src="https://i.postimg.cc/qvFS6T6t/image.jpg?text=Preview+1" alt="Статья 1">
-            <h3>Как поднять качество трафика в гемблинге: несколько практических механик</h3>
-        </a>
-        <!-- Статья 2 -->
-        <a href="https://telegra.ph/Статья-2" class="article-card" style="--index: 2;">
-            <img src="https://via.placeholder.com/300x200.png?text=Preview+2" alt="Статья 2">
-            <h3>Статья 2 тут будет</h3>
-        </a>
-        <!-- Добавь свои статьи в таком же формате -->
+    <h1>The Limited Club</h1>
+    <div id="content-area">
+        <!-- Раздел "О компании" -->
+        <div id="about-section" class="content-section section active">
+            <h2>О компании</h2>
+            <p>The Limited Club — это закрытое сообщество профессионалов, где обсуждаются стратегии и идеи для достижения успеха в индустрии. Мы объединяем экспертов, которые знают рынок изнутри и готовы делиться своим опытом. Наша миссия — предоставлять доступ к передовым практикам и инсайдерской информации.</p>
+            <div class="back-button">
+                <a href="#" onclick="showMenu()">Назад</a>
+            </div>
+        </div>
+        <!-- Сетка для статей/кейсов -->
+        <div id="articles-grid" class="content-section grid">
+            <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" class="tile" style="--index: 1;">
+                <img src="https://i.postimg.cc/qvFS6T6t/image.jpg" alt="Статья 1">
+                <h3>Качество трафика в гемблинге</h3>
+                <p>Практические механики для повышения качества трафика.</p>
+            </a>
+            <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" class="tile" style="--index: 2;">
+                <img src="https://i.postimg.cc/GhKMkBVX/image.jpg" alt="Статья 2">
+                <h3>SCAM кейс от AMERIO.BET: хронология, пруфы и долг на $90 000</h3>
+                <p>Несмотря на блокировку выплат, мы закрыли косты вебам на трафик за свой счет.</p>
+            </a>
+            <!-- Добавь больше статей здесь -->
+        </div>
+        <!-- Сетка для вакансий -->
+        <div id="vacancies-grid" class="content-section grid">
+            <a href="#vacancy1" class="tile" style="--index: 1;">
+                <img src="https://via.placeholder.com/300x150.png?text=Webmaster" alt="Вебмастер">
+                <h3>Вебмастер</h3>
+                <p>Ищем опытного вебмастера для работы </p>
+            </a>
+            <a href="#vacancy2" class="tile" style="--index: 2;">
+                <img src="https://via.placeholder.com/300x150.png?text=Developer" alt="Разработчик">
+                <h3>Вебмастер</h3>
+                <p>Ищем опытного вебмастера для работы </p>
+            </a>
+            <!-- Добавь больше вакансий здесь -->
+        </div>
+        <!-- Сетка для команды -->
+        <div id="team-grid" class="content-section grid">
+            <a href="#team1" class="tile" style="--index: 1;">
+                <img src="https://i.postimg.cc/TY3jvtNc/image.jpg" alt="Член команды 1">
+                <h3>Denis Limited</h3>
+                <p>Head of Affiliate</p>
+            </a>
+            <a href="#team2" class="tile" style="--index: 2;">
+                <img src="https://i.postimg.cc/TY3jvtNc/image.jpg" alt="Член команды 2">
+                <h3>Alexander Limited</h3>
+                <p>Связь по PR и маркетингу</p>
+            </a>
+            <!-- Добавь больше членов команды здесь -->
+        </div>
     </div>
+    <!-- Навигационное меню -->
+    <div class="nav-menu">
+        <a href="#" onclick="showContent('about-section')">О компании</a>
+        <a href="#" onclick="showContent('articles-grid')">Статьи/кейсы</a>
+        <a href="#" onclick="showContent('vacancies-grid')">Вакансии</a>
+        <a href="#" onclick="showContent('team-grid')">Команда</a>
+    </div>
+    <script>
+        function showContent(id) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+        }
+        function showMenu() {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('about-section').classList.add('active');
+        }
+    </script>
 </body>
 </html>
