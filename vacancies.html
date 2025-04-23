@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вакансии - The Limited Club</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px 20px 80px 20px;
+            background-color: #121212;
+            color: #ffffff;
+        }
+        h1 {
+            text-align: center;
+            color: #D5FD02;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in;
+        }
+        .article-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .article-card {
+            background: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 300px;
+            overflow: hidden;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideUp 0.5s ease forwards;
+            opacity: 0;
+            animation-delay: calc(0.1s * var(--index));
+        }
+        .article-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        .article-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .article-card h3 {
+            margin: 10px;
+            font-size: 18px;
+            color: #ffffff;
+        }
+        .article-card p {
+            margin: 10px;
+            font-size: 14px;
+            color: #cccccc;
+        }
+        .nav-menu {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #121212;
+            padding: 10px 0;
+            border-top: 1px solid #D5FD02;
+        }
+        .nav-menu a {
+            color: #D5FD02;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .back-button {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 60px;
+        }
+        .back-button a {
+            color: #D5FD02;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        @media (max-width: 600px) {
+            .article-card {
+                max-width: 100%;
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <h1>The Limited Club</h1>
+    <div class="article-container">
+        <a href="#vacancy1" class="article-card" style="--index: 1;">
+            <img src="https://via.placeholder.com/300x150.png?text=Webmaster" alt="Вебмастер">
+            <h3>Вебмастер</h3>
+            <p>Ищем опытного вебмастера для работы с партнёрскими программами.</p>
+        </a>
+        <a href="#vacancy2" class="article-card" style="--index: 2;">
+            <img src="https://via.placeholder.com/300x150.png?text=Developer" alt="Разработчик">
+            <h3>Разработчик</h3>
+            <p>Требуется разработчик для создания инновационных решений.</p>
+        </a>
+        <!-- Добавь больше вакансий здесь -->
+    </div>
+    <div class="back-button">
+        <a href="index.html">Назад</a>
+    </div>
+    <div class="nav-menu">
+        <a href="about.html">О компании</a>
+        <a href="articles.html">Статьи/кейсы</a>
+        <a href="vacancies.html">Вакансии</a>
+        <a href="team.html">Команда</a>
+    </div>
+</body>
+</html>
