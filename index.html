@@ -25,13 +25,13 @@
         .content-section.active {
             display: block;
         }
-        .grid {
+        .article-container {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
         }
-        .tile {
+        .article-card {
             background: #1e1e1e;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -44,26 +44,27 @@
             opacity: 0;
             animation-delay: calc(0.1s * var(--index));
         }
-        .tile:hover {
+        .article-card:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 16px rgba(0,0,0,0.3);
         }
-        .tile img {
+        .article-card img {
             width: 100%;
             height: 150px;
             object-fit: cover;
         }
-        .tile h3 {
+        .article-card h3 {
             margin: 10px;
             font-size: 18px;
             color: #ffffff;
         }
-        .tile p {
+        .article-card p {
             margin: 10px;
             font-size: 14px;
             color: #cccccc;
         }
         .section {
+            margin-top: 40px;
             padding: 20px;
             background: #1e1e1e;
             border-radius: 10px;
@@ -71,6 +72,7 @@
         .nav-menu {
             display: flex;
             justify-content: space-around;
+            margin-top: 20px;
             position: fixed;
             bottom: 0;
             left: 0;
@@ -88,6 +90,7 @@
         .back-button {
             text-align: center;
             margin-top: 20px;
+            margin-bottom: 60px; /* Отступ для фиксированного меню */
         }
         .back-button a {
             color: #D5FD02;
@@ -95,7 +98,7 @@
             font-weight: bold;
         }
         @media (max-width: 600px) {
-            .tile {
+            .article-card {
                 max-width: 100%;
             }
         }
@@ -113,23 +116,23 @@
     <h1>The Limited Club</h1>
     <div id="content-area">
         <!-- Главное меню -->
-        <div id="menu-section" class="content-section grid active">
-            <a href="#" onclick="showContent('about-section')" class="tile" style="--index: 1;">
+        <div id="menu-section" class="content-section article-container active">
+            <a href="#" onclick="showContent('about-section')" class="article-card" style="--index: 1;">
                 <img src="https://via.placeholder.com/300x150.png?text=About+Us" alt="О компании">
                 <h3>О компании</h3>
                 <p>Узнайте о нашей миссии и ценностях.</p>
             </a>
-            <a href="#" onclick="showContent('articles-grid')" class="tile" style="--index: 2;">
+            <a href="#" onclick="showContent('articles-grid')" class="article-card" style="--index: 2;">
                 <img src="https://i.postimg.cc/qvFS6T6t/image.jpg" alt="Статьи/кейсы">
                 <h3>Статьи/кейсы</h3>
                 <p>Практические материалы и успешные кейсы.</p>
             </a>
-            <a href="#" onclick="showContent('vacancies-grid')" class="tile" style="--index: 3;">
+            <a href="#" onclick="showContent('vacancies-grid')" class="article-card" style="--index: 3;">
                 <img src="https://via.placeholder.com/300x150.png?text=Vacancies" alt="Вакансии">
                 <h3>Вакансии</h3>
                 <p>Присоединяйтесь к нашей команде.</p>
             </a>
-            <a href="#" onclick="showContent('team-grid')" class="tile" style="--index: 4;">
+            <a href="#" onclick="showContent('team-grid')" class="article-card" style="--index: 4;">
                 <img src="https://via.placeholder.com/300x150.png?text=Team" alt="Команда">
                 <h3>Команда</h3>
                 <p>Познакомьтесь с нашими экспертами.</p>
@@ -144,46 +147,59 @@
             </div>
         </div>
         <!-- Сетка для статей/кейсов -->
-        <div id="articles-grid" class="content-section grid">
-            <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" class="tile" style="--index: 1;">
+        <div id="articles-grid" class="content-section article-container">
+            <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" class="article-card" style="--index: 1;">
                 <img src="https://i.postimg.cc/qvFS6T6t/image.jpg" alt="Статья 1">
                 <h3>Качество трафика в гемблинге</h3>
                 <p>Практические механики для повышения качества трафика.</p>
             </a>
-            <a href="https://telegra.ph/Статья-2" class="tile" style="--index: 2;">
+            <a href="https://telegra.ph/Статья-2" class="article-card" style="--index: 2;">
                 <img src="https://via.placeholder.com/300x150.png?text=Preview+2" alt="Статья 2">
                 <h3>Статья 2</h3>
                 <p>Описание статьи 2 (добавь своё).</p>
             </a>
             <!-- Добавь больше статей здесь -->
+            <div class="back-button">
+                <a href="#" onclick="showMenu()">Назад</a>
+            </惴
+
+            <div class="back-button">
+                <a href="#" onclick="showMenu()">Назад</a>
+            </div>
         </div>
         <!-- Сетка для вакансий -->
-        <div id="vacancies-grid" class="content-section grid">
-            <a href="#vacancy1" class="tile" style="--index: 1;">
+        <div id="vacancies-grid" class="content-section article-container">
+            <a href="#vacancy1" class="article-card" style="--index: 1;">
                 <img src="https://via.placeholder.com/300x150.png?text=Webmaster" alt="Вебмастер">
                 <h3>Вебмастер</h3>
                 <p>Ищем опытного вебмастера для работы с партнёрскими программами.</p>
             </a>
-            <a href="#vacancy2" class="tile" style="--index: 2;">
+            <a href="#vacancy2" class="article-card" style="--index: 2;">
                 <img src="https://via.placeholder.com/300x150.png?text=Developer" alt="Разработчик">
                 <h3>Разработчик</h3>
                 <p>Требуется разработчик для создания инновационных решений.</p>
             </a>
             <!-- Добавь больше вакансий здесь -->
+            <div class="back-button">
+                <a href="#" onclick="showMenu()">Назад</a>
+            </div>
         </div>
         <!-- Сетка для команды -->
-        <div id="team-grid" class="content-section grid">
-            <a href="#team1" class="tile" style="--index: 1;">
+        <div id="team-grid" class="content-section article-container">
+            <a href="#team1" class="article-card" style="--index: 1;">
                 <img src="https://via.placeholder.com/300x150.png?text=Member+1" alt="Член команды 1">
                 <h3>Иван Иванов</h3>
                 <p>Эксперт по партнёрским программам с 10-летним опытом.</p>
             </a>
-            <a href="#team2" class="tile" style="--index: 2;">
+            <a href="#team2" class="article-card" style="--index: 2;">
                 <img src="https://via.placeholder.com/300x150.png?text=Member+2" alt="Член команды 2">
                 <h3>Анна Смирнова</h3>
                 <p>Специалист по бизнес-разработке и стратегиям.</p>
             </a>
             <!-- Добавь больше членов команды здесь -->
+            <div class="back-button">
+                <a href="#" onclick="showMenu()">Назад</a>
+            </div>
         </div>
     </div>
     <!-- Навигационное меню -->
