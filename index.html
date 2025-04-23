@@ -23,6 +23,7 @@
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
+            margin-bottom: 40px;
         }
         .article-card {
             background: #1e1e1e;
@@ -62,44 +63,92 @@
         .section.active {
             display: block;
         }
-        /* Нижние блоки навигации */
-        .bottom-blocks {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 40px;
-        }
-        .bottom-blocks .block {
-            flex: 1 1 200px;
-            background: #1e1e1e;
-            padding: 15px;
-            text-align: center;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .bottom-blocks .block:hover,
-        .bottom-blocks .block.active {
-            background: #2a2a2a;
-        }
-        .nav-menu {
-            display: flex;
-            justify-content: space-around;
+        /* Общие стили для плиток */
+        .tile-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
             margin-top: 20px;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #121212;
-            padding: 10px 0;
-            border-top: 1px solid #D5FD02;
         }
-        .nav-menu a {
-            color: #D5FD02;
+        .tile-card {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
             text-decoration: none;
-            font-weight: bold;
+            color: #ffffff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tile-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+        .tile-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+        }
+        .tile-card h3 {
+            margin: 10px;
+            font-size: 16px;
+        }
+        .tile-card p {
+            margin: 0 10px 10px;
             font-size: 14px;
+            color: #cccccc;
+        }
+        /* Off-canvas меню */
+        #burger {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #D5FD02;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .offcanvas {
+            position: fixed;
+            top: 0;
+            left: -260px;
+            width: 260px;
+            height: 100%;
+            background: #1e1e1e;
+            padding: 20px;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.5);
+            transition: left 0.3s ease;
+            z-index: 1000;
+        }
+        .offcanvas.open {
+            left: 0;
+        }
+        .offcanvas #close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            margin-bottom: 20px;
+            text-align: right;
+        }
+        .offcanvas ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .offcanvas li {
+            padding: 12px 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+            color: #ffffff;
+        }
+        .offcanvas li:hover,
+        .offcanvas li.active {
+            background: #2a2a2a;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -114,68 +163,103 @@
 <body>
     <h1>The Limited Club</h1>
 
+    <!-- Кнопка-бургер -->
+    <button id="burger">☰</button>
+
+    <!-- Off-canvas меню -->
+    <nav id="offcanvas" class="offcanvas">
+        <button id="close">×</button>
+        <ul>
+            <li data-sec="about">О компании</li>
+            <li data-sec="articles">Статьи/кейсы</li>
+            <li data-sec="vacancies">Вакансии</li>
+            <li data-sec="team">Команда</li>
+        </ul>
+    </nav>
+
+    <!-- Статьи-контент -->
     <div class="article-container">
-        <!-- Статьи -->
         <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" class="article-card" style="--index: 1;">
             <img src="https://i.postimg.cc/qvFS6T6t/image.jpg" alt="Статья 1">
             <h3>Как поднять качество трафика в гемблинге: несколько практических механик</h3>
         </a>
-        <a href="https://telegra.ph/Статья-2" class="article-card" style="--index: 2;">
-            <img src="https://via.placeholder.com/300x200.png?text=Preview+2" alt="Статья 2">
-            <h3>Статья 2 тут будет</h3>
+        <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" class="article-card" style="--index: 2;">
+            <img src="https://i.postimg.cc/GhKMkBVX/image.jpg" alt="Статья 2">
+            <h3>SCAM кейс от AMERIO.BET: хронология, пруфы и долг на $90 000</h3>
         </a>
-    </div>
-
-    <!-- Блоки навигации для секций -->
-    <div class="bottom-blocks">
-        <div class="block" data-target="about">О компании</div>
-        <div class="block" data-target="articles">Статьи/кейсы</div>
-        <div class="block" data-target="vacancies">Вакансии</div>
-        <div class="block" data-target="team">Команда</div>
     </div>
 
     <!-- Секции контента -->
     <div class="section" id="about">
         <h2>О компании</h2>
-        <p>Здесь будет информация о компании. Расскажи, что добавить!</p>
-    </div>
-    <div class="section" id="articles">
-        <h2>Статьи/кейсы</h2>
-        <p>Список статей или кейсов. Уже есть выше или нужно что-то ещё?</p>
-    </div>
-    <div class="section" id="vacancies">
-        <h2>Вакансии</h2>
-        <p>Информация о вакансиях. Напиши, что сюда добавить!</p>
-    </div>
-    <div class="section" id="team">
-        <h2>Команда</h2>
-        <p>Информация о команде. Что здесь должно быть?</p>
+        <p>Здесь будет информация о компании.!</p>
     </div>
 
-    <!-- Скрипт для показа/скрытия секций -->
+    <div class="section" id="articles">
+        <h2>Статьи/кейсы</h2>
+        <div class="tile-container">
+            <!-- Пример плитки: копируйте и меняйте href, img, h3 и p -->
+            <a href="#" class="tile-card">
+                <img src="https://i.postimg.cc/qvFS6T6t/image.jpg" alt="Кейс 1">
+                <h3>Как поднять качество трафика в гемблинге: несколько практических механик</h3>
+                <p>Краткое описание кейса или статьи, ваши результаты, метрики.</p>
+            </a>
+            <!-- Добавляйте новые плитки здесь -->
+        </div>
+    </div>
+
+    <div class="section" id="vacancies">
+        <h2>Вакансии</h2>
+        <div class="tile-container">
+            <a href="#" class="tile-card">
+                <img src="https://via.placeholder.com/300x140.png?text=Маркетолог" alt="Вакансия Маркетолог">
+                <h3>медиабайер</h3>
+                <p>Описание задачи, требования и условия работы.</p>
+            </a>
+            <!-- Новые вакансии -->
+        </div>
+    </div>
+
+    <div class="section" id="team">
+        <h2>Команда</h2>
+        <div class="tile-container">
+            <a href="#" class="tile-card">
+                <img src="https://i.postimg.cc/TY3jvtNc/image.jpg" alt="Имя Фамилия">
+                <h3>Denis Limited</h3>
+                <p>Head of Affiliate</p>
+            </a>
+            <!-- Новые участники команды -->
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const burger = document.getElementById('burger');
+            const offcanvas = document.getElementById('offcanvas');
+            const closeBtn = document.getElementById('close');
+            const items = offcanvas.querySelectorAll('li');
             const sections = document.querySelectorAll('.section');
-            const blocks = document.querySelectorAll('.bottom-blocks .block');
-            // Функция для показа выбранной секции
-            function showSection(id) {
-                sections.forEach(sec => {
-                    sec.classList.toggle('active', sec.id === id);
+
+            // Открыть/закрыть меню
+            burger.addEventListener('click', () => offcanvas.classList.add('open'));
+            closeBtn.addEventListener('click', () => offcanvas.classList.remove('open'));
+
+            // Показать секцию и обновить активное меню
+            items.forEach(item => {
+                item.addEventListener('click', () => {
+                    const target = item.dataset.sec;
+                    sections.forEach(sec => sec.classList.toggle('active', sec.id === target));
+                    items.forEach(i => i.classList.toggle('active', i === item));
+                    offcanvas.classList.remove('open');
+                    document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
                 });
-                blocks.forEach(b => {
-                    b.classList.toggle('active', b.dataset.target === id);
-                });
-                // Скролл к секции
-                const el = document.getElementById(id);
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }
-            // По клику на блок навигации
-            blocks.forEach(block => {
-                block.addEventListener('click', () => showSection(block.dataset.target));
             });
-            // Опционально: показать первую секцию по умолчанию
-            showSection('about');
+
+            // Показать первую секцию по умолчанию
+            sections[0].classList.add('active');
+            items[0].classList.add('active');
         });
     </script>
 </body>
 </html>
+
