@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Limited Club</title>
     <style>
-        /* Шрифт */
+        /* Подключаем шрифт HelveticaNeueCyr Regular */
         @font-face {
             font-family: 'HelveticaNeueCyr';
             src: url('fonts/HelveticaNeueCyr-Regular.woff2') format('woff2'),
@@ -16,7 +16,8 @@
         }
         body {
             font-family: Arial, sans-serif;
-            margin: 0; padding: 20px;
+            margin: 0;
+            padding: 20px;
             background: url('https://i.postimg.cc/MH5jrch5/grid-1.png') center/cover no-repeat #121212;
             color: #fff;
         }
@@ -28,15 +29,24 @@
             margin-bottom: 20px;
             animation: fadeIn 1s ease-in;
         }
-        .section { display: none; margin: 40px 0; padding: 20px; border-radius: 10px; background-size: cover; background-position: center; }
-        .section.active { display: block; }
-        /* Фон секций */
+        .section {
+            display: none;
+            margin: 40px 0;
+            padding: 20px;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+        }
+        .section.active {
+            display: block;
+        }
+        /* Фоны для секций */
         #about { background-image: url('https://example.com/about-bg.png'); height: 100vh; padding: 0; }
         #articles { background-image: url('https://example.com/articles-bg.png'); }
         #cases    { background-image: url('https://example.com/cases-bg.png'); }
         #vacancies{ background-image: url('https://example.com/vacancies-bg.png'); }
         #team     { background-image: url('https://example.com/team-bg.png'); }
-        /* Сетка плиток */
+        /* Сетка плиток: центрирование на всех экранах */
         .article-container,
         .tile-container {
             display: grid;
@@ -45,9 +55,9 @@
             margin-top: 20px;
             background: transparent;
             padding: 0;
-            justify-content: center;
+            justify-content: center; /* центрирует ряды */
+            justify-items: center;   /* центрирует карточки в ячейках */
         }
-        /* Карточки */
         .article-card,
         .tile-card {
             background: #1e1e1e;
@@ -68,7 +78,7 @@
         .article-card h3,
         .tile-card h3 { margin:10px; font-size:16px; }
         .tile-card p { margin:0 10px 10px; font-size:14px; color:#ccc; }
-        /* Бургер */
+        /* Off-canvas меню и бургер */
         #burger { position:fixed; top:20px; right:20px; background:none; border:none; font-size:28px; color:#D5FD02; cursor:pointer; z-index:1001; }
         .offcanvas { position:fixed; top:0; left:0; width:260px; height:100%; background:#1e1e1e; padding:20px; box-shadow:2px 0 8px rgba(0,0,0,0.5); transform:translateX(-100%); transition:transform .3s; z-index:1000; display:flex; flex-direction:column; }
         .offcanvas.open { transform:translateX(0); }
@@ -94,7 +104,6 @@
         </ul>
     </nav>
     <div id="about" class="section active"></div>
-    <!-- Статьи -->
     <div id="articles" class="section">
         <h2>Статьи</h2>
         <div class="article-container">
@@ -108,7 +117,6 @@
             </a>
         </div>
     </div>
-    <!-- Кейсы -->
     <div id="cases" class="section">
         <h2>Кейсы</h2>
         <div class="tile-container">
@@ -119,7 +127,6 @@
             </a>
         </div>
     </div>
-    <!-- Вакансии -->
     <div id="vacancies" class="section">
         <h2>Вакансии</h2>
         <div class="tile-container">
@@ -130,7 +137,6 @@
             </a>
         </div>
     </div>
-    <!-- Команда -->
     <div id="team" class="section">
         <h2>Команда</h2>
         <div class="tile-container">
@@ -156,7 +162,6 @@
                 items.forEach(i => i.classList.toggle('active', i === item));
                 offcanvas.classList.remove('open');
             }));
-            // Инициализация
             sections.forEach(s => s.classList.remove('active'));
             document.getElementById('about').classList.add('active');
             items[0].classList.add('active');
