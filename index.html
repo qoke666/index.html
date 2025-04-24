@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Limited Club</title>
     <style>
-        /* Подключаем шрифт HelveticaNeueCyr Regular */
+        /* Шрифт */
         @font-face {
             font-family: 'HelveticaNeueCyr';
             src: url('fonts/HelveticaNeueCyr-Regular.woff2') format('woff2'),
@@ -16,13 +16,9 @@
         }
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-image: url('https://i.postimg.cc/MH5jrch5/grid-1.png'); /* общий фон сайта */
-            background-size: cover;
-            background-position: center;
-            background-color: #121212;
-            color: #ffffff;
+            margin: 0; padding: 20px;
+            background: url('https://i.postimg.cc/MH5jrch5/grid-1.png') center/cover no-repeat #121212;
+            color: #fff;
         }
         h1 {
             font-family: 'HelveticaNeueCyr', sans-serif;
@@ -32,34 +28,17 @@
             margin-bottom: 20px;
             animation: fadeIn 1s ease-in;
         }
-        /* Скрываем все секции по умолчанию */
-        .section {
-            display: none;
-            margin-top: 40px;
-            padding: 20px;
-            border-radius: 10px;
-            background-size: cover;
-            background-position: center;
-        }
-        .section.active {
-            display: block;
-        }
-        /* Возможность менять фон в каждой секции */
-        #about {
-            background-image: url('https://example.com/about-bg.png'); /* 1920×1080px */
-        }
-        #articles {
-            background-image: url('https://example.com/articles-bg.png'); /* 1200×600px */
-        }
-        #vacancies {
-            background-image: url('https://example.com/vacancies-bg.png');
-        }
-        #team {
-            background-image: url('https://example.com/team-bg.png');
-        }
-        /* Стили плиток и карточек */
-        .tile-container,
-        .article-container {
+        .section { display: none; margin: 40px 0; padding: 20px; border-radius: 10px; background-size: cover; background-position: center; }
+        .section.active { display: block; }
+        /* Фон секций */
+        #about { background-image: url('https://example.com/about-bg.png'); height: 100vh; padding: 0; }
+        #articles { background-image: url('https://example.com/articles-bg.png'); }
+        #cases    { background-image: url('https://example.com/cases-bg.png'); }
+        #vacancies{ background-image: url('https://example.com/vacancies-bg.png'); }
+        #team     { background-image: url('https://example.com/team-bg.png'); }
+        /* Сетка плиток */
+        .article-container,
+        .tile-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
@@ -68,143 +47,95 @@
             padding: 0;
             justify-content: center;
         }
-        .tile-card,
-        .article-card {
+        /* Карточки */
+        .article-card,
+        .tile-card {
             background: #1e1e1e;
             border-radius: 10px;
             overflow: hidden;
             text-decoration: none;
-            color: #ffffff;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #fff;
             width: 250px;
+            transition: transform .3s, box-shadow .3s;
         }
-        .tile-card:hover,
-        .article-card:hover {
+        .article-card:hover,
+        .tile-card:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 16px rgba(0,0,0,0.3);
         }
-        .tile-card img,
-        .article-card img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-        }
-        .tile-card h3,
-        .article-card h3 {
-            margin: 10px;
-            font-size: 16px;
-        }
-        .tile-card p {
-            margin: 0 10px 10px;
-            font-size: 14px;
-            color: #cccccc;
-        }
-        /* Off-canvas меню и кнопка-бургер */
-        #burger {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 28px;
-            color: #D5FD02;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        .offcanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 260px;
-            height: 100%;
-            background: #1e1e1e;
-            padding: 20px;
-            box-shadow: 2px 0 8px rgba(0,0,0,0.5);
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-        }
-        .offcanvas.open {
-            transform: translateX(0);
-        }
-        .offcanvas #close {
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: #ffffff;
-            cursor: pointer;
-            align-self: flex-end;
-            margin-bottom: 20px;
-        }
-        .offcanvas ul { list-style: none; padding: 0; margin: 0; }
-        .offcanvas li {
-            padding: 12px 10px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            color: #ffffff;
-            transition: background 0.3s;
-        }
+        .article-card img,
+        .tile-card img { width:100%; height:140px; object-fit:cover; }
+        .article-card h3,
+        .tile-card h3 { margin:10px; font-size:16px; }
+        .tile-card p { margin:0 10px 10px; font-size:14px; color:#ccc; }
+        /* Бургер */
+        #burger { position:fixed; top:20px; right:20px; background:none; border:none; font-size:28px; color:#D5FD02; cursor:pointer; z-index:1001; }
+        .offcanvas { position:fixed; top:0; left:0; width:260px; height:100%; background:#1e1e1e; padding:20px; box-shadow:2px 0 8px rgba(0,0,0,0.5); transform:translateX(-100%); transition:transform .3s; z-index:1000; display:flex; flex-direction:column; }
+        .offcanvas.open { transform:translateX(0); }
+        .offcanvas #close { background:none; border:none; font-size:24px; color:#fff; cursor:pointer; align-self:flex-end; margin-bottom:20px; }
+        .offcanvas ul { list-style:none; padding:0; margin:0; }
+        .offcanvas li { padding:12px 10px; margin-bottom:10px; cursor:pointer; border-radius:5px; color:#fff; transition:background .3s; }
         .offcanvas li:hover,
-        .offcanvas li.active { background: #2a2a2a; }
-        @keyframes fadeIn {
-            from { opacity: 0; } to { opacity: 1; }
-        }
+        .offcanvas li.active { background:#2a2a2a; }
+        @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
     </style>
 </head>
 <body>
     <h1>The Limited Club</h1>
-    <!-- Кнопка-бургер -->
     <button id="burger" aria-label="Открыть меню">☰</button>
-    <!-- Off-canvas меню -->
     <nav id="offcanvas" class="offcanvas" aria-label="Главное меню">
         <button id="close" aria-label="Закрыть меню">×</button>
         <ul>
             <li data-sec="about">О компании</li>
-            <li data-sec="articles">Статьи/кейсы</li>
+            <li data-sec="articles">Статьи</li>
+            <li data-sec="cases">Кейсы</li>
             <li data-sec="vacancies">Вакансии</li>
             <li data-sec="team">Команда</li>
         </ul>
     </nav>
-    <!-- Разделы -->
-    <div class="section active" id="about"></div>
-    <div class="section" id="articles">
-        <h2>Статьи/кейсы</h2>
+    <div id="about" class="section active"></div>
+    <!-- Статьи -->
+    <div id="articles" class="section">
+        <h2>Статьи</h2>
         <div class="article-container">
-            <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-несколько-практических-mehanik-04-09" class="article-card" target="_blank" rel="noopener noreferrer">
+            <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" class="article-card" target="_blank">
                 <img src="https://i.postimg.cc/qvFS6T6t/image.jpg" alt="Как поднять качество трафика">
                 <h3>Как поднять качество трафика</h3>
             </a>
-            <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hrонология-prufy-i-долг-на-90-000-03-18" class="article-card" target="_blank" rel="noopener noreferrer">
+            <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologia-prufy-i-dolg-na-90-000-03-18" class="article-card" target="_blank">
                 <img src="https://i.postimg.cc/pT2Wc0RN/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс от AMERIO.BET">
-                <h3>SCAM кейс от AMERIO.BET: хронология, пруфы и долг на $90 000</h3>
-            </a>
-        </div>
-        <div class="tile-container">
-            <a href="https://cpalenta.ru/keys-130-000-za-2-мesya-с-aso-в-брaзилии-на-privatном-offere-thelimitedclub/" class="tile-card" target="_blank" rel="noopener noreferrer">
-                <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс: $130 000+ за 2 месяца с ASO">
-                <h3>Гемблинг кейс: $130 000+ за 2 месяца с ASO</h3>
-                <p>Почему выбор оффера — это уже половина успеха?</p>
+                <h3>SCAM кейс от AMERIO.BET</h3>
             </a>
         </div>
     </div>
-    <div class="section" id="vacancies">
+    <!-- Кейсы -->
+    <div id="cases" class="section">
+        <h2>Кейсы</h2>
+        <div class="tile-container">
+            <a href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" class="tile-card" target="_blank">
+                <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс">
+                <h3>Гемблинг кейс: $130 000+</h3>
+                <p>Почему выбор оффера — уже половина успеха?</p>
+            </a>
+        </div>
+    </div>
+    <!-- Вакансии -->
+    <div id="vacancies" class="section">
         <h2>Вакансии</h2>
         <div class="tile-container">
-            <a href="https://hh.ru/vacancy/119870770?hhtmFrom=vacancy_search_list" class="tile-card" target="_blank" rel="noopener noreferrer">
+            <a href="https://hh.ru/vacancy/119870770?hhtmFrom=vacancy_search_list" class="tile-card" target="_blank">
                 <img src="https://via.placeholder.com/300x140.png?text=Маркетолог" alt="Senior Affiliate Manager">
                 <h3>Senior Affiliate Manager</h3>
-                <p>от 3 000 до 6 000 $ за месяц, на руки</p>
+                <p>от 3 000 до 6 000 $/мес</p>
             </a>
         </div>
     </div>
-    <div class="section" id="team">
+    <!-- Команда -->
+    <div id="team" class="section">
         <h2>Команда</h2>
         <div class="tile-container">
-            <a href="https://t.me/Denis_limited" class="tile-card" target="_blank" rel="noopener noreferrer">
-                <img src="https://i.postimg.cc/TY3jvtNc/image.jpg" alt="Denis Limited, Head of Affiliate">
+            <a href="https://t.me/Denis_limited" class="tile-card" target="_blank">
+                <img src="https://i.postimg.cc/TY3jvtNc/image.jpg" alt="Denis Limited">
                 <h3>Denis Limited</h3>
                 <p>Head of Affiliate</p>
             </a>
@@ -217,15 +148,17 @@
             const closeBtn = document.getElementById('close');
             const items = offcanvas.querySelectorAll('li');
             const sections = document.querySelectorAll('.section');
-            burger.addEventListener('click', () => offcanvas.classList.add('open')); // остаётся на фиксированной позиции
+            burger.addEventListener('click', () => offcanvas.classList.add('open'));
             closeBtn.addEventListener('click', () => offcanvas.classList.remove('open'));
             items.forEach(item => item.addEventListener('click', () => {
-                const target = item.dataset.sec;
-                sections.forEach(sec => sec.classList.toggle('active', sec.id === target));
+                const tgt = item.dataset.sec;
+                sections.forEach(sec => sec.classList.toggle('active', sec.id === tgt));
                 items.forEach(i => i.classList.toggle('active', i === item));
                 offcanvas.classList.remove('open');
             }));
-            sections[0].classList.add('active');
+            // Инициализация
+            sections.forEach(s => s.classList.remove('active'));
+            document.getElementById('about').classList.add('active');
             items[0].classList.add('active');
         });
     </script>
