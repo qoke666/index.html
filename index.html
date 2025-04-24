@@ -8,21 +8,26 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            /* Статический фон: вставьте свою ссылку сюда */
-            background-image: url('https://i.postimg.cc/MH5jrch5/grid-1.png');
+            padding: 0;
+            background-image: url('https://i.postimg.cc/MH5jrch5/grid-1.png'); /* общий фон */
             background-size: cover;
             background-position: center;
-            background-color: #121212; /* Fallback цвет */
+            background-attachment: fixed;
+            background-color: #121212;
             color: #ffffff;
+        }
+        /* Фиксированная ширина контента */
+        .container-fixed {
+            width: 1000px; /* фиксированная ширина */
+            margin: 0 auto;
+            padding: 20px;
         }
         h1 {
             text-align: center;
             color: #D5FD02;
-            margin-bottom: 20px;
+            margin: 0 0 20px;
             animation: fadeIn 1s ease-in;
         }
-        /* Скрываем все секции по умолчанию */
         .section {
             display: none;
             margin-top: 40px;
@@ -33,16 +38,34 @@
         .section.active {
             display: block;
         }
-        /* Общие стили для плиток и карточек */
+        /* Раздел «О компании»: полностью фон, без контента внутри */
+        #about {
+            background-image: url('https://example.com/about-bg.png'); /* фон-дизайн (1920×1080px) */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        /* Статьи/кейсы: фон можно задать при желании */
+        #articles {
+            /* background-image: url('https://example.com/articles-bg.png'); */
+            /* background-size: cover; */
+            background-color: transparent;
+        }
+        /* Плитки и карточки */
         .tile-container,
         .article-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, 1fr); /* ровно 3 колонки */
             gap: 20px;
             margin-top: 20px;
+            background: transparent;
+            padding: 0;
         }
         .tile-card,
         .article-card {
+            width: 250px; /* фиксированная ширина карточки */
             background: #1e1e1e;
             border-radius: 10px;
             overflow: hidden;
@@ -71,7 +94,7 @@
             font-size: 14px;
             color: #cccccc;
         }
-        /* Off-canvas меню с трансформацией */
+        /* Off-canvas меню */
         #burger {
             position: fixed;
             top: 20px;
@@ -110,12 +133,7 @@
             align-self: flex-end;
             margin-bottom: 20px;
         }
-        .offcanvas ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            flex-grow: 0;
-        }
+        .offcanvas ul { list-style: none; padding: 0; margin: 0; }
         .offcanvas li {
             padding: 12px 10px;
             margin-bottom: 10px;
@@ -135,69 +153,74 @@
     </style>
 </head>
 <body>
-    <h1>The Limited Club</h1>
+    <div class="container-fixed">
+        <h1>The Limited Club</h1>
+        <!-- Кнопка-бургер -->
+        <button id="burger" aria-label="Открыть меню">☰</button>
 
-    <!-- Кнопка-бургер -->
-    <button id="burger" aria-label="Открыть меню">☰</button>
-
-    <!-- Off-canvas меню -->
-    <nav id="offcanvas" class="offcanvas" aria-label="Главное меню">
-        <button id="close" aria-label="Закрыть меню">×</button>
-        <ul>
-            <li data-sec="about">О компании</li>
-            <li data-sec="articles">Статьи/кейсы</li>
-            <li data-sec="vacancies">Вакансии</li>
-            <li data-sec="team">Команда</li>
-        </ul>
-    </nav>
-
-    <!-- Секции контента -->
-    <div class="section" id="about">
-        <h2>О компании</h2>
-        <p>Здесь* высокие показатели — не цель, а стандарт *your favorite Gambling and Betting affiliate network</p>
+        <!-- Off-canvas меню -->
+        <nav id="offcanvas" class="offcanvas" aria-label="Главное меню">
+            <button id="close" aria-label="Закрыть меню">×</button>
+            <ul>
+                <li data-sec="about">О компании</li>
+                <li data-sec="articles">Статьи/кейсы</li>
+                <li data-sec="vacancies">Вакансии</li>
+                <li data-sec="team">Команда</li>
+            </ul>
+        </nav>
     </div>
 
-    <div class="section" id="articles">
-        <h2>Статьи/кейсы</h2>
-        <div class="article-container">
-            <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" class="article-card" target="_blank" rel="noopener noreferrer">
-                <img src="https://i.postimg.cc/qvFS6T6t/image.jpg" alt="Как поднять качество трафика">
-                <h3>Как поднять качество трафика</h3>
-            </a>
-            <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" class="article-card" target="_blank" rel="noopener noreferrer">
-                <img src="https://i.postimg.cc/pT2Wc0RN/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс от AMERIO.BET">
-                <h3>SCAM кейс от AMERIO.BET: хронология, пруфы и долг на $90 000</h3>
-            </a>
-        </div>
-        <div class="tile-container">
-            <a href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" class="tile-card" target="_blank" rel="noopener noreferrer">
-                <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс: $130 000+ за 2 месяца с ASO">
-                <h3>Гемблинг кейс: $130 000+ за 2 месяца с ASO</h3>
-                <p>Почему выбор оффера — это уже половина успеха?</p>
-            </a>
-        </div>
-    </div>
+    <!-- Раздел «О компании» без контента, только фон -->
+    <div class="section active" id="about"></div>
 
-    <div class="section" id="vacancies">
-        <h2>Вакансии</h2>
-        <div class="tile-container">
-            <a href="https://hh.ru/vacancy/119870770?hhtmFrom=vacancy_search_list" class="tile-card" target="_blank" rel="noopener noreferrer">
-                <img src="https://via.placeholder.com/300x140.png?text=Маркетолог" alt="Senior Affiliate Manager">
-                <h3>Senior Affiliate Manager</h3>
-                <p>от 3 000 до 6 000 $ за месяц, на руки</p>
-            </a>
-        </div>
-    </div>
+    <div class="container-fixed">
 
-    <div class="section" id="team">
-        <h2>Команда</h2>
-        <div class="tile-container">
-            <a href="https://t.me/Denis_limited" class="tile-card" target="_blank" rel="noopener noreferrer">
-                <img src="https://i.postimg.cc/TY3jvtNc/image.jpg" alt="Denis Limited, Head of Affiliate">
-                <h3>Denis Limited</h3>
-                <p>Head of Affiliate</p>
-            </a>
+        <!-- Статьи/кейсы -->
+        <div class="section" id="articles">
+            <h2>Статьи/кейсы</h2>
+            <div class="article-container">
+                <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" class="article-card" target="_blank" rel="noopener noreferrer">
+                    <img src="https://i.postimg.cc/qvFS6T6t/image.jpg" alt="Как поднять качество трафика">
+                    <h3>Как поднять качество трафика</h3>
+                </a>
+                <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" class="article-card" target="_blank" rel="noopener noreferrer">
+                    <img src="https://i.postimg.cc/pT2Wc0RN/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс от AMERIO.BET">
+                    <h3>SCAM кейс от AMERIO.BET: хронология, пруфы и долг на $90 000</h3>
+                </a>
+            </div>
+            <div class="tile-container">
+                <a href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" class="tile-card" target="_blank" rel="noopener noreferrer">
+                    <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс: $130 000+ за 2 месяца с ASO">
+                    <h3>Гемблинг кейс: $130 000+ за 2 месяца с ASO</h3>
+                    <p>Почему выбор оффера — это уже половина успеха?</p>
+                </a>
+            </div>
         </div>
+
+        <!-- Вакансии -->
+        <div class="section" id="vacancies">
+            <h2>Вакансии</h2>
+            <div class="tile-container">
+                <a href="https://hh.ru/vacancy/119870770?hhtmFrom=vacancy_search_list" class="tile-card" target="_blank" rel="noopener noreferrer">
+                    <img src="https://via.placeholder.com/300x140.png?text=Маркетолог" alt="Senior Affiliate Manager">
+                    <h3>Senior Affiliate Manager</h3>
+                    <p>от 3 000 до 6 000 $ за месяц, на руки</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- Команда -->
+        <div class="section" id="team">
+            <h2>Команда</h2>
+            <div class="tile-container">
+                <a href="https://t.me/Denis_limited" class="tile-card" target="_blank" rel="noopener noreferrer">
+                    <img src="https://i.postimg.cc/TY3jvtNc/image.jpg" alt="Denis Limited, Head of Affiliate">
+                    <h3>Denis Limited</h3>
+                    <p>Head of Affiliate</p>
+                </a>
+            </div>
+        </div>
+
     </div>
 
     <script>
@@ -208,23 +231,17 @@
             const items = offcanvas.querySelectorAll('li');
             const sections = document.querySelectorAll('.section');
 
-            // Открыть/закрыть меню
             burger.addEventListener('click', () => offcanvas.classList.add('open'));
             closeBtn.addEventListener('click', () => offcanvas.classList.remove('open'));
-
-            // Показать секцию и обновить активное меню
-            items.forEach(item => {
-                item.addEventListener('click', () => {
-                    const target = item.dataset.sec;
-                    sections.forEach(sec => sec.classList.toggle('active', sec.id === target));
-                    items.forEach(i => i.classList.toggle('active', i === item));
-                    offcanvas.classList.remove('open');
-                    document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
-                });
-            });
-
-            // Показать первую секцию по умолчанию
-            sections[0].classList.add('active');
+            items.forEach(item => item.addEventListener('click', () => {
+                const tgt = item.dataset.sec;
+                sections.forEach(sec => sec.classList.toggle('active', sec.id === tgt));
+                items.forEach(i => i.classList.toggle('active', i === item));
+                offcanvas.classList.remove('open');
+            }));
+            // Инициализация секций
+            sections.forEach(s => s.classList.remove('active'));
+            document.getElementById('about').classList.add('active');
             items[0].classList.add('active');
         });
     </script>
