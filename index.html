@@ -16,22 +16,19 @@
     }
     /* Контейнер мини-приложения */
     .app-container {
-      width: 422px;
-      height: 625px;
+      width: 100%;
+      height: auto;
       margin: 0 auto;
-      overflow: auto;
-      position: relative;
-      background: #121212;
+      padding: 20px;
+      box-sizing: border-box;
+      background: none;
     }
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       background: #090a03;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      /* Убираем фиксированную центровку, пусть страница адаптируется */
       color: #fff;
     }
     h1 {
