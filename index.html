@@ -35,28 +35,29 @@
       width: 100vw;
       min-height: 100vh;
       background-size: cover;
-      background-position: contain;
+      background-position: center;
       position: relative;
       overflow: hidden;
     }
     .section.active {
       display: block;
     }
-    /* Фоны для секций */
-    #about     { background-image: url('https://i.postimg.cc/0QpYyTXX/image.jpg'); }
-    #articles  { background-image: url('https://i.postimg.cc/xTktYC88/app-bg-2.jpg'); }
-    #cases     { background-image: url('https://i.postimg.cc/xTktYC88/app-bg-2.jpg'); }
-    #vacancies { background-image: url('https://i.postimg.cc/xTktYC88/app-bg-2.jpg'); }
-    #team      { background-image: url('https://i.postimg.cc/xTktYC88/app-bg-2.jpg'); }
+    /* Фоны для секций на десктопах */
+    #about     { background-color: #090a03; }
+    #articles  { background-color: #090a03; }
+    #cases     { background-color: #090a03; }
+    #vacancies { background-color: #090a03; }
+    #team      { background-color: #090a03; }
 
-    /* Мобильные фоны для секций */
+    /* Мобильные фоны */
     @media only screen and (max-width: 768px) {
       #about     { background-image: url('https://i.postimg.cc/zX0ZXjv8/image.jpg'); }
       #articles  { background-image: url('https://i.postimg.cc/PfgsgNQf/1.jpg'); }
       #cases     { background-image: url('https://i.postimg.cc/PfgsgNQf/1.jpg'); }
       #vacancies { background-image: url('https://i.postimg.cc/PfgsgNQf/1.jpg'); }
       #team      { background-image: url('https://i.postimg.cc/PfgsgNQf/1.jpg'); }
-    }/* Контент внутри секции */
+    }
+    /* Контент внутри секции */
     .section .content {
       position: absolute;
       top: 20px;
@@ -99,7 +100,7 @@
     /* Бургер и off-canvas меню */
     #burger {
       position: fixed;
-      top: 30px; /* чуть ниже */
+      top: 30px;
       right: 20px;
       background-color: #D5FD02;
       color: #090a03;
@@ -227,6 +228,12 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Проверка типа устройства
+      if (!/Mobi|Android/i.test(navigator.userAgent)) {
+        alert('Это приложение предназначено только для мобильных устройств.');
+        // или перенаправить: window.location.href = 'другая_страница.html';
+      }
+
       const burger = document.getElementById('burger');
       const offcanvas = document.getElementById('offcanvas');
       const closeBtn = document.getElementById('close');
@@ -247,7 +254,6 @@
   </script>
 </body>
 </html>
-
 
 
 
