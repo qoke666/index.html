@@ -91,14 +91,18 @@
     /* Бургер и off-canvas меню */
     #burger {
       position: fixed;
-      top: 20px;
+      top: 30px; /* чуть ниже */
       right: 20px;
-      background: none;
+      background-color: #D5FD02;
+      color: #090a03;
       border: none;
-      font-size: 28px;
-      color: #D5FD02;
+      border-radius: 4px;
+      padding: 8px 16px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
       cursor: pointer;
       z-index: 1001;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
     .offcanvas {
       position: fixed;
@@ -141,7 +145,7 @@
   </style>
 </head>
 <body>
-  <button id="burger" aria-label="Открыть меню">☰</button>
+  <button id="burger" aria-label="Узнать больше">Узнать больше</button>
   <nav id="offcanvas" class="offcanvas" aria-label="Главное меню">
     <button id="close" aria-label="Закрыть меню">×</button>
     <ul>
