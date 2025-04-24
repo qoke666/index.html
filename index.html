@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Limited Club</title>
     <style>
+        /* Подключаем шрифт HelveticaNeueCyr Regular */
+        @font-face {
+            font-family: 'HelveticaNeueCyr';
+            src: url('fonts/HelveticaNeueCyr-Regular.woff2') format('woff2'),
+                 url('fonts/HelveticaNeueCyr-Regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -16,12 +25,14 @@
             color: #ffffff;
         }
         h1 {
+            font-family: 'HelveticaNeueCyr', sans-serif;
+            font-weight: 400;
             text-align: center;
             color: #D5FD02;
             margin-bottom: 20px;
             animation: fadeIn 1s ease-in;
         }
-        /* секции по умолчанию скрыты */
+        /* Скрываем все секции по умолчанию */
         .section {
             display: none;
             margin-top: 40px;
@@ -33,22 +44,18 @@
         .section.active {
             display: block;
         }
-        /* возможность менять фон в каждой секции: */
+        /* Фоны для секций */
         #about {
             background-image: url('https://example.com/about-bg.png'); /* 1920×1080px */
-            height: 100vh; /* полностью на экран */
+            height: 100vh;
             padding: 0;
+            margin: 0;
+            border-radius: 10px;
         }
-        #articles {
-            background-image: url('https://example.com/articles-bg.png'); /* 1200×600px */
-        }
-        #vacancies {
-            background-image: url('https://example.com/vacancies-bg.png');
-        }
-        #team {
-            background-image: url('https://example.com/team-bg.png');
-        }
-        /* стили контейнеров плиток */
+        #articles { background-image: url('https://example.com/articles-bg.png'); }
+        #vacancies { background-image: url('https://example.com/vacancies-bg.png'); }
+        #team { background-image: url('https://example.com/team-bg.png'); }
+        /* Плитки и карточки */
         .tile-container,
         .article-container {
             display: grid;
@@ -67,20 +74,21 @@
             text-decoration: none;
             color: #ffffff;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 250px;
         }
         .tile-card:hover,
         .article-card:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 16px rgba(0,0,0,0.3);
         }
-        .article-card img,
-        .tile-card img {
+        .tile-card img,
+        .article-card img {
             width: 100%;
             height: 140px;
             object-fit: cover;
         }
-        .article-card h3,
-        .tile-card h3 {
+        .tile-card h3,
+        .article-card h3 {
             margin: 10px;
             font-size: 16px;
         }
@@ -128,35 +136,26 @@
             align-self: flex-end;
             margin-bottom: 20px;
         }
-        .offcanvas ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+        .offcanvas ul { list-style: none; padding: 0; margin: 0; }
         .offcanvas li {
             padding: 12px 10px;
             margin-bottom: 10px;
             cursor: pointer;
             border-radius: 5px;
-            transition: background 0.3s;
             color: #ffffff;
+            transition: background 0.3s;
         }
         .offcanvas li:hover,
-        .offcanvas li.active {
-            background: #2a2a2a;
-        }
+        .offcanvas li.active { background: #2a2a2a; }
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; } to { opacity: 1; }
         }
     </style>
 </head>
 <body>
     <h1>The Limited Club</h1>
-
     <!-- Кнопка-бургер -->
     <button id="burger" aria-label="Открыть меню">☰</button>
-
     <!-- Off-canvas меню -->
     <nav id="offcanvas" class="offcanvas" aria-label="Главное меню">
         <button id="close" aria-label="Закрыть меню">×</button>
@@ -167,31 +166,28 @@
             <li data-sec="team">Команда</li>
         </ul>
     </nav>
-
     <!-- Разделы -->
     <div class="section active" id="about"></div>
-
     <div class="section" id="articles">
         <h2>Статьи/кейсы</h2>
         <div class="article-container">
-            <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" class="article-card" target="_blank" rel="noopener noreferrer">
+            <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafика-v-gemblinge-несколько-практических-mehanik-04-09" class="article-card" target="_blank" rel="noopener noreferrer">
                 <img src="https://i.postimg.cc/qvFS6T6t/image.jpg" alt="Как поднять качество трафика">
                 <h3>Как поднять качество трафика</h3>
             </a>
-            <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" class="article-card" target="_blank" rel="noopener noreferrer">
+            <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hrонология-prufy-i-долг-на-90-000-03-18" class="article-card" target="_blank" rel="noopener noreferrer">
                 <img src="https://i.postimg.cc/pT2Wc0RN/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс от AMERIO.BET">
                 <h3>SCAM кейс от AMERIO.BET: хронология, пруфы и долг на $90 000</h3>
             </a>
         </div>
         <div class="tile-container">
-            <a href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-на-privatnom-offere-thelimitedclub/" class="tile-card" target="_blank" rel="noopener noreferrer">
+            <a href="https://cpalenta.ru/keys-130-000-za-2-мesya-с-aso-в-брaзилии-на-privatном-offere-thelimitedclub/" class="tile-card" target="_blank" rel="noopener noreferrer">
                 <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс: $130 000+ за 2 месяца с ASO">
                 <h3>Гемблинг кейс: $130 000+ за 2 месяца с ASO</h3>
                 <p>Почему выбор оффера — это уже половина успеха?</p>
             </a>
         </div>
     </div>
-
     <div class="section" id="vacancies">
         <h2>Вакансии</h2>
         <div class="tile-container">
@@ -202,7 +198,6 @@
             </a>
         </div>
     </div>
-
     <div class="section" id="team">
         <h2>Команда</h2>
         <div class="tile-container">
@@ -213,7 +208,6 @@
             </a>
         </div>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const burger = document.getElementById('burger');
@@ -221,7 +215,6 @@
             const closeBtn = document.getElementById('close');
             const items = offcanvas.querySelectorAll('li');
             const sections = document.querySelectorAll('.section');
-
             burger.addEventListener('click', () => offcanvas.classList.add('open'));
             closeBtn.addEventListener('click', () => offcanvas.classList.remove('open'));
             items.forEach(item => item.addEventListener('click', () => {
@@ -237,4 +230,5 @@
     </script>
 </body>
 </html>
+
 
