@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>The Limited Club</title>
   <style>
-    /* Подключаем шрифт */
+    /* Шрифт */
     @font-face {
       font-family: 'HelveticaNeueCyr';
       src: url('fonts/HelveticaNeueCyr-Regular.woff2') format('woff2'),
@@ -14,21 +14,11 @@
       font-style: normal;
       font-display: swap;
     }
-    /* Контейнер мини-приложения */
-    .app-container {
-      width: 100%;
-      height: auto;
-      margin: 0 auto;
-      padding: 20px;
-      box-sizing: border-box;
-      background: none;
-    }
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
+      font-family: Arial, sans-serif;
       background: #090a03;
-      /* Убираем фиксированную центровку, пусть страница адаптируется */
       color: #fff;
     }
     h1 {
@@ -39,23 +29,37 @@
       margin: 20px 0;
       animation: fadeIn 1s ease-in;
     }
+    /* Полноэкранные секции */
     .section {
       display: none;
-      padding: 20px;
-      border-radius: 10px;
+      width: 100vw;
+      min-height: 100vh;
       background-size: cover;
       background-position: center;
-      width: 100%;
-      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
     }
-    .section.active { display: block; }
+    .section.active {
+      display: block;
+    }
     /* Фоны секций */
-    #about { background-image: url('https://i.postimg.cc/0QpYyTXX/image.jpg'); height: 100%; padding: 0; }
+    #about    { background-image: url('https://i.postimg.cc/0QpYyTXX/image.jpg'); }
     #articles { background-image: url('https://i.postimg.cc/xTktYC88/app-bg-2.jpg'); }
     #cases    { background-image: url('https://i.postimg.cc/xTktYC88/app-bg-2.jpg'); }
     #vacancies{ background-image: url('https://i.postimg.cc/xTktYC88/app-bg-2.jpg'); }
     #team     { background-image: url('https://i.postimg.cc/xTktYC88/app-bg-2.jpg'); }
-    /* Центрируем плитки */
+    /* Контент внутри секции */
+    .section .content {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 40px);
+      max-width: 422px;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    /* Плитки и карточки */
     .article-container,
     .tile-container {
       display: flex;
@@ -66,7 +70,7 @@
     }
     .article-card,
     .tile-card {
-      background: #1e1e1e;
+      background: rgba(30,30,30,0.8);
       border-radius: 10px;
       overflow: hidden;
       text-decoration: none;
@@ -80,13 +84,13 @@
       box-shadow: 0 8px 16px rgba(0,0,0,0.3);
     }
     .article-card img,
-    .tile-card img { width:100%; height:140px; object-fit:cover; }
+    .tile-card img { width: 100%; height: 140px; object-fit: cover; }
     .article-card h3,
-    .tile-card h3 { margin:10px; font-size:16px; }
-    .tile-card p { margin:0 10px 10px; font-size:14px; color:#ccc; }
+    .tile-card h3 { margin: 10px; font-size: 16px; }
+    .tile-card p { margin: 0 10px 10px; font-size: 14px; color: #ccc; }
     /* Бургер и off-canvas меню */
     #burger {
-      position: absolute;
+      position: fixed;
       top: 20px;
       right: 20px;
       background: none;
@@ -97,7 +101,7 @@
       z-index: 1001;
     }
     .offcanvas {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 260px;
@@ -137,21 +141,25 @@
   </style>
 </head>
 <body>
-  <div class="app-container">
-    <h1>The Limited Club</h1>
-    <button id="burger" aria-label="Открыть меню">☰</button>
-    <nav id="offcanvas" class="offcanvas" aria-label="Главное меню">
-      <button id="close" aria-label="Закрыть меню">×</button>
-      <ul>
-        <li data-sec="about">О компании</li>
-        <li data-sec="articles">Статьи</li>
-        <li data-sec="cases">Кейсы</li>
-        <li data-sec="vacancies">Вакансии</li>
-        <li data-sec="team">Команда</li>
-      </ul>
-    </nav>
-    <div id="about" class="section active"></div>
-    <div id="articles" class="section">
+  <button id="burger" aria-label="Открыть меню">☰</button>
+  <nav id="offcanvas" class="offcanvas" aria-label="Главное меню">
+    <button id="close" aria-label="Закрыть меню">×</button>
+    <ul>
+      <li data-sec="about">О компании</li>
+      <li data-sec="articles">Статьи</li>
+      <li data-sec="cases">Кейсы</li>
+      <li data-sec="vacancies">Вакансии</li>
+      <li data-sec="team">Команда</li>
+    </ul>
+  </nav>
+
+  <!-- Секции -->
+  <div id="about" class="section active">
+    <!-- пусто: весь экран фон -->
+  </div>
+
+  <div id="articles" class="section">
+    <div class="content">
       <h2>Статьи</h2>
       <div class="article-container">
         <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" class="article-card" target="_blank">
@@ -164,17 +172,23 @@
         </a>
       </div>
     </div>
-    <div id="cases" class="section">
+  </div>
+
+  <div id="cases" class="section">
+    <div class="content">
       <h2>Кейсы</h2>
       <div class="tile-container">
-        <a href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" class="tile-card" target="_blank">
+        <a href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-на-privatном-offere-thelimitedclub/" class="tile-card" target="_blank">
           <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс">
           <h3>Гемблинг кейс: $130 000+</h3>
           <p>Почему выбор оффера — уже половина успеха?</p>
         </a>
       </div>
     </div>
-    <div id="vacancies" class="section">
+  </div>
+
+  <div id="vacancies" class="section">
+    <div class="content">
       <h2>Вакансии</h2>
       <div class="tile-container">
         <a href="https://hh.ru/vacancy/119870770?hhtmFrom=vacancy_search_list" class="tile-card" target="_blank">
@@ -184,7 +198,10 @@
         </a>
       </div>
     </div>
-    <div id="team" class="section">
+  </div>
+
+  <div id="team" class="section">
+    <div class="content">
       <h2>Команда</h2>
       <div class="tile-container">
         <a href="https://t.me/Denis_limited" class="tile-card" target="_blank">
@@ -195,6 +212,7 @@
       </div>
     </div>
   </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const burger = document.getElementById('burger');
