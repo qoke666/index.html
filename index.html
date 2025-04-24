@@ -49,14 +49,12 @@
         /* Сетка плиток: центрирование на всех экранах */
         .article-container,
         .tile-container {
-            display: grid;
+            display: inline-grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
             margin-top: 20px;
             background: transparent;
             padding: 0;
-            justify-content: center; /* центрирует ряды */
-            justify-items: center;   /* центрирует карточки в ячейках */
         }
         .article-card,
         .tile-card {
@@ -169,5 +167,6 @@
     </script>
 </body>
 </html>
+
 
 
