@@ -44,27 +44,29 @@
         .section.active {
             display: block;
         }
-        /* Фоны для секций */
+        /* Возможность менять фон в каждой секции */
         #about {
             background-image: url('https://example.com/about-bg.png'); /* 1920×1080px */
-            height: 100vh;
-            padding: 0;
-            margin: 0;
-            border-radius: 10px;
         }
-        #articles { background-image: url('https://example.com/articles-bg.png'); }
-        #vacancies { background-image: url('https://example.com/vacancies-bg.png'); }
-        #team { background-image: url('https://example.com/team-bg.png'); }
-        /* Плитки и карточки */
+        #articles {
+            background-image: url('https://example.com/articles-bg.png'); /* 1200×600px */
+        }
+        #vacancies {
+            background-image: url('https://example.com/vacancies-bg.png');
+        }
+        #team {
+            background-image: url('https://example.com/team-bg.png');
+        }
+        /* Стили плиток и карточек */
         .tile-container,
         .article-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
             margin-top: 20px;
-            background: rgba(30,30,30,0.9);
-            padding: 20px;
-            border-radius: 10px;
+            background: transparent;
+            padding: 0;
+            justify-content: center;
         }
         .tile-card,
         .article-card {
@@ -97,7 +99,7 @@
             font-size: 14px;
             color: #cccccc;
         }
-        /* Off-canvas меню */
+        /* Off-canvas меню и кнопка-бургер */
         #burger {
             position: fixed;
             top: 20px;
@@ -171,7 +173,7 @@
     <div class="section" id="articles">
         <h2>Статьи/кейсы</h2>
         <div class="article-container">
-            <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafика-v-gemblinge-несколько-практических-mehanik-04-09" class="article-card" target="_blank" rel="noopener noreferrer">
+            <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-несколько-практических-mehanik-04-09" class="article-card" target="_blank" rel="noopener noreferrer">
                 <img src="https://i.postimg.cc/qvFS6T6t/image.jpg" alt="Как поднять качество трафика">
                 <h3>Как поднять качество трафика</h3>
             </a>
@@ -215,14 +217,13 @@
             const closeBtn = document.getElementById('close');
             const items = offcanvas.querySelectorAll('li');
             const sections = document.querySelectorAll('.section');
-            burger.addEventListener('click', () => offcanvas.classList.add('open'));
+            burger.addEventListener('click', () => offcanvas.classList.add('open')); // остаётся на фиксированной позиции
             closeBtn.addEventListener('click', () => offcanvas.classList.remove('open'));
             items.forEach(item => item.addEventListener('click', () => {
                 const target = item.dataset.sec;
                 sections.forEach(sec => sec.classList.toggle('active', sec.id === target));
                 items.forEach(i => i.classList.toggle('active', i === item));
                 offcanvas.classList.remove('open');
-                document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
             }));
             sections[0].classList.add('active');
             items[0].classList.add('active');
