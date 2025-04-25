@@ -42,20 +42,20 @@
     .section.active {
       display: block;
     }
-    /* Фоны для секций на десктопах */
-    #about     { background-color: #090a03; }
-    #articles  { background-color: #090a03; }
-    #cases     { background-color: #090a03; }
-    #vacancies { background-color: #090a03; }
-    #team      { background-color: #090a03; }
+    /* Фоны для секций */
+    #about     { background-image: url('https://example.com/about-bg-desktop.png'); }
+    #articles  { background-image: url('https://example.com/articles-bg-desktop.png'); }
+    #cases     { background-image: url('https://example.com/cases-bg-desktop.png'); }
+    #vacancies { background-image: url('https://example.com/vacancies-bg-desktop.png'); }
+    #team      { background-image: url('https://example.com/team-bg-desktop.png'); }
 
-    /* Мобильные фоны */
+    /* Мобильные фоны для секций */
     @media only screen and (max-width: 768px) {
-      #about     { background-image: url('https://i.postimg.cc/zX0ZXjv8/image.jpg'); }
-      #articles  { background-image: url('https://i.postimg.cc/PfgsgNQf/1.jpg'); }
-      #cases     { background-image: url('https://i.postimg.cc/PfgsgNQf/1.jpg'); }
-      #vacancies { background-image: url('https://i.postimg.cc/PfgsgNQf/1.jpg'); }
-      #team      { background-image: url('https://i.postimg.cc/PfgsgNQf/1.jpg'); }
+      #about     { background-image: url('https://example.com/about-bg-mobile.png'); }
+      #articles  { background-image: url('https://example.com/articles-bg-mobile.png'); }
+      #cases     { background-image: url('https://example.com/cases-bg-mobile.png'); }
+      #vacancies { background-image: url('https://example.com/vacancies-bg-mobile.png'); }
+      #team      { background-image: url('https://example.com/team-bg-mobile.png'); }
     }
     /* Контент внутри секции */
     .section .content {
@@ -97,20 +97,11 @@
     .article-card h3,
     .tile-card h3 { margin: 10px; font-size: 16px; }
     .tile-card p { margin: 0 10px 10px; font-size: 14px; color: #ccc; }
-    /* Фиксированный бар внизу */
-    .bottom-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: #1e1e1e;
-      padding: 10px 0;
-      display: flex;
-      justify-content: center;
-      z-index: 1001;
-      box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
-    }
+    /* Кнопка и off-canvas меню */
     #burger {
+      position: fixed;
+      top: 30px;
+      right: 20px;
       background-color: #D5FD02;
       color: #090a03;
       border: none;
@@ -119,8 +110,9 @@
       font-family: Arial, sans-serif;
       font-size: 14px;
       cursor: pointer;
+      z-index: 1001;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
-    /* Off-canvas меню */
     .offcanvas {
       position: fixed;
       top: 0;
@@ -158,10 +150,56 @@
     }
     .offcanvas li:hover,
     .offcanvas li.active { background: #2a2a2a; }
+
+    /* Стили для вкладки "Команда" */
+    #team .tile-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+    #team .tile-card {
+      background: transparent;
+      box-shadow: none;
+      width: auto;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    #team .tile-card .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #D5FD02;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    #team .tile-card .avatar img {
+      width: 50%;
+      height: 50%;
+      object-fit: contain;
+    }
+    #team .tile-card h3 {
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      margin: 5px 0;
+      text-transform: uppercase;
+    }
+    #team .tile-card p {
+      font-size: 14px;
+      color: #ccc;
+      margin: 0;
+    }
+
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   </style>
 </head>
 <body>
+  <button id="burger" aria-label="Узнать больше">Узнать больше</button>
   <nav id="offcanvas" class="offcanvas" aria-label="Главное меню">
     <button id="close" aria-label="Закрыть меню">×</button>
     <ul>
@@ -174,21 +212,17 @@
   </nav>
 
   <!-- Секции -->
-  <div id="about" class="section active">
-    <!-- пусто: весь экран фон -->
-  </div>
+  <div id="about" class="section active"></div>
 
   <div id="articles" class="section">
     <div class="content">
       <h2>Статьи</h2>
       <div class="article-container">
-        <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" class="article-card" target="_blank">
+        <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafика-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" class="article-card" target="_blank">
           <img src="https://i.postimg.cc/qvFS6T6t/image.jpg" alt="Как поднять качество трафика">
           <h3>Как поднять качество трафика</h3>
         </a>
-        <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologia-prufy-i-dolg-na-90-000-03-18" class="article-card" target="_blank">
-          <img src="https://i.postimg.cc/pT2Wc0RN/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс от AMERIO.BET">
-          <h3>SCAM кейс от AMERIO.BET</h3>
+       <!-- Новая плитка -->
         </a>
       </div>
     </div>
@@ -198,10 +232,17 @@
     <div class="content">
       <h2>Кейсы</h2>
       <div class="tile-container">
-        <a href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-на-privatном-offere-thelimitedclub/" class="tile-card" target="_blank">
+        <a href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-в-бразилии-на-privatном-offere-thelimitedclub/" class="tile-card" target="_blank">
           <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс">
           <h3>Гемблинг кейс: $130 000+</h3>
           <p>Почему выбор оффера — уже половина успеха?</p>
+        </a>
+        <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hrонология-prufy-i-долг-на-90-000-03-18" class="tile-card" target="_blank">
+          <img src="https://i.postimg.cc/pT2Wc0RN/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс от AMERIO.BET">
+          <h3>SCAM кейс от AMERIO.BET</h3>
+          <p>Несмотря на блокировку выплат, мы закрыли косты вебам на трафик за свой счет.</p>
+        </a>
+        <!-- Новая плитка -->
         </a>
       </div>
     </div>
@@ -211,10 +252,22 @@
     <div class="content">
       <h2>Вакансии</h2>
       <div class="tile-container">
-        <a href="https://hh.ru/vacancy/119870770? reachttmFrom=vacancy_search_list" class="tile-card" target="_blank">
+        <a href="https://hh.ru/vacancy/119870770?hhtmFrom=vacancy_search_list" class="tile-card" target="_blank">
           <img src="https://via.placeholder.com/300x140.png?text=Маркетолог" alt="Senior Affiliate Manager">
           <h3>Senior Affiliate Manager</h3>
           <p>от 3 000 до 6 000 $/мес</p>
+        </a>
+        <a href="https://krasnoyarsk.hh.ru/vacancy/119870430?hhtmFrom=vacancy_search_list" class="tile-card" target="_blank">
+          <img src="https://via.placeholder.com/300x140.png?text=Vacancy+1" alt="Vacancy 1">
+          <h3>Account / BDM Manager | iGaming</h3>
+          <p>от 1 000 до 3 500 $/мес</p>
+        </a>
+        <a href="https://krasnoyarsk.hh.ru/vacancy/119182478?hhtmFrom=vacancy_search_list" class="tile-card" target="_blank">
+          <img src="https://via.placeholder.com/300x140.png?text=Vacancy+2" alt="Vacancy 2">
+          <h3>Support Manager / Junior Affiliate Manager</h3>
+          <p>до 650 $/мес</p>
+        </a>
+        <!-- Дополнительные две плитки -->
         </a>
       </div>
     </div>
@@ -224,18 +277,46 @@
     <div class="content">
       <h2>Команда</h2>
       <div class="tile-container">
+        <!-- Существующие -->
+        <a href="https://t.me/Evgenii_Limited" class="tile-card" target="_blank">
+          <div class="avatar"><img src="https://i.postimg.cc/x8BTJ3zX/3.webp" alt="Evgenii Limited"></div>
+          <h3>Evgenii Limited</h3>
+          <p>Co-owner</p>
+        </a>
+        <!-- Шесть новых участников -->
+        <a href="#" class="tile-card" target="_blank">
+          <div class="avatar"><img src="https://i.postimg.cc/4NMcCSMj/4.webp" alt="Tikhon Limited"></div>
+          <h3>Tikhon Limited</h3>
+          <p>Co-owner</p>
+        </a>
         <a href="https://t.me/Denis_limited" class="tile-card" target="_blank">
-          <img src="https://i.postimg.cc/TY3jvtNc/image.jpg" alt="Denis Limited">
+          <div class="avatar"><img src="https://i.postimg.cc/qBWKSFWS/6-new.webp" alt="Denis Limited"></div>
           <h3>Denis Limited</h3>
           <p>Head of Affiliate</p>
         </a>
+        <a href="https://t.me/sasha_limited" class="tile-card" target="_blank">
+          <div class="avatar"><img src="https://i.postimg.cc/GmXmw8Ht/2.webp" alt="Aleksandra Limited"></div>
+          <h3>Aleksandra Limited</h3>
+          <p>Head of Sales</p>
+        </a>
+        <a href="https://t.me/ksu_limited" class="tile-card" target="_blank">
+          <div class="avatar"><img src="https://i.postimg.cc/qBWKSFWS/6-new.webp" alt="Ksenia Limited"></div>
+          <h3>Ksenia Limited</h3>
+          <p>Team Lead Affiliate Manager</p>
+        </a>
+        <a href="https://t.me/katerinaHR_limited" class="tile-card" target="_blank">
+          <div class="avatar"><img src="https://i.postimg.cc/CLtcvJ4x/7.jpg" alt="Katerina Limited"></div>
+          <h3>Katerina Limited</h3>
+          <p>HRD</p>
+        </a>
+        <a href="https://t.me/Alexandr_limited" class="tile-card" target="_blank">
+          <div class="avatar"><img src="https://i.postimg.cc/CLtcvJ4x/7.jpg" alt="Alexander Limited"></div>
+          <h3>Alexander Limited</h3>
+          <p>Связь по PR и маркетингу</p>
+        </a>
+        </a>
       </div>
     </div>
-  </div>
-
-  <!-- Фиксированный бар внизу с кнопкой -->
-  <div class="bottom-bar">
-    <button id="burger" aria-label="Узнать больше">Узнать больше</button>
   </div>
 
   <script>
