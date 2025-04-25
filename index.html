@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>The Limited Club</n<title>
+  <title>The Limited Club</title>
   <style>
     /* Шрифт */
     @font-face {
@@ -20,6 +20,7 @@
       font-family: Arial, sans-serif;
       background: #090a03;
       color: #fff;
+      overflow: auto;
     }
     h1 {
       font-family: 'HelveticaNeueCyr', sans-serif;
@@ -29,7 +30,6 @@
       margin: 20px 0;
       animation: fadeIn 1s ease-in;
     }
-    /* Полноэкранные секции с прокруткой */
     .section {
       display: none;
       width: 100vw;
@@ -37,12 +37,9 @@
       background-size: cover;
       background-position: center;
       position: relative;
-      overflow: auto; /* разрешаем скролл */
+      overflow: auto;
     }
-    .section.active {
-      display: block;
-    }
-    /* Фоны для секций */
+    .section.active { display: block; }
     #about     { background-image: url('https://example.com/about-bg-desktop.png'); }
     #articles  { background-image: url('https://example.com/articles-bg-desktop.png'); }
     #cases     { background-image: url('https://example.com/cases-bg-desktop.png'); }
@@ -55,7 +52,6 @@
       #vacancies { background-image: url('https://example.com/vacancies-bg-mobile.png'); }
       #team      { background-image: url('https://example.com/team-bg-mobile.png'); }
     }
-    /* Контент */
     .section .content {
       position: absolute;
       top: 20px;
@@ -66,7 +62,6 @@
       padding: 20px;
       box-sizing: border-box;
     }
-    /* Карточки */
     .article-container, .tile-container {
       display: flex;
       flex-wrap: wrap;
@@ -96,7 +91,6 @@
     .tile-card p {
       margin: 0 10px 10px; font-size: 14px; color: #ccc;
     }
-    /* Бургер и меню */
     #burger {
       position: fixed;
       top: 30px; right: 20px;
@@ -112,7 +106,8 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
     .offcanvas {
-      position: fixed; top: 0; left: 0;
+      position: fixed;
+      top: 0; left: 0;
       width: 260px; height: 100%;
       background: #1e1e1e;
       padding: 20px;
@@ -137,7 +132,6 @@
       color: #fff; transition: background .3s;
     }
     .offcanvas li:hover, .offcanvas li.active { background: #2a2a2a; }
-    /* Команда */
     #team .tile-container {
       flex-direction: column; align-items: center; gap: 30px;
     }
@@ -149,9 +143,8 @@
     }
     #team .avatar {
       width: 60px; height: 60px;
-      border-radius: 50%;
+      border-radius: 50%; overflow: hidden;
       background-color: #D5FD02;
-      overflow: hidden;
       margin-bottom: 10px;
     }
     #team .avatar img {
@@ -169,6 +162,7 @@
   </style>
 </head>
 <body>
+  <h1>The Limited Club</h1>
   <button id="burger" aria-label="Узнать больше">Узнать больше</button>
   <nav id="offcanvas" class="offcanvas" aria-label="Главное меню">
     <button id="close" aria-label="Закрыть меню">×</button>
@@ -180,8 +174,6 @@
       <li data-sec="team">Команда</li>
     </ul>
   </nav>
-
-  <!-- Sections -->
   <div id="about" class="section active"></div>
   <div id="articles" class="section">
     <div class="content">
@@ -196,7 +188,7 @@
   </div>
   <div id="cases" class="section">
     <div class="content">
-      <h2>Кейсы</h2>
+      <h2>Кейсы</n2>
       <div class="tile-container">
         <a href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-в-бразилии-на-privatном-offere-thelimitedclub/" class="tile-card" target="_blank">
           <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс">
@@ -288,8 +280,8 @@
     });
   </script>
 </body>
-
 </html>
+
 
 
 
