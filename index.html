@@ -51,7 +51,7 @@
 
     /* Мобильные фоны */
     @media only screen and (max-width: 768px) {
-      #about     { background-image: url('https://i.postimg.cc/SN08nFhQ/2.jpg'); }
+      #about     { background-image: url('https://i.postimg.cc/zX0ZXjv8/image.jpg'); }
       #articles  { background-image: url('https://i.postimg.cc/PfgsgNQf/1.jpg'); }
       #cases     { background-image: url('https://i.postimg.cc/PfgsgNQf/1.jpg'); }
       #vacancies { background-image: url('https://i.postimg.cc/PfgsgNQf/1.jpg'); }
@@ -97,11 +97,20 @@
     .article-card h3,
     .tile-card h3 { margin: 10px; font-size: 16px; }
     .tile-card p { margin: 0 10px 10px; font-size: 14px; color: #ccc; }
-    /* Бургер и off-canvas меню */
-    #burger {
+    /* Фиксированный бар внизу */
+    .bottom-bar {
       position: fixed;
-      top: 30px;
-      right: 20px;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #1e1e1e;
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+      z-index: 1001;
+      box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
+    }
+    #burger {
       background-color: #D5FD02;
       color: #090a03;
       border: none;
@@ -110,9 +119,8 @@
       font-family: Arial, sans-serif;
       font-size: 14px;
       cursor: pointer;
-      z-index: 1001;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
+    /* Off-canvas меню */
     .offcanvas {
       position: fixed;
       top: 0;
@@ -154,7 +162,6 @@
   </style>
 </head>
 <body>
-  <button id="burger" aria-label="Узнать больше">Узнать больше</button>
   <nav id="offcanvas" class="offcanvas" aria-label="Главное меню">
     <button id="close" aria-label="Закрыть меню">×</button>
     <ul>
@@ -204,7 +211,7 @@
     <div class="content">
       <h2>Вакансии</h2>
       <div class="tile-container">
-        <a href="https://hh.ru/vacancy/119870770?hhtmFrom=vacancy_search_list" class="tile-card" target="_blank">
+        <a href="https://hh.ru/vacancy/119870770? reachttmFrom=vacancy_search_list" class="tile-card" target="_blank">
           <img src="https://via.placeholder.com/300x140.png?text=Маркетолог" alt="Senior Affiliate Manager">
           <h3>Senior Affiliate Manager</h3>
           <p>от 3 000 до 6 000 $/мес</p>
@@ -226,14 +233,13 @@
     </div>
   </div>
 
+  <!-- Фиксированный бар внизу с кнопкой -->
+  <div class="bottom-bar">
+    <button id="burger" aria-label="Узнать больше">Узнать больше</button>
+  </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Проверка типа устройства
-      if (!/Mobi|Android/i.test(navigator.userAgent)) {
-        alert('Это приложение предназначено только для мобильных устройств.');
-        // или перенаправить: window.location.href = 'другая_страница.html';
-      }
-
       const burger = document.getElementById('burger');
       const offcanvas = document.getElementById('offcanvas');
       const closeBtn = document.getElementById('close');
@@ -254,6 +260,5 @@
   </script>
 </body>
 </html>
-
 
 
