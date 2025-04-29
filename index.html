@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>The Limited Club</title>
   <style>
-    /* Шрифт */
     @font-face {
       font-family: 'HelveticaNeueCyr';
       src: url('fonts/HelveticaNeueCyr-Regular.woff2') format('woff2'),
@@ -23,12 +22,7 @@
       overflow: auto;
     }
     h1 {
-      font-family: 'HelveticaNeueCyr', sans-serif;
-      font-weight: 400;
-      text-align: center;
-      color: #D5FD02;
-      margin: 20px 0;
-      animation: fadeIn 1s ease-in;
+      display: none;
     }
     .section {
       display: none;
@@ -98,9 +92,9 @@
       color: #090a03;
       border: none;
       border-radius: 4px;
-      padding: 8px 16px;
+      padding: 4px 10px;
       font-family: Arial, sans-serif;
-      font-size: 14px;
+      font-size: 12px;
       cursor: pointer;
       z-index: 1001;
       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
@@ -162,7 +156,6 @@
   </style>
 </head>
 <body>
-  <h1>The Limited Club</h1>
   <button id="burger" aria-label="Узнать больше">Узнать больше</button>
   <nav id="offcanvas" class="offcanvas" aria-label="Главное меню">
     <button id="close" aria-label="Закрыть меню">×</button>
@@ -188,7 +181,7 @@
   </div>
   <div id="cases" class="section">
     <div class="content">
-      <h2>Кейсы</n2>
+      <h2>Кейсы</h2>
       <div class="tile-container">
         <a href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-в-бразилии-на-privatном-offere-thelimitedclub/" class="tile-card" target="_blank">
           <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс">
@@ -198,10 +191,6 @@
           <img src="https://i.postimg.cc/pT2Wc0RN/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс">
           <h3>SCAM кейс от AMERIO.BET</h3><p>Несмотря на блокировку выплат, мы закрыли косты вебам на трафик за свой счет.</p>
         </a>
-        <a href="#" class="tile-card" target="_blank">
-          <img src="https://via.placeholder.com/300x140.png?text=Case+Study+3" alt="Case Study 3">
-          <h3>Case Study 3</h3><p>Описание кейса 3</p>
-        </a>
       </div>
     </div>
   </div>
@@ -210,15 +199,12 @@
       <h2>Вакансии</h2>
       <div class="tile-container">
         <a href="https://hh.ru/vacancy/119870770?hhtmFrom=vacancy_search_list" class="tile-card" target="_blank">
-          <alt="Senior Affiliate Manager">
           <h3>Senior Affiliate Manager</h3><p>от 3 000 до 6 000 $/мес</p>
         </a>
         <a href="https://krasnoyarsk.hh.ru/vacancy/119870430?hhtmFrom=vacancy_search_list" class="tile-card" target="_blank">
-          <alt="Account / BDM Manager | iGaming">
           <h3>Account / BDM Manager | iGaming</h3><p>от 1 000 до 3 500 $/мес</p>
         </a>
         <a href="https://krasnoyarsk.hh.ru/vacancy/119182478?hhtmFrom=vacancy_search_list" class="tile-card" target="_blank">
-          <alt="Support Manager">
           <h3>Support Manager / Junior Affiliate Manager</h3><p>до 650 $/мес</p>
         </a>
       </div>
@@ -281,6 +267,7 @@
   </script>
 </body>
 </html>
+
 
 
 
