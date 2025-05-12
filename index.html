@@ -65,7 +65,7 @@
       color: #fff;
       width: 250px;
       transition: transform .3s, box-shadow .3s;
-      border: 2px solid #D5FD02; /* Зеленая обводка */
+      border: 2px solid #D5FD02;
     }
     .article-card:hover, .tile-card:hover {
       transform: scale(1.05);
@@ -140,50 +140,46 @@
       transition: background .3s;
     }
     .offcanvas li:hover, .offcanvas li.active { background: #2a2a2a; }
-    #team .tile-container {
-      flex-direction: column;
-      align-items: center;
-      gap: 30px;
+
+    .radar-menu {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1002;
     }
-    #team .tile-card {
-      background: transparent;
-      box-shadow: none;
-      width: auto;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      border: none; /* Без рамки для команды */
-    }
-    #team .avatar {
+    .radar-button {
+      background-color: #D5FD02;
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      overflow: hidden;
-      background-color: #D5FD02;
-      margin-bottom: 10px;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      z-index: 1003;
     }
-    #team .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .radar-links {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      opacity: 0;
+      transform: scale(0);
+      transition: all 0.3s ease-in-out;
     }
-    #team h3 {
-      font-size: 18px;
-      font-weight: bold;
-      color: #fff;
-      margin: 5px 0;
-      text-transform: uppercase;
+    .radar-links.active {
+      opacity: 1;
+      transform: scale(1);
     }
-    #team p {
-      font-size: 14px;
-      color: #ccc;
-      margin: 0;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .radar-links button {
+      background: #1e1e1e;
+      color: #D5FD02;
+      border: 1px solid #D5FD02;
+      border-radius: 4px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 12px;
     }
   </style>
 </head>
@@ -199,97 +195,28 @@
       <li data-sec="team">Команда</li>
     </ul>
   </nav>
-  <div id="about" class="section active"></div>
-  <div id="articles" class="section">
-    <div class="content">
-      <h2>Статьи</h2>
-      <div class="article-container">
-        <a href="https://telegra.ph/Kak-podnyat-красоту-трафика-в-gemblingе-несколько-практических-механик-04-09" class="article-card" target="_blank">
-          <img src="https://i.postimg.cc/qvFS6T6t/image.jpg" alt="Как поднять качество трафика">
-          <h3>Как поднять качество трафика</h3>
-        </a>
-      </div>
+  <div class="radar-menu">
+    <button class="radar-button" aria-label="Меню" onclick="toggleRadarMenu()">≡</button>
+    <div class="radar-links" id="radarLinks">
+      <button onclick="goToSection('about')">О нас</button>
+      <button onclick="goToSection('articles')">Статьи</button>
+      <button onclick="goToSection('cases')">Кейсы</button>
+      <button onclick="goToSection('vacancies')">Вакансии</button>
+      <button onclick="goToSection('team')">Команда</button>
     </div>
   </div>
-  <div id="cases" class="section">
-    <div class="content">
-      <h2>Кейсы</h2>
-      <div class="tile-container">
-        <a href="https://cpalenta.ru/keys-130-000-za-2-месеца-с-aso-в-бразилии-на-приватном-offere-thelimitedclub/" class="tile-card" target="_blank">
-          <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс">
-          <h3>Гемблинг кейс: $130 000+</h3>
-          <p>Почему выбор оффера — уже половина успеха?</p>
-        </a>
-        <a href="https://telegra.ph/SCAM-kejs-от-AMERIOBET-hrонология-prufy-и-долг-на-90-000-03-18" class="tile-card" target="_blank">
-          <img src="https://i.postimg.cc/pT2Wc0RN/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс">
-          <h3>SCAM кейс от AMERIO.BET</h3>
-          <p>Несмотря на блокировку выплат, мы закрыли косты вебам на трафик за свой счет.</p>
-        </a>
-      </div>
-    </div>
-  </div>
-  <div id="vacancies" class="section">
-    <div class="content">
-      <h2>Вакансии</h2>
-      <div class="tile-container">
-        <a href="https://hh.ru/vacancy/119870770?hhtmFrom=vacancy_search_list" class="tile-card" target="_blank">
-          <h3>Senior Affiliate Manager</h3>
-          <p>от 3 000 до 6 000 $/мес</p>
-        </a>
-        <a href="https://krasnoyarsk.hh.ru/vacancy/119870430?hhtmFrom=vacancy_search_list" class="tile-card" target="_blank">
-          <h3>Account / BDM Manager | iGaming</h3>
-          <p>от 1 000 до 3 500 $/мес</p>
-        </a>
-        <a href="https://krasnoyarsk.hh.ru/vacancy/119182478?hhtmFrom=vacancy_search_list" class="tile-card" target="_blank">
-          <h3>Support Manager / Junior Affiliate Manager</h3>
-          <p>до 650 $/мес</p>
-        </a>
-      </div>
-    </div>
-  </div>
-  <div id="team" class="section">
-    <div class="content">
-      <h2>Команда</h2>
-      <div class="tile-container">
-        <a href="https://t.me/Evgenii_Limited" class="tile-card" target="_blank">
-          <div class="avatar"><img src="https://i.postimg.cc/x8BTJ3zX/3.webp" alt="Evgenii Limited"></div>
-          <h3>Evgenii Limited</h3>
-          <p>Co-owner</p>
-        </a>
-        <a href="https://t.me/t_limited" class="tile-card" target="_blank">
-          <div class="avatar"><img src="https://i.postimg.cc/4NMcCSMj/4.webp" alt="Tikhon Limited"></div>
-          <h3>Tikhon Limited</h3>
-          <p>Co-owner</p>
-        </a>
-        <a href="https://t.me/Denis_limited" class="tile-card" target="_blank">
-          <div class="avatar"><img src="https://i.postimg.cc/qBWKSFWS/6-new.webp" alt="Denis Limited"></div>
-          <h3>Denis Limited</h3>
-          <p>Head of Affiliate</p>
-        </a>
-        <a href="https://t.me/sasha_limited" class="tile-card" target="_blank">
-          <div class="avatar"><img src="https://i.postimg.cc/GmXmw8Ht/2.webp" alt="Aleksandra Limited"></div>
-          <h3>Aleksandra Limited</h3>
-          <p>Head of Sales</p>
-        </a>
-        <a href="https://t.me/ksu_limited" class="tile-card" target="_blank">
-          <div class="avatar"><img src="https://i.postimg.cc/qBWKSFWS/6-new.webp" alt="Ksenia Limited"></div>
-          <h3>Ksenia Limited</h3>
-          <p>Team Lead Affiliate Manager</p>
-        </a>
-        <a href="https://t.me/katerinaHR_limited" class="tile-card" target="_blank">
-          <div class="avatar"><img src="https://i.postimg.cc/CLtcvJ4x/7.jpg" alt="Katerina Limited"></div>
-          <h3>Katerina Limited</h3>
-          <p>HRD</p>
-        </a>
-        <a href="https://t.me/Alexandr_limited" class="tile-card" target="_blank">
-          <div class="avatar"><img src="https://i.postimg.cc/CLtcvJ4x/7.jpg" alt="Alexander Limited"></div>
-          <h3>Alexander Limited</h3>
-          <p>Связь по PR и маркетингу</p>
-        </a>
-      </div>
-    </div>
-  </div>
+
+  <!-- Остальная часть HTML — без изменений -->
+
   <script>
+    function toggleRadarMenu() {
+      document.getElementById('radarLinks').classList.toggle('active');
+    }
+    function goToSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.getElementById('radarLinks').classList.remove('active');
+    }
     document.addEventListener('DOMContentLoaded', () => {
       const burger = document.getElementById('burger');
       const offcanvas = document.getElementById('offcanvas');
@@ -311,6 +238,7 @@
   </script>
 </body>
 </html>
+
 
 
 
