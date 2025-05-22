@@ -41,7 +41,7 @@
 
     .menu-box li {
       margin: 10px 0;
-      font-size: 18px;
+      font-size: 20px;
       cursor: pointer;
       color: #bbb;
     }
@@ -51,29 +51,28 @@
     }
 
     .logo {
-      width: 100px;
-      height: auto;
+      width: 150px;
     }
 
     .section-title {
-      font-size: 28px;
+      font-size: 36px;
       font-weight: bold;
       color: #d5fd02;
-      margin: 30px 20px 15px;
+      margin: 40px 20px 20px;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 15px;
-      padding: 0 20px 30px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 0 20px 40px;
     }
 
     .card {
       background-color: #111315;
       border: 1px solid #222;
-      border-radius: 12px;
-      padding: 12px;
+      border-radius: 16px;
+      padding: 20px;
       color: #ccc;
       text-decoration: none;
       transition: transform 0.2s;
@@ -83,22 +82,24 @@
       transform: scale(1.02);
     }
 
-    .card img {
-      width: 60px;
-      height: 60px;
+    .grid .card img {
+      border-radius: 8px;
+    }
+
+    .grid .card img[alt*="Evgenii"],
+    .grid .card img[alt*="Tikhon"],
+    .grid .card img[alt*="Denis"],
+    .grid .card img[alt*="Aleksandra"],
+    .grid .card img[alt*="Sergey"],
+    .grid .card img[alt*="Maxim"],
+    .grid .card img[alt*="Anna"] {
       border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 8px;
     }
 
     .card strong {
       display: block;
-      font-size: 14px;
+      font-size: 18px;
       color: #ffffff;
-    }
-
-    .card p {
-      font-size: 12px;
     }
 
     .section {
@@ -124,6 +125,20 @@
   </div>
 
   <div id="home" class="section active">
+    <div class="section-title">КЕЙСЫ</div>
+    <div class="grid">
+      <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-%D0%B2-%D0%B1%D1%80%D0%B0%D0%B7%D0%B8%D0%BB%D0%B8%D0%B8-%D0%BD%D0%B0-privatnom-offere-thelimitedclub/" target="_blank">
+        <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс">
+        <strong>Гемблинг кейс: $130 000+</strong>
+        <p>Почему выбор оффера — уже половина успеха?</p>
+      </a>
+      <a class="card" href="https://cpalenta.ru/amerio-bet-skamnulsya-no-vy-ne-perezhivajte-mi-vse-ravno-zaplatili-vebam/" target="_blank">
+        <img src="https://i.postimg.cc/D0DMh7WJ/photo-2024-12-11-11-14-52.jpg" alt="SCAM кейс">
+        <strong>SCAM кейс от AMERIO.BET</strong>
+        <p>Несмотря на блокировку выплат, мы закрыли косты вебам на трафик за свой счёт.</p>
+      </a>
+    </div>
+
     <div class="section-title">КОМАНДА</div>
     <div class="grid">
       <a class="card" href="https://t.me/evgenii_limited" target="_blank">
@@ -146,19 +161,20 @@
         <strong>Aleksandra Limited</strong>
         <p>Head of Sales</p>
       </a>
-    </div>
-
-    <div class="section-title">КЕЙСЫ</div>
-    <div class="grid">
-      <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-%D0%B2-%D0%B1%D1%80%D0%B0%D0%B7%D0%B8%D0%BB%D0%B8%D0%B8-%D0%BD%D0%B0-privatnom-offere-thelimitedclub/" target="_blank">
-        <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс">
-        <strong>Кейс: $130K+</strong>
-        <p>Выбор оффера — половина успеха.</p>
+      <a class="card" href="https://t.me/sergeylimited" target="_blank">
+        <img src="https://via.placeholder.com/150" alt="Sergey">
+        <strong>Sergey Limited</strong>
+        <p>Designer</p>
       </a>
-      <a class="card" href="https://cpalenta.ru/amerio-bet-skamnulsya-no-vy-ne-perezhivajte-mi-vse-ravno-zaplatili-vebam/" target="_blank">
-        <img src="https://i.postimg.cc/D0DMh7WJ/photo-2024-12-11-11-14-52.jpg" alt="SCAM кейс">
-        <strong>SCAM от AMERIO.BET</strong>
-        <p>Мы закрыли косты вебам.</p>
+      <a class="card" href="https://t.me/maximlimited" target="_blank">
+        <img src="https://via.placeholder.com/150" alt="Maxim">
+        <strong>Maxim Limited</strong>
+        <p>Developer</p>
+      </a>
+      <a class="card" href="https://t.me/annalimited" target="_blank">
+        <img src="https://via.placeholder.com/150" alt="Anna">
+        <strong>Anna Limited</strong>
+        <p>Content Manager</p>
       </a>
     </div>
   </div>
@@ -167,8 +183,9 @@
     <div class="section-title">СТАТЬИ</div>
     <div class="grid">
       <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" target="_blank">
+        <img src="https://via.placeholder.com/280x160" alt="Статья">
         <strong>Как поднять качество трафика</strong>
-        <p>Приёмы, помогающие вебам улучшать результаты.</p>
+        <p>Реальные приёмы, которые помогают вебам улучшать результаты.</p>
       </a>
     </div>
   </div>
@@ -178,13 +195,13 @@
     <div class="grid">
       <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-%D0%B2-%D0%B1%D1%80%D0%B0%D0%B7%D0%B8%D0%BB%D0%B8%D0%B8-%D0%BD%D0%B0-privatnom-offere-thelimitedclub/" target="_blank">
         <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс">
-        <strong>Кейс: $130K+</strong>
-        <p>Выбор оффера — половина успеха.</p>
+        <strong>Гемблинг кейс: $130 000+</strong>
+        <p>Почему выбор оффера — уже половина успеха?</p>
       </a>
       <a class="card" href="https://cpalenta.ru/amerio-bet-skamnulsya-no-vy-ne-perezhivajte-mi-vse-ravno-zaplatili-vebam/" target="_blank">
         <img src="https://i.postimg.cc/D0DMh7WJ/photo-2024-12-11-11-14-52.jpg" alt="SCAM кейс">
-        <strong>SCAM от AMERIO.BET</strong>
-        <p>Мы закрыли косты вебам.</p>
+        <strong>SCAM кейс от AMERIO.BET</strong>
+        <p>Несмотря на блокировку выплат, мы закрыли косты вебам на трафик за свой счёт.</p>
       </a>
     </div>
   </div>
@@ -194,11 +211,11 @@
     <div class="grid">
       <a class="card" href="https://t.me/tihonlim" target="_blank">
         <strong>Media Buyer</strong>
-        <p>Опыт в гемблинг арбитраже. Удалёнка, ставка + %.</p>
+        <p>Ищем специалиста с опытом в гемблинг арбитраже. Удалёнка, ставка + %.</p>
       </a>
       <a class="card" href="https://t.me/denislimited" target="_blank">
         <strong>Affiliate Manager</strong>
-        <p>Любишь партнёрки? Тогда тебе к нам.</p>
+        <p>Ты общительный и любишь партнёрки? Тогда тебе к нам.</p>
       </a>
     </div>
   </div>
@@ -220,6 +237,7 @@
   </script>
 </body>
 </html>
+
 
 
 
