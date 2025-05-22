@@ -90,58 +90,128 @@
       font-size: 18px;
       color: #ffffff;
     }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
   </style>
 </head>
 <body>
   <div class="menu-wrapper">
     <div class="menu-box">
       <ul>
-        <li class="active">О компании</li>
-        <li>Статьи</li>
-        <li>Кейсы</li>
-        <li>Вакансии</li>
+        <li class="menu-item active" data-section="home">Главная</li>
+        <li class="menu-item" data-section="articles">Статьи</li>
+        <li class="menu-item" data-section="cases">Кейсы</li>
+        <li class="menu-item" data-section="vacancies">Вакансии</li>
       </ul>
     </div>
     <div class="burger">≡</div>
   </div>
 
-  <div class="section-title">КЕЙСЫ</div>
-  <div class="grid">
-    <div class="card">
-      <img src="https://via.placeholder.com/300x150" alt="Гемблинг кейс">
-      <strong>Гемблинг кейс: $130 000 +</strong>
-      <p>Почему выбор оффера — уже половина успеха?</p>
+  <div id="home" class="section active">
+    <div class="section-title">КЕЙСЫ</div>
+    <div class="grid">
+      <div class="card">
+        <img src="https://via.placeholder.com/300x150" alt="Гемблинг кейс">
+        <strong>Гемблинг кейс: $130 000 +</strong>
+        <p>Почему выбор оффера — уже половина успеха?</p>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/300x150" alt="SCAM кейс">
+        <strong>SCAM кейс от AMERIO.BET</strong>
+        <p>Несмотря на блокировку выплат, мы закрыли косты вебам на трафик за свой счёт.</p>
+      </div>
     </div>
-    <div class="card">
-      <img src="https://via.placeholder.com/300x150" alt="SCAM кейс">
-      <strong>SCAM кейс от AMERIO.BET</strong>
-      <p>Несмотря на блокировку выплат, мы закрыли косты вебам на трафик за свой счет.</p>
+
+    <div class="section-title">КОМАНДА</div>
+    <div class="grid">
+      <div class="card">
+        <img src="https://via.placeholder.com/100" alt="Evgenii">
+        <strong>Evgenii Limited</strong>
+        <p>Co-owner</p>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/100" alt="Tikhon">
+        <strong>Tikhon Limited</strong>
+        <p>Co-owner</p>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/100" alt="Denis">
+        <strong>Denis Limited</strong>
+        <p>Head of Affiliate</p>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/100" alt="Aleksandra">
+        <strong>Aleksandra Limited</strong>
+        <p>Head of Sales</p>
+      </div>
     </div>
   </div>
 
-  <div class="section-title">КОМАНДА</div>
-  <div class="grid">
-    <div class="card">
-      <img src="https://via.placeholder.com/100" alt="Evgenii">
-      <strong>Evgenii Limited</strong>
-      <p>Co-owner</p>
-    </div>
-    <div class="card">
-      <img src="https://via.placeholder.com/100" alt="Tikhon">
-      <strong>Tikhon Limited</strong>
-      <p>Co-owner</p>
-    </div>
-    <div class="card">
-      <img src="https://via.placeholder.com/100" alt="Denis">
-      <strong>Denis Limited</strong>
-      <p>Head of Affiliate</p>
-    </div>
-    <div class="card">
-      <img src="https://via.placeholder.com/100" alt="Aleksandra">
-      <strong>Aleksandra Limited</strong>
-      <p>Head of Sales</p>
+  <div id="articles" class="section">
+    <div class="section-title">СТАТЬИ</div>
+    <div class="grid">
+      <div class="card">
+        <strong>Как выбрать оффер?</strong>
+        <p>Руководство по выбору прибыльного оффера для новичков и профи.</p>
+      </div>
+      <div class="card">
+        <strong>Что влияет на CR?</strong>
+        <p>Мы разобрали реальные кейсы и показали, как увеличить конверсию.</p>
+      </div>
     </div>
   </div>
+
+  <div id="cases" class="section">
+    <div class="section-title">КЕЙСЫ</div>
+    <div class="grid">
+      <div class="card">
+        <img src="https://via.placeholder.com/300x150" alt="Гемблинг кейс">
+        <strong>Гемблинг кейс: $130 000 +</strong>
+        <p>Почему выбор оффера — уже половина успеха?</p>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/300x150" alt="SCAM кейс">
+        <strong>SCAM кейс от AMERIO.BET</strong>
+        <p>Несмотря на блокировку выплат, мы закрыли косты вебам на трафик за свой счёт.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="vacancies" class="section">
+    <div class="section-title">ВАКАНСИИ</div>
+    <div class="grid">
+      <div class="card">
+        <strong>Media Buyer</strong>
+        <p>Ищем специалиста с опытом в гемблинг арбитраже. Удалёнка, ставка + %.</p>
+      </div>
+      <div class="card">
+        <strong>Affiliate Manager</strong>
+        <p>Ты общительный и любишь партнёрки? Тогда тебе к нам.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const menuItems = document.querySelectorAll('.menu-item');
+    const sections = document.querySelectorAll('.section');
+
+    menuItems.forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelector('.menu-item.active').classList.remove('active');
+        item.classList.add('active');
+
+        sections.forEach(section => section.classList.remove('active'));
+        const activeSection = document.getElementById(item.dataset.section);
+        activeSection.classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>
 
