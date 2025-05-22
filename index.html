@@ -1,267 +1,150 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TMA - Главная</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TMA Главная</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
-      background-color: #0c0f11;
-      color: #d5d7e0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d0f10;
+      color: #ffffff;
     }
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 200px;
-      height: 100%;
-      background-color: #121619;
-      border-right: 1px solid #2a2f35;
-      padding: 1em;
-      box-sizing: border-box;
+
+    .menu-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 20px;
     }
-    .sidebar ul {
+
+    .menu-box {
+      border: 1px solid #00ffaa33;
+      border-radius: 20px;
+      padding: 20px;
+      background-color: #0d0f10;
+      box-shadow: 0 0 10px #00ffaa33;
+    }
+
+    .menu-box ul {
       list-style: none;
       padding: 0;
       margin: 0;
     }
-    .sidebar li {
-      padding: 0.5em 1em;
-      color: #d5d7e0;
+
+    .menu-box li {
+      margin: 10px 0;
+      font-size: 20px;
       cursor: pointer;
+      color: #bbb;
+    }
+
+    .menu-box li.active {
+      color: #ffffff;
+    }
+
+    .burger {
+      border: 1px solid #00ffaa33;
       border-radius: 12px;
-      transition: background-color 0.3s;
-    }
-    .sidebar li:hover {
-      background-color: #1c1f22;
-    }
-    .sidebar li.active {
-      color: #7fffbb;
-      background-color: #1c1f22;
-    }
-    .main-content {
-      margin-left: 200px;
-      padding: 2em;
-    }
-    .burger-menu {
-      position: fixed;
-      top: 1em;
-      right: 1em;
-      cursor: pointer;
-      z-index: 1000;
-      display: none;
-    }
-    .burger-menu span {
-      display: block;
-      width: 30px;
-      height: 3px;
-      background-color: #38ff92;
-      margin: 5px 0;
-      border-radius: 2px;
-    }
-    section {
-      display: none;
-    }
-    section.active {
-      display: block;
-    }
-    .cases-title, .team-title {
-      color: #38ff92;
-      font-size: 2.5em;
-      margin-bottom: 1em;
-      text-align: center;
-    }
-    .card-container {
+      width: 50px;
+      height: 50px;
       display: flex;
-      gap: 2em;
-      flex-wrap: wrap;
       justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      color: #00ff99;
+      cursor: pointer;
     }
+
+    .section-title {
+      font-size: 48px;
+      font-weight: bold;
+      color: #00ff99;
+      margin: 40px 20px 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 0 20px 40px;
+    }
+
     .card {
-      background-color: #121619;
+      background-color: #111315;
+      border: 1px solid #222;
       border-radius: 16px;
-      padding: 1em;
-      width: 300px;
-      border: 1px solid #2a2f35;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      color: #ccc;
     }
+
     .card img {
       width: 100%;
       border-radius: 12px;
+      margin-bottom: 12px;
     }
-    .card h3, .card p {
-      color: #d5d7e0;
-    }
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 2em;
-    }
-    .team-card {
-      text-align: center;
-      background-color: #121619;
-      padding: 1em;
-      border-radius: 16px;
-      border: 1px solid #2a2f35;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    .team-card img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      border: 2px solid #38ff92;
-    }
-    .team-card h4, .team-card p {
-      margin: 0.5em 0 0;
-    }
-    @media (max-width: 768px) {
-      .sidebar {
-        display: none;
-      }
-      .sidebar.active {
-        display: block;
-      }
-      .main-content {
-        margin-left: 0;
-      }
-      .burger-menu {
-        display: block;
-      }
+
+    .card strong {
+      display: block;
+      font-size: 18px;
+      color: #ffffff;
     }
   </style>
 </head>
 <body>
-  <div class="sidebar">
-    <ul>
-      <li class="nav-item active" data-target="home">Главная</li>
-      <li class="nav-item" data-target="articles">Статьи</li>
-      <li class="nav-item" data-target="cases">Кейсы</li>
-      <li class="nav-item" data-target="jobs">Вакансии</li>
-    </ul>
+  <div class="menu-wrapper">
+    <div class="menu-box">
+      <ul>
+        <li class="active">О компании</li>
+        <li>Статьи</li>
+        <li>Кейсы</li>
+        <li>Вакансии</li>
+      </ul>
+    </div>
+    <div class="burger">≡</div>
   </div>
 
-  <div class="burger-menu">
-    <span></span>
-    <span></span>
-    <span></span>
+  <div class="section-title">КЕЙСЫ</div>
+  <div class="grid">
+    <div class="card">
+      <img src="https://via.placeholder.com/300x150" alt="Гемблинг кейс">
+      <strong>Гемблинг кейс: $130 000 +</strong>
+      <p>Почему выбор оффера — уже половина успеха?</p>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/300x150" alt="SCAM кейс">
+      <strong>SCAM кейс от AMERIO.BET</strong>
+      <p>Несмотря на блокировку выплат, мы закрыли косты вебам на трафик за свой счет.</p>
+    </div>
   </div>
 
-  <div class="main-content">
-    <!-- Главная -->
-    <section id="home" class="active">
-      <div class="cases-title">КЕЙСЫ</div>
-      <div class="card-container">
-        <div class="card">
-          <img src="https://placehold.co/300x200?text=Гемблинг+кейс" alt="Гемблинг кейс">
-          <h3>Гемблинг кейс: $130 000 +</h3>
-          <p>Почему выбор оффера — уже половина успеха?</p>
-        </div>
-        <div class="card">
-          <img src="https://placehold.co/300x200?text=SCAM+кейс" alt="SCAM кейс">
-          <h3>SCAM кейс от AMERIO.BET</h3>
-          <p>Несмотря на блокировку выплат, мы закрыли косты вебам на трафик за свой счёт.</p>
-        </div>
-      </div>
-
-      <div class="team-title">КОМАНДА</div>
-      <div class="team-grid">
-        <div class="team-card">
-          <img src="https://placehold.co/80x80?text=Evgenii" alt="Evgenii Limited">
-          <h4>Evgenii Limited</h4>
-          <p>Co-owner</p>
-        </div>
-        <div class="team-card">
-          <img src="https://placehold.co/80x80?text=Tikhon" alt="Tikhon Limited">
-          <h4>Tikhon Limited</h4>
-          <p>Co-owner</p>
-        </div>
-        <div class="team-card">
-          <img src="https://placehold.co/80x80?text=Denis" alt="Denis Limited">
-          <h4>Denis Limited</h4>
-          <p>Head of Affiliate</p>
-        </div>
-        <div class="team-card">
-          <img src="https://placehold.co/80x80?text=Aleksandra" alt="Aleksandra Limited">
-          <h4>Aleksandra Limited</h4>
-          <p>Head of Sales</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Статьи -->
-    <section id="articles">
-      <div class="cases-title">СТАТЬИ</div>
-      <div class="card-container">
-        <div class="card">
-          <img src="https://placehold.co/300x200?text=Статья+1" alt="Статья 1">
-          <h3>Как выбрать источник трафика?</h3>
-          <p>Глубокий гайд по выбору и запуску источников.</p>
-        </div>
-        <div class="card">
-          <img src="https://placehold.co/300x200?text=Статья+2" alt="Статья 2">
-          <h3>Топ 5 ошибок медиабайеров</h3>
-          <p>И как их избежать на старте.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Кейсы -->
-    <section id="cases">
-      <div class="cases-title">ВСЕ КЕЙСЫ</div>
-      <div class="card-container">
-        <div class="card">
-          <img src="https://placehold.co/300x200?text=Кейс+1" alt="Кейс 1">
-          <h3>Facebook + нутра: $45 000</h3>
-          <p>Бюджет 8к, профит — х5.6</p>
-        </div>
-        <div class="card">
-          <img src="https://placehold.co/300x200?text=Кейс+2" alt="Кейс 2">
-          <h3>ТикТок кейс на iGaming</h3>
-          <p>ARPU 8.3$, ROI 235%</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Вакансии -->
-    <section id="jobs">
-      <div class="cases-title">ВАКАНСИИ</div>
-      <div class="card-container">
-        <div class="card">
-          <h3>Media Buyer (FB + TikTok)</h3>
-          <p>Опыт от 6 месяцев. Ставка + %.</p>
-        </div>
-        <div class="card">
-          <h3>Affiliate Manager</h3>
-          <p>Зарплата по результатам собеседования.</p>
-        </div>
-      </div>
-    </section>
+  <div class="section-title">КОМАНДА</div>
+  <div class="grid">
+    <div class="card">
+      <img src="https://via.placeholder.com/100" alt="Evgenii">
+      <strong>Evgenii Limited</strong>
+      <p>Co-owner</p>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/100" alt="Tikhon">
+      <strong>Tikhon Limited</strong>
+      <p>Co-owner</p>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/100" alt="Denis">
+      <strong>Denis Limited</strong>
+      <p>Head of Affiliate</p>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/100" alt="Aleksandra">
+      <strong>Aleksandra Limited</strong>
+      <p>Head of Sales</p>
+    </div>
   </div>
-
-  <script>
-    const navItems = document.querySelectorAll('.nav-item');
-    const sections = document.querySelectorAll('section');
-    const burgerMenu = document.querySelector('.burger-menu');
-    const sidebar = document.querySelector('.sidebar');
-
-    navItems.forEach(item => {
-      item.addEventListener('click', () => {
-        navItems.forEach(i => i.classList.remove('active'));
-        sections.forEach(s => s.classList.remove('active'));
-        item.classList.add('active');
-        const target = item.getAttribute('data-target');
-        document.getElementById(target).classList.add('active');
-      });
-    });
-
-    burgerMenu.addEventListener('click', () => {
-      sidebar.classList.toggle('active');
-    });
-  </script>
 </body>
 </html>
+
 
 
 
