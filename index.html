@@ -11,37 +11,58 @@
       background-color: #0c0f11;
       color: #d5d7e0;
     }
-    nav {
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100%;
       background-color: #121619;
+      border-right: 1px solid #2a2f35;
       padding: 1em;
-      border-radius: 20px;
-      border: 1px solid #2a2f35;
-      width: fit-content;
-      margin: 1em;
+      box-sizing: border-box;
     }
-    nav ul {
+    .sidebar ul {
       list-style: none;
       padding: 0;
-      display: flex;
-      gap: 1em;
+      margin: 0;
     }
-    nav li {
+    .sidebar li {
       padding: 0.5em 1em;
       color: #d5d7e0;
       cursor: pointer;
       border-radius: 12px;
       transition: background-color 0.3s;
     }
-    nav li:hover {
+    .sidebar li:hover {
       background-color: #1c1f22;
     }
-    nav li.active {
+    .sidebar li.active {
       color: #7fffbb;
       background-color: #1c1f22;
     }
+    .main-content {
+      margin-left: 200px;
+      padding: 2em;
+    }
+    .burger-menu {
+      position: fixed;
+      top: 1em;
+      right: 1em;
+      cursor: pointer;
+      z-index: 1000;
+      display: none;
+    }
+    .burger-menu span {
+      display: block;
+      width: 30px;
+      height: 3px;
+      background-color: #38ff92;
+      margin: 5px 0;
+      border-radius: 2px;
+    }
     section {
       display: none;
-      padding: 2em;
     }
     section.active {
       display: block;
@@ -50,11 +71,13 @@
       color: #38ff92;
       font-size: 2.5em;
       margin-bottom: 1em;
+      text-align: center;
     }
     .card-container {
       display: flex;
       gap: 2em;
       flex-wrap: wrap;
+      justify-content: center;
     }
     .card {
       background-color: #121619;
@@ -62,6 +85,7 @@
       padding: 1em;
       width: 300px;
       border: 1px solid #2a2f35;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     .card img {
       width: 100%;
@@ -81,6 +105,7 @@
       padding: 1em;
       border-radius: 16px;
       border: 1px solid #2a2f35;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     .team-card img {
       width: 80px;
@@ -91,128 +116,152 @@
     .team-card h4, .team-card p {
       margin: 0.5em 0 0;
     }
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+      .sidebar.active {
+        display: block;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .burger-menu {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body>
-  <nav>
+  <div class="sidebar">
     <ul>
       <li class="nav-item active" data-target="home">Главная</li>
       <li class="nav-item" data-target="articles">Статьи</li>
       <li class="nav-item" data-target="cases">Кейсы</li>
       <li class="nav-item" data-target="jobs">Вакансии</li>
     </ul>
-  </nav>
+  </div>
 
-  <!-- Главная -->
-  <section id="home" class="active">
-    <div class="cases-title">КЕЙСЫ</div>
-    <div class="card-container">
-      <div class="card">
-        <img src="casino_case_image.png" alt="Гемблинг кейс">
-        <h3>Гемблинг кейс: $130 000 +</h3>
-        <p>Почему выбор оффера — уже половина успеха?</p>
-      </div>
-      <div class="card">
-        <img src="scam_case_image.png" alt="SCAM кейс">
-        <h3>SCAM кейс от AMERIO.BET</h3>
-        <p>Несмотря на блокировку выплат, мы закрыли косты вебам на трафик за свой счёт.</p>
-      </div>
-    </div>
+  <div class="burger-menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
-    <div class="team-title">КОМАНДА</div>
-    <div class="team-grid">
-      <div class="team-card">
-        <img src="evgenii.png" alt="Evgenii Limited">
-        <h4>Evgenii Limited</h4>
-        <p>Co-owner</p>
+  <div class="main-content">
+    <!-- Главная -->
+    <section id="home" class="active">
+      <div class="cases-title">КЕЙСЫ</div>
+      <div class="card-container">
+        <div class="card">
+          <img src="https://placehold.co/300x200?text=Гемблинг+кейс" alt="Гемблинг кейс">
+          <h3>Гемблинг кейс: $130 000 +</h3>
+          <p>Почему выбор оффера — уже половина успеха?</p>
+        </div>
+        <div class="card">
+          <img src="https://placehold.co/300x200?text=SCAM+кейс" alt="SCAM кейс">
+          <h3>SCAM кейс от AMERIO.BET</h3>
+          <p>Несмотря на блокировку выплат, мы закрыли косты вебам на трафик за свой счёт.</p>
+        </div>
       </div>
-      <div class="team-card">
-        <img src="tikhon.png" alt="Tikhon Limited">
-        <h4>Tikhon Limited</h4>
-        <p>Co-owner</p>
-      </div>
-      <div class="team-card">
-        <img src="denis.png" alt="Denis Limited">
-        <h4>Denis Limited</h4>
-        <p>Head of Affiliate</p>
-      </div>
-      <div class="team-card">
-        <img src="aleksandra.png" alt="Aleksandra Limited">
-        <h4>Aleksandra Limited</h4>
-        <p>Head of Sales</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- Статьи -->
-  <section id="articles">
-    <div class="cases-title">СТАТЬИ</div>
-    <div class="card-container">
-      <div class="card">
-        <img src="article1.png" alt="Статья 1">
-        <h3>Как выбрать источник трафика?</h3>
-        <p>Глубокий гайд по выбору и запуску источников.</p>
+      <div class="team-title">КОМАНДА</div>
+      <div class="team-grid">
+        <div class="team-card">
+          <img src="https://placehold.co/80x80?text=Evgenii" alt="Evgenii Limited">
+          <h4>Evgenii Limited</h4>
+          <p>Co-owner</p>
+        </div>
+        <div class="team-card">
+          <img src="https://placehold.co/80x80?text=Tikhon" alt="Tikhon Limited">
+          <h4>Tikhon Limited</h4>
+          <p>Co-owner</p>
+        </div>
+        <div class="team-card">
+          <img src="https://placehold.co/80x80?text=Denis" alt="Denis Limited">
+          <h4>Denis Limited</h4>
+          <p>Head of Affiliate</p>
+        </div>
+        <div class="team-card">
+          <img src="https://placehold.co/80x80?text=Aleksandra" alt="Aleksandra Limited">
+          <h4>Aleksandra Limited</h4>
+          <p>Head of Sales</p>
+        </div>
       </div>
-      <div class="card">
-        <img src="article2.png" alt="Статья 2">
-        <h3>Топ 5 ошибок медиабайеров</h3>
-        <p>И как их избежать на старте.</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Кейсы (повтор если нужно отдельно от главной) -->
-  <section id="cases">
-    <div class="cases-title">ВСЕ КЕЙСЫ</div>
-    <div class="card-container">
-      <div class="card">
-        <img src="case1.png" alt="Кейс 1">
-        <h3>Facebook + нутра: $45 000</h3>
-        <p>Бюджет 8к, профит — х5.6</p>
+    <!-- Статьи -->
+    <section id="articles">
+      <div class="cases-title">СТАТЬИ</div>
+      <div class="card-container">
+        <div class="card">
+          <img src="https://placehold.co/300x200?text=Статья+1" alt="Статья 1">
+          <h3>Как выбрать источник трафика?</h3>
+          <p>Глубокий гайд по выбору и запуску источников.</p>
+        </div>
+        <div class="card">
+          <img src="https://placehold.co/300x200?text=Статья+2" alt="Статья 2">
+          <h3>Топ 5 ошибок медиабайеров</h3>
+          <p>И как их избежать на старте.</p>
+        </div>
       </div>
-      <div class="card">
-        <img src="case2.png" alt="Кейс 2">
-        <h3>ТикТок кейс на iGaming</h3>
-        <p>ARPU 8.3$, ROI 235%</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Вакансии -->
-  <section id="jobs">
-    <div class="cases-title">ВАКАНСИИ</div>
-    <div class="card-container">
-      <div class="card">
-        <h3>Media Buyer (FB + TikTok)</h3>
-        <p>Опыт от 6 месяцев. Ставка + %.</p>
+    <!-- Кейсы -->
+    <section id="cases">
+      <div class="cases-title">ВСЕ КЕЙСЫ</div>
+      <div class="card-container">
+        <div class="card">
+          <img src="https://placehold.co/300x200?text=Кейс+1" alt="Кейс 1">
+          <h3>Facebook + нутра: $45 000</h3>
+          <p>Бюджет 8к, профит — х5.6</p>
+        </div>
+        <div class="card">
+          <img src="https://placehold.co/300x200?text=Кейс+2" alt="Кейс 2">
+          <h3>ТикТок кейс на iGaming</h3>
+          <p>ARPU 8.3$, ROI 235%</p>
+        </div>
       </div>
-      <div class="card">
-        <h3>Affiliate Manager</h3>
-        <p>Зарплата по результатам собеседования.</p>
+    </section>
+
+    <!-- Вакансии -->
+    <section id="jobs">
+      <div class="cases-title">ВАКАНСИИ</div>
+      <div class="card-container">
+        <div class="card">
+          <h3>Media Buyer (FB + TikTok)</h3>
+          <p>Опыт от 6 месяцев. Ставка + %.</p>
+        </div>
+        <div class="card">
+          <h3>Affiliate Manager</h3>
+          <p>Зарплата по результатам собеседования.</p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
   <script>
     const navItems = document.querySelectorAll('.nav-item');
     const sections = document.querySelectorAll('section');
+    const burgerMenu = document.querySelector('.burger-menu');
+    const sidebar = document.querySelector('.sidebar');
 
     navItems.forEach(item => {
       item.addEventListener('click', () => {
-        // Удалить активный класс у всех
         navItems.forEach(i => i.classList.remove('active'));
         sections.forEach(s => s.classList.remove('active'));
-
-        // Добавить активный класс текущему
         item.classList.add('active');
         const target = item.getAttribute('data-target');
         document.getElementById(target).classList.add('active');
       });
     });
+
+    burgerMenu.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+    });
   </script>
 </body>
 </html>
-
 
 
 
