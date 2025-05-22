@@ -17,6 +17,7 @@
       justify-content: space-between;
       align-items: flex-start;
       padding: 20px;
+      flex-wrap: wrap;
     }
 
     .menu-box {
@@ -49,7 +50,7 @@
     }
 
     .section-title {
-      font-size: 48px;
+      font-size: 36px;
       font-weight: bold;
       color: #d5fd02;
       margin: 40px 20px 20px;
@@ -57,7 +58,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
       padding: 0 20px 40px;
     }
@@ -78,6 +79,8 @@
 
     .card img {
       width: 100%;
+      height: auto;
+      display: block;
       border-radius: 12px;
       margin-bottom: 12px;
     }
@@ -85,10 +88,7 @@
     .grid .card img[alt*="Evgenii"],
     .grid .card img[alt*="Tikhon"],
     .grid .card img[alt*="Denis"],
-    .grid .card img[alt*="Aleksandra"],
-    .grid .card img[alt*="Ksenia"],
-    .grid .card img[alt*="Katerina"],
-    .grid .card img[alt*="Alexander"] {
+    .grid .card img[alt*="Aleksandra"] {
       border-radius: 50%;
     }
 
@@ -121,19 +121,6 @@
   </div>
 
   <div id="home" class="section active">
-    <div class="section-title">КЕЙСЫ</div>
-    <div class="grid">
-      <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-%D0%B2-%D0%B1%D1%80%D0%B0%D0%B7%D0%B8%D0%BB%D0%B8%D0%B8-%D0%BD%D0%B0-privatnom-offere-thelimitedclub/" target="_blank">
-        <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс">
-        <strong>Гемблинг кейс: $130 000+</strong>
-        <p>Почему выбор оффера — уже половина успеха?</p>
-      </a>
-      <a class="card" href="https://cpalenta.ru/amerio-bet-skamnulsya-no-vy-ne-perezhivajte-mi-vse-ravno-zaplatili-vebam/" target="_blank">
-        <img src="https://i.postimg.cc/D0DMh7WJ/photo-2024-12-11-11-14-52.jpg" alt="SCAM кейс">
-        <strong>SCAM кейс от AMERIO.BET</strong>
-        <p>Несмотря на блокировку выплат, мы закрыли косты вебам на трафик за свой счёт.</p>
-      </a>
-    </div>
     <div class="section-title">КОМАНДА</div>
     <div class="grid">
       <a class="card" href="https://t.me/evgenii_limited" target="_blank">
@@ -155,21 +142,6 @@
         <img src="https://i.postimg.cc/tJ92r4s3/photo-2023-12-19-11-15-30.jpg" alt="Aleksandra">
         <strong>Aleksandra Limited</strong>
         <p>Head of Sales</p>
-      </a>
-      <a class="card" href="https://t.me/ksu_limited" target="_blank">
-        <img src="https://i.postimg.cc/SxDqC6Mz/1.webp" alt="Ksenia">
-        <strong>Ksenia Limited</strong>
-        <p>Team Lead Affiliate Manager</p>
-      </a>
-      <a class="card" href="https://t.me/katerinaHR_limited" target="_blank">
-        <img src="https://i.postimg.cc/hGvnrXLZ/7.jpg" alt="Katerina">
-        <strong>Katerina Limited</strong>
-        <p>HRD</p>
-      </a>
-      <a class="card" href="https://t.me/Alexandr_limited" target="_blank">
-        <img src="https://i.postimg.cc/yNGHr7n1/5-new.webp" alt="Alexander">
-        <strong>Alexander Limited</strong>
-        <p>Связь по PR и маркетингу</p>
       </a>
     </div>
   </div>
@@ -231,6 +203,7 @@
   </script>
 </body>
 </html>
+
 
 
 
