@@ -20,11 +20,11 @@
     }
 
     .menu-box {
-      border: 1px solid #00ffaa33;
+      border: 1px solid #d5fd0233;
       border-radius: 20px;
       padding: 20px;
       background-color: #0d0f10;
-      box-shadow: 0 0 10px #00ffaa33;
+      box-shadow: 0 0 10px #d5fd0233;
     }
 
     .menu-box ul {
@@ -44,23 +44,14 @@
       color: #ffffff;
     }
 
-    .burger {
-      border: 1px solid #00ffaa33;
-      border-radius: 12px;
-      width: 50px;
+    .logo {
       height: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 28px;
-      color: #00ff99;
-      cursor: pointer;
     }
 
     .section-title {
       font-size: 48px;
       font-weight: bold;
-      color: #00ff99;
+      color: #d5fd02;
       margin: 40px 20px 20px;
     }
 
@@ -91,6 +82,13 @@
       margin-bottom: 12px;
     }
 
+    .grid .card img[alt*="Evgenii"],
+    .grid .card img[alt*="Tikhon"],
+    .grid .card img[alt*="Denis"],
+    .grid .card img[alt*="Aleksandra"] {
+      border-radius: 50%;
+    }
+
     .card strong {
       display: block;
       font-size: 18px;
@@ -116,7 +114,7 @@
         <li class="menu-item" data-section="vacancies">Вакансии</li>
       </ul>
     </div>
-    <div class="burger">≡</div>
+    <img class="logo" src="https://i.postimg.cc/90gRT1n1/Frame-277131232-2.png" alt="TMA Logo">
   </div>
 
   <div id="home" class="section active">
@@ -162,7 +160,7 @@
   <div id="articles" class="section">
     <div class="section-title">СТАТЬИ</div>
     <div class="grid">
-      <a class="card" href="https://example.com/article1" target="_blank">
+      <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" target="_blank">
         <strong>Как выбрать оффер?</strong>
         <p>Руководство по выбору прибыльного оффера для новичков и профи.</p>
       </a>
@@ -192,9 +190,9 @@
   <div id="vacancies" class="section">
     <div class="section-title">ВАКАНСИИ</div>
     <div class="grid">
-      <a class="card" href="https://hh.ru/vacancy/119870770?hhtmFrom=vacancy_search_list" target="_blank">
-        <strong>Senior Affiliate Manager</strong>
-        <p>от 3 000 до 6 000 $ за месяц, на руки</p>
+      <a class="card" href="https://example.com/vacancy1" target="_blank">
+        <strong>Media Buyer</strong>
+        <p>Ищем специалиста с опытом в гемблинг арбитраже. Удалёнка, ставка + %.</p>
       </a>
       <a class="card" href="https://example.com/vacancy2" target="_blank">
         <strong>Affiliate Manager</strong>
@@ -220,7 +218,6 @@
   </script>
 </body>
 </html>
-
 
 
 
