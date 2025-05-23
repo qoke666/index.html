@@ -245,67 +245,6 @@
       });
     });
   </script>
-<script>
-  const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycby50jNmA0dlaUqBfagYkdFS8-Dr0WR_XUdtvIVL0deVt7LHTxX_DIGjnr0gPIC4k17KEg/exec'; // URL из Apps Script
-
-  function sendToSheet(data) {
-    fetch(SHEET_ENDPOINT, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-  }
-
-  function makeEventData(eventName, additional = {}) {
-    return {
-      event: eventName,
-      section: document.querySelector('.menu-item.active')?.dataset.section || 'unknown',
-      url: window.location.href,
-      userAgent: navigator.userAgent,
-      username: window.telegramUsername || '',
-      additional
-    };
-  }
-
-  // 1) Лог загрузки страницы
-  window.addEventListener('load', () => sendToSheet(makeEventData('page_load')));
-
-  // 2) Смена раздела
-  document.querySelectorAll('.menu-item').forEach(item => {
-    item.addEventListener('click', () => sendToSheet(
-      makeEventData('section_change', { newSection: item.dataset.section })
-    ));
-  });
-
-  // 3) Клик по карточке
-  document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('click', () => {
-      const title = card.querySelector('strong')?.innerText;
-      sendToSheet(makeEventData('card_click', { title }));
-    });
-  });
-</script>
-
-<!-- 3. Добавь Telegram Login Widget туда, где хочешь собирать юзернеймы -->
-<div id="telegram-login" style="margin:20px;"></div>
-<script async src="https://telegram.org/js/telegram-widget.js?15"
-        data-telegram-login="TESTNEWSSSSSSS123"
-        data-size="large"
-        data-userpic="false"
-        data-request-access="write"
-        data-userpic="false"
-        data-lang="ru"
-        data-on-auth="onTelegramAuth(user)">
-</script>
-<script>
-  function onTelegramAuth(user) {
-    // Сохраняем глобально для отправки вместе с событиями
-    window.telegramUsername = user.username;
-    // Логируем сам факт авторизации
-    sendToSheet(makeEventData('telegram_auth', { user_id: user.id, first_name: user.first_name, last_name: user.last_name }));
-  }
-</script>
 </body>
 </html>
 
