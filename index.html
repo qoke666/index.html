@@ -206,6 +206,64 @@ setInterval(() => {
   showSlide(slide);
 }, 5000);
 </script>
+<!-- Telegram WebApp SDK и трекинг -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+  // 1) Инициализируем
+  const tg = window.Telegram.WebApp;
+  tg.expand();  // разворачиваем окно
+
+  // 2) Получаем данные пользователя
+  const { id: user_id, username, first_name, last_name } = tg.initDataUnsafe.user;
+
+  // 3) Укажи здесь URL из Шага 1
+  const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbym5K9nbbAUhi6hPBkLsU3k6W99E5a2VWJyALWXqXOtstG1Wna35R-XPiX0tJABxnlg/exec';
+
+  // 4) Функции для отправки логов
+  function sendToSheet(data) {
+    fetch(SHEET_ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+  }
+
+  function trackEvent(eventName, additional = {}) {
+    sendToSheet({
+      event: eventName,
+      user_id, username, first_name, last_name,
+      url: window.location.href,
+      userAgent: navigator.userAgent,
+      additional
+    });
+  }
+
+  // 5) Лог открытия Web App
+  trackEvent('webapp_open');
+
+  // 6) Лог переключения разделов меню
+  document.querySelectorAll('.menu-item').forEach(item => {
+    item.addEventListener('click', () => {
+      trackEvent('nav_click', { section: item.dataset.section });
+    });
+  });
+
+  // 7) Лог кликов по карточкам
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+      const title = card.querySelector('strong')?.innerText;
+      trackEvent('card_click', { title });
+    });
+  });
+
+  // 8) Лог кликов по любым дополнительным кнопкам
+  document.querySelectorAll('button.track-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      trackEvent('button_click', { id: btn.id || null, text: btn.innerText });
+    });
+  });
+</script>
 </body>
 </html>
 
