@@ -7,20 +7,66 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-  body { margin: 0; font-family: 'Inter', sans-serif; background: #0d0f10; color: #ffffff; }
+  body { 
+    margin: 0; 
+    font-family: 'Inter', sans-serif; 
+    background: #0d0f10; 
+    color: #ffffff; 
+    overflow-y: auto; 
+  }
   a { text-decoration: none; }
   ul { list-style: none; margin: 0; padding: 0; }
 
   .menu-top { display: flex; justify-content: flex-start; align-items: center; padding: 16px; }
   .menu-top .logo { width: 100px; }
 
-  .carousel { position: relative; width: 343px; height: 136px; margin: 0 auto; border-radius: 12px; overflow: hidden; background: #000; max-width: 100%; }
-  .carousel a { display: block; width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity .5s; }
+  .carousel { 
+    position: relative; 
+    width: 343px; 
+    height: 136px; 
+    margin: 0 auto; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    background: #000; 
+    max-width: 100%; 
+  }
+  .carousel a { 
+    display: block; 
+    width: 100%; 
+    height: 100%; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    opacity: 0; 
+    transition: opacity .5s; 
+  }
   .carousel a.active { opacity: 1; z-index: 1; }
   .carousel img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .carousel .hot { position: absolute; top: 8px; left: 16px; font-size: 20px; font-weight: 500; color: #ffffff; z-index: 2; }
-  .carousel-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; z-index: 2; }
-  .carousel-dots .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; }
+  .carousel .hot { 
+    position: absolute; 
+    top: 8px; 
+    left: 16px; 
+    font-size: 20px; 
+    font-weight: 500; 
+    color: #ffffff; 
+    z-index: 2; 
+  }
+  .carousel-dots { 
+    position: absolute; 
+    bottom: 8px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    display: flex; 
+    gap: 5px; 
+    z-index: 2; 
+  }
+  .carousel-dots .dot { 
+    width: 5px; 
+    height: 5px; 
+    border-radius: 50%; 
+    background: rgba(255,255,255,0.3); 
+    cursor: pointer; 
+  }
   .carousel-dots .dot.active { background: rgba(255,255,255,0.9); }
 
   .menu {
@@ -56,24 +102,93 @@
     color: #0d0f10;
   }
 
-  .section { display: none; padding: 24px 16px; box-sizing: border-box; min-height: calc(100vh - 200px); }
+  .section { 
+    display: none; 
+    padding: 24px 16px; 
+    box-sizing: border-box; 
+  }
   .section.active { display: block; }
-  .back-button { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 16px; padding: 6px 12px; background: #d5fd02; color: #0d0f10; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }
+  .back-button { 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 6px; 
+    margin-bottom: 16px; 
+    padding: 6px 12px; 
+    background: #d5fd02; 
+    color: #0d0f10; 
+    border: none; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-weight: 600; 
+  }
 
-  .section-title { font-size: 24px; font-weight: 600; margin: 24px 0; color: #d5fd02; }
+  .section-title { 
+    font-size: 24px; 
+    font-weight: 600; 
+    margin: 24px 0; 
+    color: #d5fd02; 
+  }
 
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
-  .card { background: #111315; border: 1px solid #222; border-radius: 12px; color: #ccc; transition: transform .2s; position: relative; overflow: hidden; }
+  .grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+    gap: 16px; 
+  }
+  .card { 
+    background: #111315; 
+    border: 1px solid #222; 
+    border-radius: 12px; 
+    color: #ccc; 
+    transition: transform .2s; 
+    position: relative; 
+    overflow: hidden; 
+  }
   .card:hover { transform: scale(1.02); }
-  #home .card img, #articles .card img, #cases .card img { width: 100%; height: 120px; object-fit: cover; display: block; }
-  #vacancies .card { padding: 12px; display: flex; flex-direction: column; justify-content: center; }
-  .card .text-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); padding: 8px; }
-  .card strong { display: block; font-size: 14px; color: #ffffff; margin-bottom: 4px; }
-  .card p { font-size: 12px; color: #bbb; margin: 0; }
+  #home .card img, #articles .card img, #cases .card img { 
+    width: 100%; 
+    height: 120px; 
+    object-fit: cover; 
+    display: block; 
+  }
+  #vacancies .card { 
+    padding: 12px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+  }
+  .card .text-overlay { 
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    right: 0; 
+    background: rgba(0,0,0,0.6); 
+    padding: 8px; 
+  }
+  .card strong { 
+    display: block; 
+    font-size: 14px; 
+    color: #ffffff; 
+    margin-bottom: 4px; 
+  }
+  .card p { 
+    font-size: 12px; 
+    color: #bbb; 
+    margin: 0; 
+  }
 
-  #team .card img { width: 60px; height: 60px; object-fit: cover; margin-bottom: 8px; border-radius: 50%; }
+  #team .card img { 
+    width: 60px; 
+    height: 60px; 
+    object-fit: cover; 
+    margin-bottom: 8px; 
+    border-radius: 50%; 
+  }
 
-  .team-carousel { margin: 16px 0; }
+  .team-carousel { 
+    margin: 16px 0; 
+    max-width: 100%; 
+    overflow: hidden; 
+  }
   .team-list {
     display: inline-flex;
     gap: 12px;
@@ -90,9 +205,25 @@
     transition: transform .2s;
   }
   .team-item:hover { transform: scale(1.02); }
-  .team-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 50%; margin: 0 auto 8px; display: block; }
-  .team-item strong { display: block; font-size: 14px; color: #ffffff; margin-bottom: 4px; }
-  .team-item p { font-size: 12px; color: #bbb; margin: 0; }
+  .team-item img { 
+    width: 60px; 
+    height: 60px; 
+    object-fit: cover; 
+    border-radius: 50%; 
+    margin: 0 auto 8px; 
+    display: block; 
+  }
+  .team-item strong { 
+    display: block; 
+    font-size: 14px; 
+    color: #ffffff; 
+    margin-bottom: 4px; 
+  }
+  .team-item p { 
+    font-size: 12px; 
+    color: #bbb; 
+    margin: 0; 
+  }
 </style>
 </head>
 <body>
@@ -109,7 +240,7 @@
     <img src="https://i.postimg.cc/bJqQWjv5/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс" />
   </a>
   <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-04-09" target="_blank">
-    <img src="https://i.postimg.cc/hjQFNVwD/photo-2025-05-14-20-01-19.jpg" alt="Статья" />
+    <img src="https://i.postimg.cc/rsDjBHyb/images-1.jpg" alt="ОКАК" />
   </a>
   <div class="hot"></div>
   <div class="carousel-dots">
