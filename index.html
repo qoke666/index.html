@@ -7,41 +7,42 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-  body { margin:0; font-family:'Inter',sans-serif; background:#0d0f10; color:#ffffff; }
-  a { text-decoration:none; }
-  ul { list-style:none; margin:0; padding:0; }
+  body { margin: 0; font-family: 'Inter', sans-serif; background: #0d0f10; color: #ffffff; }
+  a { text-decoration: none; }
+  ul { list-style: none; margin: 0; padding: 0; }
 
-  .menu-top { display:flex; justify-content:flex-start; align-items:center; padding:16px; }
-  .menu-top .logo { width:100px; }
+  .menu-top { display: flex; justify-content: flex-start; align-items: center; padding: 16px; }
+  .menu-top .logo { width: 100px; }
 
-  .carousel { position:relative; width:343px; height:136px; margin:0 auto; border-radius:12px; overflow:hidden; background:#000; }
-  .carousel a { display:block; width:100%; height:100%; position:absolute; top:0; left:0; opacity:0; transition:opacity .5s; }
-  .carousel a.active { opacity:1; z-index:1; }
-  .carousel img { width:100%; height:100%; object-fit:cover; display:block; }
-  .carousel .hot { position:absolute; top:8px; left:16px; font-size:20px; font-weight:500; color:#ffffff; z-index:2; }
-  .carousel-dots { position:absolute; bottom:8px; left:50%; transform:translateX(-50%); display:flex; gap:5px; z-index:2; }
-  .carousel-dots .dot { width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,0.3); cursor:pointer; }
-  .carousel-dots .dot.active { background:rgba(255,255,255,0.9); }
+  .carousel { position: relative; width: 343px; height: 136px; margin: 0 auto; border-radius: 12px; overflow: hidden; background: #000; max-width: 100%; }
+  .carousel a { display: block; width: 100%; height: 100%; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity .5s; }
+  .carousel a.active { opacity: 1; z-index: 1; }
+  .carousel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .carousel .hot { position: absolute; top: 8px; left: 16px; font-size: 20px; font-weight: 500; color: #ffffff; z-index: 2; }
+  .carousel-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; z-index: 2; }
+  .carousel-dots .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; }
+  .carousel-dots .dot.active { background: rgba(255,255,255,0.9); }
 
-  .menu { display:flex; justify-content:center; background:rgba(0,0,0,0.7); padding:12px 0; position:sticky; top:0; z-index:10; }
-  .menu ul { display:flex; gap:20px; }
-  .menu-item { padding:6px 12px; border-radius:6px; font-weight:600; cursor:pointer; color:#ccc; transition:background .3s,color .3s; }
-  .menu-item.active, .menu-item:hover { background:#d5fd02; color:#0d0f10; }
+  .menu { display: flex; justify-content: center; background: rgba(0,0,0,0.7); padding: 12px 0; position: sticky; top: 0; z-index: 10; max-width: 100%; }
+  .menu ul { display: inline-flex; gap: 10px; padding: 0 16px; overflow-x: auto; white-space: nowrap; scroll-behavior: smooth; }
+  .menu ul::-webkit-scrollbar { display: none; }
+  .menu-item { padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer; color: #ccc; transition: background .3s, color .3s; }
+  .menu-item.active, .menu-item:hover { background: #d5fd02; color: #0d0f10; }
 
-  .section { display:none; padding:24px 16px; box-sizing:border-box; min-height:calc(100vh - 200px); }
-  .section.active { display:block; }
-  .back-button { display:inline-flex; align-items:center; gap:6px; margin-bottom:16px; padding:6px 12px; background:#d5fd02; color:#0d0f10; border:none; border-radius:6px; cursor:pointer; font-weight:600; }
+  .section { display: none; padding: 24px 16px; box-sizing: border-box; min-height: calc(100vh - 200px); }
+  .section.active { display: block; }
+  .back-button { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 16px; padding: 6px 12px; background: #d5fd02; color: #0d0f10; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }
 
-  .section-title { font-size:24px; font-weight:600; margin:24px 0; color:#d5fd02; }
+  .section-title { font-size: 24px; font-weight: 600; margin: 24px 0; color: #d5fd02; }
 
-  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:16px; }
-  .card { background:#111315; border:1px solid #222; border-radius:12px; padding:12px; color:#ccc; transition:transform .2s; }
-  .card:hover { transform:scale(1.02); }
-  .card img { width:60px; height:60px; object-fit:cover; margin-bottom:8px; }
-  .card strong { display:block; font-size:14px; color:#ffffff; margin-bottom:4px; }
-  .card p { font-size:12px; color:#bbb; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
+  .card { background: #111315; border: 1px solid #222; border-radius: 12px; padding: 12px; color: #ccc; transition: transform .2s; }
+  .card:hover { transform: scale(1.02); }
+  .card img { width: 60px; height: 60px; object-fit: cover; margin-bottom: 8px; }
+  .card strong { display: block; font-size: 14px; color: #ffffff; margin-bottom: 4px; }
+  .card p { font-size: 12px; color: #bbb; }
 
-  #team .card img, #home .card img {border-radius: 50%;}
+  #team .card img, #home .card img { border-radius: 50%; }
 </style>
 </head>
 <body>
@@ -60,7 +61,7 @@
   <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-04-09" target="_blank">
     <img src="https://i.postimg.cc/hjQFNVwD/photo-2025-05-14-20-01-19.jpg" alt="Статья" />
   </a>
-  <div class="hot"></div>
+  <div class="hot">🔥 HOT</div>
   <div class="carousel-dots">
     <div class="dot active"></div>
     <div class="dot"></div>
@@ -107,7 +108,24 @@
   </div>
 </section>
 
+<section id="articles" class="section">
+  <button class="back-button" aria-label="Назад на главную">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Назад
+  </button>
+  <h2 class="section-title">СТАТЬИ</h2>
+  <div class="grid">
+    <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-04-09" target="_blank">
+      <img src="https://i.postimg.cc/hjQFNVwD/photo-2025-05-14-20-01-19.jpg" alt="Статья" />
+      <strong>Как поднять качество трафика в гемблинге</strong>
+      <p>Несколько практических механик</p>
+    </a>
+  </div>
+</section>
+
 <section id="cases" class="section">
+  <button class="back-button" aria-label="Назад на главную">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Назад
+  </button>
   <h2 class="section-title">КЕЙСЫ</h2>
   <div class="grid">
     <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank">
@@ -123,7 +141,29 @@
   </div>
 </section>
 
+<section id="vacancies" class="section">
+  <button class="back-button" aria-label="Назад на главную">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Назад
+  </button>
+  <h2 class="section-title">ВАКАНСИИ</h2>
+  <div class="grid">
+    <a class="card" href="https://t.me/zakacreator" target="_blank">
+      <img src="https://i.postimg.cc/0jKkFPPv/photo-2024-12-08-14-33-32.jpg" alt="Вакансия Трафик менеджер" />
+      <strong>Трафик менеджер</strong>
+      <p>Опыт работы от 1 года</p>
+    </a>
+    <a class="card" href="https://t.me/palliser" target="_blank">
+      <img src="https://i.postimg.cc/HLVt8kXm/photo-2024-12-07-19-00-44.jpg" alt="Вакансия Senior PM" />
+      <strong>Senior PM</strong>
+      <p>В агентство iGaming маркетинга</p>
+    </a>
+  </div>
+</section>
+
 <section id="team" class="section">
+  <button class="back-button" aria-label="Назад на главную">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Назад
+  </button>
   <h2 class="section-title">КОМАНДА</h2>
   <div class="grid">
     <a class="card" href="https://t.me/Evgenii_Limited" target="_blank">
@@ -141,85 +181,20 @@
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-const tg = window.Telegram.WebApp;
-tg.expand();
-let user_id, username, first_name, last_name;
-if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-  ({ id: user_id, username, first_name, last_name } = tg.initDataUnsafe.user);
-}
-const SHEET_ENDPOINT = 'YOUR_SCRIPT_URL';
-function sendToSheet(data) {
-  fetch(SHEET_ENDPOINT, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  });
-}
-function trackEvent(event, add = {}) {
-  sendToSheet({
-    event,
-    user_id,
-    username,
-    first_name,
-    last_name,
-    url: location.href,
-    userAgent: navigator.userAgent,
-    additional: add
-  });
-}
-trackEvent('webapp_open');
-document.querySelectorAll('.menu-item').forEach(i => i.addEventListener('click', () => {
-  trackEvent('nav_click', { section: i.dataset.section });
-}));
-document.querySelectorAll('.card').forEach(c => c.addEventListener('click', () => {
-  trackEvent('card_click', { title: c.querySelector('strong')?.innerText });
-}));
-const items = document.querySelectorAll('.menu-item'),
-      secs = document.querySelectorAll('.section'),
-      backs = document.querySelectorAll('.back-button');
-function show(s) {
-  secs.forEach(sec => sec.id === s ? sec.classList.add('active') : sec.classList.remove('active'));
-  items.forEach(it => it.classList.toggle('active', it.dataset.section === s));
-}
-items.forEach(it => it.addEventListener('click', () => {
-  show(it.dataset.section);
-  window.scrollTo(0, 0);
-}));
-backs.forEach(b => b.addEventListener('click', () => {
-  show('home');
-  window.scrollTo(0, 0);
-}));
-const slides = document.querySelectorAll('.carousel a'),
-      dots = document.querySelectorAll('.dot');
-let slide = 0;
-function showSlide(i) {
-  slides.forEach((a, ii) => a.classList.toggle('active', ii === i));
-  dots.forEach((d, ii) => d.classList.toggle('active', ii === i));
-}
-dots.forEach((d, i) => d.addEventListener('click', () => {
-  slide = i;
-  showSlide(i);
-}));
-setInterval(() => {
-  slide = (slide + 1) % slides.length;
-  showSlide(slide);
-}, 5000);
-</script>
-<!-- Telegram WebApp SDK и трекинг -->
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script>
-  // 1) Инициализируем
+  // Инициализация Telegram WebApp
   const tg = window.Telegram.WebApp;
-  tg.expand();  // разворачиваем окно
+  tg.expand();
 
-  // 2) Получаем данные пользователя
-  const { id: user_id, username, first_name, last_name } = tg.initDataUnsafe.user;
+  // Получение данных пользователя с проверкой
+  let user_id = null, username = null, first_name = null, last_name = null;
+  if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+    ({ id: user_id, username, first_name, last_name } = tg.initDataUnsafe.user);
+  }
 
-  // 3) Укажи здесь URL из Шага 1
+  // URL для Google Apps Script
   const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbym5K9nbbAUhi6hPBkLsU3k6W99E5a2VWJyALWXqXOtstG1Wna35R-XPiX0tJABxnlg/exec';
 
-  // 4) Функции для отправки логов
+  // Функция отправки логов
   function sendToSheet(data) {
     fetch(SHEET_ENDPOINT, {
       method: 'POST',
@@ -229,44 +204,84 @@ setInterval(() => {
     });
   }
 
+  // Функция отслеживания событий
   function trackEvent(eventName, additional = {}) {
     sendToSheet({
       event: eventName,
-      user_id, username, first_name, last_name,
+      user_id,
+      username,
+      first_name,
+      last_name,
       url: window.location.href,
       userAgent: navigator.userAgent,
       additional
     });
   }
 
-  // 5) Лог открытия Web App
+  // Лог открытия Web App
   trackEvent('webapp_open');
 
-  // 6) Лог переключения разделов меню
+  // Лог переключения разделов меню
   document.querySelectorAll('.menu-item').forEach(item => {
     item.addEventListener('click', () => {
       trackEvent('nav_click', { section: item.dataset.section });
     });
   });
 
-  // 7) Лог кликов по карточкам
+  // Лог кликов по карточкам
   document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', () => {
-      const title = card.querySelector('strong')?.innerText;
+      const title = card.querySelector('strong')?.innerText || 'Unknown';
       trackEvent('card_click', { title });
     });
   });
 
-  // 8) Лог кликов по любым дополнительным кнопкам
-  document.querySelectorAll('button.track-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      trackEvent('button_click', { id: btn.id || null, text: btn.innerText });
+  // Лог кликов по карусели
+  document.querySelectorAll('.carousel a').forEach(slide => {
+    slide.addEventListener('click', () => {
+      const alt = slide.querySelector('img')?.getAttribute('alt') || 'Unknown';
+      trackEvent('carousel_click', { slide: alt });
     });
   });
+
+  // Лог кликов по кнопкам "назад"
+  document.querySelectorAll('.back-button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      trackEvent('back_button_click', { text: btn.innerText });
+    });
+  });
+
+  // Переключение секций
+  const items = document.querySelectorAll('.menu-item');
+  const sections = document.querySelectorAll('.section');
+  function showSection(sectionId) {
+    sections.forEach(sec => sec.classList.toggle('active', sec.id === sectionId));
+    items.forEach(item => item.classList.toggle('active', item.dataset.section === sectionId));
+    window.scrollTo(0, 0);
+  }
+  items.forEach(item => item.addEventListener('click', () => showSection(item.dataset.section)));
+  document.querySelectorAll('.back-button').forEach(btn => btn.addEventListener('click', () => showSection('home')));
+
+  // Управление каруселью
+  const slides = document.querySelectorAll('.carousel a');
+  const dots = document.querySelectorAll('.carousel-dots .dot');
+  let currentSlide = 0;
+  function showSlide(index) {
+    slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+  }
+  dots.forEach((dot, i) => dot.addEventListener('click', () => {
+    currentSlide = i;
+    showSlide(i);
+    trackEvent('carousel_dot_click', { slideIndex: i });
+  }));
+  setInterval(() => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }, 5000);
 </script>
 </body>
 </html>
-
 
 
 
