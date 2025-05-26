@@ -501,11 +501,13 @@
     currentSlide = (currentSlide + 1) % slides.length;
     showSlide(currentSlide);
   }, 5000);
-// Прокрутка .team-list колёсиком мыши на ПК
-const teamList = document.querySelector('.team-list');
-teamList.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    teamList.scrollLeft += e.deltaY * 2.0; // Плавная горизонтальная прокрутка
+// Прокрутка меню и team-list колёсиком мыши на ПК
+const scrollableLists = document.querySelectorAll('.menu ul, .team-list');
+scrollableLists.forEach(list => {
+    list.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        list.scrollLeft += e.deltaY * 2.5; // Плавная горизонтальная прокрутка
+    });
 });
 </script>
 </body>
