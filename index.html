@@ -63,13 +63,15 @@
   .section-title { font-size: 24px; font-weight: 600; margin: 24px 0; color: #d5fd02; }
 
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
-  .card { background: #111315; border: 1px solid #222; border-radius: 12px; padding: 12px; color: #ccc; transition: transform .2s; }
+  .card { background: #111315; border: 1px solid #222; border-radius: 12px; color: #ccc; transition: transform .2s; position: relative; overflow: hidden; }
   .card:hover { transform: scale(1.02); }
-  .card img { width: 60px; height: 60px; object-fit: cover; margin-bottom: 8px; }
+  #home .card img, #articles .card img, #cases .card img { width: 100%; height: 120px; object-fit: cover; display: block; }
+  #vacancies .card { padding: 12px; display: flex; flex-direction: column; justify-content: center; }
+  .card .text-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); padding: 8px; }
   .card strong { display: block; font-size: 14px; color: #ffffff; margin-bottom: 4px; }
   .card p { font-size: 12px; color: #bbb; margin: 0; }
 
-  #team .card img, #home .card img { border-radius: 50%; }
+  #team .card img { width: 60px; height: 60px; object-fit: cover; margin-bottom: 8px; border-radius: 50%; }
 
   .team-carousel { margin: 16px 0; }
   .team-list {
@@ -128,20 +130,24 @@
 </nav>
 
 <section id="home" class="section active">
-  <h2 class="section-title">КЕЙСЫ</h2>
+  <h2 class="section-title">АКТУАЛЬНОЕ</h2>
   <div class="grid">
     <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank">
       <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс" />
-      <strong>Гемблинг кейс: $130 000+</strong>
-      <p>ROI более 1000%</p>
+      <div class="text-overlay">
+        <strong>Гемблинг кейс: $130 000+</strong>
+        <p>ROI более 1000%</p>
+      </div>
     </a>
     <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank">
       <img src="https://i.postimg.cc/bJqQWjv5/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс" />
-      <strong>SCAM кейс от AMERIO.BET</strong>
-      <p>Хронология и пруфы</p>
+      <div class="text-overlay">
+        <strong>SCAM кейс от AMERIO.BET</strong>
+        <p>Хронология и пруфы</p>
+      </div>
     </a>
   </div>
-  <h2 class="section-title">КОМАНДА</h2>
+   <h2 class="section-title">КОМАНДА</h2>
   <div class="team-carousel">
     <ul class="team-list">
       <li class="team-item">
@@ -158,6 +164,41 @@
           <p>Co-owner</p>
         </a>
       </li>
+      <li class="team-item">
+        <a href="https://t.me/Denis_limited" target="_blank">
+          <img src="https://i.postimg.cc/GmQ3z0Zt/6-new.webp" alt="Anna" />
+          <strong>Denis Limited</strong>
+          <p>Head of Affiliate</p>
+        </a>
+      </li>
+      <li class="team-item">
+        <a href="https://t.me/sasha_limited" target="_blank">
+          <img src="https://i.postimg.cc/gkyGkFcs/2.webp" alt="Dmitry" />
+          <strong>Aleksandra Limited</strong>
+          <p>Head of Sales</p>
+        </a>
+      </li>
+      <li class="team-item">
+        <a href="https://t.me/ksu_limited" target="_blank">
+          <img src="https://i.postimg.cc/SxDqC6Mz/1.webp" alt="Elena" />
+          <strong>Ksenia Limited</strong>
+          <p>Team Lead Affiliate Manager</p>
+        </a>
+      </li>
+      <li class="team-item">
+        <a href="https://t.me/katerinaHR_limited" target="_blank">
+          <img src="https://i.postimg.cc/hGvnrXLZ/7.jpg" alt="Sergey" />
+          <strong>Katerina Limited</strong>
+          <p>HRD</p>
+        </a>
+      </li>
+      <li class="team-item">
+        <a href="https://t.me/Alexandr_limited" target="_blank">
+          <img src="https://i.postimg.cc/yNGHr7n1/5-new.webp" alt="Maria" />
+          <strong>Alexander Limited</strong>
+          <p>Связь по PR и маркетингу</p>
+        </a>
+      </li>
     </ul>
   </div>
 </section>
@@ -167,8 +208,10 @@
   <div class="grid">
     <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-04-09" target="_blank">
       <img src="https://i.postimg.cc/hjQFNVwD/photo-2025-05-14-20-01-19.jpg" alt="Статья" />
-      <strong>Как поднять качество трафика в гемблинге</strong>
-      <p>Несколько практических механик</p>
+      <div class="text-overlay">
+        <strong>Как поднять качество трафика в гемблинге</strong>
+        <p>Несколько практических механик</p>
+      </div>
     </a>
   </div>
 </section>
@@ -178,13 +221,17 @@
   <div class="grid">
     <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank">
       <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс" />
-      <strong>Гемблинг кейс: $130 000+</strong>
-      <p>ROI более 1000%</p>
+      <div class="text-overlay">
+        <strong>Гемблинг кейс: $130 000+</strong>
+        <p>ROI более 1000%</p>
+      </div>
     </a>
     <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank">
       <img src="https://i.postimg.cc/bJqQWjv5/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс" />
-      <strong>SCAM кейс от AMERIO.BET</strong>
-      <p>Хронология и пруфы</p>
+      <div class="text-overlay">
+        <strong>SCAM кейс от AMERIO.BET</strong>
+        <p>Хронология и пруфы</p>
+      </div>
     </a>
   </div>
 </section>
@@ -193,14 +240,12 @@
   <h2 class="section-title">ВАКАНСИИ</h2>
   <div class="grid">
     <a class="card" href="https://t.me/zakacreator" target="_blank">
-      <img src="https://i.postimg.cc/0jKkFPPv/photo-2024-12-08-14-33-32.jpg" alt="Вакансия Трафик менеджер" />
-      <strong>smm</strong>
+      <strong>Трафик менеджер</strong>
       <p>Опыт работы от 1 года</p>
     </a>
     <a class="card" href="https://t.me/palliser" target="_blank">
-      <img src="https://i.postimg.cc/HLVt8kXm/photo-2024-12-07-19-00-44.jpg" alt="Вакансия Senior PM" />
-      <strong>smm</strong>
-      <p>Опыт работы от 1 года</p>
+      <strong>Senior PM</strong>
+      <p>В агентство iGaming маркетинга</p>
     </a>
   </div>
 </section>
@@ -322,6 +367,3 @@
 </script>
 </body>
 </html>
-
-
-
