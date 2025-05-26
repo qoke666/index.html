@@ -67,26 +67,47 @@
   .card:hover { transform: scale(1.02); }
   .card img { width: 60px; height: 60px; object-fit: cover; margin-bottom: 8px; }
   .card strong { display: block; font-size: 14px; color: #ffffff; margin-bottom: 4px; }
-  .card p { font-size: 12px; color: #bbb; }
+  .card p { font-size: 12px; color: #bbb; margin: 0; }
 
   #team .card img, #home .card img { border-radius: 50%; }
+
+  .team-carousel { margin: 16px 0; }
+  .team-list {
+    display: inline-flex;
+    gap: 12px;
+    padding: 0 16px;
+    overflow-x: auto;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+  }
+  .team-list::-webkit-scrollbar { display: none; }
+  .team-item {
+    width: 160px;
+    padding: 12px;
+    text-align: center;
+    transition: transform .2s;
+  }
+  .team-item:hover { transform: scale(1.02); }
+  .team-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 50%; margin: 0 auto 8px; display: block; }
+  .team-item strong { display: block; font-size: 14px; color: #ffffff; margin-bottom: 4px; }
+  .team-item p { font-size: 12px; color: #bbb; margin: 0; }
 </style>
 </head>
 <body>
 <div class="menu-top">
-  <img class="logo" src="https://i.postimg.cc/90gRT1n1/figure_298.png" alt="TMA Logo" />
+  <img class="logo" src="https://i.postimg.cc/90gRT1n1/Frame-277131232-2.png" alt="TMA Logo" />
 </div>
 
 <!-- Карусель с кликабельными ссылками -->
 <div class="carousel">
-  <a href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-asio-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank" class="active">
-    <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-14-14-47.jpg" alt="Гемблинг кейс" />
+  <a href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank" class="active">
+    <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс" />
   </a>
   <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank">
-    <img src="https://i.postimg.cc/bJqQWjv5/photo-2025-03-18-15-14-14.jpg" alt="SCAM кейс" />
+    <img src="https://i.postimg.cc/bJqQWjv5/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс" />
   </a>
   <a href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-04-09" target="_blank">
-    <img src="https://i.postimg.cc/hjQFNVwD/photo-2025-04-14-20-01-19.jpg" alt="Статья" />
+    <img src="https://i.postimg.cc/hjQFNVwD/photo-2025-05-14-20-01-19.jpg" alt="Статья" />
   </a>
   <div class="hot"></div>
   <div class="carousel-dots">
@@ -109,29 +130,35 @@
 <section id="home" class="section active">
   <h2 class="section-title">КЕЙСЫ</h2>
   <div class="grid">
-    <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-asio-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank">
-      <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-14-14-47.jpg" alt="Гемблинг кейс" />
+    <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank">
+      <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс" />
       <strong>Гемблинг кейс: $130 000+</strong>
       <p>ROI более 1000%</p>
     </a>
     <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank">
-      <img src="https://i.postimg.cc/bJqQWjv5/photo-2025-03-18-15-14-14.jpg" alt="SCAM кейс" />
+      <img src="https://i.postimg.cc/bJqQWjv5/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс" />
       <strong>SCAM кейс от AMERIO.BET</strong>
       <p>Хронология и пруфы</p>
     </a>
   </div>
   <h2 class="section-title">КОМАНДА</h2>
-  <div class="grid">
-    <a class="card" href="https://t.me/Evgenii_Limited" target="_blank">
-      <img src="https://i.postimg.cc/yN5SkL2P/3.webp" alt="Evgenii" />
-      <strong>Evgenii Limited</strong>
-      <p>Co-owner</p>
-    </a>
-    <a class="card" href="https://t.me/t_limited" target="_blank">
-      <img src="https://i.postimg.cc/KjgCWLjQ/4.webp" alt="Tikhon" />
-      <strong>Tikhon Limited</strong>
-      <p>Co-owner</p>
-    </a>
+  <div class="team-carousel">
+    <ul class="team-list">
+      <li class="team-item">
+        <a href="https://t.me/Evgenii_Limited" target="_blank">
+          <img src="https://i.postimg.cc/yN5SkL2P/3.webp" alt="Evgenii" />
+          <strong>Evgenii Limited</strong>
+          <p>Co-owner</p>
+        </a>
+      </li>
+      <li class="team-item">
+        <a href="https://t.me/t_limited" target="_blank">
+          <img src="https://i.postimg.cc/KjgCWLjQ/4.webp" alt="Tikhon" />
+          <strong>Tikhon Limited</strong>
+          <p>Co-owner</p>
+        </a>
+      </li>
+    </ul>
   </div>
 </section>
 
@@ -139,7 +166,7 @@
   <h2 class="section-title">СТАТЬИ</h2>
   <div class="grid">
     <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-04-09" target="_blank">
-      <img src="https://i.postimg.cc/hjQFNVwD/photo-2025-04-14-20-01-19.jpg" alt="Статья" />
+      <img src="https://i.postimg.cc/hjQFNVwD/photo-2025-05-14-20-01-19.jpg" alt="Статья" />
       <strong>Как поднять качество трафика в гемблинге</strong>
       <p>Несколько практических механик</p>
     </a>
@@ -149,13 +176,13 @@
 <section id="cases" class="section">
   <h2 class="section-title">КЕЙСЫ</h2>
   <div class="grid">
-    <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-asio-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank">
-      <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-14-14-47.jpg" alt="Гемблинг кейс" />
+    <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank">
+      <img src="https://i.postimg.cc/brDKmbDc/photo-2024-12-11-11-14-47.jpg" alt="Гемблинг кейс" />
       <strong>Гемблинг кейс: $130 000+</strong>
       <p>ROI более 1000%</p>
     </a>
     <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank">
-      <img src="https://i.postimg.cc/bJqQWjv5/photo-2025-03-18-15-14-14.jpg" alt="SCAM кейс" />
+      <img src="https://i.postimg.cc/bJqQWjv5/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс" />
       <strong>SCAM кейс от AMERIO.BET</strong>
       <p>Хронология и пруфы</p>
     </a>
@@ -165,12 +192,12 @@
 <section id="vacancies" class="section">
   <h2 class="section-title">ВАКАНСИИ</h2>
   <div class="grid">
-    <a class="card" href="https:/" target="_blank">
+    <a class="card" href="https://t.me/zakacreator" target="_blank">
       <img src="https://i.postimg.cc/0jKkFPPv/photo-2024-12-08-14-33-32.jpg" alt="Вакансия Трафик менеджер" />
       <strong>smm</strong>
       <p>Опыт работы от 1 года</p>
     </a>
-    <a class="card" href="https:/" target="_blank">
+    <a class="card" href="https://t.me/palliser" target="_blank">
       <img src="https://i.postimg.cc/HLVt8kXm/photo-2024-12-07-19-00-44.jpg" alt="Вакансия Senior PM" />
       <strong>smm</strong>
       <p>Опыт работы от 1 года</p>
@@ -244,7 +271,7 @@
   });
 
   // Лог кликов по карточкам
-  document.querySelectorAll('.card').forEach(card => {
+  document.querySelectorAll('.card, .team-item a').forEach(card => {
     card.addEventListener('click', () => {
       const title = card.querySelector('strong')?.innerText || 'Unknown';
       trackEvent('card_click', { title });
