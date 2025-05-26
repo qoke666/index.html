@@ -199,10 +199,17 @@
     white-space: nowrap;
     scroll-behavior: smooth;
     touch-action: pan-x;
-    -webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: auto;
     width: 100%;
     box-sizing: border-box;
-  }
+    cursor: grab;
+}
+.team-list:hover {
+    cursor: grab;
+}
+.team-list:active {
+    cursor: grabbing;
+}
   .team-list::-webkit-scrollbar { display: none; }
   .team-item {
     flex: 0 0 160px;
@@ -501,6 +508,33 @@
     currentSlide = (currentSlide + 1) % slides.length;
     showSlide(currentSlide);
   }, 5000);
+// Поддержка прокрутки мышью для .team-list
+const teamList = document.querySelector('.team-list');
+let isDown = false;
+let startX;
+let scrollLeft;
+
+teamList.addEventListener('mousedown', (e) => {
+    isDown = true;
+    teamList.classList.add('active');
+    startX = e.pageX - teamList.offsetLeft;
+    scrollLeft = teamList.scrollLeft;
+});
+teamList.addEventListener('mouseleave', () => {
+    isDown = false;
+    teamList.classList.remove('active');
+});
+teamList.addEventListener('mouseup', () => {
+    isDown = false;
+    teamList.classList.remove('active');
+});
+teamList.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - teamList.offsetLeft;
+    const walk = (x - startX) * 2; // Ускорение прокрутки
+    teamList.scrollLeft = scrollLeft - walk;
+});
 </script>
 </body>
 </html>
