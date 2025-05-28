@@ -199,7 +199,7 @@
     white-space: nowrap;
     scroll-behavior: smooth;
     touch-action: pan-x;
-    -webkit-overflow-scrolling: auto;
+    -webkit-overflow-scrolling: touch;
     width: 100%;
     box-sizing: border-box;
 }
@@ -501,12 +501,14 @@
     currentSlide = (currentSlide + 1) % slides.length;
     showSlide(currentSlide);
   }, 5000);
-// Прокрутка меню и team-list колёсиком мыши на ПК
+// Прокрутка меню и team-list колёсиком мыши и тачпадом
 const scrollableLists = document.querySelectorAll('.menu ul, .team-list');
 scrollableLists.forEach(list => {
     list.addEventListener('wheel', (e) => {
         e.preventDefault();
-        list.scrollLeft += e.deltaY * 2.5; // Плавная горизонтальная прокрутка
+        // Учитываем как deltaY (колёсико), так и deltaX (тачпад)
+        const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+        list.scrollLeft += delta * 2.5; // Плавная горизонтальная прокрутка
     });
 });
 </script>
