@@ -467,18 +467,35 @@
 </section>
 
 <section id="team" class="section">
-  <h2 class="section-title"></h2>
-  <div class="grid">
-    <a class="card" href="https://t.me" target="_blank">
-      <img src="https://i.postimg.cc/qByJ6vKr/6906191.webp" alt="Evgenii" />
-      <strong>????</strong>
-      <p>?????</p>
-    </a>
-    <a class="card" href="https://t.me/" target="_blank">
-      <img src="https://i.postimg.cc/qByJ6vKr/6906191.webp" alt="Tikhon" />
-      <strong>??????</strong>
-      <p>??????</p>
-    </a>
+  <h2 class="section-title">Подарки</h2>
+
+  <!-- Кнопка для попытки выиграть -->
+  <div style="text-align: center; margin: 24px 0;">
+    <button id="gift-button" 
+            style="
+              padding: 12px 24px;
+              background: #d5fd02;
+              color: #080808;
+              border: none;
+              border-radius: 8px;
+              font-weight: 600;
+              font-size: 16px;
+              cursor: pointer;
+              transition: background .3s;
+            ">
+      Попробовать выиграть подарок
+    </button>
+  </div>
+
+  <!-- Блок для вывода результата -->
+  <div id="gift-result" 
+       style="
+         text-align: center; 
+         margin-top: 16px; 
+         font-size: 16px; 
+         color: #ffffff;
+       ">
+    <!-- сюда JS будет выводить текст, например: «Вы выиграли Подарок A» или «К сожалению, не повезло» -->
   </div>
 </section>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
