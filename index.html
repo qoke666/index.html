@@ -546,101 +546,189 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
   // Инициализация Telegram WebApp
-  const tg = window.Telegram.WebApp;
-  tg.expand();
+const tg = window.Telegram.WebApp;
+tg.expand();
 
-  // Получение данных пользователя с проверкой
-  let user_id = null, username = null, first_name = null, last_name = null;
-  if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-    ({ id: user_id, username, first_name, last_name } = tg.initDataUnsafe.user);
+// Получение данных пользователя с проверкой
+let user_id = null, username = null, first_name = null, last_name = null;
+if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+  ({ id: user_id, username, first_name, last_name } = tg.initDataUnsafe.user);
+}
+
+// URL для Google Apps Script
+const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwT_EzBxK32ogoNIIXF2DBMfPMxwERkyATYY7W6sh7pJj5ebWJjwb_By53PXZW6wNbjYg/exec'; // Замените на URL из Apps Script
+const GIFT_API_URL = SHEET_ENDPOINT;
+
+// Функция отправки логов
+function sendToSheet(data) {
+  fetch(SHEET_ENDPOINT, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+}
+
+// Функция отслеживания событий
+function trackEvent(eventName, additional = {}) {
+  sendToSheet({
+    event: eventName,
+    user_id,
+    username,
+    first_name,
+    last_name,
+    url: window.location.href,
+    userAgent: navigator.userAgent,
+    additional
+  });
+}
+
+// Лог открытия Web App
+trackEvent('webapp_open');
+
+// Лог переключения разделов меню
+document.querySelectorAll('.menu-item').forEach(item => {
+  item.addEventListener('click', () => {
+    trackEvent('nav_click', { section: item.dataset.section });
+  });
+});
+
+// Лог кликов по карточкам
+document.querySelectorAll('.card, .team-item a').forEach(card => {
+  card.addEventListener('click', () => {
+    const title = card.querySelector('strong')?.innerText || 'Unknown';
+    trackEvent('card_click', { title });
+  });
+});
+
+// Лог кликов по карусели
+document.querySelectorAll('.carousel a').forEach(slide => {
+  slide.addEventListener('click', () => {
+    const alt = slide.querySelector('img')?.getAttribute('alt') || 'Unknown';
+    trackEvent('carousel_click', { slide: alt });
+  });
+});
+
+// Лог кликов по точкам карусели
+document.querySelectorAll('.carousel-dots .dot').forEach((dot, i) => {
+  dot.addEventListener('click', () => {
+    trackEvent('carousel_dot_click', { slideIndex: i });
+  });
+});
+
+// Переключение секций
+const items = document.querySelectorAll('.menu-item');
+const sections = document.querySelectorAll('.section');
+function showSection(sectionId) {
+  sections.forEach(sec => sec.classList.toggle('active', sec.id === sectionId));
+  items.forEach(item => item.classList.toggle('active', item.dataset.section === sectionId));
+  window.scrollTo(0, 0);
+}
+items.forEach(item => item.addEventListener('click', () => {
+  showSection(item.dataset.section);
+  if (item.dataset.section === 'gifts') {
+    loadGiftHistory();
   }
+}));
 
-  // URL для Google Apps Script
-  const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbym5K9nbbAUhi6hPBkLsU3k6W99E5a2VWJyALWXqXOtstG1Wna35R-XPiX0tJABxnlg/exec';
+// Управление каруселью
+const slides = document.querySelectorAll('.carousel a');
+const dots = document.querySelectorAll('.carousel-dots .dot');
+let currentSlide = 0;
+function showSlide(index) {
+  slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+  dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+}
+dots.forEach((dot, i) => dot.addEventListener('click', () => {
+  currentSlide = i;
+  showSlide(i);
+}));
+setInterval(() => {
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide(currentSlide);
+}, 5000);
 
-  // Функция отправки логов
-  function sendToSheet(data) {
-    fetch(SHEET_ENDPOINT, {
+// Логика подарков
+const giftButton = document.querySelector('.gift-button');
+const giftResult = document.querySelector('.gift-result');
+const giftMessage = document.querySelector('.gift-message');
+const giftDetails = document.querySelector('.gift-details');
+const giftName = document.querySelector('.gift-name');
+const giftDescription = document.querySelector('.gift-description');
+const giftHistoryList = document.querySelector('.gift-history');
+
+if (giftButton) {
+  giftButton.addEventListener('click', () => {
+    giftButton.disabled = true;
+    giftMessage.textContent = 'Проверяем...';
+    giftResult.style.display = 'block';
+    giftDetails.style.display = 'none';
+
+    fetch(GIFT_API_URL, {
       method: 'POST',
-      mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-  }
+      body: JSON.stringify({
+        action: 'checkGift',
+        user_id,
+        username
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        giftMessage.textContent = data.message;
+        if (data.success && data.gift) {
+          giftDetails.style.display = 'block';
+          giftName.textContent = data.gift.name;
+          giftDescription.textContent = data.gift.description;
+          trackEvent('receive_gift', { gift: data.gift.name });
+        } else {
+          trackEvent('check_gift', { result: 'no_gift' });
+        }
+        loadGiftHistory();
+        setTimeout(() => { giftButton.disabled = false; }, 2000);
+      })
+      .catch(error => {
+        giftMessage.textContent = 'Ошибка, попробуйте позже';
+        giftButton.disabled = false;
+        console.error(error);
+      });
+  });
+}
 
-  // Функция отслеживания событий
-  function trackEvent(eventName, additional = {}) {
-    sendToSheet({
-      event: eventName,
+function loadGiftHistory() {
+  if (!giftHistoryList) return;
+  fetch(GIFT_API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      action: 'getGiftHistory',
       user_id,
-      username,
-      first_name,
-      last_name,
-      url: window.location.href,
-      userAgent: navigator.userAgent,
-      additional
+      username
+    })
+  })
+    .then(response => response.json())
+    .then(data => {
+      giftHistoryList.innerHTML = '';
+      if (data.success && data.history.length) {
+        data.history.forEach(item => {
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>${item.gift}</strong><p>${new Date(item.date).toLocaleDateString('ru-RU')}</p>`;
+          giftHistoryList.appendChild(li);
+        });
+      } else {
+        giftHistoryList.innerHTML = '<li><p>Нет полученных подарков</p></li>';
+      }
+    })
+    .catch(error => {
+      giftHistoryList.innerHTML = '<li><p>Ошибка загрузки истории</p></li>';
+      console.error(error);
     });
-  }
+}
 
-  // Лог открытия Web App
-  trackEvent('webapp_open');
-
-  // Лог переключения разделов меню
-  document.querySelectorAll('.menu-item').forEach(item => {
-    item.addEventListener('click', () => {
-      trackEvent('nav_click', { section: item.dataset.section });
-    });
-  });
-
-  // Лог кликов по карточкам
-  document.querySelectorAll('.card, .team-item a').forEach(card => {
-    card.addEventListener('click', () => {
-      const title = card.querySelector('strong')?.innerText || 'Unknown';
-      trackEvent('card_click', { title });
-    });
-  });
-
-  // Лог кликов по карусели
-  document.querySelectorAll('.carousel a').forEach(slide => {
-    slide.addEventListener('click', () => {
-      const alt = slide.querySelector('img')?.getAttribute('alt') || 'Unknown';
-      trackEvent('carousel_click', { slide: alt });
-    });
-  });
-
-  // Лог кликов по точкам карусели
-  document.querySelectorAll('.carousel-dots .dot').forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      trackEvent('carousel_dot_click', { slideIndex: i });
-    });
-  });
-
-  // Переключение секций
-  const items = document.querySelectorAll('.menu-item');
-  const sections = document.querySelectorAll('.section');
-  function showSection(sectionId) {
-    sections.forEach(sec => sec.classList.toggle('active', sec.id === sectionId));
-    items.forEach(item => item.classList.toggle('active', item.dataset.section === sectionId));
-    window.scrollTo(0, 0);
-  }
-  items.forEach(item => item.addEventListener('click', () => showSection(item.dataset.section)));
-
-  // Управление каруселью
-  const slides = document.querySelectorAll('.carousel a');
-  const dots = document.querySelectorAll('.carousel-dots .dot');
-  let currentSlide = 0;
-  function showSlide(index) {
-    slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
-    dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
-  }
-  dots.forEach((dot, i) => dot.addEventListener('click', () => {
-    currentSlide = i;
-    showSlide(i);
-  }));
-  setInterval(() => {
-    currentSlide = (currentSlide + 1) % slides.length;
-    showSlide(currentSlide);
-  }, 5000);
+// Загружаем историю при открытии раздела
+if (document.querySelector('.menu-item.active')?.dataset.section === 'gifts') {
+  loadGiftHistory();
+}
 // Прокрутка меню, team-list и actual-list колёсиком мыши и тачпадом
 const scrollableLists = document.querySelectorAll('.menu ul, .team-list, .actual-list');
 scrollableLists.forEach(list => {
