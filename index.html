@@ -256,6 +256,13 @@
 .actual-item .card {
     border-radius: 12px; /* Закругление углов */
     overflow: hidden; /* Убедимся, что углы не обрезаются */
+    display: block; /* Убедимся, что карточка занимает всю ширину */
+}
+.actual-item .card img {
+    border-radius: 12px 12px 0 0; /* Закругление только верхних углов изображения */
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
 }
 </style>
 </head>
