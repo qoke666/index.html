@@ -545,7 +545,7 @@
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-  // Инициализация Telegram WebApp
+// Инициализация Telegram WebApp
 const tg = window.Telegram.WebApp;
 tg.expand();
 
@@ -556,17 +556,25 @@ if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
 }
 
 // URL для Google Apps Script
-const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwT_EzBxK32ogoNIIXF2DBMfPMxwERkyATYY7W6sh7pJj5ebWJjwb_By53PXZW6wNbjYg/exec'; // Замените на URL из Apps Script
-const GIFT_API_URL = SHEET_ENDPOINT;
+const SHEET_ENDPOINT = 'YOUR_APPS_SCRIPT_URL'; // Замените на новый URL из Apps Script
+const GIFT_API_URL = https://script.google.com/macros/s/AKfycbwT_EzBxK32ogoNIIXF2DBMfPMxwERkyATYY7W6sh7pJj5ebWJjwb_By53PXZW6wNbjYg/exec ;
 
 // Функция отправки логов
 function sendToSheet(data) {
-  fetch(SHEET_ENDPOINT, {
+  console.log('Sending analytics:', data); // Отладка
+  return fetch(SHEET_ENDPOINT, {
     method: 'POST',
-    mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  });
+  })
+    .then(response => {
+      console.log('Analytics response:', response.status); // Отладка
+      return response.json();
+    })
+    .catch(error => {
+      console.error('Analytics error:', error);
+      throw error;
+    });
 }
 
 // Функция отслеживания событий
@@ -580,7 +588,7 @@ function trackEvent(eventName, additional = {}) {
     url: window.location.href,
     userAgent: navigator.userAgent,
     additional
-  });
+  }).catch(() => {}); // Игнорируем ошибки, чтобы не ломать UI
 }
 
 // Лог открытия Web App
@@ -664,6 +672,7 @@ if (giftButton) {
     giftResult.style.display = 'block';
     giftDetails.style.display = 'none';
 
+    console.log('Sending gift request:', { action: 'checkGift', user_id, username }); // Отладка
     fetch(GIFT_API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -673,9 +682,13 @@ if (giftButton) {
         username
       })
     })
-      .then(response => response.json())
+      .then(response => {
+        console.log('Gift response:', response.status); // Отладка
+        return response.json();
+      })
       .then(data => {
-        giftMessage.textContent = data.message;
+        console.log('Gift data:', data); // Отладка
+        giftMessage.textContent = data.message || 'Ошибка: нет сообщения';
         if (data.success && data.gift) {
           giftDetails.style.display = 'block';
           giftName.textContent = data.gift.name;
@@ -690,13 +703,14 @@ if (giftButton) {
       .catch(error => {
         giftMessage.textContent = 'Ошибка, попробуйте позже';
         giftButton.disabled = false;
-        console.error(error);
+        console.error('Gift error:', error);
       });
   });
 }
 
 function loadGiftHistory() {
   if (!giftHistoryList) return;
+  console.log('Sending history request:', { action: 'getGiftHistory', user_id, username }); // Отладка
   fetch(GIFT_API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -706,10 +720,14 @@ function loadGiftHistory() {
       username
     })
   })
-    .then(response => response.json())
+    .then(response => {
+      console.log('History response:', response.status); // Отладка
+      return response.json();
+    })
     .then(data => {
+      console.log('History data:', data); // Отладка
       giftHistoryList.innerHTML = '';
-      if (data.success && data.history.length) {
+      if (data.success && data.history && data.history.length) {
         data.history.forEach(item => {
           const li = document.createElement('li');
           li.innerHTML = `<strong>${item.gift}</strong><p>${new Date(item.date).toLocaleDateString('ru-RU')}</p>`;
@@ -721,7 +739,7 @@ function loadGiftHistory() {
     })
     .catch(error => {
       giftHistoryList.innerHTML = '<li><p>Ошибка загрузки истории</p></li>';
-      console.error(error);
+      console.error('Gift history error:', error);
     });
 }
 
@@ -729,6 +747,16 @@ function loadGiftHistory() {
 if (document.querySelector('.menu-item.active')?.dataset.section === 'gifts') {
   loadGiftHistory();
 }
+
+// Прокрутка меню, team-list и actual-list
+const scrollableLists = document.querySelectorAll('.menu ul, .team-list, .actual-list');
+scrollableLists.forEach(list => {
+  list.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    list.scrollLeft += delta * 2.5;
+  });
+});
 // Прокрутка меню, team-list и actual-list колёсиком мыши и тачпадом
 const scrollableLists = document.querySelectorAll('.menu ul, .team-list, .actual-list');
 scrollableLists.forEach(list => {
