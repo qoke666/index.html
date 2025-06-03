@@ -264,6 +264,67 @@
     height: 120px;
     object-fit: cover;
 }
+.gifts-container {
+  max-width: 100%;
+  text-align: center;
+}
+.gift-button {
+  background: #d5fd02;
+  color: #080808;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.gift-button:hover {
+  background: #b8e002;
+}
+.gift-result {
+  margin-top: 16px;
+  padding: 12px;
+  background: #111315;
+  border-radius: 12px;
+  border: 1px solid #222;
+}
+.gift-message {
+  font-size: 16px;
+  color: #ffffff;
+  margin: 0;
+}
+.gift-details {
+  margin-top: 8px;
+}
+.gift-name {
+  font-size: 16px;
+  color: #d5fd02;
+}
+.gift-description {
+  font-size: 14px;
+  color: #bbb;
+}
+.gift-history {
+  list-style: none;
+  padding: 0;
+  margin-top: 16px;
+}
+.gift-history li {
+  background: #111315;
+  border: 1px solid #222;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+.gift-history li p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #bbb;
+}
+.gift-history li strong {
+  color: #ffffff;
+}
 </style>
 </head>
 <body>
@@ -296,7 +357,7 @@
     <li class="menu-item" data-section="articles">Статьи</li>
     <li class="menu-item" data-section="cases">Кейсы</li>
     <li class="menu-item" data-section="vacancies">Вакансии</li>
-    <li class="menu-item" data-section="team">В РАЗРАБОТКЕ</li>
+    <li class="menu-item" data-section="gifts">Подарки</li>
   </ul>
 </nav>
 
@@ -466,19 +527,19 @@
   </div>
 </section>
 
-<section id="team" class="section">
-  <h2 class="section-title"></h2>
-  <div class="grid">
-    <a class="card" href="https://t.me" target="_blank">
-      <img src="https://i.postimg.cc/qByJ6vKr/6906191.webp" alt="Evgenii" />
-      <strong>????</strong>
-      <p>?????</p>
-    </a>
-    <a class="card" href="https://t.me/" target="_blank">
-      <img src="https://i.postimg.cc/qByJ6vKr/6906191.webp" alt="Tikhon" />
-      <strong>??????</strong>
-      <p>??????</p>
-    </a>
+<section id="gifts" class="section">
+  <h2 class="section-title">ПОДАРКИ</h2>
+  <div class="gifts-container">
+    <button class="gift-button">Проверить подарок</button>
+    <div class="gift-result" style="display: none;">
+      <p class="gift-message"></p>
+      <div class="gift-details" style="display: none;">
+        <strong class="gift-name"></strong>
+        <p class="gift-description"></p>
+      </div>
+    </div>
+    <h3 class="section-title" style="font-size: 18px; margin-top: 24px;">История подарков</h3>
+    <ul class="gift-history"></ul>
   </div>
 </section>
 
