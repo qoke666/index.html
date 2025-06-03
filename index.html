@@ -296,7 +296,6 @@
     <li class="menu-item" data-section="articles">Статьи</li>
     <li class="menu-item" data-section="cases">Кейсы</li>
     <li class="menu-item" data-section="vacancies">Вакансии</li>
-    <li class="menu-item" data-section="team">В РАЗРАБОТКЕ</li>
   </ul>
 </nav>
 
@@ -465,95 +464,6 @@
     </a>
   </div>
 </section>
-
-<!-- Обновлённый раздел «Подарки» с кнопкой, графиком и офферами -->
-<section id="team" class="section">
-  <h2 class="section-title">Подарки и Полезная Информация</h2>
-
-  <!-- 1. Кнопка «Попробовать выиграть подарок» -->
-  <div style="text-align: center; margin: 16px 0;">
-    <button id="gift-button"
-            style="
-              padding: 12px 24px;
-              background: #d5fd02;
-              color: #080808;
-              border: none;
-              border-radius: 8px;
-              font-weight: 600;
-              font-size: 16px;
-              cursor: pointer;
-              transition: background .3s;
-            ">
-      Попробовать выиграть подарок
-    </button>
-  </div>
-  <div id="gift-result"
-       style="
-         text-align: center;
-         margin-bottom: 32px;
-         font-size: 16px;
-         color: #ffffff;
-       ">
-    <!-- Результат попадёт сюда (через JS) -->
-  </div>
-
-  <!-- 2. Блок «Курсы валют» -->
-  <div style="background: #111315; padding: 16px; border-radius: 12px; margin-bottom: 32px;">
-    <h3 style="color: #d5fd02; margin-bottom: 12px; font-size: 20px;">Курсы валют</h3>
-    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-      <label for="currency-select" style="color: #fff; font-size: 14px;">Выберите валюту:</label>
-      <select id="currency-select"
-              style="
-                padding: 6px 12px;
-                background: #222;
-                color: #fff;
-                border: 1px solid #444;
-                border-radius: 6px;
-                font-size: 14px;
-                cursor: pointer;
-              ">
-        <option value="USD">USD</option>
-        <option value="EUR">EUR</option>
-        <option value="GBP">GBP</option>
-        <option value="RUB">RUB</option>
-        <option value="CNY">CNY</option>
-      </select>
-    </div>
-    <canvas id="currency-chart" height="200" style="width: 100%;"></canvas>
-  </div>
-
-  <!-- 3. Блок «Офферы недели» -->
-  <div style="margin-bottom: 16px;">
-    <h3 style="color: #d5fd02; margin-bottom: 12px; font-size: 20px;">Офферы недели</h3>
-    <div class="grid">
-      <!-- Оффер 1 -->
-      <a class="card" href="https://offer1.example.com" target="_blank">
-        <img src="https://i.postimg.cc/placeholder-offer1.jpg" alt="Оффер 1" />
-        <div class="text-overlay">
-          <strong>Оффер 1: 100 % приветственный бонус</strong>
-          <p>Получите до $200 на первый депозит</p>
-        </div>
-      </a>
-      <!-- Оффер 2 -->
-      <a class="card" href="https://offer2.example.com" target="_blank">
-        <img src="https://i.postimg.cc/placeholder-offer2.jpg" alt="Оффер 2" />
-        <div class="text-overlay">
-          <strong>Оффер 2: 50 % кешбэк</strong>
-          <p>Возврат до $50 каждую неделю</p>
-        </div>
-      </a>
-      <!-- Оффер 3 -->
-      <a class="card" href="https://offer3.example.com" target="_blank">
-        <img src="https://i.postimg.cc/placeholder-offer3.jpg" alt="Оффер 3" />
-        <div class="text-overlay">
-          <strong>Оффер 3: VIP-программа</strong>
-          <p>Персональный менеджер и закрытые акции</p>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
