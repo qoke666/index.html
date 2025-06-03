@@ -229,8 +229,7 @@
     font-size: 12px; 
     color: #bbb; 
     margin: 0; 
-  }
-  .actual-list-container {
+ .actual-list-container {
     margin: 16px 0;
     max-width: 100%;
     overflow: hidden;
@@ -252,6 +251,10 @@
 }
 .actual-item {
     flex: 0 0 160px;
+}
+.actual-item .card {
+    border-radius: 12px; /* Восстанавливаем закругление углов */
+    overflow: hidden; /* Убедимся, что углы не обрезаются */
 }
 </style>
 </head>
