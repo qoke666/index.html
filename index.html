@@ -636,7 +636,7 @@ if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
 }
 
 const session_id = generateUUID();
-const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxm5EL306NS2zODtWC4BzsV7yj8F_qj_47YmwknE_CzPDLuNBKeMqfhhoiNh6Bv8sSj7Q/exec';
+const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxm5EL306NS2zODtWC4BzsV7yj8F_qj_47YmwknE_CzPDLuNBKeMqfhhoiNh6Bv8sSj7Q/exec'; // Замени на URL из Google Apps Script
 const device = navigator.userAgent.includes('Mobile') ? 'mobile' : 'desktop';
 const screen_resolution = `${window.screen.width}x${window.screen.height}`;
 let eventQueue = [];
@@ -655,14 +655,13 @@ function sendToSheet(data) {
     additional: data.additional || {},
     timestamp: new Date().toISOString()
   };
-  console.log('Adding to eventQueue:', eventData); // Отладка
+  console.log('Adding to eventQueue:', eventData);
   eventQueue.push(eventData);
 }
 
 function flushEventQueue() {
   if (!eventQueue.length) return;
   const batch = eventQueue.splice(0, eventQueue.length);
-  console.log('Sending batch:', batch); // Отладка
   fetch(SHEET_ENDPOINT, {
     method: 'POST',
     mode: 'no-cors',
@@ -673,7 +672,6 @@ function flushEventQueue() {
   });
 }
 
-// Отправка событий каждые 5 секунд
 setInterval(flushEventQueue, 5000);
 
 // Начало сессии
@@ -744,15 +742,6 @@ function trackFormEvents(form) {
         additional: { field: field.name || field.placeholder, value_length: field.value.length, form: form.className }
       });
     });
-  });
-  form.addEventListener('submit', e => {
-    if (!form.checkValidity()) {
-      sendToSheet({
-        event: 'form_error',
-        additional: { form: form.className }
-      });
-      e.preventDefault();
-    }
   });
 }
 
@@ -837,7 +826,7 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
             </select>
             <label>Каков средний спенд и профит команды в месяц за последние полгода?</label>
             <textarea name="spend_profit" placeholder="Опишите спенд и профит" required></textarea>
-            <label>Почему вы решили привлечь инвестиции в свою команду?</label>
+            <label>Почему вы решили привлечь инвестиции в вашу команду?</label>
             <textarea name="investment_reason" placeholder="Опишите причину" required></textarea>
           `;
         } else if (position === 'Тимлид' || position === 'Медиабаер') {
@@ -846,7 +835,7 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
             <input type="text" name="name" placeholder="Ваше имя" required>
             <label>В каком городе ты живёшь?</label>
             <input type="text" name="city" placeholder="Город" required>
-            <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
+            <label>Каков твой опыт?</label>
             <select name="experience" required>
               <option value="" disabled selected>Выберите опыт</option>
               <option value="3+ года">3+ года</option>
@@ -870,12 +859,12 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
               <option value="$5 000-$10 000">$5 000-$10 000</option>
               <option value="$10 000-$20 000">$10 000-$20 000</option>
             </select>
-            <label>Расскажи о своём последнем опыте на схожей позиции: с какими продуктами и ГЕО работал, какие %ROI получал?</label>
-            <textarea name="last_experience" placeholder="Оформленный и приложенный к заявке кейс или резюме будет плюсом ✌️" required></textarea>
+            <label>Расскажи о последнем опыте: продукты, ГЕО, %ROI?</label>
+            <textarea name="last_experience" placeholder="Оформленный кейс или резюме — плюс ✌️" required></textarea>
           `;
         } else {
           return `
-            <label>На какой позиции находишься сейчас?</label>
+            <label>На какой позиции ты сейчас?</label>
             <select name="position" required>
               <option value="" disabled selected>Выберите позицию</option>
               <option value="Другое">Другое</option>
@@ -887,7 +876,7 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
             <input type="text" name="name" placeholder="Ваше имя" required>
             <label>В каком городе ты живёшь?</label>
             <input type="text" name="city" placeholder="Город" required>
-            <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
+            <label>Каков твой опыт?</label>
             <select name="experience" required>
               <option value="" disabled selected>Выберите опыт</option>
               <option value="3+ года">3+ года</option>
@@ -911,17 +900,17 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
               <option value="$5 000-$10 000">$5 000-$10 000</option>
               <option value="$10 000-$20 000">$10 000-$20 000</option>
             </select>
-            <label>Расскажи о своём последнем опыте на схожей позиции: с какими продуктами и ГЕО работал, какие %ROI получал?</label>
-            <textarea name="last_experience" placeholder="Оформленный и приложенный к заявке кейс или резюме будет плюсом ✌️" required></textarea>
+            <label>Расскажи о последнем опыте: продукты, ГЕО, %ROI?</label>
+            <textarea name="last_experience" placeholder="Оформленный кейс или резюме — плюс ✌️" required></textarea>
           `;
         }
       } else {
         return `
           <input type="text" name="name" placeholder="Как тебя зовут?" required>
           <input type="text" name="city" placeholder="В каком городе ты живёшь?" required>
-          <textarea name="experience" placeholder="Расскажи о своём опыте на схожих позициях в прошлом" required></textarea>
+          <textarea name="experience" placeholder="Расскажи о своём опыте на схожих позициях" required></textarea>
           <input type="url" name="resume" placeholder="Ссылка на резюме (если есть)">
-          <p style="font-size: 12px; color: #bbb;">Если есть сформулированное резюме — приложи ссылкой, это будет плюсом при оценке твоей заявки.</p>
+          <p style="font-size: 12px; color: #bbb;">Резюме — плюс при оценке заявки.</p>
         `;
       }
     };
@@ -943,7 +932,7 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
       positionSelect.addEventListener('change', () => {
         sendToSheet({
           event: 'form_change',
-          additional: { id: 'position', title: positionSelect.value }
+          additional: { field: 'position', value: positionSelect.value }
         });
         const newFormContent = renderForm(positionSelect.value);
         const form = modal.querySelector('.apply-form');
@@ -956,87 +945,62 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
       });
     }
 
-    trackFormEvents(modal.querySelector('.apply-form'));
+    const form = modal.querySelector('.apply-form');
+    trackFormEvents(form);
 
-    modal.querySelector('.close-button').addEventListener('click', () => {
-      sendToSheet({
-        event: 'modal_close',
-        additional: { id: vacancyId, title: data.title }
-      });
-      modal.remove();
-    });
-
-    modal.querySelector('.apply-form').addEventListener('submit', e => {
+    form.addEventListener('submit', e => {
       e.preventDefault();
-      if (!modal.querySelector('.apply-form').checkValidity()) {
+      if (!form.checkValidity()) {
+        form.reportValidity();
         sendToSheet({
           event: 'form_error',
-          additional: { id: 'apply-form', title: 'Validation failed' }
+          additional: { id: vacancyId, title: 'Validation failed' }
         });
         return;
       }
-      const inputs = modal.querySelectorAll('input, textarea, select');
-      let formData = {
-        event: 'vacancy_apply',
-        additional: { id: vacancyId, title: data.title }
-      };
-
-      if (vacancyId === 'tlc_promo') {
-        const position = inputs[0].name === 'position' ? inputs[0].value : 'Владелец команды';
-        if (position === 'Владелец команды') {
-          formData.additional = {
-            ...formData.additional,
-            position: 'Владелец команды',
-            experience: inputs[0].value,
-            source: inputs[1].value,
-            team_size: inputs[2].value,
-            spend_profit: inputs[3].value,
-            investment_reason: inputs[4].value
-          };
-        } else if (position === 'Тимлид' || position === 'Медиабаер') {
-          formData.additional = {
-            ...formData.additional,
-            position,
-            name: inputs[0].value,
-            city: inputs[1].value,
-            experience: inputs[2].value,
-            source: inputs[3].value,
-            budget: inputs[4].value,
-            last_experience: inputs[5].value
-          };
-        } else {
-          formData.additional = {
-            ...formData.additional,
-            position: inputs[0].value,
-            name: inputs[1].value,
-            city: inputs[2].value,
-            experience: inputs[3].value,
-            source: inputs[4].value,
-            budget: inputs[5].value,
-            last_experience: inputs[6].value
-          };
-        }
-      } else {
-        formData.additional = {
-          ...formData.additional,
-          name: inputs[0].value,
-          city: inputs[1].value,
-          experience: inputs[2].value,
-          resume: inputs[3].value || ''
-        };
+      const formData = new FormData(form);
+      const additional = { id: vacancyId, title: data.title };
+      for (let [key, value] of formData.entries()) {
+        additional[key] = value;
       }
-
-      sendToSheet(formData);
-      flushEventQueue();
-      tg.showPopup({
-        title: 'Успех!',
-        message: 'Ваш отклик отправлен!',
-        buttons: [{ type: 'ok' }]
+      sendToSheet({
+        event: 'vacancy_apply',
+        additional
       });
+      flushEventQueue();
       modal.remove();
+      tg.showPopup({ title: 'Успех', message: 'Ваш отклик отправлен!' });
     });
+
+    modal.querySelector('.close-button').addEventListener('click', () => modal.remove());
   });
 });
+
+// Карусель
+const carouselSlides = document.querySelectorAll('.carousel a');
+const carouselDots = document.querySelectorAll('.carousel-dots .dot');
+let currentSlide = 0;
+
+function showSlide(index) {
+  carouselSlides.forEach((slide, i) => {
+    slide.classList.toggle('active', i === index);
+  });
+  carouselDots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === index);
+  });
+}
+
+carouselDots.forEach((dot, i) => {
+  dot.addEventListener('click', () => {
+    currentSlide = i;
+    showSlide(i);
+  });
+});
+
+setInterval(() => {
+  currentSlide = (currentSlide + 1) % carouselSlides.length;
+  showSlide(currentSlide);
+}, 5000);
 </script>
 </body>
 </html>
