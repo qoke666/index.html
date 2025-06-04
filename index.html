@@ -264,7 +264,6 @@
     height: 120px;
     object-fit: cover;
 }
-  /* Стили для карточек офферов */
   #offers .card {
     padding: 16px;
     display: flex;
@@ -288,7 +287,6 @@
   <img class="logo" src="https://i.postimg.cc/90gRT1n1/Frame-277131232-2.png" alt="TMA Logo" />
 </div>
 
-<!-- Карусель с кликабельными ссылками -->
 <div class="carousel">
   <a href="https://traffnews.com/intervju/kto-takoi-co-owner-kompanii/?utm_source=tg" target="_blank" class="active">
     <img src="https://i.postimg.cc/yNL8QJ8S/owner-02-3.jpg" alt="Тихон" />
@@ -406,7 +404,7 @@
       </li>
       <li class="team-item">
         <a href="https://t.me/Alexandr_limited" target="_blank">
-          <img src="https://i.postimg.cc/yNGHr7n1/5-new.webp" alt="Maria" />
+          <img src="https://i.postimg.cc/yNGHr7n1/ Álvaro5-new.webp" alt="Maria" />
           <strong>Alexander Limited</strong>
           <p>Связь по PR и маркетингу</p>
         </a>
@@ -508,159 +506,17 @@
 </section>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  // Инициализация Telegram WebApp
   const tg = window.Telegram.WebApp;
   tg.expand();
 
-  // Получение данных пользователя с проверкой
   let user_id = null, username = null, first_name = null, last_name = null;
   if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
     ({ id: user_id, username, first_name, last_name } = tg.initDataUnsafe.user);
   }
 
-  // URL для Google Apps Script (замените на свой)
   const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxm5EL306NS2zODtWC4BzsV7yj8F_qj_47YmwknE_CzPDLuNBKeMqfhhoiNh6Bv8sSj7Q/exec';
 
-  // ─────────── БЛОК: ЛОГИКА ЕЖЕНЕДЕЛЬНОГО ПОДАРКА ───────────
-
-  // 1. Функции для вычисления текущей ISO-недели
-  function getCurrentWeekKey() {
-    const now = new Date();
-    const date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-    const dayOfYear = Math.floor((date - new Date(Date.UTC(date.getUTCFullYear(), 0, 1))) / 86400000) + 1;
-    const jan1 = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
-    const jan1Day = ((jan1.getUTCDay() + 6) % 7) + 1; // 1..7, 1=понедельник
-    let weekNumber = Math.floor((dayOfYear + jan1Day - 1) / 7);
-    let isoYear = date.getUTCFullYear();
-    if (weekNumber < 1) {
-      const dec31Prev = new Date(Date.UTC(isoYear - 1, 11, 31));
-      return getWeekKeyFromDate(dec31Prev);
-    }
-    const weekString = weekNumber < 10 ? '0' + weekNumber : '' + weekNumber;
-    return `${isoYear}-${weekString}`;
-  }
-  function getWeekKeyFromDate(dateObj) {
-    const dayOfYear = Math.floor((dateObj - new Date(Date.UTC(dateObj.getUTCFullYear(), 0, 1))) / 86400000) + 1;
-    const jan1 = new Date(Date.UTC(dateObj.getUTCFullYear(), 0, 1));
-    const jan1Day = ((jan1.getUTCDay() + 6) % 7) + 1;
-    let weekNumber = Math.floor((dayOfYear + jan1Day - 1) / 7);
-    let isoYear = dateObj.getUTCFullYear();
-    if (weekNumber < 1) {
-      const dec31Prev = new Date(Date.UTC(isoYear - 1, 11, 31));
-      return getWeekKeyFromDate(dec31Prev);
-    }
-    const weekString = weekNumber < 10 ? '0' + weekNumber : '' + weekNumber;
-    return `${isoYear}-${weekString}`;
-  }
-
-  // 2. Константы и массив возможных подарков
-  const WEEKLY_GIFT_CHANCE = 0.10; // 10% шанс
-  const GIFTS = ['Подарок A', 'Подарок B', 'Подарок C'];
-
-  // 3. Выбор одного из трёх подарков
-  function getRandomGiftType() {
-    const rnd = Math.random(); // [0;1)
-    if (rnd < 1/3) return GIFTS[0];
-    else if (rnd < 2/3) return GIFTS[1];
-    else return GIFTS[2];
-  }
-
-  // 4. Поп-ап о выигрыше
-  function showGiftPopup(giftType) {
-    const popup = document.createElement('div');
-    popup.style.position = 'fixed';
-    popup.style.top = '50%';
-    popup.style.left = '50%';
-    popup.style.transform = 'translate(-50%, -50%)';
-    popup.style.background = '#222';
-    popup.style.border = '2px solid #d5fd02';
-    popup.style.borderRadius = '12px';
-    popup.style.padding = '24px';
-    popup.style.zIndex = 9999;
-    popup.style.textAlign = 'center';
-    popup.style.color = '#fff';
-    popup.innerHTML = `
-      <h3 style="margin:0 0 12px; color:#d5fd02;">Ура! 🎉</h3>
-      <p>Поздравляем, вам выпал <strong>${giftType}</strong>!</p>
-      <button id="gift-close-button" 
-              style="
-                margin-top:16px;
-                padding:8px 16px;
-                background:#d5fd02; 
-                color:#080808; 
-                border:none; 
-                border-radius:6px; 
-                font-weight:600;
-                cursor:pointer;">
-        Закрыть
-      </button>
-    `;
-    document.body.appendChild(popup);
-    document.getElementById('gift-close-button').addEventListener('click', () => {
-      popup.remove();
-    });
-  }
-
-  // 5. Отправка результата в Google Таблицу
-  function sendGiftToSheet(user_id, weekKey, giftType) {
-    const payload = {
-      event: 'weekly_gift_win',
-      user_id: user_id,
-      username: username,
-      first_name: first_name,
-      last_name: last_name,
-      weekKey: weekKey,
-      giftType: giftType,
-      timestamp: new Date().toISOString()
-    };
-    sendToSheet(payload);
-  }
-
-  // 6. Основная функция проверки «раз в неделю»
-  function checkAndGrantWeeklyGift() {
-    if (!tg.initDataUnsafe || !tg.initDataUnsafe.user) return;
-    const weekKey = getCurrentWeekKey();
-    const storageKey = `gift_checked_${user_id}_${weekKey}`;
-    const resultDiv = document.getElementById('gift-result');
-    const button = document.getElementById('gift-button');
-
-    // Если уже проверяли → показать результат и заблокировать кнопку
-    if (localStorage.getItem(storageKey)) {
-      const val = localStorage.getItem(storageKey);
-      if (val.startsWith('yes_')) {
-        const wonType = val.replace('yes_', '');
-        resultDiv.textContent = `Вы уже выиграли в этой неделе: ${wonType}.`;
-      } else {
-        resultDiv.textContent = 'В эту неделю, к сожалению, вам не повезло. Попробуйте снова в следующую неделю.';
-      }
-      button.disabled = true;
-      button.style.opacity = '0.6';
-      button.textContent = 'Попробовать позже';
-      return;
-    }
-
-    // Случайный шанс
-    const rndChance = Math.random();
-    if (rndChance < WEEKLY_GIFT_CHANCE) {
-      const giftType = getRandomGiftType();
-      resultDiv.textContent = `Поздравляем! Вы выиграли: ${giftType}!`;
-      sendGiftToSheet(user_id, weekKey, giftType);
-      localStorage.setItem(storageKey, `yes_${giftType}`);
-    } else {
-      resultDiv.textContent = 'В эту неделю, к сожалению, вам не повезло. Попробуйте снова в следующую неделю.';
-      localStorage.setItem(storageKey, 'no');
-    }
-
-    button.disabled = true;
-    button.style.opacity = '0.6';
-    button.textContent = 'Попробовать позже';
-  }
-
-  // ─────────── КОНЕЦ БЛОКА: ЛОГИКА ПОДАРКОВ ───────────
-
-  // Функции трекинга (existing)
   function sendToSheet(data) {
     fetch(SHEET_ENDPOINT, {
       method: 'POST',
@@ -669,6 +525,7 @@
       body: JSON.stringify(data)
     });
   }
+
   function trackEvent(eventName, additional = {}) {
     sendToSheet({
       event: eventName,
@@ -681,36 +538,44 @@
       additional
     });
   }
-  // Лог открытия Web App
+
   trackEvent('webapp_open');
 
-  // Навешиваем ваши слушатели (меню, карусель, карточки)
   document.querySelectorAll('.menu-item').forEach(item => {
     item.addEventListener('click', () => {
       trackEvent('nav_click', { section: item.dataset.section });
-      // Переключение секций
       document.querySelectorAll('.section').forEach(sec => sec.classList.toggle('active', sec.id === item.dataset.section));
       document.querySelectorAll('.menu-item').forEach(i => i.classList.toggle('active', i.dataset.section === item.dataset.section));
       window.scrollTo(0, 0);
     });
   });
+
   document.querySelectorAll('.card, .team-item a').forEach(card => {
     card.addEventListener('click', () => {
       const title = card.querySelector('strong')?.innerText || 'Unknown';
       trackEvent('card_click', { title });
     });
   });
+
   document.querySelectorAll('.carousel a').forEach(slide => {
     slide.addEventListener('click', () => {
       const alt = slide.querySelector('img')?.getAttribute('alt') || 'Unknown';
       trackEvent('carousel_click', { slide: alt });
     });
   });
+
   document.querySelectorAll('.carousel-dots .dot').forEach((dot, i) => {
     dot.addEventListener('click', () => {
       trackEvent('carousel_dot_click', { slideIndex: i });
+      document.querySelectorAll('.carousel a').forEach((slide, index) => {
+        slide.classList.toggle('active', index === i);
+      });
+      document.querySelectorAll('.carousel-dots .dot').forEach((d, index) => {
+        d.classList.toggle('active', index === i);
+      });
     });
   });
+
   const scrollableLists = document.querySelectorAll('.menu ul, .team-list, .actual-list');
   scrollableLists.forEach(list => {
     list.addEventListener('wheel', (e) => {
@@ -719,104 +584,6 @@
       list.scrollLeft += delta * 2.5;
     });
   });
-
-  // ─────────── Подключаем кнопку «Подарок» ───────────
-  document.getElementById('gift-button').addEventListener('click', checkAndGrantWeeklyGift);
-
-  // При загрузке проверяем, делал ли пользователь попытку на этой неделе
-  window.addEventListener('DOMContentLoaded', () => {
-    const weekKey = getCurrentWeekKey();
-    const storageKey = `gift_checked_${user_id}_${weekKey}`;
-    const button = document.getElementById('gift-button');
-    const resultDiv = document.getElementById('gift-result');
-    if (localStorage.getItem(storageKey)) {
-      button.disabled = true;
-      button.style.opacity = '0.6';
-      button.textContent = 'Попробовать позже';
-      const val = localStorage.getItem(storageKey);
-      if (val.startsWith('yes_')) {
-        const wonType = val.replace('yes_', '');
-        resultDiv.textContent = `Вы уже выиграли в этой неделе: ${wonType}.`;
-      } else {
-        resultDiv.textContent = 'В эту неделю, к сожалению, вам не повезло. Попробуйте снова в следующую неделю.';
-      }
-    }
-  });
-
-  // ─────────── БЛОК: Курсы валют с Chart.js ───────────
-  let currencyChart = null;
-
-  async function fetchCurrencyRates(base) {
-    const today = new Date();
-    const end = today.toISOString().slice(0, 10); // "YYYY-MM-DD"
-    const past = new Date(today.setDate(today.getDate() - 6));
-    const start = past.toISOString().slice(0, 10);
-    const apiURL = `https://api.exchangerate.host/timeseries?start_date=${start}&end_date=${end}&base=${base}&symbols=USD,EUR,GBP,RUB,CNY`;
-    try {
-      const res = await fetch(apiURL);
-      const data = await res.json();
-      return data.rates;
-    } catch (e) {
-      console.error('Ошибка при загрузке курсов валют', e);
-      return null;
-    }
-  }
-
-  async function buildCurrencyChart(base) {
-    const ratesObject = await fetchCurrencyRates(base);
-    if (!ratesObject) return;
-
-    const labels = Object.keys(ratesObject).sort();
-    const dataPoints = labels.map(date => ratesObject[date]['RUB']);
-
-    const ctx = document.getElementById('currency-chart').getContext('2d');
-    if (currencyChart) {
-      currencyChart.destroy();
-    }
-    currencyChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: `Курс ${base} → RUB (за последние 7 дней)`,
-          data: dataPoints,
-          borderWidth: 2,
-          borderColor: '#d5fd02',
-          backgroundColor: 'rgba(213, 253, 2, 0.1)',
-          pointRadius: 3,
-          pointBackgroundColor: '#d5fd02'
-        }]
-      },
-      options: {
-        scales: {
-          x: {
-            ticks: { color: '#fff' },
-            grid: { color: 'rgba(255,255,255,0.1)' }
-          },
-          y: {
-            ticks: { color: '#fff' },
-            grid: { color: 'rgba(255,255,255,0.1)' }
-          }
-        },
-        plugins: {
-          legend: {
-            labels: { color: '#fff' }
-          }
-        }
-      }
-    });
-  }
-
-  document.getElementById('currency-select').addEventListener('change', (e) => {
-    const base = e.target.value;
-    buildCurrencyChart(base);
-  });
-
-  window.addEventListener('load', () => {
-    buildCurrencyChart('USD');
-  });
-  // ─────────── КОНЕЦ БЛОКА: Курсы валют ───────────
 </script>
 </body>
 </html>
-
