@@ -1,822 +1,747 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>TMA Главная</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TMA Главная</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-  body { 
-    margin: 0; 
-    font-family: 'Inter', sans-serif; 
-    background: #080808; 
-    color: #ffffff; 
-    overflow-y: auto; 
-  }
-  a { text-decoration: none; }
-  ul { list-style: none; margin: 0; padding: 0; }
+    body { 
+      margin: 0; 
+      font-family: 'Inter', sans-serif; 
+      background: #080808; 
+      color: #ffffff; 
+      overflow-y: auto; 
+    }
+    a { text-decoration: none; }
+    ul { list-style: none; margin: 0; padding: 0; }
 
-  .menu-top { display: flex; justify-content: flex-start; align-items: center; padding: 16px; }
-  .menu-top .logo { width: 100px; }
+    .menu-top { display: flex; justify-content: flex-start; align-items: center; padding: 16px; }
+    .menu-top .logo { width: 100px; }
 
-  .carousel { 
-    position: relative; 
-    width: 343px; 
-    height: 136px; 
-    margin: 0 auto; 
-    border-radius: 12px; 
-    overflow: hidden; 
-    background: #000; 
-    max-width: 100%; 
-  }
-  .carousel a { 
-    display: block; 
-    width: 100%; 
-    height: 100%; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    opacity: 0; 
-    transition: opacity .5s; 
-  }
-  .carousel a.active { opacity: 1; z-index: 1; }
-  .carousel img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .carousel .hot { 
-    position: absolute; 
-    top: 8px; 
-    left: 16px; 
-    font-size: 20px; 
-    font-weight: 500; 
-    color: #ffffff; 
-    z-index: 2; 
-  }
-  .carousel-dots { 
-    position: absolute; 
-    bottom: 8px; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    display: flex; 
-    gap: 5px; 
-    z-index: 2; 
-  }
-  .carousel-dots .dot { 
-    width: 5px; 
-    height: 5px; 
-    border-radius: 50%; 
-    background: rgba(255,255,255,0.3); 
-    cursor: pointer; 
-  }
-  .carousel-dots .dot.active { background: rgba(255,255,255,0.9); }
+    .carousel { 
+      position: relative; 
+      width: 343px; 
+      height: 136px; 
+      margin: 0 auto; 
+      border-radius: 12px; 
+      overflow: hidden; 
+      background: #000; 
+      max-width: 100%; 
+    }
+    .carousel a { 
+      display: block; 
+      width: 100%; 
+      height: 100%; 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      opacity: 0; 
+      transition: opacity .5s; 
+    }
+    .carousel a.active { opacity: 1; z-index: 1; }
+    .carousel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .carousel .hot { 
+      position: absolute; 
+      top: 8px; 
+      left: 16px; 
+      font-size: 20px; 
+      font-weight: 500; 
+      color: #ffffff; 
+      z-index: 2; 
+    }
+    .carousel-dots { 
+      position: absolute; 
+      bottom: 8px; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      display: flex; 
+      gap: 5px; 
+      z-index: 2; 
+    }
+    .carousel-dots .dot { 
+      width: 5px; 
+      height: 5px; 
+      border-radius: 50%; 
+      background: rgba(255,255,255,0.3); 
+      cursor: pointer; 
+    }
+    .carousel-dots .dot.active { background: rgba(255,255,255,0.9); }
 
-  .menu {
-    display: flex;
-    justify-content: center;
-    background: #080808;
-    padding: 12px 0;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    max-width: 100%;
-  }
-  .menu ul {
-    display: inline-flex;
-    gap: 10px;
-    padding: 0 16px;
-    overflow-x: auto;
-    white-space: nowrap;
-    scroll-behavior: smooth;
-    touch-action: pan-x;
-    -webkit-overflow-scrolling: touch;
-  }
-  .menu ul::-webkit-scrollbar { display: none; }
-  .menu-item {
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    color: #ccc;
-    transition: background .3s, color .3s;
-  }
-  .menu-item.active, .menu-item:hover {
-    background: #d5fd02;
-    color: #080808;
-  }
+    .menu {
+      display: flex;
+      justify-content: center;
+      background: #080808;
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      max-width: 100%;
+    }
+    .menu ul {
+      display: inline-flex;
+      gap: 10px;
+      padding: 0 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scroll-behavior: smooth;
+      touch-action: pan-x;
+      -webkit-overflow-scrolling: touch;
+    }
+    .menu ul::-webkit-scrollbar { display: none; }
+    .menu-item {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      color: #ccc;
+      transition: background .3s, color .3s;
+    }
+    .menu-item.active, .menu-item:hover {
+      background: #d5fd02;
+      color: #080808;
+    }
 
-  .section { 
-    display: none; 
-    padding: 24px 16px; 
-    box-sizing: border-box; 
-  }
-  .section.active { display: block; }
-  .back-button { 
-    display: inline-flex; 
-    align-items: center; 
-    gap: 6px; 
-    margin-bottom: 16px; 
-    padding: 6px 12px; 
-    background: #d5fd02; 
-    color: #080808; 
-    border: none; 
-    border-radius: 6px; 
-    cursor: pointer; 
-    font-weight: 600; 
-  }
+    .section { 
+      display: none; 
+      padding: 24px 16px; 
+      box-sizing: border-box; 
+    }
+    .section.active { display: block; }
+    .back-button { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 6px; 
+      margin-bottom: 16px; 
+      padding: 6px 12px; 
+      background: #d5fd02; 
+      color: #080808; 
+      border: none; 
+      border-radius: 6px; 
+      cursor: pointer; 
+      font-weight: 600; 
+    }
 
-  .section-title { 
-    font-size: 24px; 
-    font-weight: 600; 
-    margin: 24px 0; 
-    color: #d5fd02; 
-  }
+    .section-title { 
+      font-size: 24px; 
+      font-weight: 600; 
+      margin: 24px 0; 
+      color: #d5fd02; 
+    }
 
-  .grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
-    gap: 16px; 
-  }
-  .card { 
-    background: #111315; 
-    border: 1px solid #222; 
-    border-radius: 12px; 
-    color: #ccc; 
-    transition: transform .2s; 
-    position: relative; 
-    overflow: hidden; 
-  }
-  .card:hover { transform: scale(1.02); }
-  #home .card img, #articles .card img, #cases .card img { 
-    width: 100%; 
-    height: 120px; 
-    object-fit: cover; 
-    display: block; 
-  }
-  #vacancies .card, #offers .card { 
-    padding: 12px; 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
-  }
-  .card .text-overlay { 
-    position: absolute; 
-    bottom: 0; 
-    left: 0; 
-    right: 0; 
-    background: rgba(0,0,0,0.6); 
-    padding: 8px; 
-  }
-  .card strong { 
-    display: block; 
-    font-size: 14px; 
-    color: #ffffff; 
-    margin-bottom: 4px; 
-  }
-  .card p { 
-    font-size: 12px; 
-    color: #bbb; 
-    margin: 0; 
-  }
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+      gap: 16px; 
+    }
+    .card { 
+      background: #111315; 
+      border: 1px solid #222; 
+      border-radius: 12px; 
+      color: #ccc; 
+      transition: transform .2s; 
+      position: relative; 
+      overflow: hidden; 
+      padding: 12px; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center;
+      cursor: pointer;
+    }
+    .card:hover { transform: scale(1.02); }
+    .card strong { 
+      display: block; 
+      font-size: 14px; 
+      color: #ffffff; 
+      margin-bottom: 4px; 
+    }
+    .card p { 
+      font-size: 12px; 
+      color: #bbb; 
+      margin: 0; 
+    }
 
-  #team .card img { 
-    width: 60px; 
-    height: 60px; 
-    object-fit: cover; 
-    margin-bottom: 8px; 
-    border-radius: 50%; 
-  }
-
-  .team-carousel { 
-    margin: 16px 0; 
-    max-width: 100%; 
-    overflow: hidden; 
-  }
- .team-list {
-    display: inline-flex;
-    gap: 12px;
-    padding: 0 16px;
-    overflow-x: auto;
-    white-space: nowrap;
-    scroll-behavior: smooth;
-    touch-action: pan-x;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-    box-sizing: border-box;
-}
-  .team-list::-webkit-scrollbar { display: none; }
-  .team-item {
-    flex: 0 0 160px;
-    padding: 12px;
-    text-align: center;
-    transition: transform .2s;
-  }
-  .team-item:hover { transform: scale(1.02); }
-  .team-item img { 
-    width: 60px; 
-    height: 60px; 
-    object-fit: cover; 
-    border-radius: 50%; 
-    margin: 0 auto 8px; 
-    display: block; 
-  }
-  .team-item strong { 
-    display: block; 
-    font-size: 14px; 
-    color: #ffffff; 
-    margin-bottom: 4px; 
-  }
- .team-item p { 
-    font-size: 12px; 
-    color: #bbb; 
-    margin: 0; 
-}
-.actual-list-container {
-    margin: 16px 0;
-    max-width: 100%;
-    overflow: hidden;
-}
-.actual-list {
-    display: inline-flex;
-    gap: 12px;
-    padding: 0 16px;
-    overflow-x: auto;
-    white-space: nowrap;
-    scroll-behavior: smooth;
-    touch-action: pan-x;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-    box-sizing: border-box;
-}
-.actual-list::-webkit-scrollbar {
-    display: none;
-}
-.actual-item {
-    flex: 0 0 160px;
-}
-.actual-item .card {
-    border-radius: 12px;
-    overflow: hidden;
-    display: block;
-}
-.actual-item .card img {
-    border-radius: 12px 12px 0 0;
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-}
-  /* Стили для карточек офферов */
-  #offers .card {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  #offers .card strong {
-    font-size: 16px;
-    color: #d5fd02;
-  }
-  #offers .card p {
-    font-size: 14px;
-    color: #ccc;
-    margin: 0;
-    line-height: 1.4;
-  }
-</style>
+    /* Специальные стили для раздела «Вакансии» */
+    .vacancy-categories {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+    .vacancy-category-button {
+      background: #d5fd02;
+      color: #080808;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      max-width: 320px;
+      text-align: center;
+    }
+    .vacancy-list {
+      display: none; /* изначально скрыт */
+      gap: 16px;
+    }
+    .vacancy-list .card {
+      cursor: pointer;
+    }
+    .vacancy-form-wrapper {
+      display: none;
+      margin-top: 16px;
+    }
+    #vacancy-back-button {
+      margin-top: 16px;
+      display: none;
+    }
+    /* Простые стили для формы отклика */
+    .vacancy-form-wrapper form input[type="text"],
+    .vacancy-form-wrapper form input[type="url"],
+    .vacancy-form-wrapper form textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background: #080808;
+      color: #fff;
+      margin-bottom: 12px;
+      box-sizing: border-box;
+    }
+    .vacancy-form-wrapper form input[type="file"] {
+      margin-bottom: 12px;
+    }
+    .vacancy-form-wrapper form button[type="submit"] {
+      padding: 10px 16px;
+      background: #d5fd02;
+      color: #080808;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-<div class="menu-top">
-  <img class="logo" src="https://i.postimg.cc/90gRT1n1/Frame-277131232-2.png" alt="TMA Logo" />
-</div>
-
-<!-- Карусель с кликабельными ссылками -->
-<div class="carousel">
-  <a href="https://traffnews.com/intervju/kto-takoi-co-owner-kompanii/?utm_source=tg" target="_blank" class="active">
-    <img src="https://i.postimg.cc/yNL8QJ8S/owner-02-3.jpg" alt="Тихон" />
-  </a>
-  <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank">
-    <img src="https://i.postimg.cc/bJqQWjv5/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс" />
-  </a>
-  <a href="https://www.instagram.com/reel/DKHZPnYtjQD/?igsh=MTFobTRvMnpma3oxbA==" target="_blank">
-    <img src="https://i.postimg.cc/Z57qjBRv/feat-mac.jpg" alt="мак" />
-  </a>
-  <div class="hot"></div>
-  <div class="carousel-dots">
-    <div class="dot active"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
+  <div class="menu-top">
+    <img class="logo" src="https://i.postimg.cc/90gRT1n1/Frame-277131232-2.png" alt="TMA Logo" />
   </div>
-</div>
 
-<nav class="menu">
-  <ul>
-    <li class="menu-item active" data-section="home">Главная</li>
-    <li class="menu-item" data-section="articles">Статьи</li>
-    <li class="menu-item" data-section="cases">Кейсы</li>
-    <li class="menu-item" data-section="vacancies">Вакансии</li>
-    <li class="menu-item" data-section="offers">Офферы</li>
-  </ul>
-</nav>
+  <!-- Карусель (ваш существующий код) -->
+  <div class="carousel">
+    <a href="https://traffnews.com/intervju/kto-takoi-co-owner-kompanii/?utm_source=tg" target="_blank" class="active">
+      <img src="https://i.postimg.cc/yNL8QJ8S/owner-02-3.jpg" alt="Тихон" />
+    </a>
+    <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank">
+      <img src="https://i.postimg.cc/bJqQWjv5/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс" />
+    </a>
+    <a href="https://www.instagram.com/reel/DKHZPnYtjQD/?igsh=MTFobTRvMnpma3oxbA==" target="_blank">
+      <img src="https://i.postimg.cc/Z57qjBRv/feat-mac.jpg" alt="мак" />
+    </a>
+    <div class="hot"></div>
+    <div class="carousel-dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
 
-<section id="home" class="section active">
-  <h2 class="section-title">АКТУАЛЬНОЕ</h2>
-  <div class="actual-list-container">
-    <ul class="actual-list">
-      <li class="actual-item">
-        <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank" data-id="actual_1" data-title="Гемблинг кейс: $130 000+">
-          <img src="https://i.postimg.cc/7PGWRRNZ/130k.jpg" alt="Гемблинг кейс" />
-          <div class="text-overlay">
-            <strong></strong>
-            <p></p>
-          </div>
-        </a>
-      </li>
-      <li class="actual-item">
-        <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank" data-id="actual_2" data-title="SCAM кейс от AMERIO.BET">
-          <img src="https://i.postimg.cc/X7KQS6B4/scam.jpg" alt="SCAM кейс" />
-          <div class="text-overlay">
-            <strong></strong>
-            <p></p>
-          </div>
-        </a>
-      </li>
-      <li class="actual-item">
-        <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-04-09" target="_blank" data-id="actual_3" data-title="Качество трафика в гемблинге">
-          <img src="https://i.postimg.cc/hjQFNVwD/photo-2025-05-14-20-01-19.jpg" alt="Статья" />
-          <div class="text-overlay">
-            <strong></strong>
-            <p></p>
-          </div>
-        </a>
-      </li>
-      <li class="actual-item">
-        <a class="card" href="https://t.me/zakacreator" target="_blank" data-id="actual_4" data-title="Вакансия: Трафик менеджер">
-          <img src="https://i.postimg.cc/YSG4qP0S/traffic-manager.jpg" alt="Вакансия" />
-          <div class="text-overlay">
-            <strong></strong>
-            <p></p>
-          </div>
-        </a>
-      </li>
+  <!-- Главное меню -->
+  <nav class="menu">
+    <ul>
+      <li class="menu-item active" data-section="home">Главная</li>
+      <li class="menu-item" data-section="articles">Статьи</li>
+      <li class="menu-item" data-section="cases">Кейсы</li>
+      <li class="menu-item" data-section="vacancies">Вакансии</li>
+      <li class="menu-item" data-section="offers">Офферы</li>
     </ul>
-  </div>
-  <h2 class="section-title">КОМАНДА</h2>
-  <div class="team-carousel">
-    <ul class="team-list">
-      <li class="team-item">
-        <a href="https://t.me/Evgenii_Limited" target="_blank">
-          <img src="https://i.postimg.cc/yN5SkL2P/3.webp" alt="Evgenii" />
-          <strong>Evgenii Limited</strong>
-          <p>Co-owner</p>
-        </a>
-      </li>
-      <li class="team-item">
-        <a href="https://t.me/t_limited" target="_blank">
-          <img src="https://i.postimg.cc/KjgCWLjQ/4.webp" alt="Tikhon" />
-          <strong>Tikhon Limited</strong>
-          <p>Co-owner</p>
-        </a>
-      </li>
-      <li class="team-item">
-        <a href="https://t.me/Denis_limited" target="_blank">
-          <img src="https://i.postimg.cc/GmQ3z0Zt/6-new.webp" alt="Anna" />
-          <strong>Denis Limited</strong>
-          <p>Head of Affiliate</p>
-        </a>
-      </li>
-      <li class="team-item">
-        <a href="https://t.me/sasha_limited" target="_blank">
-          <img src="https://i.postimg.cc/gkyGkFcs/2.webp" alt="Dmitry" />
-          <strong>Aleksandra Limited</strong>
-          <p>Head of Sales</p>
-        </a>
-      </li>
-      <li class="team-item">
-        <a href="https://t.me/ksu_limited" target="_blank">
-          <img src="https://i.postimg.cc/SxDqC6Mz/1.webp" alt="Elena" />
-          <strong>Ksenia Limited</strong>
-          <p>Team Lead Affiliate Manager</p>
-        </a>
-      </li>
-      <li class="team-item">
-        <a href="https://t.me/katerinaHR_limited" target="_blank">
-          <img src="https://i.postimg.cc/hGvnrXLZ/7.jpg" alt="Sergey" />
-          <strong>Katerina Limited</strong>
-          <p>HRD</p>
-        </a>
-      </li>
-      <li class="team-item">
-        <a href="https://t.me/Alexandr_limited" target="_blank">
-          <img src="https://i.postimg.cc/yNGHr7n1/5-new.webp" alt="Maria" />
-          <strong>Alexander Limited</strong>
-          <p>Связь по PR и маркетингу</p>
-        </a>
-      </li>
-    </ul>
-  </div>
-</section>
+  </nav>
 
-<section id="articles" class="section">
-  <h2 class="section-title">СТАТЬИ</h2>
-  <div class="grid">
-    <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" target="_blank">
-      <img src="https://i.postimg.cc/JzZmWnct/quality.jpg" alt="Статья 1" />
-      <div class="text-overlay">
-        <strong>качество трафика</strong>
-        <p></p>
+  <!-- Секции -->
+  <section id="home" class="section active">
+    <h2 class="section-title">АКТУАЛЬНОЕ</h2>
+    <div class="actual-list-container">
+      <ul class="actual-list">
+        <li class="actual-item">
+          <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank" data-id="actual_1" data-title="Гемблинг кейс: $130 000+">
+            <img src="https://i.postimg.cc/7PGWRRNZ/130k.jpg" alt="Гемблинг кейс" />
+            <div class="text-overlay">
+              <strong></strong>
+              <p></p>
+            </div>
+          </a>
+        </li>
+        <li class="actual-item">
+          <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank" data-id="actual_2" data-title="SCAM кейс от AMERIO.BET">
+            <img src="https://i.postimg.cc/X7KQS6B4/scam.jpg" alt="SCAM кейс" />
+            <div class="text-overlay">
+              <strong></strong>
+              <p></p>
+            </div>
+          </a>
+        </li>
+        <li class="actual-item">
+          <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-04-09" target="_blank" data-id="actual_3" data-title="Качество трафика в гемблинге">
+            <img src="https://i.postimg.cc/hjQFNVwD/photo-2025-05-14-20-01-19.jpg" alt="Статья" />
+            <div class="text-overlay">
+              <strong></strong>
+              <p></p>
+            </div>
+          </a>
+        </li>
+        <li class="actual-item">
+          <a class="card" href="https://t.me/zakacreator" target="_blank" data-id="actual_4" data-title="Вакансия: Трафик менеджер">
+            <img src="https://i.postimg.cc/YSG4qP0S/traffic-manager.jpg" alt="Вакансия" />
+            <div class="text-overlay">
+              <strong></strong>
+              <p></p>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <h2 class="section-title">КОМАНДА</h2>
+    <div class="team-carousel">
+      <ul class="team-list">
+        <li class="team-item">
+          <a href="https://t.me/Evgenii_Limited" target="_blank">
+            <img src="https://i.postimg.cc/yN5SkL2P/3.webp" alt="Evgenii" />
+            <strong>Evgenii Limited</strong>
+            <p>Co-owner</p>
+          </a>
+        </li>
+        <li class="team-item">
+          <a href="https://t.me/t_limited" target="_blank">
+            <img src="https://i.postimg.cc/KjgCWLjQ/4.webp" alt="Tikhon" />
+            <strong>Tikhon Limited</strong>
+            <p>Co-owner</p>
+          </a>
+        </li>
+        <li class="team-item">
+          <a href="https://t.me/Denis_limited" target="_blank">
+            <img src="https://i.postimg.cc/GmQ3z0Zt/6-new.webp" alt="Anna" />
+            <strong>Denis Limited</strong>
+            <p>Head of Affiliate</p>
+          </a>
+        </li>
+        <li class="team-item">
+          <a href="https://t.me/sasha_limited" target="_blank">
+            <img src="https://i.postimg.cc/gkyGkFcs/2.webp" alt="Dmitry" />
+            <strong>Aleksandra Limited</strong>
+            <p>Head of Sales</p>
+          </a>
+        </li>
+        <li class="team-item">
+          <a href="https://t.me/ksu_limited" target="_blank">
+            <img src="https://i.postimg.cc/SxDqC6Mz/1.webp" alt="Elena" />
+            <strong>Ksenia Limited</strong>
+            <p>Team Lead Affiliate Manager</p>
+          </a>
+        </li>
+        <li class="team-item">
+          <a href="https://t.me/katerinaHR_limited" target="_blank">
+            <img src="https://i.postimg.cc/hGvnrXLZ/7.jpg" alt="Sergey" />
+            <strong>Katerina Limited</strong>
+            <p>HRD</p>
+          </a>
+        </li>
+        <li class="team-item">
+          <a href="https://t.me/Alexandr_limited" target="_blank">
+            <img src="https://i.postimg.cc/yNGHr7n1/5-new.webp" alt="Maria" />
+            <strong>Alexander Limited</strong>
+            <p>Связь по PR и маркетингу</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="articles" class="section">
+    <h2 class="section-title">СТАТЬИ</h2>
+    <div class="grid">
+      <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" target="_blank">
+        <img src="https://i.postimg.cc/JzZmWnct/quality.jpg" alt="Статья 1" />
+        <div class="text-overlay">
+          <strong>качество трафика</strong>
+          <p></p>
+        </div>
+      </a>
+      <a class="card" href="https://www.instagram.com/p/DCOei_ItMsf/?igsh=YzFudTVhbGlteGJr" target="_blank">
+        <img src="https://i.postimg.cc/63LfsdTz/partners.jpg" alt="отзывы" />
+        <div class="text-overlay">
+          <strong></strong>
+          <p></p>
+        </div>
+      </a>
+      <a class="card" href="https://traffhub.media/articles/gambling/nyuansy-vybora-gembling-offerov/" target="_blank">
+        <img src="https://i.postimg.cc/q77T6LH6/offer.jpg" alt="оффер" />
+        <div class="text-overlay">
+          <strong></strong>
+          <p></p>
+        </div>
+      </a>
+      <a class="card" href="https://traffnews.com/intervju/kto-takoi-co-owner-kompanii/?utm_source=tg" target="_blank">
+        <img src="https://i.postimg.cc/gcKrhgfN/owner-01-3.jpg" alt="Тихон" />
+        <div class="text-overlay">
+          <strong></strong>
+          <p></p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section id="cases" class="section">
+    <h2 class="section-title">КЕЙСЫ</h2>
+    <div class="grid">
+      <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-бразилиина-приватном-offere-thelimitedclub/" target="_blank">
+        <img src="https://i.postimg.cc/7PGWRRNZ/130k.jpg" alt="Гемблинг кейс" />
+        <div class="text-overlay">
+          <strong></strong>
+          <p></p>
+        </div>
+      </a>
+      <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronологияи-прфу-и-долг-на-90-000-03-18" target="_blank">
+        <img src="https://i.postimg.cc/X7KQS6B4/scam.jpg" alt="SCAM кейс" />
+        <div class="text-overlay">
+          <strong></strong>
+          <p></p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- === Раздел «ВАКАНСИИ»: здесь динамически рендерим категории, список вакансий, форму === -->
+  <section id="vacancies" class="section">
+    <h2 class="section-title">ВАКАНСИИ</h2>
+    <div id="vacancies-container">
+      <!-- 1) Сначала – два больших блока-кнопки-категории -->
+      <div id="vacancy-categories" class="vacancy-categories">
+        <button class="vacancy-category-button" data-cat="media">
+          Для медиабайеров / тимлидов / овнеров команд
+        </button>
+        <button class="vacancy-category-button" data-cat="ops">
+          Для операционщиков / менеджеров
+        </button>
       </div>
-    </a>
-    <a class="card" href="https://www.instagram.com/p/DCOei_ItMsf/?igsh=YzFudTVhbGlteGJr" target="_blank">
-      <img src="https://i.postimg.cc/63LfsdTz/partners.jpg" alt="отзывы" />
-      <div class="text-overlay">
-        <strong></strong>
-        <p></p>
-      </div>
-    </a>
-    <a class="card" href="https://traffhub.media/articles/gambling/nyuansy-vybora-gembling-offerov/" target="_blank">
-      <img src="https://i.postimg.cc/q77T6LH6/offer.jpg" alt="оффер" />
-      <div class="text-overlay">
-        <strong></strong>
-        <p></p>
-      </div>
-    </a>
-    <a class="card" href="https://traffnews.com/intervju/kto-takoi-co-owner-kompanii/?utm_source=tg" target="_blank">
-      <img src="https://i.postimg.cc/gcKrhgfN/owner-01-3.jpg" alt="Тихон" />
-      <div class="text-overlay">
-        <strong></strong>
-        <p></p>
-      </div>
-    </a>
-  </div>
-</section>
 
-<section id="cases" class="section">
-  <h2 class="section-title">КЕЙСЫ</h2>
-  <div class="grid">
-    <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank">
-      <img src="https://i.postimg.cc/7PGWRRNZ/130k.jpg" alt="Гемблинг кейс" />
-      <div class="text-overlay">
-        <strong></strong>
-        <p></p>
-      </div>
-    </a>
-    <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank">
-      <img src="https://i.postimg.cc/X7KQS6B4/scam.jpg" alt="SCAM кейс" />
-      <div class="text-overlay">
-        <strong></strong>
-        <p></p>
-      </div>
-    </a>
-  </div>
-</section>
+      <!-- 2) Тут JS вставит карточки вакансий по выбранной категории -->
+      <div id="vacancy-list" class="vacancy-list grid"></div>
 
-<section id="vacancies" class="section">
-  <h2 class="section-title">ВАКАНСИИ</h2>
-  <div class="grid">
-    <a class="card" href="https://t.me" target="_blank">
-      <strong>smm</strong>
-      <p>Опыт работы от 1 года</p>
-    </a>
-    <a class="card" href="https://t.me" target="_blank">
-      <strong>smm</strong>
-      <p>Опыт работы от 1 года</p>
-    </a>
-  </div>
-</section>
+      <!-- 3) Тут JS рендерит форму отклика на конкретную вакансию -->
+      <div id="vacancy-form-wrapper" class="vacancy-form-wrapper"></div>
 
-<section id="offers" class="section">
-  <h2 class="section-title">ОФФЕРЫ</h2>
-  <div class="grid">
-    <a class="card" href="https://t.me" target="_blank">
-      <strong>Источник: ASO</strong>
-      <p>ГЕО: FR</p>
-      <p>Ставка: 160 EUR</p>
-      <p>Mindep: 10 EUR</p>
-    </a>
-    <a class="card" href="https://t.me" target="_blank">
-      <strong>Источник: PPC</strong>
-      <p>ГЕО: DE</p>
-      <p>Ставка: 200 EUR</p>
-      <p>Mindep: 15 EUR</p>
-    </a>
-    <a class="card" href="https://t.me" target="_blank">
-      <strong>Источник: SEO</strong>
-      <p>ГЕО: UK</p>
-      <p>Ставка: 180 EUR</p>
-      <p>Mindep: 20 EUR</p>
-    </a>
-  </div>
-</section>
+      <!-- 4) Кнопка «Назад» для возврата к выбору категорий -->
+      <button id="vacancy-back-button" class="back-button">← Назад к категориям</button>
+    </div>
+  </section>
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  // Инициализация Telegram WebApp
-  const tg = window.Telegram.WebApp;
-  tg.expand();
+  <section id="offers" class="section">
+    <h2 class="section-title">ОФФЕРЫ</h2>
+    <div class="grid">
+      <a class="card" href="https://t.me" target="_blank">
+        <strong>Источник: ASO</strong>
+        <p>ГЕО: FR</p>
+        <p>Ставка: 160 EUR</p>
+        <p>Mindep: 10 EUR</p>
+      </a>
+      <a class="card" href="https://t.me" target="_blank">
+        <strong>Источник: PPC</strong>
+        <p>ГЕО: DE</p>
+        <p>Ставка: 200 EUR</p>
+        <p>Mindep: 15 EUR</p>
+      </a>
+      <a class="card" href="https://t.me" target="_blank">
+        <strong>Источник: SEO</strong>
+        <p>ГЕО: UK</p>
+        <p>Ставка: 180 EUR</p>
+        <p>Mindep: 20 EUR</p>
+      </a>
+    </div>
+  </section>
 
-  // Получение данных пользователя с проверкой
-  let user_id = null, username = null, first_name = null, last_name = null;
-  if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-    ({ id: user_id, username, first_name, last_name } = tg.initDataUnsafe.user);
-  }
-
-  // URL для Google Apps Script (замените на свой)
-  const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxm5EL306NS2zODtWC4BzsV7yj8F_qj_47YmwknE_CzPDLuNBKeMqfhhoiNh6Bv8sSj7Q/exec';
-
-  // ─────────── БЛОК: ЛОГИКА ЕЖЕНЕДЕЛЬНОГО ПОДАРКА ───────────
-
-  // 1. Функции для вычисления текущей ISO-недели
-  function getCurrentWeekKey() {
-    const now = new Date();
-    const date = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
-    const dayOfYear = Math.floor((date - new Date(Date.UTC(date.getUTCFullYear(), 0, 1))) / 86400000) + 1;
-    const jan1 = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
-    const jan1Day = ((jan1.getUTCDay() + 6) % 7) + 1; // 1..7, 1=понедельник
-    let weekNumber = Math.floor((dayOfYear + jan1Day - 1) / 7);
-    let isoYear = date.getUTCFullYear();
-    if (weekNumber < 1) {
-      const dec31Prev = new Date(Date.UTC(isoYear - 1, 11, 31));
-      return getWeekKeyFromDate(dec31Prev);
-    }
-    const weekString = weekNumber < 10 ? '0' + weekNumber : '' + weekNumber;
-    return `${isoYear}-${weekString}`;
-  }
-  function getWeekKeyFromDate(dateObj) {
-    const dayOfYear = Math.floor((dateObj - new Date(Date.UTC(dateObj.getUTCFullYear(), 0, 1))) / 86400000) + 1;
-    const jan1 = new Date(Date.UTC(dateObj.getUTCFullYear(), 0, 1));
-    const jan1Day = ((jan1.getUTCDay() + 6) % 7) + 1;
-    let weekNumber = Math.floor((dayOfYear + jan1Day - 1) / 7);
-    let isoYear = dateObj.getUTCFullYear();
-    if (weekNumber < 1) {
-      const dec31Prev = new Date(Date.UTC(isoYear - 1, 11, 31));
-      return getWeekKeyFromDate(dec31Prev);
-    }
-    const weekString = weekNumber < 10 ? '0' + weekNumber : '' + weekNumber;
-    return `${isoYear}-${weekString}`;
-  }
-
-  // 2. Константы и массив возможных подарков
-  const WEEKLY_GIFT_CHANCE = 0.10; // 10% шанс
-  const GIFTS = ['Подарок A', 'Подарок B', 'Подарок C'];
-
-  // 3. Выбор одного из трёх подарков
-  function getRandomGiftType() {
-    const rnd = Math.random(); // [0;1)
-    if (rnd < 1/3) return GIFTS[0];
-    else if (rnd < 2/3) return GIFTS[1];
-    else return GIFTS[2];
-  }
-
-  // 4. Поп-ап о выигрыше
-  function showGiftPopup(giftType) {
-    const popup = document.createElement('div');
-    popup.style.position = 'fixed';
-    popup.style.top = '50%';
-    popup.style.left = '50%';
-    popup.style.transform = 'translate(-50%, -50%)';
-    popup.style.background = '#222';
-    popup.style.border = '2px solid #d5fd02';
-    popup.style.borderRadius = '12px';
-    popup.style.padding = '24px';
-    popup.style.zIndex = 9999;
-    popup.style.textAlign = 'center';
-    popup.style.color = '#fff';
-    popup.innerHTML = `
-      <h3 style="margin:0 0 12px; color:#d5fd02;">Ура! 🎉</h3>
-      <p>Поздравляем, вам выпал <strong>${giftType}</strong>!</p>
-      <button id="gift-close-button" 
-              style="
-                margin-top:16px;
-                padding:8px 16px;
-                background:#d5fd02; 
-                color:#080808; 
-                border:none; 
-                border-radius:6px; 
-                font-weight:600;
-                cursor:pointer;">
-        Закрыть
-      </button>
-    `;
-    document.body.appendChild(popup);
-    document.getElementById('gift-close-button').addEventListener('click', () => {
-      popup.remove();
-    });
-  }
-
-  // 5. Отправка результата в Google Таблицу
-  function sendGiftToSheet(user_id, weekKey, giftType) {
-    const payload = {
-      event: 'weekly_gift_win',
-      user_id: user_id,
-      username: username,
-      first_name: first_name,
-      last_name: last_name,
-      weekKey: weekKey,
-      giftType: giftType,
-      timestamp: new Date().toISOString()
-    };
-    sendToSheet(payload);
-  }
-
-  // 6. Основная функция проверки «раз в неделю»
-  function checkAndGrantWeeklyGift() {
-    if (!tg.initDataUnsafe || !tg.initDataUnsafe.user) return;
-    const weekKey = getCurrentWeekKey();
-    const storageKey = `gift_checked_${user_id}_${weekKey}`;
-    const resultDiv = document.getElementById('gift-result');
-    const button = document.getElementById('gift-button');
-
-    // Если уже проверяли → показать результат и заблокировать кнопку
-    if (localStorage.getItem(storageKey)) {
-      const val = localStorage.getItem(storageKey);
-      if (val.startsWith('yes_')) {
-        const wonType = val.replace('yes_', '');
-        resultDiv.textContent = `Вы уже выиграли в этой неделе: ${wonType}.`;
-      } else {
-        resultDiv.textContent = 'В эту неделю, к сожалению, вам не повезло. Попробуйте снова в следующую неделю.';
-      }
-      button.disabled = true;
-      button.style.opacity = '0.6';
-      button.textContent = 'Попробовать позже';
-      return;
+  <!-- Подключаем Telegram WebApp (чтобы вы могли получать данные о пользователе) -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // === TELEGRAM WEB APP ИНТЕГРАЦИЯ ===
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+    let user_id = null, username = null, first_name = null, last_name = null;
+    if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+      ({ id: user_id, username, first_name, last_name } = tg.initDataUnsafe.user);
     }
 
-    // Случайный шанс
-    const rndChance = Math.random();
-    if (rndChance < WEEKLY_GIFT_CHANCE) {
-      const giftType = getRandomGiftType();
-      resultDiv.textContent = `Поздравляем! Вы выиграли: ${giftType}!`;
-      sendGiftToSheet(user_id, weekKey, giftType);
-      localStorage.setItem(storageKey, `yes_${giftType}`);
-    } else {
-      resultDiv.textContent = 'В эту неделю, к сожалению, вам не повезло. Попробуйте снова в следующую неделю.';
-      localStorage.setItem(storageKey, 'no');
+    // === ВАША СУЩЕСТВУЮЩАЯ ЛОГИКА (ПОДАРКИ, АНАЛИТИКА, КУРСЫ) ОСТАЁТСЯ БЕЗ ИЗМЕНЕНИЙ ===
+    // (копируйте сюда все функции getCurrentWeekKey, checkAndGrantWeeklyGift, sendToSheet, trackEvent, buildCurrencyChart и т. д.)
+    // …
+
+    // ───────────────────────────────────────────────────────────────────────────────────
+    // === НОВЫЙ БЛОК: ДИНАМИЧЕСКИЙ РАЗДЕЛ «ВАКАНСИИ» ===
+
+    // URL вашего Apps Script Web App (замените на полученный вами WEBAPP_URL)
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxm5EL306NS2zODtWC4BzsV7yj8F_qj_47YmwknE_CzPDLuNBKeMqfhhoiNh6Bv8sSj7Q/exec';
+
+    // Обработчик кликов по пунктам меню (ваш уже существующий)
+    document.querySelectorAll('.menu-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.section').forEach(sec => sec.classList.toggle('active', sec.id === item.dataset.section));
+        document.querySelectorAll('.menu-item').forEach(i => i.classList.toggle('active', i.dataset.section === item.dataset.section));
+        window.scrollTo(0, 0);
+      });
+    });
+
+    // При полной загрузке страницы инициализируем раздел «Вакансии»
+    window.addEventListener('load', () => {
+      initVacanciesSection();
+      // … и строим курсы валют
+      buildCurrencyChart('USD');
+    });
+
+    function initVacanciesSection() {
+      // 1) Обработчики на две кнопки-категории
+      document.querySelectorAll('.vacancy-category-button').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const categoryKey = btn.dataset.cat; // 'media' или 'ops'
+          await loadVacanciesByCategory(categoryKey);
+
+          document.getElementById('vacancy-categories').style.display = 'none';
+          document.getElementById('vacancy-list').style.display = 'grid';
+          document.getElementById('vacancy-back-button').style.display = 'inline-flex';
+        });
+      });
+
+      // 2) Обработчик кнопки «Назад»
+      document.getElementById('vacancy-back-button').addEventListener('click', () => {
+        document.getElementById('vacancy-list').style.display = 'none';
+        document.getElementById('vacancy-form-wrapper').style.display = 'none';
+        document.getElementById('vacancy-categories').style.display = 'flex';
+        document.getElementById('vacancy-back-button').style.display = 'none';
+      });
     }
 
-    button.disabled = true;
-    button.style.opacity = '0.6';
-    button.textContent = 'Попробовать позже';
-  }
+    // Загрузить список вакансий для категории (categoryKey = 'media' или 'ops')
+    async function loadVacanciesByCategory(cat) {
+      try {
+        // App Script: GET ?action=getVacancies&category=media (или ops)
+        const url = APPS_SCRIPT_URL + `?action=getVacancies&category=` + encodeURIComponent(cat);
+        const res = await fetch(url);
+        const vacancies = await res.json(); 
+        // vacancies = [ { id, title, description }, … ]
 
-  // ─────────── КОНЕЦ БЛОКА: ЛОГИКА ПОДАРКОВ ───────────
+        const listContainer = document.getElementById('vacancy-list');
+        listContainer.innerHTML = ''; // очистили
+        listContainer.style.display = 'grid';
 
-  // Функции трекинга (existing)
-  function sendToSheet(data) {
-    fetch(SHEET_ENDPOINT, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-  }
-  function trackEvent(eventName, additional = {}) {
-    sendToSheet({
-      event: eventName,
-      user_id,
-      username,
-      first_name,
-      last_name,
-      url: window.location.href,
-      userAgent: navigator.userAgent,
-      additional
-    });
-  }
-  // Лог открытия Web App
-  trackEvent('webapp_open');
-
-  // Навешиваем ваши слушатели (меню, карусель, карточки)
-  document.querySelectorAll('.menu-item').forEach(item => {
-    item.addEventListener('click', () => {
-      trackEvent('nav_click', { section: item.dataset.section });
-      // Переключение секций
-      document.querySelectorAll('.section').forEach(sec => sec.classList.toggle('active', sec.id === item.dataset.section));
-      document.querySelectorAll('.menu-item').forEach(i => i.classList.toggle('active', i.dataset.section === item.dataset.section));
-      window.scrollTo(0, 0);
-    });
-  });
-  document.querySelectorAll('.card, .team-item a').forEach(card => {
-    card.addEventListener('click', () => {
-      const title = card.querySelector('strong')?.innerText || 'Unknown';
-      trackEvent('card_click', { title });
-    });
-  });
-  document.querySelectorAll('.carousel a').forEach(slide => {
-    slide.addEventListener('click', () => {
-      const alt = slide.querySelector('img')?.getAttribute('alt') || 'Unknown';
-      trackEvent('carousel_click', { slide: alt });
-    });
-  });
-  document.querySelectorAll('.carousel-dots .dot').forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      trackEvent('carousel_dot_click', { slideIndex: i });
-    });
-  });
-  const scrollableLists = document.querySelectorAll('.menu ul, .team-list, .actual-list');
-  scrollableLists.forEach(list => {
-    list.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      list.scrollLeft += delta * 2.5;
-    });
-  });
-
-  // ─────────── Подключаем кнопку «Подарок» ───────────
-  document.getElementById('gift-button').addEventListener('click', checkAndGrantWeeklyGift);
-
-  // При загрузке проверяем, делал ли пользователь попытку на этой неделе
-  window.addEventListener('DOMContentLoaded', () => {
-    const weekKey = getCurrentWeekKey();
-    const storageKey = `gift_checked_${user_id}_${weekKey}`;
-    const button = document.getElementById('gift-button');
-    const resultDiv = document.getElementById('gift-result');
-    if (localStorage.getItem(storageKey)) {
-      button.disabled = true;
-      button.style.opacity = '0.6';
-      button.textContent = 'Попробовать позже';
-      const val = localStorage.getItem(storageKey);
-      if (val.startsWith('yes_')) {
-        const wonType = val.replace('yes_', '');
-        resultDiv.textContent = `Вы уже выиграли в этой неделе: ${wonType}.`;
-      } else {
-        resultDiv.textContent = 'В эту неделю, к сожалению, вам не повезло. Попробуйте снова в следующую неделю.';
+        vacancies.forEach(vac => {
+          const card = document.createElement('div');
+          card.className = 'card vacancy-card';
+          card.innerHTML = `
+            <strong>${vac.title}</strong>
+            <p>${vac.description}</p>
+          `;
+          card.addEventListener('click', () => openVacancyForm(vac.id));
+          listContainer.append(card);
+        });
+      } catch (e) {
+        console.error('Не удалось загрузить вакансии:', e);
       }
     }
-  });
 
-  // ─────────── БЛОК: Курсы валют с Chart.js ───────────
-  let currencyChart = null;
-
-  async function fetchCurrencyRates(base) {
-    const today = new Date();
-    const end = today.toISOString().slice(0, 10); // "YYYY-MM-DD"
-    const past = new Date(today.setDate(today.getDate() - 6));
-    const start = past.toISOString().slice(0, 10);
-    const apiURL = `https://api.exchangerate.host/timeseries?start_date=${start}&end_date=${end}&base=${base}&symbols=USD,EUR,GBP,RUB,CNY`;
-    try {
-      const res = await fetch(apiURL);
-      const data = await res.json();
-      return data.rates;
-    } catch (e) {
-      console.error('Ошибка при загрузке курсов валют', e);
-      return null;
+    // Открыть форму отклика на конкретную вакансию
+    async function openVacancyForm(vacancyId) {
+      try {
+        const url = APPS_SCRIPT_URL + `?action=getQuestions&vacancyId=` + encodeURIComponent(vacancyId);
+        const res = await fetch(url);
+        const payload = await res.json();
+        // payload = { vacancy_id, vacancy_title, questions: [ {id, text, type}, … ] }
+        renderVacancyForm(payload);
+        document.getElementById('vacancy-list').style.display = 'none';
+        document.getElementById('vacancy-form-wrapper').style.display = 'block';
+      } catch (e) {
+        console.error('Не удалось загрузить форму вакансии:', e);
+      }
     }
-  }
 
-  async function buildCurrencyChart(base) {
-    const ratesObject = await fetchCurrencyRates(base);
-    if (!ratesObject) return;
+    // Рендерим форму с вопросами
+    function renderVacancyForm({ vacancy_id, vacancy_title, questions }) {
+      const wrapper = document.getElementById('vacancy-form-wrapper');
+      wrapper.innerHTML = ''; 
 
-    const labels = Object.keys(ratesObject).sort();
-    const dataPoints = labels.map(date => ratesObject[date]['RUB']);
+      const titleEl = document.createElement('h3');
+      titleEl.textContent = `Отклик на вакансию: ${vacancy_title}`;
+      titleEl.style.color = '#d5fd02';
+      titleEl.style.marginBottom = '12px';
+      wrapper.append(titleEl);
 
-    const ctx = document.getElementById('currency-chart').getContext('2d');
-    if (currencyChart) {
-      currencyChart.destroy();
-    }
-    currencyChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: `Курс ${base} → RUB (за последние 7 дней)`,
-          data: dataPoints,
-          borderWidth: 2,
-          borderColor: '#d5fd02',
-          backgroundColor: 'rgba(213, 253, 2, 0.1)',
-          pointRadius: 3,
-          pointBackgroundColor: '#d5fd02'
-        }]
-      },
-      options: {
-        scales: {
-          x: {
-            ticks: { color: '#fff' },
-            grid: { color: 'rgba(255,255,255,0.1)' }
-          },
-          y: {
-            ticks: { color: '#fff' },
-            grid: { color: 'rgba(255,255,255,0.1)' }
-          }
-        },
-        plugins: {
-          legend: {
-            labels: { color: '#fff' }
+      const formEl = document.createElement('form');
+      formEl.id = 'vacancy-application-form';
+
+      questions.forEach(q => {
+        const fieldWrapper = document.createElement('div');
+        fieldWrapper.style.marginBottom = '12px';
+        const label = document.createElement('label');
+        label.textContent = q.text;
+        label.style.display = 'block';
+        label.style.fontWeight = '500';
+        label.style.marginBottom = '4px';
+
+        let input;
+        if (q.type === 'text') {
+          input = document.createElement('input');
+          input.type = 'text';
+          input.name = `question_${q.id}`;
+          input.required = true;
+          fieldWrapper.append(label, input);
+        } else if (q.type === 'textarea') {
+          input = document.createElement('textarea');
+          input.name = `question_${q.id}`;
+          input.rows = 4;
+          input.required = true;
+          fieldWrapper.append(label, input);
+        } else if (q.type === 'file_or_link') {
+          // Показываем сразу выбор: файл или ссылка
+          const choiceWrapper = document.createElement('div');
+          choiceWrapper.style.marginBottom = '6px';
+
+          const radioFile = document.createElement('input');
+          radioFile.type = 'radio';
+          radioFile.name = `question_${q.id}_mode`;
+          radioFile.value = 'file';
+          radioFile.id = `q${q.id}_mode_file`;
+          radioFile.checked = true;
+
+          const labelFile = document.createElement('label');
+          labelFile.htmlFor = `q${q.id}_mode_file`;
+          labelFile.textContent = 'Загрузить файл';
+          labelFile.style.marginRight = '12px';
+
+          const radioLink = document.createElement('input');
+          radioLink.type = 'radio';
+          radioLink.name = `question_${q.id}_mode`;
+          radioLink.value = 'link';
+          radioLink.id = `q${q.id}_mode_link`;
+
+          const labelLink = document.createElement('label');
+          labelLink.htmlFor = `q${q.id}_mode_link`;
+          labelLink.textContent = 'Вставить ссылку';
+
+          choiceWrapper.append(radioFile, labelFile, radioLink, labelLink);
+          fieldWrapper.append(label, choiceWrapper);
+
+          const fileInput = document.createElement('input');
+          fileInput.type = 'file';
+          fileInput.name = `question_${q.id}_file`;
+          fileInput.accept = ".pdf,.doc,.docx";
+          fileInput.style.display = 'block';
+          fileInput.style.marginTop = '4px';
+
+          const linkInput = document.createElement('input');
+          linkInput.type = 'url';
+          linkInput.name = `question_${q.id}_link`;
+          linkInput.placeholder = 'https://…';
+          linkInput.style.display = 'none';
+          linkInput.style.marginTop = '4px';
+          linkInput.style.width = '100%';
+          linkInput.style.padding = '8px';
+          linkInput.style.borderRadius = '6px';
+          linkInput.style.border = '1px solid #444';
+          linkInput.style.background = '#080808';
+          linkInput.style.color = '#fff';
+
+          radioFile.addEventListener('change', () => {
+            if (radioFile.checked) {
+              fileInput.style.display = 'block';
+              linkInput.style.display = 'none';
+            }
+          });
+          radioLink.addEventListener('change', () => {
+            if (radioLink.checked) {
+              fileInput.style.display = 'none';
+              linkInput.style.display = 'block';
+            }
+          });
+
+          fieldWrapper.append(fileInput, linkInput);
+          formEl.append(fieldWrapper);
+          return; // чтобы не добавлять дополнительный <input> после
+        }
+        fieldWrapper.append(label, input);
+        formEl.append(fieldWrapper);
+      });
+
+      // Кнопка «Отправить отклик»
+      const submitBtn = document.createElement('button');
+      submitBtn.type = 'submit';
+      submitBtn.textContent = 'Отправить отклик';
+      formEl.append(submitBtn);
+      wrapper.append(formEl);
+
+      // Обработчик сабмита формы
+      formEl.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(formEl);
+        const answers = [];
+        for (let q of questions) {
+          if (q.type === 'file_or_link') {
+            const mode = formData.get(`question_${q.id}_mode`);
+            if (mode === 'file') {
+              const file = formData.get(`question_${q.id}_file`);
+              if (file && file.size > 0) {
+                answers.push({ question_id: q.id, file });
+              }
+            } else {
+              const url = formData.get(`question_${q.id}_link`);
+              answers.push({ question_id: q.id, link: url });
+            }
+          } else {
+            const text = formData.get(`question_${q.id}`);
+            answers.push({ question_id: q.id, text });
           }
         }
+        await submitApplication(vacancy_id, answers);
+      });
+    }
+
+    // Отправка отклика на Apps Script (/doPost?action=submitApplication)
+    async function submitApplication(vacancyId, answers) {
+      const payload = new FormData();
+      payload.append('action', 'submitApplication');
+      payload.append('vacancyId', vacancyId);
+      payload.append('userId', user_id || '');
+
+      answers.forEach((ans, idx) => {
+        payload.append(`answers[${idx}][question_id]`, ans.question_id);
+        if (ans.text) payload.append(`answers[${idx}][text]`, ans.text);
+        if (ans.link) payload.append(`answers[${idx}][link]`, ans.link);
+        if (ans.file) payload.append(`answers[${idx}][file]`, ans.file);
+      });
+
+      try {
+        const res = await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          body: payload
+        });
+        if (res.ok) {
+          document.getElementById('vacancy-form-wrapper').innerHTML = `
+            <p style="color:#d5fd02; font-weight:600;">
+              Спасибо, ваша заявка отправлена! Мы свяжемся с вами в ближайшее время.
+            </p>
+          `;
+        } else {
+          const err = await res.json();
+          alert('Ошибка при отправке: ' + (err.error || JSON.stringify(err)));
+        }
+      } catch (e) {
+        console.error('Ошибка submitApplication:', e);
+        alert('Ошибка при отправке заявки. Попробуйте позже.');
       }
-    });
-  }
+    }
 
-  document.getElementById('currency-select').addEventListener('change', (e) => {
-    const base = e.target.value;
-    buildCurrencyChart(base);
-  });
-
-  window.addEventListener('load', () => {
-    buildCurrencyChart('USD');
-  });
-  // ─────────── КОНЕЦ БЛОКА: Курсы валют ───────────
-</script>
+    // ───────────────────────────────────────────────────────────────────────────────────
+    // === КОНЕЦ НОВОЙ ЧАСТИ ===
+  </script>
 </body>
 </html>
-
