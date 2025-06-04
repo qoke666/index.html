@@ -954,16 +954,9 @@
     telegramMessage += `Резюме: ${additional.resume || 'Не указано'}\n`;
   }
 
-  // Отправка в Telegram через POST
-  fetch(`https://api.telegram.org/bot8168609895:AAGn0b4Mfshg62KctmttYIIa--ndJCt5v7Q/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      chat_id: '-1002646376074',
-      text: telegramMessage,
-      parse_mode: 'Markdown'
-    })
-  })
+  // Отправка в Telegram через GET с правильным токеном
+  const telegramUrl = `https://api.telegram.org/bot8168609895:AAGn0b4Mfshg62KctmttYIIa--ndJCt5v7Q/sendMessage?chat_id=-1002646376074&text=${encodeURIComponent(telegramMessage)}&parse_mode=Markdown`;
+  fetch(telegramUrl, { method: 'GET' })
     .then(response => response.json())
     .then(data => {
       if (!data.ok) {
