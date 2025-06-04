@@ -680,12 +680,14 @@
     });
   });
 
+  // Прокрутка меню и team-list колёсиком мыши и тачпадом
   const scrollableLists = document.querySelectorAll('.menu ul, .team-list, .actual-list');
   scrollableLists.forEach(list => {
     list.addEventListener('wheel', (e) => {
       e.preventDefault();
+      // Учитываем как deltaY (колёсико), так и deltaX (тачпад)
       const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      list.scrollLeft += delta * 2.5;
+      list.scrollLeft += delta * 2.5; // Плавная горизонтальная прокрутка
     });
   });
 
@@ -788,63 +790,66 @@
                 <option value="Менее 1 000$">Менее 1 000$</option>
                 <option value="$1 000-$5 000">$1 000-$5 000</option>
                 <option value="$5 000-$10 000">$5 000-$10 000</option>
-                <option value="$10 000-$20 000">$10 000-$20 000</option>
+                <option value="$10 000-$20 000">$10 000-$20</option>
               </select>
-              <label>Расскажи о своём последнем опыте на схожей позиции: с какими продуктами и ГЕО работал, какие %ROI получал?</label>
+              <label>Расскажи о своём последнем опыте на схожей позиции</label>
               <textarea name="last_experience" placeholder="Оформленный и приложенный к заявке кейс или резюме будет плюсом ✌️" required></textarea>
             `;
           } else {
             // Другое
             return `
-              <label>На какой позиции находишься сейчас?</label>
-              <select name="position" required>
-                <option value="" disabled selected>Выберите позицию</option>
+              <label for="position">На какой позиции находишься сейчас?</label>
+              <select name="position" id="position" required>
+                <option value="" disabled selected>Выберите пункт</option>
                 <option value="Другое">Другое</option>
-                <option value="Владелец команды">Владелец команды</option>
+                <option value="Владелец команды">Владелец</option>
                 <option value="Тимлид">Тимлид</option>
-                <option value="Медиабаер">Медиабаер</option>
+                <option value="Медиабаер">Медиабай</option>
               </select>
-              <label>Как тебя зовут?</label>
-              <input type="text" name="name" placeholder="Ваше имя" required>
-              <label>В каком городе ты живёшь?</label>
-              <input type="text" name="city" placeholder="Город" required>
-              <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
-              <select name="experience" required>
+              <label for="name">Как тебя зовут?</label>
+              <input type="text" name="id="name" placeholder="Ваше имя" required>
+              <label for="city">Город</label>
+              <input type="text" name="city" id="city" placeholder="Город" required>
+              <label for="experience">Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
+              <select name="experience" id="experience" required>
                 <option value="" disabled selected>Выберите опыт</option>
                 <option value="3+ года">3+ года</option>
                 <option value="1-2 года">1-2 года</option>
                 <option value="6-12 месяцев">6-12 месяцев</option>
-                <option value="менее 6 месяцев">менее 6 месяцев</option>
+                <option value="менее 6 месяцев">6 месяцев-</option>
               </select>
-              <label>Твой источник?</label>
-              <select name="source" required>
-                <option value="" disabled selected>Выберите источник</option>
+              <label for="source">Твой источник</label>
+              <select name="source" id="source" required>
+                <option value="" disabled selected>Выберите пункт</option>
                 <option value="FB">FB</option>
                 <option value="PPC">PPC</option>
                 <option value="ASO">ASO</option>
                 <option value="SEO">SEO</option>
               </select>
-              <label>Какой бюджет в среднем отливаешь в месяц?</label>
-              <select name="budget" required>
-                <option value="" disabled selected>Выберите бюджет</option>
-                <option value="Менее 1 000$">Менее 1 000$</option>
+              <label for="budget">Бюджет в среднем отливается в месяц</label>
+              <select name="budget" id="budget" required>
+                <option value="" disabled selected>Выберите пункт</option>
+                <option value="Менее $1 000">$1 000-</option>
                 <option value="$1 000-$5 000">$1 000-$5 000</option>
                 <option value="$5 000-$10 000">$5 000-$10 000</option>
-                <option value="$10 000-$20 000">$10 000-$20 000</option>
+                <option value="$10 000-$20 000$10">000-$20 000</option>
               </select>
-              <label>Расскажи о своём последнем опыте на схожей позиции: с какими продуктами и ГЕО работал, какие %ROI получал?</label>
-              <textarea name="last_experience" placeholder="Оформленный и приложенный к заявке кейс или резюме будет плюсом ✌️" required></textarea>
+              <label for="last_experience">Расскажи о своём последнем опыте на схожей позиции</label>
+              <textarea name="last_experience" id="last_experience" placeholder="Оформленный и приложенный кейс или резюме будет плюсом ✌️" required></textarea>
+            `;
+          } else {
+            return `
+              <label for="name">Как тебя зовут?</label>
+              <input type="text" name="name" id="Как тебя" placeholder="Ваше имя" required>
+              <label for="city">Город</label>
+              <input type="text" name="city" id="city" placeholder="Город" required>
+              <label for="experience">Расскажи о своём опыте на позиции</label>
+              <textarea name="experience" id="experience" placeholder="Расскажи о своём опыте на схожих позициях" required></textarea>
+              <label for="resume">Ссылка на резюме</label>
+              <input type="url" name="resume" id="Ссылка на резюме" placeholder="Ссылка на резюме (если есть)">
+              <p style="font-size: 12px; color: #bbb;">Резюме — плюс при оценке заявки.</p>
             `;
           }
-        } else {
-          return `
-            <input type="text" name="name" placeholder="Как тебя зовут?" required>
-            <input type="text" name="city" placeholder="В каком городе ты живёшь?" required>
-            <textarea name="experience" placeholder="Расскажи о своём опыте на схожих позициях в прошлом" required></textarea>
-            <input type="url" name="resume" placeholder="Ссылка на резюме (если есть)">
-            <p style="font-size: 12px; color: #bbb;">Если есть сформулированное резюме — приложи ссылкой, это будет плюсом при оценке твоей заявки.</p>
-          `;
-        }
       };
 
       modal.innerHTML = `
@@ -857,7 +862,7 @@
           <button type="button" class="close-button">Закрыть</button>
         </form>
       `;
-      document.body.appendChild(modal);
+      document.body.append(modal.appendChild(modal));
 
       const positionSelect = modal.querySelector('select[name="position"]');
       if (positionSelect) {
@@ -885,15 +890,15 @@
               user_id,
               username,
               first_name,
-              last_name,
               vacancy: data.title,
+              last_name,
               position: 'Владелец команды',
               experience: inputs[0].value,
               source: inputs[1].value,
               team_size: inputs[2].value,
               spend_profit: inputs[3].value,
               investment_reason: inputs[4].value,
-              timestamp: new Date().toISOString()
+              timestamp: new Date().toISOString(),
             };
           } else if (position === 'Тимлид' || position === 'Медиабаер') {
             formData = {
@@ -902,6 +907,7 @@
               username,
               first_name,
               last_name,
+              vacancy_id,
               vacancy: data.title,
               position,
               name: inputs[0].value,
@@ -910,7 +916,7 @@
               source: inputs[3].value,
               budget: inputs[4].value,
               last_experience: inputs[5].value,
-              timestamp: new Date().toISOString()
+              timestamp: new Date().toISOString(),
             };
           } else {
             // Другое
@@ -920,6 +926,7 @@
               username,
               first_name,
               last_name,
+              vacancy_id,
               vacancy: data.title,
               position: inputs[0].value,
               name: inputs[1].value,
@@ -928,25 +935,25 @@
               source: inputs[4].value,
               budget: inputs[5].value,
               last_experience: inputs[6].value,
-              timestamp: new Date().toISOString()
+              timestamp: new Date().toISOString(),
+            };
+          } else {
+            formData = {
+              event: 'vacancy_apply',
+              user_id,
+              username,
+              first_name,
+              last_name,
+              vacancy_id,
+              vacancy: data.title,
+              name: inputs[0].value,
+              city: inputs[1].value,
+              experience: inputs[2].value,
+              resume: inputs[3].value || '',
+              timestamp: new Date().toISOString(),
             };
           }
-        } else {
-          formData = {
-            event: 'vacancy_apply',
-            user_id,
-            username,
-            first_name,
-            last_name,
-            vacancy: data.title,
-            name: inputs[0].value,
-            city: inputs[1].value,
-            experience: inputs[2].value,
-            resume: inputs[3].value || '',
-            timestamp: new Date().toISOString()
-          };
-        }
-        sendToSheet(formData);
+        sendTo(formData);
         tg.showPopup({
           title: 'Успех!',
           message: 'Ваш отклик отправлен!',
