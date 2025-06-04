@@ -639,32 +639,38 @@ const session_id = generateUUID();
 const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxm5EL306NS2zODtWC4BzsV7yj8F_qj_47YmwknE_CzPDLuNBKeMqfhhoiNh6Bv8sSj7Q/exec';
 const device = navigator.userAgent.includes('Mobile') ? 'mobile' : 'desktop';
 const screen_resolution = `${window.screen.width}x${window.screen.height}`;
-let sectionTimes = {};
 let eventQueue = [];
 let lastScrollDepth = 0;
 
 // Отправка событий
 function sendToSheet(data) {
-  eventQueue.push({
-    ...data,
-    session_id,
-    device,
-    screen_resolution,
+  const eventData = {
+    event: data.event,
+    user_id,
+    username,
+    first_name,
+    last_name,
     url: window.location.href,
     userAgent: navigator.userAgent,
+    additional: data.additional || {},
     timestamp: new Date().toISOString()
-  });
+  };
+  console.log('Adding to eventQueue:', eventData); // Отладка
+  eventQueue.push(eventData);
 }
 
 function flushEventQueue() {
   if (!eventQueue.length) return;
   const batch = eventQueue.splice(0, eventQueue.length);
+  console.log('Sending batch:', batch); // Отладка
   fetch(SHEET_ENDPOINT, {
     method: 'POST',
     mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(batch.length === 1 ? batch[0] : { event: 'batch', events: batch })
-  }).catch(error => console.error('Analytics error:', error));
+  }).catch(error => {
+    console.error('Analytics error:', error);
+  });
 }
 
 // Отправка событий каждые 5 секунд
@@ -673,53 +679,17 @@ setInterval(flushEventQueue, 5000);
 // Начало сессии
 sendToSheet({
   event: 'session_start',
-  user_id,
-  username,
-  first_name,
-  last_name
+  additional: { session_id, device, screen_resolution }
 });
 
 // Завершение сессии
 window.addEventListener('beforeunload', () => {
-  Object.keys(sectionTimes).forEach(section => {
-    if (sectionTimes[section].start) {
-      const duration = (Date.now() - sectionTimes[section].start) / 1000;
-      sendToSheet({
-        event: 'section_time',
-        event_category: 'time',
-        event_label: section,
-        additional: { duration }
-      });
-    }
-  });
   sendToSheet({
     event: 'session_end',
-    user_id,
-    username,
-    first_name,
-    last_name
+    additional: { session_id }
   });
   flushEventQueue();
 });
-
-// Отслеживание времени в секциях
-function trackSectionTime(section) {
-  const now = Date.now();
-  Object.keys(sectionTimes).forEach(s => {
-    if (sectionTimes[s].start && s !== section) {
-      const duration = (now - sectionTimes[s].start) / 1000;
-      sendToSheet({
-        event: 'section_time',
-        event_category: 'time',
-        event_label: s,
-        additional: { duration }
-      });
-      sectionTimes[s].start = null;
-    }
-  });
-  if (!sectionTimes[section]) sectionTimes[section] = { start: null };
-  if (!sectionTimes[section].start) sectionTimes[section].start = now;
-}
 
 // Отслеживание скролла
 const trackScroll = debounce(() => {
@@ -727,9 +697,7 @@ const trackScroll = debounce(() => {
   if (scrollDepth > lastScrollDepth) {
     sendToSheet({
       event: 'scroll',
-      event_category: 'scroll',
-      event_label: `depth_${scrollDepth}%`,
-      additional: { scroll_y: window.scrollY }
+      additional: { depth: `${scrollDepth}%`, scroll_y: window.scrollY }
     });
     lastScrollDepth = scrollDepth;
   }
@@ -742,11 +710,14 @@ document.addEventListener('click', e => {
   if (target) {
     const label = target.dataset.section || target.dataset.vacancyId || target.dataset.id ||
                   target.querySelector('strong')?.innerText || target.innerText || 'unknown';
+    const additional = {};
+    if (target.classList.contains('card') || target.classList.contains('promo-card')) {
+      additional.card_id = target.dataset.vacancyId || target.dataset.id || 'unknown';
+      additional.card_title = target.querySelector('strong')?.innerText || target.innerText || 'unknown';
+    }
     sendToSheet({
       event: 'click',
-      event_category: 'click',
-      event_label: label,
-      additional: { tag: target.tagName, class: target.className }
+      additional: { label, tag: target.tagName, class: target.className, ...additional }
     });
   }
 });
@@ -756,11 +727,14 @@ document.querySelectorAll('.card, .menu-item, .dot, button').forEach(el => {
   el.addEventListener('mouseenter', () => {
     const label = el.dataset.section || el.dataset.vacancyId || el.dataset.id ||
                   el.querySelector('strong')?.innerText || el.innerText || 'unknown';
+    const additional = {};
+    if (el.classList.contains('card') || el.classList.contains('promo-card')) {
+      additional.card_id = el.dataset.vacancyId || el.dataset.id || 'unknown';
+      additional.card_title = el.querySelector('strong')?.innerText || el.innerText || 'unknown';
+    }
     sendToSheet({
       event: 'hover',
-      event_category: 'hover',
-      event_label: label,
-      additional: { tag: el.tagName, class: el.className }
+      additional: { label, tag: el.tagName, class: el.className, ...additional }
     });
   });
 });
@@ -771,25 +745,19 @@ function trackFormEvents(form) {
     field.addEventListener('focus', () => {
       sendToSheet({
         event: 'form_focus',
-        event_category: 'form',
-        event_label: field.name || field.placeholder,
-        additional: { form: form.className }
+        additional: { field: field.name || field.placeholder, form: form.className }
       });
     });
     field.addEventListener('blur', () => {
       sendToSheet({
         event: 'form_blur',
-        event_category: 'form',
-        event_label: field.name || field.placeholder,
-        additional: { value_length: field.value.length, form: form.className }
+        additional: { field: field.name || field.placeholder, value_length: field.value.length, form: form.className }
       });
     });
     field.addEventListener('change', () => {
       sendToSheet({
         event: 'form_change',
-        event_category: 'form',
-        event_label: field.name || field.placeholder,
-        additional: { value_length: field.value.length, form: form.className }
+        additional: { field: field.name || field.placeholder, value_length: field.value.length, form: form.className }
       });
     });
   });
@@ -797,14 +765,27 @@ function trackFormEvents(form) {
     if (!form.checkValidity()) {
       sendToSheet({
         event: 'form_error',
-        event_category: 'form',
-        event_label: 'validation_failed',
         additional: { form: form.className }
       });
       e.preventDefault();
     }
   });
 }
+
+// Оставляем остальной код (меню, вакансии, модальные окна) без изменений
+document.querySelectorAll('.menu-item').forEach(item => {
+  item.addEventListener('click', () => {
+    sendToSheet({
+      event: 'nav_click',
+      additional: { section: item.dataset.section }
+    });
+    document.querySelectorAll('.section').forEach(sec => {
+      sec.classList.toggle('active', sec.id === item.dataset.section);
+    });
+    document.querySelectorAll('.menu-item').forEach(i => i.classList.toggle('active', i.dataset.section === item.dataset.section));
+    window.scrollTo(0, 0);
+  });
+});
 
 const vacancyData = {
   smm1: {
@@ -836,23 +817,6 @@ const vacancyData = {
   }
 };
 
-document.querySelectorAll('.menu-item').forEach(item => {
-  item.addEventListener('click', () => {
-    sendToSheet({
-      event: 'nav_click',
-      event_category: 'navigation',
-      event_label: item.dataset.section,
-      additional: { section: item.dataset.section }
-    });
-    document.querySelectorAll('.section').forEach(sec => {
-      sec.classList.toggle('active', sec.id === item.dataset.section);
-      if (sec.id === item.dataset.section) trackSectionTime(sec.id);
-    });
-    document.querySelectorAll('.menu-item').forEach(i => i.classList.toggle('active', i.dataset.section === item.dataset.section));
-    window.scrollTo(0, 0);
-  });
-});
-
 document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(card => {
   card.addEventListener('click', () => {
     const vacancyId = card.dataset.vacancyId;
@@ -860,11 +824,8 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
     if (!data) return;
     sendToSheet({
       event: 'vacancy_view',
-      event_category: 'vacancy',
-      event_label: data.title,
-      additional: { vacancy_id: vacancyId }
+      additional: { vacancy_id: vacancyId, title: data.title }
     });
-    trackSectionTime('vacancies');
     const modal = document.createElement('div');
     modal.className = 'modal';
     const renderForm = (position = '') => {
@@ -1003,9 +964,7 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
       positionSelect.addEventListener('change', () => {
         sendToSheet({
           event: 'form_change',
-          event_category: 'form',
-          event_label: 'position',
-          additional: { value: positionSelect.value }
+          additional: { field: 'position', value: positionSelect.value }
         });
         const newFormContent = renderForm(positionSelect.value);
         const form = modal.querySelector('.apply-form');
@@ -1023,8 +982,7 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
     modal.querySelector('.close-button').addEventListener('click', () => {
       sendToSheet({
         event: 'modal_close',
-        event_category: 'modal',
-        event_label: data.title
+        additional: { vacancy_id: vacancyId, title: data.title }
       });
       modal.remove();
     });
@@ -1034,8 +992,6 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
       if (!modal.querySelector('.apply-form').checkValidity()) {
         sendToSheet({
           event: 'form_error',
-          event_category: 'form',
-          event_label: 'validation_failed',
           additional: { form: 'apply-form' }
         });
         return;
@@ -1043,28 +999,27 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
       const inputs = modal.querySelectorAll('input, textarea, select');
       let formData = {
         event: 'vacancy_apply',
-        user_id,
-        username,
-        first_name,
-        last_name,
-        vacancy: data.title,
-        vacancy_id: vacancyId,
-        timestamp: new Date().toISOString()
+        additional: {
+          vacancy_id: vacancyId,
+          title: data.title
+        }
       };
 
       if (vacancyId === 'tlc_promo') {
         const position = inputs[0].name === 'position' ? inputs[0].value : 'Владелец команды';
         if (position === 'Владелец команды') {
-          Object.assign(formData, {
+          formData.additional = {
+            ...formData.additional,
             position: 'Владелец команды',
             experience: inputs[0].value,
             source: inputs[1].value,
             team_size: inputs[2].value,
             spend_profit: inputs[3].value,
             investment_reason: inputs[4].value
-          });
+          };
         } else if (position === 'Тимлид' || position === 'Медиабаер') {
-          Object.assign(formData, {
+          formData.additional = {
+            ...formData.additional,
             position,
             name: inputs[0].value,
             city: inputs[1].value,
@@ -1072,9 +1027,10 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
             source: inputs[3].value,
             budget: inputs[4].value,
             last_experience: inputs[5].value
-          });
+          };
         } else {
-          Object.assign(formData, {
+          formData.additional = {
+            ...formData.additional,
             position: inputs[0].value,
             name: inputs[1].value,
             city: inputs[2].value,
@@ -1082,15 +1038,16 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
             source: inputs[4].value,
             budget: inputs[5].value,
             last_experience: inputs[6].value
-          });
+          };
         }
       } else {
-        Object.assign(formData, {
+        formData.additional = {
+          ...formData.additional,
           name: inputs[0].value,
           city: inputs[1].value,
           experience: inputs[2].value,
           resume: inputs[3].value || ''
-        });
+        };
       }
 
       sendToSheet(formData);
