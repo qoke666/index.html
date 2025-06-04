@@ -425,7 +425,7 @@
         </a>
       </li>
       <li class="actual-item">
-        <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank" data-id="actual_2" data-title="SCAM кейс от AMERIO.BET">
+        <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-600" target="_blank" data-id="actual_2" data-title="SCAM кейс от AMERIO.BET">
           <img src="https://i.postimg.cc/X7KQS6B4/scam.jpg" alt="SCAM кейс" />
           <div class="text-overlay">
             <strong></strong>
@@ -435,7 +435,7 @@
       </li>
       <li class="actual-item">
         <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-04-09" target="_blank" data-id="actual_3" data-title="Качество трафика в гемблинге">
-          <img src="https://i.postimg.cc/hjQFNVwD/photo-2025-05-14-20-01-19.jpg" alt="Статья" />
+          <img src="https://i.postimg.cc/hj-qFNVwD/photo-2025-05-14-20-01-00.jpg" alt="Статья" />
           <div class="text-overlay">
             <strong></strong>
             <p></p>
@@ -553,7 +553,7 @@
         <p></p>
       </div>
     </a>
-    <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank" data-id="case_2" data-title="SCAM кейс от AMERIO.BET">
+    <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-600" target="_blank" data-id="case_2" data-title="SCAM кейс от AMERIO.BET">
       <img src="https://i.postimg.cc/X7KQS6B4/scam.jpg" alt="SCAM кейс" />
       <div class="text-overlay">
         <strong></strong>
@@ -655,13 +655,14 @@ function sendToSheet(data) {
     additional: data.additional || {},
     timestamp: new Date().toISOString()
   };
-  console.log('Adding to eventQueue:', eventData);
+  console.log('Event prepared:', eventData);
   eventQueue.push(eventData);
 }
 
 function flushEventQueue() {
   if (!eventQueue.length) return;
   const batch = eventQueue.splice(0, eventQueue.length);
+  console.log('Sending batch:', batch);
   fetch(SHEET_ENDPOINT, {
     method: 'POST',
     mode: 'no-cors',
@@ -854,13 +855,13 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
             <label>Какой бюджет в среднем отливаешь в месяц?</label>
             <select name="budget" required>
               <option value="" disabled selected>Выберите бюджет</option>
-              <option value="Менее 1 000$">Менее 1 000$</option>
+              <option value="Менее $1 000">Менее $1 000</option>
               <option value="$1 000-$5 000">$1 000-$5 000</option>
               <option value="$5 000-$10 000">$5 000-$10 000</option>
               <option value="$10 000-$20 000">$10 000-$20 000</option>
             </select>
             <label>Расскажи о последнем опыте: продукты, ГЕО, %ROI?</label>
-            <textarea name="last_experience" placeholder="Оформленный кейс или резюме — плюс ✌️" required></textarea>
+            <textarea name="last_experience" placeholder="Кейс или резюме — плюс" required></textarea>
           `;
         } else {
           return `
@@ -895,13 +896,13 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
             <label>Какой бюджет в среднем отливаешь в месяц?</label>
             <select name="budget" required>
               <option value="" disabled selected>Выберите бюджет</option>
-              <option value="Менее 1 000$">Менее 1 000$</option>
+              <option value="Менее $1 000">Менее $1 000</option>
               <option value="$1 000-$5 000">$1 000-$5 000</option>
               <option value="$5 000-$10 000">$5 000-$10 000</option>
               <option value="$10 000-$20 000">$10 000-$20 000</option>
             </select>
             <label>Расскажи о последнем опыте: продукты, ГЕО, %ROI?</label>
-            <textarea name="last_experience" placeholder="Оформленный кейс или резюме — плюс ✌️" required></textarea>
+            <textarea name="last_experience" placeholder="Кейс или резюме — плюс" required></textarea>
           `;
         }
       } else {
@@ -950,7 +951,9 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
 
     form.addEventListener('submit', e => {
       e.preventDefault();
+      console.log('Form submitted, checking validity...');
       if (!form.checkValidity()) {
+        console.log('Form invalid, reporting validity');
         form.reportValidity();
         sendToSheet({
           event: 'form_error',
@@ -958,11 +961,13 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
         });
         return;
       }
+      console.log('Form valid, collecting data');
       const formData = new FormData(form);
       const additional = { id: vacancyId, title: data.title };
       for (let [key, value] of formData.entries()) {
         additional[key] = value;
       }
+      console.log('Sending vacancy_apply:', additional);
       sendToSheet({
         event: 'vacancy_apply',
         additional
