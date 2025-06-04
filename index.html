@@ -1,968 +1,941 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>TMA Главная</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TMA Главная</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-  body { 
-    margin: 0; 
-    font-family: 'Inter', sans-serif; 
-    background: #080808; 
-    color: #ffffff; 
-    overflow-y: auto; 
-  }
-  a { text-decoration: none; }
-  ul { list-style: none; margin: 0; padding: 0; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #080808;
+      color: #ffffff;
+      overflow-y: auto;
+    }
+    a { text-decoration: none; }
+    ul { list-style: none; margin: 0; padding: 0; }
 
-  .menu-top { display: flex; justify-content: flex-start; align-items: center; padding: 16px; }
-  .menu-top .logo { width: 100px; }
+    .menu-top { display: flex; justify-content: flex-start; align-items: center; padding: 16px; }
+    .menu-top .logo { width: 100px; }
 
-  .carousel { 
-    position: relative; 
-    width: 343px; 
-    height: 136px; 
-    margin: 0 auto; 
-    border-radius: 12px; 
-    overflow: hidden; 
-    background: #000; 
-    max-width: 100%; 
-  }
-  .carousel a { 
-    display: block; 
-    width: 100%; 
-    height: 100%; 
-    position: absolute; 
-    top: 0; 
-    left: 0; 
-    opacity: 0; 
-    transition: opacity .5s; 
-  }
-  .carousel a.active { opacity: 1; z-index: 1; }
-  .carousel img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .carousel .hot { 
-    position: absolute; 
-    top: 8px; 
-    left: 16px; 
-    font-size: 20px; 
-    font-weight: 500; 
-    color: #ffffff; 
-    z-index: 2; 
-  }
-  .carousel-dots { 
-    position: absolute; 
-    bottom: 8px; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    display: flex; 
-    gap: 5px; 
-    z-index: 2; 
-  }
-  .carousel-dots .dot { 
-    width: 5px; 
-    height: 5px; 
-    border-radius: 50%; 
-    background: rgba(255,255,255,0.3); 
-    cursor: pointer; 
-  }
-  .carousel-dots .dot.active { background: rgba(255,255,255,0.9); }
+    .carousel {
+      position: relative;
+      width: 343px;
+      height: 136px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      max-width: 100%;
+    }
+    .carousel a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity .5s;
+    }
+    .carousel a.active { opacity: 1; z-index: 1; }
+    .carousel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .carousel .hot {
+      position: absolute;
+      top: 8px;
+      left: 16px;
+      font-size: 20px;
+      font-weight: 500;
+      color: #ffffff;
+      z-index: 2;
+    }
+    .carousel-dots {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 5px;
+      z-index: 2;
+    }
+    .carousel-dots .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+    }
+    .carousel-dots .dot.active { background: rgba(255,255,255,0.9); }
 
-  .menu {
-    display: flex;
-    justify-content: center;
-    background: #080808;
-    padding: 12px 0;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    max-width: 100%;
-  }
-  .menu ul {
-    display: inline-flex;
-    gap: 10px;
-    padding: 0 16px;
-    overflow-x: auto;
-    white-space: nowrap;
-    scroll-behavior: smooth;
-    touch-action: pan-x;
-    -webkit-overflow-scrolling: touch;
-  }
-  .menu ul::-webkit-scrollbar { display: none; }
-  .menu-item {
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    color: #ccc;
-    transition: background .3s, color .3s;
-  }
-  .menu-item.active, .menu-item:hover {
-    background: #d5fd02;
-    color: #080808;
-  }
+    .menu {
+      display: flex;
+      justify-content: center;
+      background: #080808;
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      max-width: 100%;
+    }
+    .menu ul {
+      display: inline-flex;
+      gap: 10px;
+      padding: 0 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scroll-behavior: smooth;
+      touch-action: pan-x;
+      -webkit-overflow-scrolling: touch;
+    }
+    .menu ul::-webkit-scrollbar { display: none; }
+    .menu-item {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      color: #ccc;
+      transition: background .3s, color .3s;
+    }
+    .menu-item.active, .menu-item:hover {
+      background: #d5fd02;
+      color: #080808;
+    }
 
-  .section { 
-    display: none; 
-    padding: 24px 16px; 
-    box-sizing: border-box; 
-  }
-  .section.active { display: block; }
-  .back-button { 
-    display: inline-flex; 
-    align-items: center; 
-    gap: 6px; 
-    margin-bottom: 16px; 
-    padding: 6px 12px; 
-    background: #d5fd02; 
-    color: #080808; 
-    border: none; 
-    border-radius: 6px; 
-    cursor: pointer; 
-    font-weight: 600; 
-  }
+    .section {
+      display: none;
+      padding: 24px 16px;
+      box-sizing: border-box;
+    }
+    .section.active { display: block; }
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 6px 12px;
+      background: #d5fd02;
+      color: #080808;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
 
-  .section-title { 
-    font-size: 24px; 
-    font-weight: 600; 
-    margin: 24px 0; 
-    color: #d5fd02; 
-  }
+    .section-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 24px 0;
+      color: #d5fd02;
+    }
 
-  .grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
-    gap: 16px; 
-  }
-  .card { 
-    background: #111315; 
-    border: 1px solid #222; 
-    border-radius: 12px; 
-    color: #ccc; 
-    transition: transform .2s; 
-    position: relative; 
-    overflow: hidden; 
-  }
-  .card:hover { transform: scale(1.02); }
-  #home .card img, #articles .card img, #cases .card img { 
-    width: 100%; 
-    height: 120px; 
-    object-fit: cover; 
-    display: block; 
-  }
-  #vacancies .card, #offers .card { 
-    padding: 12px; 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
-    cursor: pointer; 
-  }
-  .card .text-overlay { 
-    position: absolute; 
-    bottom: 0; 
-    left: 0; 
-    right: 0; 
-    background: rgba(0,0,0,0.6); 
-    padding: 8px; 
-  }
-  .card strong { 
-    display: block; 
-    font-size: 14px; 
-    color: #ffffff; 
-    margin-bottom: 4px; 
-  }
-  .card p { 
-    font-size: 12px; 
-    color: #bbb; 
-    margin: 0; 
-  }
-  #vacancies .promo-card {
-    grid-column: 1 / -1;
-    background: #1a1d21;
-    padding: 16px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 600;
-    color: #d5fd02;
-    border-radius: 12px;
-    cursor: pointer;
-  }
-  #vacancies .promo-card:hover {
-    transform: scale(1.02);
-  }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: #111315;
+      border: 1px solid #222;
+      border-radius: 12px;
+      color: #ccc;
+      transition: transform .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover { transform: scale(1.02); }
+    #home .card img, #articles .card img, #cases .card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      display: block;
+    }
+    #vacancies .card, #offers .card {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .card .text-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.6);
+      padding: 8px;
+    }
+    .card strong {
+      display: block;
+      font-size: 14px;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .card p {
+      font-size: 12px;
+      color: #bbb;
+      margin: 0;
+    }
+    #vacancies .promo-card {
+      grid-column: 1 / -1;
+      background: #1a1d21;
+      padding: 16px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: #d5fd02;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    #vacancies .promo-card:hover { transform: scale(1.02); }
 
-  #team .card img { 
-    width: 60px; 
-    height: 60px; 
-    object-fit: cover; 
-    margin-bottom: 8px; 
-    border-radius: 50%; 
-  }
+    #team .card img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      margin-bottom: 8px;
+      border-radius: 50%;
+    }
 
-  .team-carousel { 
-    margin: 16px 0; 
-    max-width: 100%; 
-    overflow: hidden; 
-  }
-  .team-list {
-    display: inline-flex;
-    gap: 12px;
-    padding: 0 16px;
-    overflow-x: auto;
-    white-space: nowrap;
-    scroll-behavior: smooth;
-    touch-action: pan-x;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  .team-list::-webkit-scrollbar { display: none; }
-  .team-item {
-    flex: 0 0 160px;
-    padding: 12px;
-    text-align: center;
-    transition: transform .2s;
-  }
-  .team-item:hover { transform: scale(1.02); }
-  .team-item img { 
-    width: 60px; 
-    height: 60px; 
-    object-fit: cover; 
-    border-radius: 50%; 
-    margin: 0 auto 8px; 
-    display: block; 
-  }
-  .team-item strong { 
-    display: block; 
-    font-size: 14px; 
-    color: #ffffff; 
-    margin-bottom: 4px; 
-  }
-  .team-item p { 
-    font-size: 12px; 
-    color: #bbb; 
-    margin: 0; 
-  }
-  .actual-list-container {
-    margin: 16px 0;
-    max-width: 100%;
-    overflow: hidden;
-  }
-  .actual-list {
-    display: inline-flex;
-    gap: 12px;
-    padding: 0 16px;
-    overflow-x: auto;
-    white-space: nowrap;
-    scroll-behavior: smooth;
-    touch-action: pan-x;
-    -webkit-overflow-scrolling: touch;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  .actual-list::-webkit-scrollbar {
-    display: none;
-  }
-  .actual-item {
-    flex: 0 0 160px;
-  }
-  .actual-item .card {
-    border-radius: 12px;
-    overflow: hidden;
-    display: block;
-  }
-  .actual-item .card img {
-    border-radius: 12px 12px 0 0;
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-  }
-  #offers .card {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  #offers .card strong {
-    font-size: 16px;
-    color: #d5fd02;
-  }
-  #offers .card p {
-    font-size: 14px;
-    color: #ccc;
-    margin: 0;
-    line-height: 1.4;
-  }
-  .modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #111315;
-    border: 1px solid #222;
-    border-radius: 12px;
-    padding: 24px;
-    z-index: 9999;
-    color: #fff;
-    max-width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-sizing: border-box;
-  }
-  .modal h3 {
-    margin: 0 0 12px;
-    color: #d5fd02;
-    font-size: 20px;
-  }
-  .modal p {
-    font-size: 14px;
-    color: #ccc;
-    margin: 8px 0;
-  }
-  .modal .apply-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 16px;
-  }
-  .modal .apply-form select,
-  .modal .apply-form input,
-  .modal .apply-form textarea {
-    padding: 8px;
-    border: 1px solid #222;
-    border-radius: 6px;
-    background: #111315;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-  }
-  .modal .apply-form select {
-    appearance: none;
-    background-image: url('data:image/svg+xml;utf8,<svg fill="%23ccc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
-    background-repeat: no-repeat;
-    background-position: right 8px center;
-    background-size: 16px;
-  }
-  .modal .apply-form textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-  .modal .apply-form button {
-    padding: 8px 16px;
-    background: #d5fd02;
-    color: #080808;
-    border: none;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  .modal .apply-form button:hover {
-    background: #b8e002;
-  }
-  .modal .close-button {
-    padding: 8px 16px;
-    background: #222;
-    color: #fff;
-    border: 1px solid #444;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 14px;
-    margin-top: 8px;
-  }
-  .modal .close-button:hover {
-    background: #333;
-  }
-</style>
+    .team-carousel {
+      margin: 16px 0;
+      max-width: 100%;
+      overflow: hidden;
+    }
+    .team-list {
+      display: inline-flex;
+      gap: 12px;
+      padding: 0 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scroll-behavior: smooth;
+      touch-action: pan-x;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .team-list::-webkit-scrollbar { display: none; }
+    .team-item {
+      flex: 0 0 160px;
+      padding: 12px;
+      text-align: center;
+      transition: transform .2s;
+    }
+    .team-item:hover { transform: scale(1.02); }
+    .team-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin: 0 auto 8px;
+      display: block;
+    }
+    .team-item strong {
+      display: block;
+      font-size: 14px;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .team-item p {
+      font-size: 12px;
+      color: #bbb;
+      margin: 0;
+    }
+    .actual-list-container {
+      margin: 16px 0;
+      max-width: 100%;
+      overflow: hidden;
+    }
+    .actual-list {
+      display: inline-flex;
+      gap: 12px;
+      padding: 0 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scroll-behavior: smooth;
+      touch-action: pan-x;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .actual-list::-webkit-scrollbar { display: none; }
+    .actual-item { flex: 0 0 160px; }
+    .actual-item .card {
+      border-radius: 12px;
+      overflow: hidden;
+      display: block;
+    }
+    .actual-item .card img {
+      border-radius: 12px 12px 0 0;
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+    }
+    #offers .card {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    #offers .card strong {
+      font-size: 16px;
+      color: #d5fd02;
+    }
+    #offers .card p {
+      font-size: 14px;
+      color: #ccc;
+      margin: 0;
+      line-height: 1.4;
+    }
+    .modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #111315;
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 24px;
+      z-index: 9999;
+      color: #fff;
+      max-width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+    .modal h3 {
+      margin: 0 0 12px;
+      color: #d5fd02;
+      font-size: 20px;
+    }
+    .modal p {
+      font-size: 14px;
+      color: #ccc;
+      margin: 8px 0;
+    }
+    .modal .apply-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .modal .apply-form select,
+    .modal .apply-form input,
+    .modal .apply-form textarea {
+      padding: 8px;
+      border: 1px solid #222;
+      border-radius: 6px;
+      background: #111315;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+    }
+    .modal .apply-form select {
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%23ccc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 16px;
+    }
+    .modal .apply-form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .modal .apply-form button {
+      padding: 8px 16px;
+      background: #d5fd02;
+      color: #080808;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .modal .apply-form button:hover { background: #b8e002; }
+    .modal .close-button {
+      padding: 8px 16px;
+      background: #222;
+      color: #fff;
+      border: 1px solid #444;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    .modal .close-button:hover { background: #333; }
+  </style>
 </head>
 <body>
-<div class="menu-top">
-  <img class="logo" src="https://i.postimg.cc/90gRT1n1/Frame-277131232-2.png" alt="TMA Logo" />
-</div>
-
-<div class="carousel">
-  <a href="https://traffnews.com/intervju/kto-takoi-co-owner-kompanii/?utm_source=tg" target="_blank" class="active">
-    <img src="https://i.postimg.cc/yNL8QJ8S/owner-02-3.jpg" alt="Тихон" />
-  </a>
-  <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank">
-    <img src="https://i.postimg.cc/bJqQWjv5/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс" />
-  </a>
-  <a href="https://www.instagram.com/reel/DKHZPnYtjQD/?igsh=MTFobTRvMnpma3oxbA==" target="_blank">
-    <img src="https://i.postimg.cc/Z57qjBRv/feat-mac.jpg" alt="мак" />
-  </a>
-  <div class="hot"></div>
-  <div class="carousel-dots">
-    <div class="dot active"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
+  <div class="menu-top">
+    <img class="logo" src="https://i.postimg.cc/90gRT1n1/Frame-277131232-2.png" alt="TMA Logo" />
   </div>
-</div>
 
-<nav class="menu">
-  <ul>
-    <li class="menu-item active" data-section="home">Главная</li>
-    <li class="menu-item" data-section="articles">Статьи</li>
-    <li class="menu-item" data-section="cases">Кейсы</li>
-    <li class="menu-item" data-section="vacancies">Вакансии</li>
-    <li class="menu-item" data-section="offers">Офферы</li>
-  </ul>
-</nav>
+  <div class="carousel">
+    <a href="https://traffnews.com/intervju/kto-takoi-co-owner-kompanii/?utm_source=tg" target="_blank" class="active">
+      <img src="https://i.postimg.cc/yNL8QJ8S/owner-02-3.jpg" alt="Тихон" />
+    </a>
+    <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank">
+      <img src="https://i.postimg.cc/bJqQWjv5/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс" />
+    </a>
+    <a href="https://www.instagram.com/reel/DKHZPnYtjQD/?igsh=MTFobTRvMnpma3oxbA==" target="_blank">
+      <img src="https://i.postimg.cc/Z57qjBRv/feat-mac.jpg" alt="мак" />
+    </a>
+    <div class="hot"></div>
+    <div class="carousel-dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
 
-<section id="home" class="section active">
-  <h2 class="section-title">АКТУАЛЬНОЕ</h2>
-  <div class="actual-list-container">
-    <ul class="actual-list">
-      <li class="actual-item">
-        <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank" data-id="actual_1" data-title="Гемблинг кейс: $130 000+">
-          <img src="https://i.postimg.cc/7PGWRRNZ/130k.jpg" alt="Гемблинг кейс" />
-          <div class="text-overlay">
-            <strong></strong>
-            <p></p>
-          </div>
-        </a>
-      </li>
-      <li class="actual-item">
-        <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank" data-id="actual_2" data-title="SCAM кейс от AMERIO.BET">
-          <img src="https://i.postimg.cc/X7KQS6B4/scam.jpg" alt="SCAM кейс" />
-          <div class="text-overlay">
-            <strong></strong>
-            <p></p>
-          </div>
-        </a>
-      </li>
-      <li class="actual-item">
-        <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-04-09" target="_blank" data-id="actual_3" data-title="Качество трафика в гемблинге">
-          <img src="https://i.postimg.cc/hjQFNVwD/photo-2025-05-14-20-01-19.jpg" alt="Статья" />
-          <div class="text-overlay">
-            <strong></strong>
-            <p></p>
-          </div>
-        </a>
-      </li>
-      <li class="actual-item">
-        <a class="card" href="https://t.me/zakacreator" target="_blank" data-id="actual_4" data-title="Вакансия: Трафик менеджер">
-          <img src="https://i.postimg.cc/YSG4qP0S/traffic-manager.jpg" alt="Вакансия" />
-          <div class="text-overlay">
-            <strong></strong>
-            <p></p>
-          </div>
-        </a>
-      </li>
+  <nav class="menu">
+    <ul>
+      <li class="menu-item active" data-section="home">Главная</li>
+      <li class="menu-item" data-section="articles">Статьи</li>
+      <li class="menu-item" data-section="cases">Кейсы</li>
+      <li class="menu-item" data-section="vacancies">Вакансии</li>
+      <li class="menu-item" data-section="offers">Офферы</li>
     </ul>
-  </div>
-  <h2 class="section-title">КОМАНДА</h2>
-  <div class="team-carousel">
-    <ul class="team-list">
-      <li class="team-item">
-        <a href="https://t.me/Evgenii_Limited" target="_blank">
-          <img src="https://i.postimg.cc/yN5SkL2P/3.webp" alt="Evgenii" />
-          <strong>Evgenii Limited</strong>
-          <p>Co-owner</p>
-        </a>
-      </li>
-      <li class="team-item">
-        <a href="https://t.me/t_limited" target="_blank">
-          <img src="https://i.postimg.cc/KjgCWLjQ/4.webp" alt="Tikhon" />
-          <strong>Tikhon Limited</strong>
-          <p>Co-owner</p>
-        </a>
-      </li>
-      <li class="team-item">
-        <a href="https://t.me/Denis_limited" target="_blank">
-          <img src="https://i.postimg.cc/GmQ3z0Zt/6-new.webp" alt="Anna" />
-          <strong>Denis Limited</strong>
-          <p>Head of Affiliate</p>
-        </a>
-      </li>
-      <li class="team-item">
-        <a href="https://t.me/sasha_limited" target="_blank">
-          <img src="https://i.postimg.cc/gkyGkFcs/2.webp" alt="Dmitry" />
-          <strong>Aleksandra Limited</strong>
-          <p>Head of Sales</p>
-        </a>
-      </li>
-      <li class="team-item">
-        <a href="https://t.me/ksu_limited" target="_blank">
-          <img src="https://i.postimg.cc/SxDqC6Mz/1.webp" alt="Elena" />
-          <strong>Ksenia Limited</strong>
-          <p>Team Lead Affiliate Manager</p>
-        </a>
-      </li>
-      <li class="team-item">
-        <a href="https://t.me/katerinaHR_limited" target="_blank">
-          <img src="https://i.postimg.cc/hGvnrXLZ/7.jpg" alt="Sergey" />
-          <strong>Katerina Limited</strong>
-          <p>HRD</p>
-        </a>
-      </li>
-      <li class="team-item">
-        <a href="https://t.me/Alexandr_limited" target="_blank">
-          <img src="https://i.postimg.cc/yNGHr7n1/5-new.webp" alt="Maria" />
-          <strong>Alexander Limited</strong>
-          <p>Связь по PR и маркетингу</p>
-        </a>
-      </li>
-    </ul>
-  </div>
-</section>
+  </nav>
 
-<section id="articles" class="section">
-  <h2 class="section-title">СТАТЬИ</h2>
-  <div class="grid">
-    <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" target="_blank">
-      <img src="https://i.postimg.cc/JzZmWnct/quality.jpg" alt="Статья 1" />
-      <div class="text-overlay">
-        <strong>качество трафика</strong>
-        <p></p>
-      </div>
-    </a>
-    <a class="card" href="https://www.instagram.com/p/DCOei_ItMsf/?igsh=YzFudTVhbGlteGJr" target="_blank">
-      <img src="https://i.postimg.cc/63LfsdTz/partners.jpg" alt="отзывы" />
-      <div class="text-overlay">
-        <strong></strong>
-        <p></p>
-      </div>
-    </a>
-    <a class="card" href="https://traffhub.media/articles/gambling/nyuansy-vybora-gembling-offerov/" target="_blank">
-      <img src="https://i.postimg.cc/q77T6LH6/offer.jpg" alt="оффер" />
-      <div class="text-overlay">
-        <strong></strong>
-        <p></p>
-      </div>
-    </a>
-    <a class="card" href="https://traffnews.com/intervju/kto-takoi-co-owner-kompanii/?utm_source=tg" target="_blank">
-      <img src="https://i.postimg.cc/gcKrhgfN/owner-01-3.jpg" alt="Тихон" />
-      <div class="text-overlay">
-        <strong></strong>
-        <p></p>
-      </div>
-    </a>
-  </div>
-</section>
-
-<section id="cases" class="section">
-  <h2 class="section-title">КЕЙСЫ</h2>
-  <div class="grid">
-    <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank">
-      <img src="https://i.postimg.cc/7PGWRRNZ/130k.jpg" alt="Гемблинг кейс" />
-      <div class="text-overlay">
-        <strong></strong>
-        <p></p>
-      </div>
-    </a>
-    <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank">
-      <img src="https://i.postimg.cc/X7KQS6B4/scam.jpg" alt="SCAM кейс" />
-      <div class="text-overlay">
-        <strong></strong>
-        <p></p>
-      </div>
-    </a>
-  </div>
-</section>
-
-<section id="vacancies" class="section">
-  <h2 class="section-title">ВАКАНСИИ</h2>
-  <div class="grid">
-    <div class="promo-card" data-vacancy-id="tlc_promo">
-      TLC Для медиабайеров, тимлидов, овнеров команд
+  <section id="home" class="section active">
+    <h2 class="section-title">АКТУАЛЬНОЕ</h2>
+    <div class="actual-list-container">
+      <ul class="actual-list">
+        <li class="actual-item">
+          <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank" data-id="actual_1" data-title="Гемблинг кейс: $130 000+">
+            <img src="https://i.postimg.cc/7PGWRRNZ/130k.jpg" alt="Гемблинг кейс" />
+            <div class="text-overlay">
+              <strong></strong>
+              <p></p>
+            </div>
+          </a>
+        </li>
+        <li class="actual-item">
+          <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank" data-id="actual_2" data-title="SCAM кейс от AMERIO.BET">
+            <img src="https://i.postimg.cc/X7KQS6B4/scam.jpg" alt="SCAM кейс" />
+            <div class="text-overlay">
+              <strong></strong>
+              <p></p>
+            </div>
+          </a>
+        </li>
+        <li class="actual-item">
+          <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-04-09" target="_blank" data-id="actual_3" data-title="Качество трафика в гемблинге">
+            <img src="https://i.postimg.cc/hjQFNVwD/photo-2025-05-14-20-01-19.jpg" alt="Статья" />
+            <div class="text-overlay">
+              <strong></strong>
+              <p></p>
+            </div>
+          </a>
+        </li>
+        <li class="actual-item">
+          <a class="card" href="https://t.me/zakacreator" target="_blank" data-id="actual_4" data-title="Вакансия: Трафик менеджер">
+            <img src="https://i.postimg.cc/YSG4qP0S/traffic-manager.jpg" alt="Вакансия" />
+            <div class="text-overlay">
+              <strong></strong>
+              <p></p>
+            </div>
+          </a>
+        </li>
+      </ul>
     </div>
-    <div class="card" data-vacancy-id="smm1">
-      <strong>SMM-менеджер</strong>
-      <p>Опыт: от 1 года</p>
-      <p>Формат: Удалённо</p>
-      <p>Зарплата: от 80 000 RUB</p>
+    <h2 class="section-title">КОМАНДА</h2>
+    <div class="team-carousel">
+      <ul class="team-list">
+        <li class="team-item">
+          <a href="https://t.me/Evgenii_Limited" target="_blank">
+            <img src="https://i.postimg.cc/yN5SkL2P/3.webp" alt="Evgenii" />
+            <strong>Evgenii Limited</strong>
+            <p>Co-owner</p>
+          </a>
+        </li>
+        <li class="team-item">
+          <a href="https://t.me/t_limited" target="_blank">
+            <img src="https://i.postimg.cc/KjgCWLjQ/4.webp" alt="Tikhon" />
+            <strong>Tikhon Limited</strong>
+            <p>Co-owner</p>
+          </a>
+        </li>
+        <li class="team-item">
+          <a href="https://t.me/Denis_limited" target="_blank">
+            <img src="https://i.postimg.cc/GmQ3z0Zt/6-new.webp" alt="Denis" />
+            <strong>Denis Limited</strong>
+            <p>Head of Affiliate</p>
+          </a>
+        </li>
+        <li class="team-item">
+          <a href="https://t.me/sasha_limited" target="_blank">
+            <img src="https://i.postimg.cc/gkyGkFcs/2.webp" alt="Aleksandra" />
+            <strong>Aleksandra Limited</strong>
+            <p>Head of Sales</p>
+          </a>
+        </li>
+        <li class="team-item">
+          <a href="https://t.me/ksu_limited" target="_blank">
+            <img src="https://i.postimg.cc/SxDqC6Mz/1.webp" alt="Ksenia" />
+            <strong>Ksenia Limited</strong>
+            <p>Team Lead Affiliate Manager</p>
+          </a>
+        </li>
+        <li class="team-item">
+          <a href="https://t.me/katerinaHR_limited" target="_blank">
+            <img src="https://i.postimg.cc/hGvnrXLZ/7.jpg" alt="Katerina" />
+            <strong>Katerina Limited</strong>
+            <p>HRD</p>
+          </a>
+        </li>
+        <li class="team-item">
+          <a href="https://t.me/Alexandr_limited" target="_blank">
+            <img src="https://i.postimg.cc/yNGHr7n1/5-new.webp" alt="Alexander" />
+            <strong>Alexander Limited</strong>
+            <p>Связь по PR и маркетингу</p>
+          </a>
+        </li>
+      </ul>
     </div>
-    <div class="card" data-vacancy-id="smm2">
-      <strong>SMM-менеджер (Senior)</strong>
-      <p>Опыт: от 3 лет</p>
-      <p>Формат: Удалённо</p>
-      <p>Зарплата: от 120 000 RUB</p>
+  </section>
+
+  <section id="articles" class="section">
+    <h2 class="section-title">СТАТЬИ</h2>
+    <div class="grid">
+      <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" target="_blank">
+        <img src="https://i.postimg.cc/JzZmWnct/quality.jpg" alt="Статья 1" />
+        <div class="text-overlay">
+          <strong>качество трафика</strong>
+          <p></p>
+        </div>
+      </a>
+      <a class="card" href="https://www.instagram.com/p/DCOei_ItMsf/?igsh=YzFudTVhbGlteGJr" target="_blank">
+        <img src="https://i.postimg.cc/63LfsdTz/partners.jpg" alt="отзывы" />
+        <div class="text-overlay">
+          <strong></strong>
+          <p></p>
+        </div>
+      </a>
+      <a class="card" href="https://traffhub.media/articles/gambling/nyuansy-vybora-gembling-offerov/" target="_blank">
+        <img src="https://i.postimg.cc/q77T6LH6/offer.jpg" alt="оффер" />
+        <div class="text-overlay">
+          <strong></strong>
+          <p></p>
+        </div>
+      </a>
+      <a class="card" href="https://traffnews.com/intervju/kto-takoi-co-owner-kompanii/?utm_source=tg" target="_blank">
+        <img src="https://i.postimg.cc/gcKrhgfN/owner-01-3.jpg" alt="Тихон" />
+        <div class="text-overlay">
+          <strong></strong>
+          <p></p>
+        </div>
+      </a>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="offers" class="section">
-  <h2 class="section-title">ОФФЕРЫ</h2>
-  <div class="grid">
-    <a class="card" href="https://t.me" target="_blank">
-      <strong>Источник: ASO</strong>
-      <p>ГЕО: FR</p>
-      <p>Ставка: 160 EUR</p>
-      <p>Mindep: 10 EUR</p>
-    </a>
-    <a class="card" href="https://t.me" target="_blank">
-      <strong>Источник: PPC</strong>
-      <p>ГЕО: DE</p>
-      <p>Ставка: 200 EUR</p>
-      <p>Mindep: 15 EUR</p>
-    </a>
-    <a class="card" href="https://t.me" target="_blank">
-      <strong>Источник: SEO</strong>
-      <p>ГЕО: UK</p>
-      <p>Ставка: 180 EUR</p>
-      <p>Mindep: 20 EUR</p>
-    </a>
-  </div>
-</section>
+  <section id="cases" class="section">
+    <h2 class="section-title">КЕЙСЫ</h2>
+    <div class="grid">
+      <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank">
+        <img src="https://i.postimg.cc/7PGWRRNZ/130k.jpg" alt="Гемблинг кейс" />
+        <div class="text-overlay">
+          <strong></strong>
+          <p></p>
+        </div>
+      </a>
+      <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank">
+        <img src="https://i.postimg.cc/X7KQS6B4/scam.jpg" alt="SCAM кейс" />
+        <div class="text-overlay">
+          <strong></strong>
+          <p></p>
+        </div>
+      </a>
+    </div>
+  </section>
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script>
-  const tg = window.Telegram.WebApp;
-  tg.expand();
+  <section id="vacancies" class="section">
+    <h2 class="section-title">ВАКАНСИИ</h2>
+    <div class="grid">
+      <div class="promo-card" data-vacancy-id="tlc_promo">
+        TLC Для медиабайеров, тимлидов, овнеров команд
+      </div>
+      <div class="card" data-vacancy-id="smm1">
+        <strong>SMM-менеджер</strong>
+        <p>Опыт: от 1 года</p>
+        <p>Формат: Удалённо</p>
+        <p>Зарплата: от 80 000 RUB</p>
+      </div>
+      <div class="card" data-vacancy-id="smm2">
+        <strong>SMM-менеджер (Senior)</strong>
+        <p>Опыт: от 3 лет</p>
+        <p>Формат: Удалённо</p>
+        <p>Зарплата: от 120 000 RUB</p>
+      </div>
+    </div>
+  </section>
 
-  let user_id = null, username = null, first_name = null, last_name = null;
-  if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-    ({ id: user_id, username, first_name, last_name } = tg.initDataUnsafe.user);
-  }
+  <section id="offers" class="section">
+    <h2 class="section-title">ОФФЕРЫ</h2>
+    <div class="grid">
+      <a class="card" href="https://t.me" target="_blank">
+        <strong>Источник: ASO</strong>
+        <p>ГЕО: FR</p>
+        <p>Ставка: 160 EUR</p>
+        <p>Mindep: 10 EUR</p>
+      </a>
+      <a class="card" href="https://t.me" target="_blank">
+        <strong>Источник: PPC</strong>
+        <p>ГЕО: DE</p>
+        <p>Ставка: 200 EUR</p>
+        <p>Mindep: 15 EUR</p>
+      </a>
+      <a class="card" href="https://t.me" target="_blank">
+        <strong>Источник: SEO</strong>
+        <p>ГЕО: UK</p>
+        <p>Ставка: 180 EUR</p>
+        <p>Mindep: 20 EUR</p>
+      </a>
+    </div>
+  </section>
 
-  const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxm5EL306NS2zODtWC4BzsV7yj8F_qj_47YmwknE_CzPDLuNBKeMqfhhoiNh6Bv8sSj7Q/exec';
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
 
-  function sendToSheet(data) {
-    fetch(SHEET_ENDPOINT, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-  }
-
-  function trackEvent(eventName, additional = {}) {
-    sendToSheet({
-      event: eventName,
-      user_id,
-      username,
-      first_name,
-      last_name,
-      url: window.location.href,
-      userAgent: navigator.userAgent,
-      additional
-    });
-  }
-
-  trackEvent('webapp_open');
-
-  document.querySelectorAll('.menu-item').forEach(item => {
-    item.addEventListener('click', () => {
-      trackEvent('nav_click', { section: item.dataset.section });
-      document.querySelectorAll('.section').forEach(sec => sec.classList.toggle('active', sec.id === item.dataset.section));
-      document.querySelectorAll('.menu-item').forEach(i => i.classList.toggle('active', i.dataset.section === item.dataset.section));
-      window.scrollTo(0, 0);
-    });
-  });
-
-  document.querySelectorAll('.card, .team-item a').forEach(card => {
-    card.addEventListener('click', (e) => {
-      if (e.target.closest('.apply-form') || card.closest('#vacancies')) return;
-      const title = card.querySelector('strong')?.innerText || 'Unknown';
-      trackEvent('card_click', { title });
-    });
-  });
-
-  document.querySelectorAll('.carousel a').forEach(slide => {
-    slide.addEventListener('click', () => {
-      const alt = slide.querySelector('img')?.getAttribute('alt') || 'Unknown';
-      trackEvent('carousel_click', { slide: alt });
-    });
-  });
-
-  document.querySelectorAll('.carousel-dots .dot').forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      trackEvent('carousel_dot_click', { slideIndex: i });
-      document.querySelectorAll('.carousel a').forEach((slide, index) => {
-        slide.classList.toggle('active', index === i);
-      });
-      document.querySelectorAll('.carousel-dots .dot').forEach((d, index) => {
-        d.classList.toggle('active', index === i);
-      });
-    });
-  });
-
-  // Прокрутка меню и team-list колёсиком мыши и тачпадом
-  const scrollableLists = document.querySelectorAll('.menu ul, .team-list, .actual-list');
-  scrollableLists.forEach(list => {
-    list.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      // Учитываем как deltaY (колёсико), так и deltaX (тачпад)
-      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      list.scrollLeft += delta * 2.5; // Плавная горизонтальная прокрутка
-    });
-  });
-
-  const vacancyData = {
-    smm1: {
-      title: 'SMM-менеджер',
-      experience: 'от 1 года',
-      format: 'Удалённо',
-      salary: 'от 80 000 RUB',
-      description: 'Ведение социальных сетей, создание и публикация контента, взаимодействие с аудиторией, разработка SMM-стратегии.',
-      requirements: 'Опыт работы в SMM от 1 года, знание инструментов аналитики, креативность, умение работать с Canva или аналогами.'
-    },
-    smm2: {
-      title: 'SMM-менеджер (Senior)',
-      experience: 'от 3 лет',
-      format: 'Удалённо',
-      salary: 'от 120 000 RUB',
-      description: 'Разработка и реализация SMM-стратегий, управление командой, работа с крупными бюджетами, анализ эффективности кампаний.',
-      requirements: 'Опыт работы в SMM от 3 лет, навыки управления проектами, глубокое знание аналитики и рекламных кабинетов.'
-    },
-    tlc_promo: {
-      title: 'TLC Для медиабайеров, тимлидов, овнеров команд',
-      description: 'TLC обладает ресурсами и отлаженной инфраструктурой для интеграции и масштабирования дохода и экспертизы как медиабайеров, так и целых команд, работающих с любым источником трафика в вертикалях iGaming, Betting, Finance.',
-      offers: `
-        <strong>Что мы предлагаем:</strong><br>
-        1️⃣ Неограниченные финансовые ресурсы на работу с трафиком и тестирование гипотез<br>
-        2️⃣ Развитую инфраструктуру и снабжение всеми необходимыми расходниками и техническими решениями для работы в любом источнике<br>
-        3️⃣ Приватные условия работы с рекламодателями и продажу вашего трафика с максимальной прибылью<br>
-        4️⃣ Возможность вырасти внутри холдинга и развиваться медийно: поможем собрать команду под себя или масштабировать уже существующую
-      `
+    let user_id = null, username = null, first_name = null, last_name = null;
+    if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+      ({ id: user_id, username, first_name, last_name } = tg.initDataUnsafe.user);
     }
-  };
 
-  document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const vacancyId = card.dataset.vacancyId;
-      const data = vacancyData[vacancyId];
-      if (!data) return;
-      trackEvent('vacancy_view', { vacancy: data.title });
-      const modal = document.createElement('div');
-      modal.className = 'modal';
-      const renderForm = (position = '') => {
-        if (vacancyId === 'tlc_promo') {
-          if (position === 'Владелец команды') {
-            return `
-              <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
-              <select name="experience" required>
-                <option value="" disabled selected>Выберите опыт</option>
-                <option value="3+ года">3+ года</option>
-                <option value="1-2 года">1-2 года</option>
-                <option value="6-12 месяцев">6-12 месяцев</option>
-                <option value="менее 6 месяцев">менее 6 месяцев</option>
-              </select>
-              <label>С каким источником работаешь?</label>
-              <select name="source" required>
-                <option value="" disabled selected>Выберите источник</option>
-                <option value="FB">FB</option>
-                <option value="PPC">PPC</option>
-                <option value="ASO">ASO</option>
-                <option value="SEO">SEO</option>
-              </select>
-              <label>Сколько человек в команде?</label>
-              <select name="team_size" required>
-                <option value="" disabled selected>Выберите размер</option>
-                <option value="1-4">1-4</option>
-                <option value="5-9">5-9</option>
-                <option value="10-14">10-14</option>
-                <option value="15+">15+</option>
-              </select>
-              <label>Каков средний спенд и профит команды в месяц за последние полгода?</label>
-              <textarea name="spend_profit" placeholder="Опишите спенд и профит" required></textarea>
-              <label>Почему вы решили привлечь инвестиции в свою команду?</label>
-              <textarea name="investment_reason" placeholder="Опишите причину" required></textarea>
-            `;
-          } else if (position === 'Тимлид' || position === 'Медиабаер') {
-            return `
-              <label>Как тебя зовут?</label>
-              <input type="text" name="name" placeholder="Ваше имя" required>
-              <label>В каком городе ты живёшь?</label>
-              <input type="text" name="city" placeholder="Город" required>
-              <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
-              <select name="experience" required>
-                <option value="" disabled selected>Выберите опыт</option>
-                <option value="3+ года">3+ года</option>
-                <option value="1-2 года">1-2 года</option>
-                <option value="6-12 месяцев">6-12 месяцев</option>
-                <option value="менее 6 месяцев">менее 6 месяцев</option>
-              </select>
-              <label>Твой источник?</label>
-              <select name="source" required>
-                <option value="" disabled selected>Выберите источник</option>
-                <option value="FB">FB</option>
-                <option value="PPC">PPC</option>
-                <option value="ASO">ASO</option>
-                <option value="SEO">SEO</option>
-              </select>
-              <label>Какой бюджет в среднем отливаешь в месяц?</label>
-              <select name="budget" required>
-                <option value="" disabled selected>Выберите бюджет</option>
-                <option value="Менее 1 000$">Менее 1 000$</option>
-                <option value="$1 000-$5 000">$1 000-$5 000</option>
-                <option value="$5 000-$10 000">$5 000-$10 000</option>
-                <option value="$10 000-$20 000">$10 000-$20</option>
-              </select>
-              <label>Расскажи о своём последнем опыте на схожей позиции</label>
-              <textarea name="last_experience" placeholder="Оформленный и приложенный к заявке кейс или резюме будет плюсом ✌️" required></textarea>
-            `;
+    const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxm5EL306NS2zODtWC4BzsV7yj8F_qj_47YmwknE_CzPDLuNBKeMqfhhoiNh6Bv8sSj7Q/exec';
+
+    function sendToSheet(data) {
+      fetch(SHEET_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    }
+
+    function trackEvent(eventName, additional = {}) {
+      sendToSheet({
+        event: eventName,
+        user_id,
+        username,
+        first_name,
+        last_name,
+        url: window.location.href,
+        userAgent: navigator.userAgent,
+        additional
+      });
+    }
+
+    trackEvent('webapp_open');
+
+    document.querySelectorAll('.menu-item').forEach(item => {
+      item.addEventListener('click', () => {
+        trackEvent('nav_click', { section: item.dataset.section });
+        document.querySelectorAll('.section').forEach(sec => sec.classList.toggle('active', sec.id === item.dataset.section));
+        document.querySelectorAll('.menu-item').forEach(i => i.classList.toggle('active', i.dataset.section === item.dataset.section));
+        window.scrollTo(0, 0);
+      });
+    });
+
+    document.querySelectorAll('.card, .team-item a').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.apply-form') || card.closest('#vacancies')) return;
+        const title = card.querySelector('strong')?.innerText || 'Unknown';
+        trackEvent('card_click', { title });
+      });
+    });
+
+    document.querySelectorAll('.carousel a').forEach(slide => {
+      slide.addEventListener('click', () => {
+        const alt = slide.querySelector('img')?.getAttribute('alt') || 'Unknown';
+        trackEvent('carousel_click', { slide: alt });
+      });
+    });
+
+    document.querySelectorAll('.carousel-dots .dot').forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        trackEvent('carousel_dot_click', { slideIndex: i });
+        document.querySelectorAll('.carousel a').forEach((slide, index) => {
+          slide.classList.toggle('active', index === i);
+        });
+        document.querySelectorAll('.carousel-dots .dot').forEach((d, index) => {
+          d.classList.toggle('active', index === i);
+        });
+      });
+    });
+
+    // Прокрутка меню и team-list колесиком мыши / тачпадом
+    const scrollableLists = document.querySelectorAll('.menu ul, .team-list, .actual-list');
+    scrollableLists.forEach(list => {
+      list.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+        list.scrollLeft += delta * 2.5;
+      });
+    });
+
+    const vacancyData = {
+      smm1: {
+        title: 'SMM-менеджер',
+        experience: 'от 1 года',
+        format: 'Удалённо',
+        salary: 'от 80 000 RUB',
+        description: 'Ведение социальных сетей, создание и публикация контента, взаимодействие с аудиторией, разработка SMM-стратегии.',
+        requirements: 'Опыт работы в SMM от 1 года, знание инструментов аналитики, креативность, умение работать с Canva или аналогами.'
+      },
+      smm2: {
+        title: 'SMM-менеджер (Senior)',
+        experience: 'от 3 лет',
+        format: 'Удалённо',
+        salary: 'от 120 000 RUB',
+        description: 'Разработка и реализация SMM-стратегий, управление командой, работа с крупными бюджетами, анализ эффективности кампаний.',
+        requirements: 'Опыт работы в SMM от 3 лет, навыки управления проектами, глубокое знание аналитики и рекламных кабинетов.'
+      },
+      tlc_promo: {
+        title: 'TLC Для медиабайеров, тимлидов, овнеров команд',
+        description: 'TLC обладает ресурсами и отлаженной инфраструктурой для интеграции и масштабирования дохода и экспертизы как медиабайеров, так и целых команд, работающих с любым источником трафика в вертикалях iGaming, Betting, Finance.',
+        offers: `
+          <strong>Что мы предлагаем:</strong><br>
+          1️⃣ Неограниченные финансовые ресурсы на работу с трафиком и тестирование гипотез<br>
+          2️⃣ Развитую инфраструктуру и снабжение всеми необходимыми расходниками и техническими решениями для работы в любом источнике<br>
+          3️⃣ Приватные условия работы с рекламодателями и продажу вашего трафика с максимальной прибылью<br>
+          4️⃣ Возможность вырасти внутри холдинга и развиваться медийно: поможем собрать команду под себя или масштабировать уже существующую
+        `
+      }
+    };
+
+    document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const vacancyId = card.dataset.vacancyId;
+        const data = vacancyData[vacancyId];
+        if (!data) return;
+        trackEvent('vacancy_view', { vacancy: data.title });
+
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        const renderForm = (position = '') => {
+          if (vacancyId === 'tlc_promo') {
+            if (position === 'Владелец команды') {
+              return `
+                <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
+                <select name="experience" required>
+                  <option value="" disabled selected>Выберите опыт</option>
+                  <option value="3+ года">3+ года</option>
+                  <option value="1-2 года">1-2 года</option>
+                  <option value="6-12 месяцев">6-12 месяцев</option>
+                  <option value="менее 6 месяцев">менее 6 месяцев</option>
+                </select>
+                <label>С каким источником работаешь?</label>
+                <select name="source" required>
+                  <option value="" disabled selected>Выберите источник</option>
+                  <option value="FB">FB</option>
+                  <option value="PPC">PPC</option>
+                  <option value="ASO">ASO</option>
+                  <option value="SEO">SEO</option>
+                </select>
+                <label>Сколько человек в команде?</label>
+                <select name="team_size" required>
+                  <option value="" disabled selected>Выберите размер</option>
+                  <option value="1-4">1-4</option>
+                  <option value="5-9">5-9</option>
+                  <option value="10-14">10-14</option>
+                  <option value="15+">15+</option>
+                </select>
+                <label>Каков средний спенд и профит команды в месяц за последние полгода?</label>
+                <textarea name="spend_profit" placeholder="Опишите спенд и профит" required></textarea>
+                <label>Почему вы решили привлечь инвестиции в свою команду?</label>
+                <textarea name="investment_reason" placeholder="Опишите причину" required></textarea>
+              `;
+            } else if (position === 'Тимлид' || position === 'Медиабаер') {
+              return `
+                <label>Как тебя зовут?</label>
+                <input type="text" name="name" placeholder="Ваше имя" required>
+                <label>В каком городе ты живёшь?</label>
+                <input type="text" name="city" placeholder="Город" required>
+                <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
+                <select name="experience" required>
+                  <option value="" disabled selected>Выберите опыт</option>
+                  <option value="3+ года">3+ года</option>
+                  <option value="1-2 года">1-2 года</option>
+                  <option value="6-12 месяцев">6-12 месяцев</option>
+                  <option value="менее 6 месяцев">менее 6 месяцев</option>
+                </select>
+                <label>Твой источник?</label>
+                <select name="source" required>
+                  <option value="" disabled selected>Выберите источник</option>
+                  <option value="FB">FB</option>
+                  <option value="PPC">PPC</option>
+                  <option value="ASO">ASO</option>
+                  <option value="SEO">SEO</option>
+                </select>
+                <label>Какой бюджет в среднем отливаешь в месяц?</label>
+                <select name="budget" required>
+                  <option value="" disabled selected>Выберите бюджет</option>
+                  <option value="Менее 1 000$">Менее 1 000$</option>
+                  <option value="$1 000-$5 000">$1 000-$5 000</option>
+                  <option value="$5 000-$10 000">$5 000-$10 000</option>
+                  <option value="$10 000-$20 000">$10 000-$20 000</option>
+                </select>
+                <label>Расскажи о своём последнем опыте на схожей позиции</label>
+                <textarea name="last_experience" placeholder="Оформленный и приложенный к заявке кейс или резюме будет плюсом ✌️" required></textarea>
+              `;
+            } else {
+              return `
+                <label for="position">На какой позиции находишься сейчас?</label>
+                <select name="position" id="position" required>
+                  <option value="" disabled selected>Выберите пункт</option>
+                  <option value="Другое">Другое</option>
+                  <option value="Владелец команды">Владелец команды</option>
+                  <option value="Тимлид">Тимлид</option>
+                  <option value="Медиабаер">Медиабаер</option>
+                </select>
+                <label for="name">Как тебя зовут?</label>
+                <input type="text" name="name" id="name" placeholder="Ваше имя" required>
+                <label for="city">В каком городе ты живёшь?</label>
+                <input type="text" name="city" id="city" placeholder="Город" required>
+                <label for="experience">Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
+                <select name="experience" id="experience" required>
+                  <option value="" disabled selected>Выберите опыт</option>
+                  <option value="3+ года">3+ года</option>
+                  <option value="1-2 года">1-2 года</option>
+                  <option value="6-12 месяцев">6-12 месяцев</option>
+                  <option value="менее 6 месяцев">менее 6 месяцев</option>
+                </select>
+                <label for="source">Твой источник?</label>
+                <select name="source" id="source" required>
+                  <option value="" disabled selected>Выберите пункт</option>
+                  <option value="FB">FB</option>
+                  <option value="PPC">PPC</option>
+                  <option value="ASO">ASO</option>
+                  <option value="SEO">SEO</option>
+                </select>
+                <label for="budget">Какой бюджет в среднем отливаешь в месяц?</label>
+                <select name="budget" id="budget" required>
+                  <option value="" disabled selected>Выберите пункт</option>
+                  <option value="Менее 1 000$">Менее 1 000$</option>
+                  <option value="$1 000-$5 000">$1 000-$5 000</option>
+                  <option value="$5 000-$10 000">$5 000-$10 000</option>
+                  <option value="$10 000-$20 000">$10 000-$20 000</option>
+                </select>
+                <label for="last_experience">Расскажи о своём последнем опыте на схожей позиции</label>
+                <textarea name="last_experience" id="last_experience" placeholder="Оформленный и приложенный кейс или резюме будет плюсом ✌️" required></textarea>
+              `;
+            }
           } else {
-            // Другое
             return `
-              <label for="position">На какой позиции находишься сейчас?</label>
-              <select name="position" id="position" required>
-                <option value="" disabled selected>Выберите пункт</option>
-                <option value="Другое">Другое</option>
-                <option value="Владелец команды">Владелец</option>
-                <option value="Тимлид">Тимлид</option>
-                <option value="Медиабаер">Медиабай</option>
-              </select>
-              <label for="name">Как тебя зовут?</label>
-              <input type="text" name="id="name" placeholder="Ваше имя" required>
-              <label for="city">Город</label>
-              <input type="text" name="city" id="city" placeholder="Город" required>
-              <label for="experience">Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
-              <select name="experience" id="experience" required>
-                <option value="" disabled selected>Выберите опыт</option>
-                <option value="3+ года">3+ года</option>
-                <option value="1-2 года">1-2 года</option>
-                <option value="6-12 месяцев">6-12 месяцев</option>
-                <option value="менее 6 месяцев">6 месяцев-</option>
-              </select>
-              <label for="source">Твой источник</label>
-              <select name="source" id="source" required>
-                <option value="" disabled selected>Выберите пункт</option>
-                <option value="FB">FB</option>
-                <option value="PPC">PPC</option>
-                <option value="ASO">ASO</option>
-                <option value="SEO">SEO</option>
-              </select>
-              <label for="budget">Бюджет в среднем отливается в месяц</label>
-              <select name="budget" id="budget" required>
-                <option value="" disabled selected>Выберите пункт</option>
-                <option value="Менее $1 000">$1 000-</option>
-                <option value="$1 000-$5 000">$1 000-$5 000</option>
-                <option value="$5 000-$10 000">$5 000-$10 000</option>
-                <option value="$10 000-$20 000$10">000-$20 000</option>
-              </select>
-              <label for="last_experience">Расскажи о своём последнем опыте на схожей позиции</label>
-              <textarea name="last_experience" id="last_experience" placeholder="Оформленный и приложенный кейс или резюме будет плюсом ✌️" required></textarea>
-            `;
-          } else {
-            return `
-              <label for="name">Как тебя зовут?</label>
-              <input type="text" name="name" id="Как тебя" placeholder="Ваше имя" required>
-              <label for="city">Город</label>
-              <input type="text" name="city" id="city" placeholder="Город" required>
-              <label for="experience">Расскажи о своём опыте на позиции</label>
-              <textarea name="experience" id="experience" placeholder="Расскажи о своём опыте на схожих позициях" required></textarea>
-              <label for="resume">Ссылка на резюме</label>
-              <input type="url" name="resume" id="Ссылка на резюме" placeholder="Ссылка на резюме (если есть)">
-              <p style="font-size: 12px; color: #bbb;">Резюме — плюс при оценке заявки.</p>
+              <input type="text" name="name" placeholder="Как тебя зовут?" required>
+              <input type="text" name="city" placeholder="В каком городе ты живёшь?" required>
+              <textarea name="experience" placeholder="Расскажи о своём опыте на схожих позициях" required></textarea>
+              <input type="url" name="resume" placeholder="Ссылка на резюме (если есть)">
+              <p style="font-size: 12px; color: #bbb;">Если есть сформулированное резюме — приложи ссылкой, это будет плюсом при оценке твоей заявки.</p>
             `;
           }
-      };
+        };
 
-      modal.innerHTML = `
-        <h3>${data.title}</h3>
-        <p>${data.description || ''}</p>
-        <p>${data.offers || ''}</p>
-        <form class="apply-form">
-          ${renderForm()}
-          <button type="submit">Отправить отклик</button>
-          <button type="button" class="close-button">Закрыть</button>
-        </form>
-      `;
-      document.body.append(modal.appendChild(modal));
-
-      const positionSelect = modal.querySelector('select[name="position"]');
-      if (positionSelect) {
-        positionSelect.addEventListener('change', () => {
-          const newFormContent = renderForm(positionSelect.value);
-          const form = modal.querySelector('.apply-form');
-          form.innerHTML = newFormContent + `
+        modal.innerHTML = `
+          <h3>${data.title}</h3>
+          <p>${data.description || ''}</p>
+          <p>${data.offers || ''}</p>
+          <form class="apply-form">
+            ${renderForm()}
             <button type="submit">Отправить отклик</button>
             <button type="button" class="close-button">Закрыть</button>
-          `;
-          form.querySelector('.close-button').addEventListener('click', () => modal.remove());
-        });
-      }
+          </form>
+        `;
+        document.body.appendChild(modal);
 
-      modal.querySelector('.close-button').addEventListener('click', () => modal.remove());
-      modal.querySelector('.apply-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const inputs = modal.querySelectorAll('input, textarea, select');
-        let formData;
-        if (vacancyId === 'tlc_promo') {
-          const position = inputs[0].name === 'position' ? inputs[0].value : inputs[0].name;
-          if (position === 'Владелец команды') {
-            formData = {
-              event: 'vacancy_apply',
-              user_id,
-              username,
-              first_name,
-              vacancy: data.title,
-              last_name,
-              position: 'Владелец команды',
-              experience: inputs[0].value,
-              source: inputs[1].value,
-              team_size: inputs[2].value,
-              spend_profit: inputs[3].value,
-              investment_reason: inputs[4].value,
-              timestamp: new Date().toISOString(),
-            };
-          } else if (position === 'Тимлид' || position === 'Медиабаер') {
-            formData = {
-              event: 'vacancy_apply',
-              user_id,
-              username,
-              first_name,
-              last_name,
-              vacancy_id,
-              vacancy: data.title,
-              position,
-              name: inputs[0].value,
-              city: inputs[1].value,
-              experience: inputs[2].value,
-              source: inputs[3].value,
-              budget: inputs[4].value,
-              last_experience: inputs[5].value,
-              timestamp: new Date().toISOString(),
-            };
+        const positionSelect = modal.querySelector('select[name="position"]');
+        if (positionSelect) {
+          positionSelect.addEventListener('change', () => {
+            const newFormContent = renderForm(positionSelect.value);
+            const form = modal.querySelector('.apply-form');
+            form.innerHTML = newFormContent + `
+              <button type="submit">Отправить отклик</button>
+              <button type="button" class="close-button">Закрыть</button>
+            `;
+            form.querySelector('.close-button').addEventListener('click', () => modal.remove());
+          });
+        }
+
+        modal.querySelector('.close-button').addEventListener('click', () => modal.remove());
+
+        modal.querySelector('.apply-form').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const inputs = modal.querySelectorAll('input, textarea, select');
+          const timestamp = new Date().toISOString();
+
+          // Собираем все поля формы в объект additional
+          const additional = {
+            id: vacancyId,
+            title: data.title
+          };
+
+          if (vacancyId === 'tlc_promo') {
+            const firstField = inputs[0];
+            // Если первый элемент — select name="position"
+            if (firstField.name === 'position') {
+              const position = firstField.value;
+              additional.position = position;
+              if (position === 'Владелец команды') {
+                additional.experience       = inputs[1].value;
+                additional.source           = inputs[2].value;
+                additional.team_size        = inputs[3].value;
+                additional.spend_profit     = inputs[4].value;
+                additional.investment_reason= inputs[5].value;
+              } else {
+                // Тимлид или Медиабаер
+                additional.name            = inputs[1].value;
+                additional.city            = inputs[2].value;
+                additional.experience      = inputs[3].value;
+                additional.source          = inputs[4].value;
+                additional.budget          = inputs[5].value;
+                additional.last_experience = inputs[6].value;
+              }
+            } else {
+              // Если сразу опыт (для случаев, когда position не был выбран)
+              // Считаем, что это ветка "Владелец команды"
+              additional.position        = 'Владелец команды';
+              additional.experience      = inputs[0].value;
+              additional.source          = inputs[1].value;
+              additional.team_size       = inputs[2].value;
+              additional.spend_profit    = inputs[3].value;
+              additional.investment_reason = inputs[4].value;
+            }
           } else {
-            // Другое
-            formData = {
-              event: 'vacancy_apply',
-              user_id,
-              username,
-              first_name,
-              last_name,
-              vacancy_id,
-              vacancy: data.title,
-              position: inputs[0].value,
-              name: inputs[1].value,
-              city: inputs[2].value,
-              experience: inputs[3].value,
-              source: inputs[4].value,
-              budget: inputs[5].value,
-              last_experience: inputs[6].value,
-              timestamp: new Date().toISOString(),
-            };
-          } else {
-            formData = {
-              event: 'vacancy_apply',
-              user_id,
-              username,
-              first_name,
-              last_name,
-              vacancy_id,
-              vacancy: data.title,
-              name: inputs[0].value,
-              city: inputs[1].value,
-              experience: inputs[2].value,
-              resume: inputs[3].value || '',
-              timestamp: new Date().toISOString(),
-            };
+            // Обычная вакансия (не tlc_promo)
+            additional.name       = inputs[0].value;
+            additional.city       = inputs[1].value;
+            additional.experience = inputs[2].value;
+            additional.resume     = inputs[3].value || '';
           }
-        sendTo(formData);
-        tg.showPopup({
-          title: 'Успех!',
-          message: 'Ваш отклик отправлен!',
-          buttons: [{ type: 'ok' }]
+
+          const formData = {
+            event: 'vacancy_apply',
+            user_id,
+            username,
+            first_name,
+            last_name,
+            timestamp,
+            additional
+          };
+
+          sendToSheet(formData);
+          tg.showPopup({
+            title: 'Успех!',
+            message: 'Ваш отклик отправлен!',
+            buttons: [{ type: 'ok' }]
+          });
+          modal.remove();
         });
-        modal.remove();
       });
     });
-  });
-</script>
+  </script>
 </body>
 </html>
+
