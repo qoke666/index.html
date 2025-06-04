@@ -927,36 +927,54 @@
 
           sendToSheet(formData);
           // Формируем сообщение для Telegram
-let telegramMessage = `*Новый отклик на вакансию: ${additional.title}*\n`;
-telegramMessage += `Пользователь: @${username || 'unknown'} (ID: ${user_id || 'unknown'})\n`;
-telegramMessage += `Время: ${timestamp}\n`;
+  let telegramMessage = `*Новый отклик на вакансию: ${additional.title}*\n`;
+  telegramMessage += `Пользователь: @${username || 'unknown'} (ID: ${user_id || 'unknown'})\n`;
+  telegramMessage += `Время: ${timestamp}\n`;
 
-if (additional.id === 'tlc_promo') {
-  telegramMessage += `Позиция: ${additional.position || 'Не указана'}\n`;
-  if (additional.position === 'Владелец команды') {
-    telegramMessage += `Опыт: ${additional.experience || 'Не указан'}\n`;
-    telegramMessage += `Источник: ${additional.source || 'Не указан'}\n`;
-    telegramMessage += `Размер команды: ${additional.team_size || 'Не указан'}\n`;
-    telegramMessage += `Спенд/профит: ${additional.spend_profit || 'Не указан'}\n`;
-    telegramMessage += `Причина инвестиций: ${additional.investment_reason || 'Не указана'}\n`;
+  if (additional.id === 'tlc_promo') {
+    telegramMessage += `Позиция: ${additional.position || 'Не указана'}\n`;
+    if (additional.position === 'Владелец команды') {
+      telegramMessage += `Опыт: ${additional.experience || 'Не указан'}\n`;
+      telegramMessage += `Источник: ${additional.source || 'Не указан'}\n`;
+      telegramMessage += `Размер команды: ${additional.team_size || 'Не указан'}\n`;
+      telegramMessage += `Спенд/профит: ${additional.spend_profit || 'Не указан'}\n`;
+      telegramMessage += `Причина инвестиций: ${additional.investment_reason || 'Не указана'}\n`;
+    } else {
+      telegramMessage += `Имя: ${additional.name || 'Не указано'}\n`;
+      telegramMessage += `Город: ${additional.city || 'Не указан'}\n`;
+      telegramMessage += `Опыт: ${additional.experience || 'Не указан'}\n`;
+      telegramMessage += `Источник: ${additional.source || 'Не указан'}\n`;
+      telegramMessage += `Бюджет: ${additional.budget || 'Не указан'}\n`;
+      telegramMessage += `Последний опыт: ${additional.last_experience || 'Не указан'}\n`;
+    }
   } else {
     telegramMessage += `Имя: ${additional.name || 'Не указано'}\n`;
     telegramMessage += `Город: ${additional.city || 'Не указан'}\n`;
     telegramMessage += `Опыт: ${additional.experience || 'Не указан'}\n`;
-    telegramMessage += `Источник: ${additional.source || 'Не указан'}\n`;
-    telegramMessage += `Бюджет: ${additional.budget || 'Не указан'}\n`;
-    telegramMessage += `Последний опыт: ${additional.last_experience || 'Не указан'}\n`;
+    telegramMessage += `Резюме: ${additional.resume || 'Не указано'}\n`;
   }
-} else {
-  telegramMessage += `Имя: ${additional.name || 'Не указано'}\n`;
-  telegramMessage += `Город: ${additional.city || 'Не указан'}\n`;
-  telegramMessage += `Опыт: ${additional.experience || 'Не указан'}\n`;
-  telegramMessage += `Резюме: ${additional.resume || 'Не указано'}\n`;
-}
 
-fetch(`https://api.telegram.org/bot8168609895:AAGn0b4Wfshg62KctmttYiwAaa--ndJCt5v7Q/sendMessage?chat_id=-1002646376074&text=${encodeURIComponent(telegramMessage)}&parse_mode=Markdown`, {
-  method: 'GET'
-});
+  // Отправка в Telegram через POST
+  fetch(`https://api.telegram.org/bot8168609895:AAGn0b4Wfshg62KctmttYiwAaa--ndJCt5v7Q/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: '-1002646376074',
+      text: telegramMessage,
+      parse_mode: 'Markdown'
+    })
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (!data.ok) {
+        console.error('Telegram API error:', data);
+      } else {
+        console.log('Telegram message sent:', data);
+      }
+    })
+    .catch(error => {
+      console.error('Fetch error:', error);
+    });
           tg.showPopup({
             title: 'Успех!',
             message: 'Ваш отклик отправлен!',
