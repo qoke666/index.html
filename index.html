@@ -366,6 +366,89 @@
       margin-top: 8px;
     }
     .modal .close-button:hover { background: #333; }
+    /* Светящаяся обводка для активных элементов */
+.menu-item.active, 
+#vacancies .card:active, 
+#offers .card:active, 
+.modal .apply-form button {
+  position: relative;
+  overflow: hidden;
+}
+.menu-item.active::after, 
+#vacancies .card:active::after, 
+#offers .card:active::after, 
+.modal .apply-form button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 10px rgba(213, 253, 2, 0.5), 0 0 20px rgba(184, 224, 2, 0.3);
+  animation: pulse-glow 2s ease-in-out infinite;
+  z-index: -1;
+}
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 10px rgba(213, 253, 2, 0.5), 0 0 20px rgba(184, 224, 2, 0.3); }
+  50% { box-shadow: 0 0 15px rgba(213, 253, 2, 0.7), 0 0 30px rgba(184, 224, 2, 0.5); }
+  100% { box-shadow: 0 0 10px rgba(213, 253, 2, 0.5), 0 0 20px rgba(184, 224, 2, 0.3); }
+}
+
+/* Анимация модалки */
+.modal {
+  animation: modal-reveal 0.4s ease-out forwards;
+  backdrop-filter: blur(5px); /* Размытие фона */
+  background: rgba(17, 19, 21, 0.95); /* Полупрозрачный фон */
+}
+@keyframes modal-reveal {
+  0% { transform: translate(-50%, -50%) scale(0.7); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+.modal.closing {
+  animation: modal-close 0.3s ease-in forwards;
+}
+@keyframes modal-close {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(0.7); opacity: 0; }
+}
+
+/* Анимация полей формы */
+.modal .apply-form label,
+.modal .apply-form input,
+.modal .apply-form select,
+.modal .apply-form textarea,
+.modal .apply-form button,
+.modal .apply-form p {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: form-field-slide 0.5s ease-out forwards;
+}
+.modal .apply-form label:nth-child(1),
+.modal .apply-form input:nth-child(2),
+.modal .apply-form select:nth-child(2),
+.modal .apply-form textarea:nth-child(2) { animation-delay: 0.1s; }
+.modal .apply-form label:nth-child(3),
+.modal .apply-form input:nth-child(4),
+.modal .apply-form select:nth-child(4),
+.modal .apply-form textarea:nth-child(4) { animation-delay: 0.2s; }
+.modal .apply-form label:nth-child(5),
+.modal .apply-form input:nth-child(6),
+.modal .apply-form select:nth-child(6),
+.modal .apply-form textarea:nth-child(6) { animation-delay: 0.3s; }
+.modal .apply-form label:nth-child(7),
+.modal .apply-form input:nth-child(8),
+.modal .apply-form select:nth-child(8),
+.modal .apply-form textarea:nth-child(8) { animation-delay: 0.4s; }
+.modal .apply-form button, .modal .apply-form p { animation-delay: 0.5s; }
+@keyframes form-field-slide {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Размытие фона body при открытой модалке */
+body.modal-open {
+  filter: blur(3px);
+  overflow: hidden; /* Блокируем скролл */
+}
   </style>
 </head>
 <body>
