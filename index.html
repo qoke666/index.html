@@ -864,76 +864,125 @@
 
         modal.querySelector('.close-button').addEventListener('click', () => modal.remove());
 
-        modal.querySelector('.apply-form').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const inputs = modal.querySelectorAll('input, textarea, select');
-          const timestamp = new Date().toISOString();
-
-          // Собираем все поля формы в объект additional
-          const additional = {
-            id: vacancyId,
-            title: data.title
-          };
-
-          if (vacancyId === 'tlc_promo') {
-            const firstField = inputs[0];
-            // Если первый элемент — select name="position"
-            if (firstField.name === 'position') {
-              const position = firstField.value;
-              additional.position = position;
-              if (position === 'Владелец команды') {
-                additional.experience       = inputs[1].value;
-                additional.source           = inputs[2].value;
-                additional.team_size        = inputs[3].value;
-                additional.spend_profit     = inputs[4].value;
-                additional.investment_reason= inputs[5].value;
-              } else {
-                // Тимлид или Медиабаер
-                additional.name            = inputs[1].value;
-                additional.city            = inputs[2].value;
-                additional.experience      = inputs[3].value;
-                additional.source          = inputs[4].value;
-                additional.budget          = inputs[5].value;
-                additional.last_experience = inputs[6].value;
-              }
-            } else {
-              // Если сразу опыт (для случаев, когда position не был выбран)
-              // Считаем, что это ветка "Владелец команды"
-              additional.position        = 'Владелец команды';
-              additional.experience      = inputs[0].value;
-              additional.source          = inputs[1].value;
-              additional.team_size       = inputs[2].value;
-              additional.spend_profit    = inputs[3].value;
-              additional.investment_reason = inputs[4].value;
-            }
-          } else {
-            // Обычная вакансия (не tlc_promo)
-            additional.name       = inputs[0].value;
-            additional.city       = inputs[1].value;
-            additional.experience = inputs[2].value;
-            additional.resume     = inputs[3].value || '';
-          }
-
-          const formData = {
-            event: 'vacancy_apply',
-            user_id,
-            username,
-            first_name,
-            last_name,
-            timestamp,
-            additional
-          };
-
-          sendToSheet(formData);
-          tg.showPopup({
-            title: 'Успех!',
-            message: 'Ваш отклик отправлен!',
-            buttons: [{ type: 'ok' }]
-          });
-          modal.remove();
-        });
-      });
+        modal.querySelector('.apply-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const user_id = tg.initDataUnsafe?.user?.id;
+  if (!user_id) {
+    tg.showPopup({
+      title: 'Ошибка',
+      message: 'Не удалось определить пользователя Telegram.',
+      buttons: [{ type: 'ok' }]
     });
+    return;
+  }
+
+  // Проверка подписки на @bbb909test_bot
+  try {
+    const response = await fetch(SHEET_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'check_subscription', user_id })
+    });
+    const result = await response.json();
+    if (!result.isSubscribed) {
+      tg.showPopup({
+        title: 'Подписка требуется',
+        message: 'Пожалуйста, подпишитесь на @bbb909test_bot, чтобы отправить отклик.',
+        buttons: [
+          { id: 'subscribe', type: 'default', text: 'Подписаться' }
+        ]
+      }, (buttonId) => {
+        if (buttonId === 'subscribe') {
+          tg.openLink('https://t.me/bbb909test_bot');
+        }
+      });
+      return;
+    }
+  } catch (error) {
+    tg.showPopup({
+      title: 'Ошибка',
+      message: 'Не удалось проверить подписку. Попробуйте позже.',
+      buttons: [{ type: 'ok' }]
+    });
+    return;
+  }
+
+  const inputs = modal.querySelectorAll('input, textarea, select');
+  const timestamp = new Date().toISOString();
+  const additional = {
+    id: vacancyId,
+    title: data.title
+  };
+
+  if (vacancyId === 'tlc_promo') {
+    const firstField = inputs[0];
+    if (firstField.name === 'position') {
+      const position = firstField.value;
+      additional.position = position;
+      if (position === 'Владелец команды') {
+        additional.experience = inputs[1].value;
+        additional.source = inputs[2].value;
+        additional.team_size = inputs[3].value;
+        additional.spend_profit = inputs[4].value;
+        additional.investment_reason = inputs[5].value;
+      } else {
+        additional.name = inputs[1].value;
+        additional.city = inputs[2].value;
+        additional.experience = inputs[3].value;
+        additional.source = inputs[4].value;
+        additional.budget = inputs[5].value;
+        additional.last_experience = inputs[6].value;
+      }
+    } else {
+      additional.name = inputs[0].value;
+      additional.city = inputs[1].value;
+      additional.experience = inputs[2].value;
+      additional.source = inputs[3].value;
+      additional.budget = inputs[4].value;
+      additional.last_experience = inputs[5].value;
+    }
+  } else {
+    additional.name = inputs[0].value;
+    additional.city = inputs[1].value;
+    additional.experience = inputs[2].value;
+    additional.resume = inputs[3].value || '';
+  }
+
+  const formData = {
+    event: 'vacancy_apply',
+    user_id,
+    username: tg.initDataUnsafe?.user?.username || '',
+    first_name: tg.initDataUnsafe?.user?.first_name || '',
+    last_name: tg.initDataUnsafe?.user?.last_name || '',
+    timestamp,
+    additional
+  };
+
+  try {
+    await fetch(SHEET_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+    tg.showPopup({
+      title: 'Успех!',
+      message: 'Ваш отклик отправлен! Ожидайте ответа в @bbb909test_bot.',
+      buttons: [{ type: 'ok' }]
+    });
+    modal.classList.add('closing');
+    modal.addEventListener('animationend', () => {
+      modal.remove();
+      // Убедись, что здесь используется правильный селектор для снятия modal-open
+      document.body.classList.remove('modal-open'); // Заменить на .content, если ты используешь .content.modal-open
+    }, { once: true });
+  } catch (error) {
+    tg.showPopup({
+      title: 'Ошибка',
+      message: 'Не удалось отправить отклик. Попробуйте позже.',
+      buttons: [{ type: 'ok' }]
+    });
+  }
+});
      // Автоматическая смена слайдов в карусели
 function startCarousel() {
   const slides = document.querySelectorAll('.carousel a');
