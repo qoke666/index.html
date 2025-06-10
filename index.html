@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TMA Главная</title>
   <style>
-    /* Твой текущий CSS остаётся без изменений */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
     body {
@@ -120,7 +119,7 @@
       background: #d5fd02;
       color: #080808;
       border: none;
-      border-radius: 6px;
+      border-radius: 4px;
       cursor: pointer;
       font-weight: 600;
     }
@@ -298,7 +297,7 @@
       background: #111315;
       border: 1px solid #222;
       border-radius: 12px;
-      padding: 24px;
+      padding: 16px;
       z-index: 9999;
       color: #fff;
       max-width: 90%;
@@ -354,7 +353,6 @@
       cursor: pointer;
       font-size: 14px;
     }
-    .modal .apply-form button:hover { background: #b8e002; }
     .modal .apply-form .close-button {
       padding: 8px 16px;
       background: #222;
@@ -366,7 +364,15 @@
       font-size: 14px;
       margin-top: 8px;
     }
-    .modal .apply-form .close-button:hover { background: #333; }
+    .modal .apply-form .subscribe-button {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #d5fd02;
+      color: #080808;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -609,7 +615,7 @@
       ({ id: user_id, username, first_name, last_name } = tg.initDataUnsafe.user);
     }
 
-    const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwOD2PwFx1MkacHYKe-hCt2CKj7z-qMATVLUbfWymPs-TrkJJHt0bEEdviV29tQEqa4yQ/exec';
+    const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwOD2PwFx1MkacHYKe-hCt2CKj7z-qMATVLUbfWymPs-TrkJJHt0bEEdviV29tQEqa4yQ/exec'; // Замени на URL веб-приложения
 
     function generateUUID() {
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -618,8 +624,36 @@
       });
     }
 
+    function checkSubscription(response_id, callback) {
+      fetch(SHEET_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event: 'check_subscription',
+          additional: { response_id }
+        })
+      }).then(() => {
+        setTimeout(() => {
+          fetch(SHEET_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              event: 'check_subscription',
+              additional: { response_id }
+            })
+          })
+            .then(response => response.json())
+            .then(data => callback(data.subscribed))
+            .catch(error => {
+              console.error('Check subscription error:', error);
+              callback(false);
+            });
+        }, 3000);
+      }).catch(error => console.error('Initial check subscription error:', error));
+    }
+
     function sendToSheet(data) {
-      console.log('Sending to sheet:', data);
       fetch(SHEET_ENDPOINT, {
         method: 'POST',
         mode: 'no-cors',
@@ -717,318 +751,218 @@
       }
     };
 
+    function renderForm(position = '') {
+      let formContent = `
+        <label>Ваш Telegram (например, @username)</label>
+        <input type="text" name="telegram" placeholder="@username" pattern="@[A-Za-z0-9_]{5,32}" title="Введите Telegram-username, начиная с @, минимум 5 символов" required>
+      `;
+      if (vacancyData[vacancyId] && vacancyId === 'tlc_promo') {
+        if (position === 'Владелец команды') {
+          formContent += `
+            <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
+            <select name="experience" required>
+              <option value="" disabled selected>Выберите опыт</option>
+              <option value="3+ года">3+ года</option>
+              <option value="1-2 года">1-2 года</option>
+              <option value="6-12 месяцев">6-12 месяцев</option>
+              <option value="менее 6 месяцев">менее 6 месяцев</option>
+            </select>
+            <label>С каким источником работаешь?</label>
+            <select name="source" required>
+              <option value="" disabled selected>Выберите источник</option>
+              <option value="FB">FB</option>
+              <option value="PPC">PPC</option>
+              <option value="ASO">ASO</option>
+              <option value="SEO">SEO</option>
+            </select>
+            <label>Сколько человек в команде?</label>
+            <select name="team_size" required>
+              <option value="" disabled selected>Выберите размер</option>
+              <option value="1-4">1-4</option>
+              <option value="5-9">5-9</option>
+              <option value="10-14">10-14</option>
+              <option value="15+">15+</option>
+            </select>
+            <label>Каков средний спенд и профит команды в месяц за последние полгода?</label>
+            <textarea name="spend_profit" placeholder="Опишите спенд и профит" required></textarea>
+            <label>Почему вы решили привлечь инвестиции в свою команду?</label>
+            <textarea name="investment_reason" placeholder="Опишите причину" required></textarea>
+          `;
+        } else if (position === 'Тимлид' || position === 'Медиабаер') {
+          formContent += `
+            <label>Как тебя зовут?</label>
+            <input type="text" name="name" placeholder="Ваше имя" required>
+            <label>В каком городе ты живёшь?</label>
+            <input type="text" name="city" placeholder="Город" required>
+            <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
+            <select name="experience" required>
+              <option value="" disabled selected>Выберите опыт</option>
+              <option value="3+ года">3+ года</option>
+              <option value="1-2 года">1-2 года</option>
+              <option value="6-12 месяцев">6-12 месяцев</option>
+              <option value="менее 6 месяцев"></option>
+            </select>
+            <label>Твой источник?</label>
+            <select name="source" required>
+              <option value="" disabled selected>Выберите источник</option>
+              <option value="FB">FB</option>
+              <option value="PPC">PPC</option>
+              <option value="ASO">ASO</option>
+              <option value="SEO">SEO</option>
+            </select>
+            <label>Какой бюджет в среднем отливаешь в месяц?</label>
+            <select name="budget" required>
+              <option value="" disabled selected>Выберите бюджет</option>
+              <option value="Менее $1 000">Менее $1 000</option>
+              <option value="$1 000-$5 000">$1 000-$5 000</option>
+              <option value="$5 000-$10 000">$5 000</option>
+              <option value="$10 000-$20 000">$10 000-$20 000</option>
+            </select>
+            <label>Расскажи о своём последнем опыте на схожей позиции</label>
+            <textarea name="last_experience" placeholder="Оформленный и приложенный к заявке кейс или резюме будет плюсом ✌️" required></textarea>
+          `;
+        } else {
+          formContent += `
+            <label>На какой позиции ты сейчас?</label>
+            <select name="position" required>
+              <option value="" disabled selected>Выберите пункт</option>
+              <option value="Другое">Другое</option>
+              <option value="Владелец команды">Владелец команды</option>
+              <option value="Тимлид">Тимлид</option>
+              <option value="Медиабайер">Медиабайер</option>
+            </select>
+            <label>Как тебя зовут?</label>
+            <input type="text" name="name" placeholder="Ваше имя" required>
+            <label>В каком городе ты живёшь?</label>
+            <input type="text" name="city" placeholder="Город" required>
+            <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</option>
+            <select name="experience" required>
+              <option value="" disabled selected>Выберите пункт</option>
+              <option value="3+ года">3+ года</option>
+              <option value="1-2 года">1-2 года</option>
+              <option value="6-12 месяцев">6-12 месяцев</option>
+              <option value="менее 6 месяцев">менее меньше 6 месяцев</option>
+            </select>
+            <label>Твой источник?</label>
+            <select name="source"> required>
+              <option value="" disabled selected>Выберите пункт</option>
+              <option value="FB">Facebook</option>
+              <option value="PPC">PPC</option>
+              <option value="ASO">ASO</option>
+              <option value="SEO">SEO</option>
+            </select>
+            <label>Какой бюджет в среднем отливаешь в месяц?</label>
+            </select name="budget" required>
+            <option value="" disabled selected>Выберите пункт</option>
+            <option value="Менее $1 000">Менее $1 000$</option>
+            <option value="$1 000-$5 000">$1 000-$5</option>
+            <option value="$5 000-$10 000$">$5 000-$10</option>
+            <option value="$10 000-$20-$20 000$">$10-$20 000$</option>
+            </select>
+            <label>Расскажи о своём последнем опыте на схожий позиции</label>
+            <textarea name="last_experience" placeholder="Оформленный и приложенный к заявке кейс или резюме будет плюсом ✌️" required></textarea>
+          `;
+        `;
+      } else {
+        formContent += {
+          <label>Как тебя зовут?</label>
+          <input type="text" name="name" placeholder="Ваше имя" required>
+          <label>В каком городе ты живёшь?</label>
+          <input type="text" name="city" placeholder="Город" required>
+          <label>Расскажи о своём опыте на схожих позициях</label>
+          <textarea name="experience" placeholder="Опишите свой опыт" required></textarea>
+          <label>Ссылка на резюме (если есть)</label>
+          <input type="url" name="resume" placeholder="https://">
+        `;
+      }
+      return formContent;
+    }
+
     document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(card => {
       card.addEventListener('click', () => {
-  const vacancyId = card.dataset.vacancyId;
-  const data = vacancyData[vacancyId];
-  if (!data) return;
-  trackEvent('vacancy_view', { vacancy: data.title });
+        const vacancyId = card.dataset.vacancyId;
+        const data = vacancyData[vacancyId];
+        if (!data) return;
+        trackEvent('vacancy_view', { vacancy: data.title });
 
-  const response_id = generateUUID();
-  const modal = document.createElement('div');
-  modal.className = 'modal';
-  modal.innerHTML = `
-    <h3>${data.title}</h3>
-    <p>Чтобы отправить отклик, подпишитесь на нашего бота @bbb909test_bot.</p>
-    <div class="apply-form">
-      <a href="https://t.me/bbb909test_bot?start=apply_${response_id}" target="_blank" class="subscribe-button" style="display: inline-block; padding: 8px 16px; background: #d5fd02; color: #080808; border-radius: 6px; text-decoration: none; font-weight: 600;">Подписаться</a>
-      <button class="check-subscription" style="padding: 8px 16px; background: #d5fd02; color: #080808; border: none; border-radius: 6px; font-weight: 600; margin-top: 8px;">Продолжить</button>
-      <button class="close-button" style="padding: 8px 16px; background: #222; color: #fff; border: 1px solid #444; border-radius: 6px; font-weight: 600; margin-top: 8px;">Закрыть</button>
-    </div>
-  `;
-  document.body.appendChild(modal);
-
-  modal.querySelector('.close-button').addEventListener('click', () => modal.remove());
-
-  modal.querySelector('.check-subscription').addEventListener('click', () => {
-    checkSubscription(response_id, (isSubscribed) => {
-      if (isSubscribed) {
-        modal.innerHTML = `
-          <h3>${data.title}</h3>
-          <p>${data.description || ''}</p>
-          <p>${data.offers || ''}</p>
-          <form class="apply-form">
-            ${renderForm()}
-            <button type="submit">Отправить отклик</button>
-            <button type="button" class="close-button">Закрыть</button>
-          </form>
-        `;
-        modal.querySelector('.close-button').addEventListener('click', () => modal.remove());
-        modal.querySelector('.apply-form').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const formData = new FormData(e.target);
-          const telegram = formData.get('telegram');
-          if (!telegram.startsWith('@')) {
-            tg.showPopup({
-              title: 'Ошибка',
-              message: 'Telegram-username должен начинаться с @',
-              buttons: [{ type: 'ok' }]
-            });
-            return;
-          }
-          const additional = {
-            id: vacancyId,
-            title: data.title,
-            response_id
-          };
-          for (const [key, value] of formData.entries()) {
-            additional[key] = value;
-          }
-          const eventData = {
-            event: 'vacancy_apply',
-            user_id,
-            username,
-            first_name,
-            last_name,
-            timestamp: new Date().toISOString(),
-            additional
-          };
-          sendToSheet(eventData);
-          tg.showPopup({
-            title: 'Успех!',
-            message: 'Ваш отклик отправлен! Мы свяжемся с вами через @bbb909test_bot.',
-            buttons: [{ type: 'ok' }]
-          });
-          modal.remove();
-        });
-      } else {
-        tg.showPopup({
-          title: 'Подписка не подтверждена',
-          message: 'Пожалуйста, подпишитесь на @bbb909test_bot и отправьте /start.',
-          buttons: [{ type: 'ok' }]
-        });
-      }
-    });
-  });
-});
-
+        const response_id = generateUUID();
         const modal = document.createElement('div');
         modal.className = 'modal';
-        const renderForm = (position = '') => {
-          let formContent = `
-            <label>Ваш Telegram (например, @username)</label>
-            <input type="text" name="telegram" placeholder="@username" pattern="@[A-Za-z0-9_]{5,}" required>
-          `;
-          if (vacancyId === 'tlc_promo') {
-            if (position === 'Владелец команды') {
-              formContent += `
-                <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
-                <select name="experience" required>
-                  <option value="" disabled selected>Выберите опыт</option>
-                  <option value="3+ года">3+ года</option>
-                  <option value="1-2 года">1-2 года</option>
-                  <option value="6-12 месяцев">6-12 месяцев</option>
-                  <option value="менее 6 месяцев">менее 6 месяцев</option>
-                </select>
-                <label>С каким источником работаешь?</label>
-                <select name="source" required>
-                  <option value="" disabled selected>Выберите источник</option>
-                  <option value="FB">FB</option>
-                  <option value="PPC">PPC</option>
-                  <option value="ASO">ASO</option>
-                  <option value="SEO">SEO</option>
-                </select>
-                <label>Сколько человек в команде?</label>
-                <select name="team_size" required>
-                  <option value="" disabled selected>Выберите размер</option>
-                  <option value="1-4">1-4</option>
-                  <option value="5-9">5-9</option>
-                  <option value="10-14">10-14</option>
-                  <option value="15+">15+</option>
-                </select>
-                <label>Каков средний спенд и профит команды в месяц за последние полгода?</label>
-                <textarea name="spend_profit" placeholder="Опишите спенд и профит" required></textarea>
-                <label>Почему вы решили привлечь инвестиции в свою команду?</label>
-                <textarea name="investment_reason" placeholder="Опишите причину" required></textarea>
-              `;
-            } else if (position === 'Тимлид' || position === 'Медиабаер') {
-              formContent += `
-                <label>Как тебя зовут?</label>
-                <input type="text" name="name" placeholder="Ваше имя" required>
-                <label>В каком городе ты живёшь?</label>
-                <input type="text" name="city" placeholder="Город" required>
-                <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
-                <select name="experience" required>
-                  <option value="" disabled selected>Выберите опыт</option>
-                  <option value="3+ года">3+ года</option>
-                  <option value="1-2 года">1-2 года</option>
-                  <option value="6-12 месяцев">6-12 месяцев</option>
-                  <option value="менее 6 месяцев">менее 6 месяцев</option>
-                </select>
-                <label>Твой источник?</label>
-                <select name="source" required>
-                  <option value="" disabled selected>Выберите источник</option>
-                  <option value="FB">FB</option>
-                  <option value="PPC">PPC</option>
-                  <option value="ASO">ASO</option>
-                  <option value="SEO">SEO</option>
-                </select>
-                <label>Какой бюджет в среднем отливаешь в месяц?</label>
-                <select name="budget" required>
-                  <option value="" disabled selected>Выберите бюджет</option>
-                  <option value="Менее 1 000$">Менее 1 000$</option>
-                  <option value="$1 000-$5 000">$1 000-$5 000</option>
-                  <option value="$5 000-$10 000">$5 000-$10 000</option>
-                  <option value="$10 000-$20 000">$10 000-$20 000</option>
-                </select>
-                <label>Расскажи о своём последнем опыте на схожей позиции</label>
-                <textarea name="last_experience" placeholder="Оформленный и приложенный к заявке кейс или резюме будет плюсом ✌️" required></textarea>
-              `;
-            } else {
-              formContent += `
-                <label>На какой позиции находишься сейчас?</label>
-                <select name="position" required>
-                  <option value="" disabled selected>Выберите пункт</option>
-                  <option value="Другое">Другое</option>
-                  <option value="Владелец команды">Владелец команды</option>
-                  <option value="Тимлид">Тимлид</option>
-                  <option value="Медиабаер">Медиабаер</option>
-                </select>
-                <label>Как тебя зовут?</label>
-                <input type="text" name="name" placeholder="Ваше имя" required>
-                <label>В каком городе ты живёшь?</label>
-                <input type="text" name="city" placeholder="Город" required>
-                <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
-                <select name="experience" required>
-                  <option value="" disabled selected>Выберите опыт</option>
-                  <option value="3+ года">3+ года</option>
-                  <option value="1-2 года">1-2 года</option>
-                  <option value="6-12 месяцев">6-12 месяцев</option>
-                  <option value="менее 6 месяцев">менее 6 месяцев</option>
-                </select>
-                <label>Твой источник?</label>
-                <select name="source" required>
-                  <option value="" disabled selected>Выберите пункт</option>
-                  <option value="FB">FB</option>
-                  <option value="PPC">PPC</option>
-                  <option value="ASO">ASO</option>
-                  <option value="SEO">SEO</option>
-                </select>
-                <label>Какой бюджет в среднем отливаешь в месяц?</label>
-                <select name="budget" required>
-                  <option value="" disabled selected>Выберите пункт</option>
-                  <option value="Менее 1 000$">Менее 1 000$</option>
-                  <option value="$1 000-$5 000">$1 000-$5 000</option>
-                  <option value="$5 000-$10 000">$5 000-$10 000</option>
-                  <option value="$10 000-$20 000">$10 000-$20 000</option>
-                </select>
-                <label>Расскажи о своём последнем опыте на схожей позиции</label>
-                <textarea name="last_experience" placeholder="Оформленный и приложенный кейс или резюме будет плюсом ✌️" required></textarea>
-              `;
-            }
-          } else {
-            formContent += `
-              <label>Как тебя зовут?</label>
-              <input type="text" name="name" placeholder="Ваше имя" required>
-              <label>В каком городе ты живёшь?</label>
-              <input type="text" name="city" placeholder="Город" required>
-              <label>Расскажи о своём опыте на схожих позициях</label>
-              <textarea name="experience" placeholder="Опишите свой опыт" required></textarea>
-              <label>Ссылка на резюме (если есть)</label>
-              <input type="url" name="resume" placeholder="https://">
-            `;
-          }
-          return formContent;
-        };
-
         modal.innerHTML = `
           <h3>${data.title}</h3>
-          <p>${data.description || ''}</p>
-          <p>${data.offers || ''}</p>
-          <form class="apply-form">
-            ${renderForm()}
-            <button type="submit">Отправить отклик</button>
+          <p>Чтобы отправить отклик, подпишитесь на нашего бота @bbb909test_bot.</p>
+          <div class="apply-form">
+            <a href="https://t.me/bbb909test_bot?start=apply_${response_id}" target="_blank" class="subscribe-button">Подписаться</a>
+            <button class="check-subscription">Продолжить</button>
             <button type="button" class="close-button">Закрыть</button>
-          </form>
+          </div>
         `;
         document.body.appendChild(modal);
 
-        const positionSelect = modal.querySelector('select[name="position"]');
-        if (positionSelect) {
-          positionSelect.addEventListener('change', () => {
-            const newFormContent = renderForm(positionSelect.value);
-            const form = modal.querySelector('.apply-form');
-            form.innerHTML = newFormContent + `
-              <button type="submit">Отправить отклик</button>
-              <button type="button" class="close-button">Закрыть</button>
-            `;
-            form.querySelector('.close-button').addEventListener('click', () => modal.remove());
-          });
-        }
-
         modal.querySelector('.close-button').addEventListener('click', () => modal.remove());
 
-        modal.querySelector('.apply-form').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const formData = new FormData(e.target);
-          const telegram = formData.get('telegram');
-          if (!telegram.startsWith('@')) {
-            tg.showPopup({
-              title: 'Ошибка',
-              message: 'Telegram-username должен начинаться с @',
-              buttons: [{ type: 'ok' }]
-            });
-            return;
-          }
-          const response_id = generateUUID();
-          const additional = {
-            id: vacancyId,
-            title: data.title,
-            response_id
-          };
-          for (const [key, value] of formData.entries()) {
-            additional[key] = value;
-          }
-          console.log('Form data:', additional);
-          const eventData = {
-            event: 'vacancy_apply',
-            user_id,
-            username,
-            first_name,
-            last_name,
-            timestamp: new Date().toISOString(),
-            additional
-          };
-          sendToSheet(eventData);
-          tg.showPopup({
-            tg.showPopup({
-              title: 'Успех!',
-              message: 'Ваш отклик отправлен! Мы свяжемся с вами через @bbb909test_bot.',
-              buttons: [{ type: 'ok' }]
-            });
-          modal.remove();
+        modal.querySelector('.check-subscription').addEventListener('click', () => {
+          checkSubscription(response_id, (isSubscribed) => {
+            if (isSubscribed) {
+              modal.innerHTML = `
+                <h3>${data.title}</h3>
+                <p>${data.description || ''}</p>
+                <p>${data.offers || ''}</p>
+                <form class="apply-form">
+                  ${renderForm()}
+                  <button type="submit">Отправить отклик</button>
+                  <button type="button" class="close-button">Закрыть</button>
+                </form>
+              `;
+              modal.querySelector('.close-button').addEventListener('click', () => modal.remove());
+              modal.querySelector('.apply-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const telegram = formData.get('telegram');
+                if (!telegram.startsWith('@')) {
+                  telegram.showPopup({
+                    title: 'Ошибка',
+                    message: 'Telegram-username должен начинаться с @',
+                    buttons: [{ type: 'ok' }]
+                  });
+                  return;
+                }
+                const additional = {
+                  id: vacancyId,
+                  title: data.title,
+                  response_id
+                };
+                for (const [key, value] of formData.entries()) {
+                  additional[key] = value;
+                }
+                const eventData = {
+                  event: 'vacancy_apply',
+                  user_id,
+                  username,
+                  first_name,
+                  last_name,
+                  timestamp: new Date().toISOString(),
+                  additional
+                };
+                sendToSheet(eventData);
+                tg.showPopup({
+                  title: 'Успех!',
+                  message: 'Ваш отклик отправлен! Мы свяжемся с вами через @bbb909test_bot.',
+                  buttons: [{ type: 'ok' }]
+                });
+                modal.remove();
+              });
+            } else {
+              tg.showPopup({
+                title: 'Подписка не подтверждена',
+                message: 'Пожалуйста, подпишитесь на @bbb909test_bot и отправьте команду /start.',
+                buttons: [{ type: 'ok' }]
+              });
+            }
+          });
         });
       });
     });
-     function checkSubscription(response_id, callback) {
-  fetch(SHEET_ENDPOINT, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      event: 'check_subscription',
-      additional: { response_id }
-    })
-  }).then(() => {
-    // Поскольку mode: 'no-cors', ответ недоступен, делаем повторный запрос через setTimeout
-    setTimeout(() => {
-      fetch(SHEET_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          event: 'check_subscription',
-          additional: { response_id }
-        })
-      })
-        .then(response => response.json())
-        .then(data => callback(data.subscribed))
-        .catch(error => {
-          console.error('Check subscription error:', error);
-          callback(false);
-        });
-    }, 3000); // Ждём 3 секунды, чтобы пользователь успел подписаться
-  }).catch(error => console.error('Initial check subscription error:', error));
-}
 
     function startCarousel() {
       const slides = document.querySelectorAll('.carousel a');
