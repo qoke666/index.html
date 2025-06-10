@@ -719,10 +719,88 @@
 
     document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(card => {
       card.addEventListener('click', () => {
-        const vacancyId = card.dataset.vacancyId;
-        const data = vacancyData[vacancyId];
-        if (!data) return;
-        trackEvent('vacancy_view', { vacancy: data.title });
+  const vacancyId = card.dataset.vacancyId;
+  const data = vacancyData[vacancyId];
+  if (!data) return;
+  trackEvent('vacancy_view', { vacancy: data.title });
+
+  const response_id = generateUUID();
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.innerHTML = `
+    <h3>${data.title}</h3>
+    <p>Чтобы отправить отклик, подпишитесь на нашего бота @bbb909test_bot.</p>
+    <div class="apply-form">
+      <a href="https://t.me/bbb909test_bot?start=apply_${response_id}" target="_blank" class="subscribe-button" style="display: inline-block; padding: 8px 16px; background: #d5fd02; color: #080808; border-radius: 6px; text-decoration: none; font-weight: 600;">Подписаться</a>
+      <button class="check-subscription" style="padding: 8px 16px; background: #d5fd02; color: #080808; border: none; border-radius: 6px; font-weight: 600; margin-top: 8px;">Продолжить</button>
+      <button class="close-button" style="padding: 8px 16px; background: #222; color: #fff; border: 1px solid #444; border-radius: 6px; font-weight: 600; margin-top: 8px;">Закрыть</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  modal.querySelector('.close-button').addEventListener('click', () => modal.remove());
+
+  modal.querySelector('.check-subscription').addEventListener('click', () => {
+    checkSubscription(response_id, (isSubscribed) => {
+      if (isSubscribed) {
+        modal.innerHTML = `
+          <h3>${data.title}</h3>
+          <p>${data.description || ''}</p>
+          <p>${data.offers || ''}</p>
+          <form class="apply-form">
+            ${renderForm()}
+            <button type="submit">Отправить отклик</button>
+            <button type="button" class="close-button">Закрыть</button>
+          </form>
+        `;
+        modal.querySelector('.close-button').addEventListener('click', () => modal.remove());
+        modal.querySelector('.apply-form').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+          const telegram = formData.get('telegram');
+          if (!telegram.startsWith('@')) {
+            tg.showPopup({
+              title: 'Ошибка',
+              message: 'Telegram-username должен начинаться с @',
+              buttons: [{ type: 'ok' }]
+            });
+            return;
+          }
+          const additional = {
+            id: vacancyId,
+            title: data.title,
+            response_id
+          };
+          for (const [key, value] of formData.entries()) {
+            additional[key] = value;
+          }
+          const eventData = {
+            event: 'vacancy_apply',
+            user_id,
+            username,
+            first_name,
+            last_name,
+            timestamp: new Date().toISOString(),
+            additional
+          };
+          sendToSheet(eventData);
+          tg.showPopup({
+            title: 'Успех!',
+            message: 'Ваш отклик отправлен! Мы свяжемся с вами через @bbb909test_bot.',
+            buttons: [{ type: 'ok' }]
+          });
+          modal.remove();
+        });
+      } else {
+        tg.showPopup({
+          title: 'Подписка не подтверждена',
+          message: 'Пожалуйста, подпишитесь на @bbb909test_bot и отправьте /start.',
+          buttons: [{ type: 'ok' }]
+        });
+      }
+    });
+  });
+});
 
         const modal = document.createElement('div');
         modal.className = 'modal';
@@ -913,14 +991,44 @@
           };
           sendToSheet(eventData);
           tg.showPopup({
-            title: 'Успех!',
-            message: 'Ваш отклик отправлен! Мы свяжемся с вами через Telegram. Пожалуйста, начните диалог с нашим ботом @CandidateBot, отправив /start.',
-            buttons: [{ type: 'ok' }]
-          });
+            tg.showPopup({
+              title: 'Успех!',
+              message: 'Ваш отклик отправлен! Мы свяжемся с вами через @bbb909test_bot.',
+              buttons: [{ type: 'ok' }]
+            });
           modal.remove();
         });
       });
     });
+     function checkSubscription(response_id, callback) {
+  fetch(SHEET_ENDPOINT, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      event: 'check_subscription',
+      additional: { response_id }
+    })
+  }).then(() => {
+    // Поскольку mode: 'no-cors', ответ недоступен, делаем повторный запрос через setTimeout
+    setTimeout(() => {
+      fetch(SHEET_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event: 'check_subscription',
+          additional: { response_id }
+        })
+      })
+        .then(response => response.json())
+        .then(data => callback(data.subscribed))
+        .catch(error => {
+          console.error('Check subscription error:', error);
+          callback(false);
+        });
+    }, 3000); // Ждём 3 секунды, чтобы пользователь успел подписаться
+  }).catch(error => console.error('Initial check subscription error:', error));
+}
 
     function startCarousel() {
       const slides = document.querySelectorAll('.carousel a');
