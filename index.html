@@ -755,7 +755,7 @@
     }
   };
 
-  function renderForm(position = '') {
+  function renderForm(vacancyId, position = '') {
     let formContent = `
       <label>Ваш Telegram (например, @username)</label>
       <input type="text" name="telegram" placeholder="@username" pattern="@[A-Za-z0-9_]{5,32}" title="Введите Telegram-username, начиная с @, минимум 5 символов" required>
@@ -790,9 +790,9 @@
           <label>Каков средний спенд и профит команды в месяц за последние полгода?</label>
           <textarea name="spend_profit" placeholder="Опишите спенд и профит" required></textarea>
           <label>Почему вы решили привлечь инвестиции в свою команду?</label>
-          <textarea name="investment_reason" placeholder="Опишите причину" required></textarea>
+          <textarea name="investment_reason" placeholder="Причина привлечения" required></textarea>
         `;
-      } else if (position === 'Тимлид' || position === 'Медиабаер') {
+      } else if (position === 'Тимлид' || position === 'Медиабайер') {
         formContent += `
           <label>Как тебя зовут?</label>
           <input type="text" name="name" placeholder="Ваше имя" required>
@@ -833,7 +833,7 @@
             <option value="Другое">Другое</option>
             <option value="Владелец команды">Владелец команды</option>
             <option value="Тимлид">Тимлид</option>
-            <option value="Медиабаер">Медиабаер</option>
+            <option value="Медиабайер">Медиабайер</option>
           </select>
           <label>Как тебя зовут?</label>
           <input type="text" name="name" placeholder="Ваше имя" required>
@@ -882,11 +882,10 @@
     return formContent;
   }
 
-  let vacancyId; // Объявляем vacancyId вне обработчика
   document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(card => {
     card.addEventListener('click', () => {
       console.log('Vacancy card clicked:', card.dataset.vacancyId);
-      vacancyId = card.dataset.vacancyId; // Сохраняем vacancyId
+      const vacancyId = card.dataset.vacancyId;
       const data = vacancyData[vacancyId];
       if (!data) return;
       trackEvent('vacancy_view', { vacancy: data.title });
@@ -919,7 +918,7 @@
               <p>${data.description || ''}</p>
               <p>${data.offers || ''}</p>
               <form class="apply-form">
-                ${renderForm()}
+                ${renderForm(vacancyId)}
                 <button type="submit">Отправить отклик</button>
                 <button type="button" class="close-button">Закрыть</button>
               </form>
@@ -950,7 +949,7 @@
                 additional[key] = value;
               }
               const eventData = {
-                event: 'vacancy_apply'',
+                event: 'vacancy_apply',
                 user_id,
                 username,
                 first_name,
@@ -961,7 +960,8 @@
               sendToSheet(eventData);
               tg.showPopup({
                 title: 'Успех!',
-                message: 'Ваш отклик отправлен! Мы свяжемся с вами через @bbb909test_bot.'
+                message: 'Ваш отклик отправлен! Мы свяжемся с вами через @bbb909test_bot.',
+                buttons: [{ type: 'ok' }]
               });
               console.log('Popup shown, modal removed');
               modal.remove();
@@ -984,7 +984,7 @@
     const slides = document.querySelectorAll('.carousel a');
     const dots = document.querySelectorAll('.carousel-dots .dot');
     let currentIndex = 0;
-    if (slides.length === 0) {
+    if (slides.length > 0) {
       function showSlide(index) {
         slides.forEach((slide, i) => {
           slide.classList.toggle('active', i === index);
@@ -1000,7 +1000,7 @@
         showSlide(currentIndex);
       }
 
-      setInterval(nextSlide, 3000);;
+      setInterval(nextSlide, 3000);
       showSlide(currentIndex);
     } else {
       console.warn('No carousel slides found');
