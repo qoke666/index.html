@@ -632,25 +632,30 @@
   }
 
   function checkSubscription(response_id, callback) {
-    console.log('Checking subscription for response_id:', response_id);
-    fetch(SHEET_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        event: 'check_subscription',
-        additional: { response_id }
-      })
+  console.log('Checking subscription for response_id:', response_id);
+  fetch(SHEET_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      event: 'check_subscription',
+      user_id,  // добавляем user_id для логов
+      additional: { response_id }
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Subscription check response:', data);
-        callback(data.subscribed || false);
-      })
-      .catch(error => {
-        console.error('Check subscription error:', error);
-        callback(false);
-      });
-  }
+  })
+    .then(response => {
+      console.log('Fetch status:', response.status, response);
+      return response.json();
+    })
+    .then(data => {
+      console.log('Subscription check response:', data);
+      // ожидаем поле subscribed: true/false
+      callback(!!data.subscribed);
+    })
+    .catch(error => {
+      console.error('Check subscription error:', error);
+      callback(false);
+    });
+}
 
   function sendToSheet(data) {
     console.log('Sending to sheet:', data);
