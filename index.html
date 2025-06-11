@@ -607,7 +607,7 @@
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-  console.log('Script loaded'); // Отладка: скрипт запустился
+  console.log('Script loaded');
   const tg = window.Telegram.WebApp;
   if (tg) {
     console.log('Telegram Web App initialized');
@@ -622,7 +622,7 @@
     console.log('User data:', { user_id, username, first_name, last_name });
   }
 
-  const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwOD2PwFx1MkacHYKe-hCt2CKj7z-qMATVLUbfWymPs-TrkJJHt0bEEdviV29tQEqa4yQ/exec'; // Замени на URL веб-приложения
+  const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwOD2PwFx1MkacHYKe-hCt2CKj7z-qMATVLUbfWymPs-TrkJJHt0bEEdviV29tQEqa4yQ/exec'; // Замени, если URL отличается
 
   function generateUUID() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -633,23 +633,28 @@
 
   function checkSubscription(response_id, callback) {
     console.log('Checking subscription for response_id:', response_id);
-    fetch(SHEET_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        event: 'check_subscription',
-        additional: { response_id }
+    setTimeout(() => { // Задержка 2 секунды для асинхронной записи
+      fetch(SHEET_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event: 'check_subscription',
+          additional: { response_id }
+        })
       })
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Subscription check response:', data);
-        callback(data.subscribed || false);
-      })
-      .catch(error => {
-        console.error('Check subscription error:', error);
-        callback(false);
-      });
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          console.log('Subscription check response:', data);
+          callback(data.subscribed || false);
+        })
+        .catch(error => {
+          console.error('Check subscription error:', error);
+          callback(false);
+        });
+    }, 2000);
   }
 
   function sendToSheet(data) {
@@ -658,7 +663,10 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
-    }).catch(error => console.error('Fetch error:', error));
+    })
+      .then(response => response.json())
+      .then(data => console.log('Send to sheet response:', data))
+      .catch(error => console.error('Fetch error:', error));
   }
 
   function trackEvent(eventName, additional = {}) {
@@ -882,6 +890,7 @@
     return formContent;
   }
 
+  let currentResponseId = null;
   document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(card => {
     card.addEventListener('click', () => {
       console.log('Vacancy card clicked:', card.dataset.vacancyId);
@@ -890,14 +899,14 @@
       if (!data) return;
       trackEvent('vacancy_view', { vacancy: data.title });
 
-      const response_id = generateUUID();
+      currentResponseId = generateUUID();
       const modal = document.createElement('div');
       modal.className = 'modal';
       modal.innerHTML = `
         <h3>${data.title}</h3>
         <p>Чтобы отправить отклик, подпишитесь на нашего бота @bbb909test_bot.</p>
         <div class="apply-form">
-          <a href="https://t.me/bbb909test_bot?start=apply_${response_id}" target="_blank" class="subscribe-button">Подписаться</a>
+          <a href="https://t.me/bbb909test_bot?start=apply_${currentResponseId}" target="_blank" class="subscribe-button">Подписаться</a>
           <button class="check-subscription">Продолжить</button>
           <button type="button" class="close-button">Закрыть</button>
         </div>
@@ -907,11 +916,21 @@
       modal.querySelector('.close-button').addEventListener('click', () => {
         console.log('Modal closed');
         modal.remove();
+        currentResponseId = null;
       });
 
       modal.querySelector('.check-subscription').addEventListener('click', () => {
-        console.log('Check subscription clicked');
-        checkSubscription(response_id, (isSubscribed) => {
+        console.log('Check subscription clicked for response_id:', currentResponseId);
+        if (!currentResponseId) {
+          tg.showPopup({
+            title: 'Ошибка',
+            message: 'Идентификатор отклика утерян. Пожалуйста, начните заново.',
+            buttons: [{ type: 'ok' }]
+          });
+          return;
+        }
+        checkSubscription(currentResponseId, (isSubscribed) => {
+          console.log('Subscription status:', isSubscribed);
           if (isSubscribed) {
             modal.innerHTML = `
               <h3>${data.title}</h3>
@@ -926,6 +945,7 @@
             modal.querySelector('.close-button').addEventListener('click', () => {
               console.log('Modal closed after form');
               modal.remove();
+              currentResponseId = null;
             });
             modal.querySelector('.apply-form').addEventListener('submit', (e) => {
               console.log('Form submitted');
@@ -943,7 +963,7 @@
               const additional = {
                 id: vacancyId,
                 title: data.title,
-                response_id
+                response_id: currentResponseId
               };
               for (const [key, value] of formData.entries()) {
                 additional[key] = value;
@@ -965,6 +985,7 @@
               });
               console.log('Popup shown, modal removed');
               modal.remove();
+              currentResponseId = null;
             });
           } else {
             tg.showPopup({
@@ -983,25 +1004,19 @@
     console.log('Starting carousel');
     const slides = document.querySelectorAll('.carousel a');
     const dots = document.querySelectorAll('.carousel-dots .dot');
-    let currentIndex = 0;
     if (slides.length > 0) {
+      let currentIndex = 0;
       function showSlide(index) {
-        slides.forEach((slide, i) => {
-          slide.classList.toggle('active', i === index);
-        });
-        dots.forEach((dot, i) => {
-          dot.classList.toggle('active', i === index);
-        });
+        slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
         currentIndex = index;
       }
-
       function nextSlide() {
         currentIndex = (currentIndex + 1) % slides.length;
         showSlide(currentIndex);
       }
-
       setInterval(nextSlide, 3000);
-      showSlide(currentIndex);
+      showSlide(0);
     } else {
       console.warn('No carousel slides found');
     }
