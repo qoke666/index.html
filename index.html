@@ -163,14 +163,14 @@
       padding: 0;
     }
     #home .card, #articles .card, #cases .card {
-  min-height: 140px; /* Минимальная высота плитки */
-  max-height: 160px; /* Максимальная высота */
-  overflow: hidden; /* Предотвращаем вылезание */
+  min-height: 120px; /* Поддерживаем высоту плитки */
+  overflow: hidden;
+  background: #111315; /* Фон для пустых областей */
 }
 #home .card img, #articles .card img, #cases .card img {
-  width: 102%;
-  height: 110%;
-  object-fit: contain; /* Заполняет без полос */
+  width: 100%;
+  height: 120px; /* Фиксированная высота как в старом коде */
+  object-fit: contain; /* Картинка вписывается целиком */
   display: block;
   border-radius: 12px;
 }
