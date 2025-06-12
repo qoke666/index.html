@@ -4,9 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TMA Главная</title>
-  <!-- Подключаем AOS для анимаций -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <!-- Подключаем Font Awesome для иконок -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
@@ -17,7 +15,7 @@
       background: #080808;
       color: #ffffff;
       overflow-y: auto;
-      position: relative; /* Для частиц */
+      position: relative;
     }
     #tsparticles {
       position: fixed;
@@ -25,7 +23,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1; /* Фон за контентом */
+      z-index: -1;
     }
     a { text-decoration: none; }
     ul { list-style: none; margin: 0; padding: 0; }
@@ -57,7 +55,7 @@
     .carousel a.active {
       opacity: 1;
       z-index: 1;
-      transform: scale(1.02); /* Лёгкое увеличение активного слайда */
+      transform: scale(1.02);
     }
     .carousel img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .carousel .hot {
@@ -127,20 +125,11 @@
       display: none;
       padding: 24px 16px;
       box-sizing: border-box;
+      min-height: 100px; /* Предотвращаем схлопывание */
     }
-    .section.active { display: block; }
-    .back-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 16px;
-      padding: 6px 12px;
-      background: #d5fd02;
-      color: #080808;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
+    .section.active {
+      display: block;
+      opacity: 1;
     }
 
     .section-title {
@@ -152,8 +141,9 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Уменьшено с 160px */
-      gap: 12px; /* Уменьшено с 16px */
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      min-height: 100px;
     }
     .card {
       background: #111315;
@@ -163,17 +153,21 @@
       transition: transform .2s, box-shadow .2s;
       position: relative;
       overflow: hidden;
-      padding: 8px; /* Уменьшено с 12px */
+      min-height: 140px; /* Гарантируем видимость */
     }
     .card:hover {
       transform: scale(1.02);
-      box-shadow: 0 4px 12px rgba(213, 253, 2, 0.2); /* Тень с акцентным цветом */
+      box-shadow: 0 4px 12px rgba(213, 253, 2, 0.2);
+    }
+    #home .card, #articles .card, #cases .card {
+      padding: 0;
     }
     #home .card img, #articles .card img, #cases .card img {
       width: 100%;
-      height: 100px; /* Уменьшено с 120px */
+      height: 100%;
       object-fit: cover;
       display: block;
+      border-radius: 12px;
     }
     #vacancies .card, #offers .card {
       padding: 8px;
@@ -187,26 +181,27 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(0,0,0,0.6);
-      padding: 6px; /* Уменьшено с 8px */
+      background: rgba(0,0,0,0.7);
+      padding: 6px;
+      z-index: 2;
     }
     .card strong {
       display: block;
-      font-size: 13px; /* Уменьшено с 14px */
+      font-size: 13px;
       color: #ffffff;
       margin-bottom: 4px;
     }
     .card p {
-      font-size: 11px; /* Уменьшено с 12px */
+      font-size: 11px;
       color: #bbb;
       margin: 0;
     }
     #vacancies .promo-card {
       grid-column: 1 / -1;
       background: #1a1d21;
-      padding: 12px; /* Уменьшено с 16px */
+      padding: 12px;
       text-align: center;
-      font-size: 15px; /* Уменьшено с 16px */
+      font-size: 15px;
       font-weight: 600;
       color: #d5fd02;
       border-radius: 12px;
@@ -215,14 +210,6 @@
     #vacancies .promo-card:hover {
       transform: scale(1.02);
       box-shadow: 0 4px 12px rgba(213, 253, 2, 0.2);
-    }
-
-    #team .card img {
-      width: 50px; /* Уменьшено с 60px */
-      height: 50px;
-      object-fit: cover;
-      margin-bottom: 8px;
-      border-radius: 50%;
     }
 
     .team-carousel, .actual-list-container {
@@ -245,14 +232,14 @@
     }
     .team-list::-webkit-scrollbar, .actual-list::-webkit-scrollbar { display: none; }
     .team-item {
-      flex: 0 0 140px; /* Уменьшено с 160px */
-      padding: 8px; /* Уменьшено с 12px */
+      flex: 0 0 140px;
+      padding: 8px;
       text-align: center;
       transition: transform .2s;
     }
     .team-item:hover { transform: scale(1.02); }
     .team-item img {
-      width: 50px; /* Уменьшено с 60px */
+      width: 50px;
       height: 50px;
       object-fit: cover;
       border-radius: 50%;
@@ -261,39 +248,39 @@
     }
     .team-item strong {
       display: block;
-      font-size: 13px; /* Уменьшено с 14px */
+      font-size: 13px;
       color: #ffffff;
       margin-bottom: 4px;
     }
     .team-item p {
-      font-size: 11px; /* Уменьшено с 12px */
+      font-size: 11px;
       color: #bbb;
       margin: 0;
     }
-    .actual-item { flex: 0 0 140px; /* Уменьшено с 160px */ }
+    .actual-item { flex: 0 0 140px; }
     .actual-item .card {
       border-radius: 12px;
       overflow: hidden;
       display: block;
     }
     .actual-item .card img {
-      border-radius: 12px 12px 0 0;
       width: 100%;
-      height: 100px; /* Уменьшено с 120px */
+      height: 100%;
       object-fit: cover;
+      border-radius: 12px;
     }
     #offers .card {
-      padding: 12px; /* Уменьшено с 16px */
+      padding: 12px;
       display: flex;
       flex-direction: column;
-      gap: 6px; /* Уменьшено с 8px */
+      gap: 6px;
     }
     #offers .card strong {
-      font-size: 15px; /* Уменьшено с 16px */
+      font-size: 15px;
       color: #d5fd02;
     }
     #offers .card p {
-      font-size: 13px; /* Уменьшено с 14px */
+      font-size: 13px;
       color: #ccc;
       margin: 0;
       line-height: 1.4;
@@ -388,7 +375,6 @@
     }
     .modal .apply-form .close-button:hover { background: #333; }
 
-    /* Индикатор скролла */
     .scroll-indicator {
       position: absolute;
       bottom: 0;
@@ -401,7 +387,6 @@
   </style>
 </head>
 <body>
-  <!-- Добавляем контейнер для частиц -->
   <div id="tsparticles"></div>
 
   <div class="menu-top">
@@ -440,7 +425,7 @@
     <h2 class="section-title">АКТУАЛЬНОЕ</h2>
     <div class="actual-list-container">
       <ul class="actual-list">
-        <li class="actual-item">
+        <li class="actual-item" data-aos="fade-up" data-aos-delay="100">
           <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank" data-id="actual_1" data-title="Гемблинг кейс: $130 000+">
             <img src="https://i.postimg.cc/7PGWRRNZ/130k.jpg" alt="Гемблинг кейс" />
             <div class="text-overlay">
@@ -449,7 +434,7 @@
             </div>
           </a>
         </li>
-        <li class="actual-item">
+        <li class="actual-item" data-aos="fade-up" data-aos-delay="100">
           <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank" data-id="actual_2" data-title="SCAM кейс от AMERIO.BET">
             <img src="https://i.postimg.cc/X7KQS6B4/scam.jpg" alt="SCAM кейс" />
             <div class="text-overlay">
@@ -458,7 +443,7 @@
             </div>
           </a>
         </li>
-        <li class="actual-item">
+        <li class="actual-item" data-aos="fade-up" data-aos-delay="100">
           <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-04-09" target="_blank" data-id="actual_3" data-title="Качество трафика в гемблинге">
             <img src="https://i.postimg.cc/hjQFNVwD/photo-2025-05-14-20-01-19.jpg" alt="Статья" />
             <div class="text-overlay">
@@ -467,7 +452,7 @@
             </div>
           </a>
         </li>
-        <li class="actual-item">
+        <li class="actual-item" data-aos="fade-up" data-aos-delay="100">
           <a class="card" href="https://t.me/zakacreator" target="_blank" data-id="actual_4" data-title="Вакансия: Трафик менеджер">
             <img src="https://i.postimg.cc/YSG4qP0S/traffic-manager.jpg" alt="Вакансия" />
             <div class="text-overlay">
@@ -481,49 +466,49 @@
     <h2 class="section-title">КОМАНДА</h2>
     <div class="team-carousel">
       <ul class="team-list">
-        <li class="team-item">
+        <li class="team-item" data-aos="fade-up" data-aos-delay="100">
           <a href="https://t.me/Evgenii_Limited" target="_blank">
             <img src="https://i.postimg.cc/yN5SkL2P/3.webp" alt="Evgenii" />
             <strong>Evgenii Limited</strong>
             <p>Co-owner</p>
           </a>
         </li>
-        <li class="team-item">
+        <li class="team-item" data-aos="fade-up" data-aos-delay="100">
           <a href="https://t.me/t_limited" target="_blank">
             <img src="https://i.postimg.cc/KjgCWLjQ/4.webp" alt="Tikhon" />
             <strong>Tikhon Limited</strong>
             <p>Co-owner</p>
           </a>
         </li>
-        <li class="team-item">
+        <li class="team-item" data-aos="fade-up" data-aos-delay="100">
           <a href="https://t.me/Denis_limited" target="_blank">
             <img src="https://i.postimg.cc/GmQ3z0Zt/6-new.webp" alt="Denis" />
             <strong>Denis Limited</strong>
             <p>Head of Affiliate</p>
           </a>
         </li>
-        <li class="team-item">
+        <li class="team-item" data-aos="fade-up" data-aos-delay="100">
           <a href="https://t.me/sasha_limited" target="_blank">
             <img src="https://i.postimg.cc/gkyGkFcs/2.webp" alt="Aleksandra" />
             <strong>Aleksandra Limited</strong>
             <p>Head of Sales</p>
           </a>
         </li>
-        <li class="team-item">
+        <li class="team-item" data-aos="fade-up" data-aos-delay="100">
           <a href="https://t.me/ksu_limited" target="_blank">
             <img src="https://i.postimg.cc/SxDqC6Mz/1.webp" alt="Ksenia" />
             <strong>Ksenia Limited</strong>
             <p>Team Lead Affiliate Manager</p>
           </a>
         </li>
-        <li class="team-item">
+        <li class="team-item" data-aos="fade-up" data-aos-delay="100">
           <a href="https://t.me/katerinaHR_limited" target="_blank">
             <img src="https://i.postimg.cc/hGvnrXLZ/7.jpg" alt="Katerina" />
             <strong>Katerina Limited</strong>
             <p>HRD</p>
           </a>
         </li>
-        <li class="team-item">
+        <li class="team-item" data-aos="fade-up" data-aos-delay="100">
           <a href="https://t.me/Alexandr_limited" target="_blank">
             <img src="https://i.postimg.cc/yNGHr7n1/5-new.webp" alt="Alexander" />
             <strong>Alexander Limited</strong>
@@ -537,28 +522,28 @@
   <section id="articles" class="section">
     <h2 class="section-title">СТАТЬИ</h2>
     <div class="grid">
-      <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" target="_blank">
+      <a class="card" href="https://telegra.ph/Kak-podnyat-kachestvo-trafika-v-gemblinge-neskolko-prakticheskih-mehanik-04-09" target="_blank" data-aos="fade-up" data-aos-delay="100">
         <img src="https://i.postimg.cc/JzZmWnct/quality.jpg" alt="Статья 1" />
         <div class="text-overlay">
           <strong>Качество трафика</strong>
           <p>Несколько практических механик</p>
         </div>
       </a>
-      <a class="card" href="https://www.instagram.com/p/DCOei_ItMsf/?igsh=YzFudTVhbGlteGJr" target="_blank">
+      <a class="card" href="https://www.instagram.com/p/DCOei_ItMsf/?igsh=YzFudTVhbGlteGJr" target="_blank" data-aos="fade-up" data-aos-delay="100">
         <img src="https://i.postimg.cc/63LfsdTz/partners.jpg" alt="Отзывы" />
         <div class="text-overlay">
           <strong>Отзывы партнеров</strong>
           <p>Наш опыт работы</p>
         </div>
       </a>
-      <a class="card" href="https://traffhub.media/articles/gambling/nyuansy-vybora-gembling-offerov/" target="_blank">
+      <a class="card" href="https://traffhub.media/articles/gambling/nyuansy-vybora-gembling-offerov/" target="_blank" data-aos="fade-up" data-aos-delay="100">
         <img src="https://i.postimg.cc/q77T6LH6/offer.jpg" alt="Оффер" />
         <div class="text-overlay">
           <strong>Нюансы выбора офферов</strong>
           <p>Советы по гемблингу</p>
         </div>
       </a>
-      <a class="card" href="https://traff.com/intervju/kto-takoi-ka-owner-kompanii/?utm_source=abc" target="_blank">
+      <a class="card" href="https://traff.com/intervju/kto-takoi-ka-owner-kompanii/?utm_source=abc" target="_blank" data-aos="fade-up" data-aos-delay="100">
         <img src="https://i.postimg.cc/gcKrhgfN/owner-01-3.jpg" alt="Тихон" />
         <div class="text-overlay">
           <strong>Кто такой Co-owner</strong>
@@ -571,14 +556,14 @@
   <section id="cases" class="section">
     <h2 class="section-title">КЕЙСЫ</h2>
     <div class="grid">
-      <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank">
+      <a class="card" href="https://cpalenta.ru/keys-130-000-za-2-mesyatsa-s-aso-v-brazilii-na-privatnom-offere-thelimitedclub/" target="_blank" data-aos="fade-up" data-aos-delay="100">
         <img src="https://i.postimg.cc/7PGWRRNZ/130k.jpg" alt="Гемблинг кейс" />
         <div class="text-overlay">
           <strong>Гемблинг кейс: $130 000+</strong>
           <p>Заработок за 2 месяца</p>
         </div>
       </a>
-      <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank">
+      <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank" data-aos="fade-up" data-aos-delay="100">
         <img src="https://i.postimg.cc/X7KQS6B4/scam.jpg" alt="SCAM кейс" />
         <div class="text-overlay">
           <strong>SCAM кейс от AMERIO.BET</strong>
@@ -591,16 +576,16 @@
   <section id="vacancies" class="section">
     <h2 class="section-title">ВАКАНСИИ</h2>
     <div class="grid">
-      <div class="promo-card" data-vacancy-id="tlc_promo">
+      <div class="promo-card" data-vacancy-id="tlc_promo" data-aos="fade-up" data-aos-delay="100">
         TLC Для медиабайеров, тимлидов, овнеров команд
       </div>
-      <div class="card" data-vacancy-id="smm1">
+      <div class="card" data-vacancy-id="smm1" data-aos="fade-up" data-aos-delay="100">
         <strong>SMM-менеджер</strong>
         <p>Опыт: от 1 года</p>
         <p>Формат: Удалённо</p>
         <p>Зарплата: от 80 000 RUB</p>
       </div>
-      <div class="card" data-vacancy-id="smm2">
+      <div class="card" data-vacancy-id="smm2" data-aos="fade-up" data-aos-delay="100">
         <strong>SMM-менеджер (Senior)</strong>
         <p>Опыт: от 3 лет</p>
         <p>Формат: Удалённо</p>
@@ -612,19 +597,19 @@
   <section id="offers" class="section">
     <h2 class="section-title">ОФФЕРЫ</h2>
     <div class="grid">
-      <a class="card" href="https://t.me" target="_blank">
+      <a class="card" href="https://t.me" target="_blank" data-aos="fade-up" data-aos-delay="100">
         <strong>Источник: ASO</strong>
         <p>ГЕО: FR</p>
         <p>Ставка: 160 EUR</p>
         <p>Mindep: 10 EUR</p>
       </a>
-      <a class="card" href="https://t.me" target="_blank">
+      <a class="card" href="https://t.me" target="_blank" data-aos="fade-up" data-aos-delay="100">
         <strong>Источник: PPC</strong>
         <p>ГЕО: DE</p>
         <p>Ставка: 200 EUR</p>
         <p>Mindep: 15 EUR</p>
       </a>
-      <a class="card" href="https://t.me" target="_blank">
+      <a class="card" href="https://t.me" target="_blank" data-aos="fade-up" data-aos-delay="100">
         <strong>Источник: SEO</strong>
         <p>ГЕО: UK</p>
         <p>Ставка: 180 EUR</p>
@@ -634,50 +619,44 @@
   </section>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <!-- Подключаем tsParticles -->
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-  <!-- Подключаем AOS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    // Инициализация AOS
     AOS.init({
       duration: 800,
       once: true,
       offset: 100
     });
-
-    // Настройка tsParticles
-    tsParticles.load("tsparticles", {
-      fpsLimit: 60,
-      particles: {
-        number: { value: 50, density: { enable: true, value_area: 800 } },
-        color: { value: "#d5fd02" },
-        shape: { type: "circle" },
-        opacity: { value: 0.5, random: true },
-        size: { value: 3, random: { enable: true, minimumValue: 1 } },
-        links: { enable: false },
-        move: {
-          enable: true,
-          speed: 0.5,
-          direction: "none",
-          random: true,
-          outModes: { default: "out" }
-        }
-      },
-      interactivity: {
-        detectsOn: "window",
-        events: {
-          onHover: { enable: true, mode: "repulse" },
-          resize: { enable: true }
-        },
-        modes: {
-          repulse: { distance: 100, duration: 0.4 }
-        }
-      },
-      retina_detect: true
+    window.addEventListener('load', () => {
+      AOS.refresh();
+      console.log('AOS refreshed');
     });
 
-    // Индикатор скролла для списков
+    if (typeof tsParticles !== 'undefined') {
+      tsParticles.load("tsparticles", {
+        fpsLimit: 60,
+        particles: {
+          number: { value: 100, density: { enable: true, value_area: 800 } },
+          color: { value: "#d5fd02" },
+          shape: { type: "circle" },
+          opacity: { value: 0.5, random: true },
+          size: { value: 3, random: { enable: true, minimumValue: 1 } },
+          links: { enable: false },
+          move: {
+            enable: true,
+            speed: 0.5,
+            direction: "none",
+            random: true,
+            outModes: { default: "out" }
+          }
+        },
+        interactivity: { events: { onHover: { enable: false } }, resize: { enable: true } },
+        retina_detect: true
+      }).then(() => console.log('tsParticles loaded')).catch(err => console.error('tsParticles error:', err));
+    } else {
+      console.error('tsParticles not loaded');
+    }
+
     function updateScrollIndicator(list) {
       const indicator = list.parentElement.querySelector('.scroll-indicator');
       if (!indicator) return;
@@ -694,7 +673,6 @@
       updateScrollIndicator(list);
     });
 
-    // Модифицируем открытие/закрытие модального окна
     const tg = window.Telegram.WebApp;
     tg.expand();
 
@@ -739,8 +717,11 @@
     document.querySelectorAll('.menu-item').forEach(item => {
       item.addEventListener('click', () => {
         trackEvent('nav_click', { section: item.dataset.section });
-        document.querySelectorAll('.section').forEach(sec => sec.classList.toggle('active', sec.id === item.dataset.section));
-        document.querySelectorAll('.menu-item').forEach(i => i.classList.toggle('active', i.dataset.section === item.dataset.section));
+        document.querySelectorAll('.section').forEach(sec => {
+          sec.classList.toggle('active', sec.id === item.dataset.section);
+          console.log(`Section ${sec.id} active: ${sec.classList.contains('active')}`);
+        });
+        document.querySelectorAll('.menu-item').forEach(i => i.classList.toggle('active', i === item));
         window.scrollTo(0, 0);
       });
     });
@@ -882,7 +863,7 @@
                 <label>Какой бюджет в среднем отливаешь?</label>
                 <select name="budget" required>
                   <option value="" disabled selected>Выберите бюджет</option>
-                  <option value="Менее 1 000$">$1,000</option>
+                  <option value="Менее $1,000">$1,000</option>
                   <option value="$1,000-$5,000">$1,000-$5,000</option>
                   <option value="$5,000-$10,000">$5,000-$10,000</option>
                 </select>
@@ -891,13 +872,12 @@
               `;
             } else {
               formContent += `
-                <label>На какой стиль ты хочешь?</label>
-                <select name="style" required>
-                  <option value="" disabled selected>Выбери стиль</option>
-                  <option value="Другое">Другое</option>
-                  <option value="Владелец">Владелец команды</option>
-                  <option value="Тимлид">Технический лидер</option>
-                  <option value="Медикабаер">Медиабайкер</option>
+                <label>На какую роль ты претендуешь?</label>
+                <select name="position" required>
+                  <option value="" disabled selected>Выбери роль</option>
+                  <option value="Владелец команды">Владелец команды</option>
+                  <option value="Тимлид">Тимлид</option>
+                  <option value="Медиабаер">Медиабаер</option>
                 </select>
                 <label>Как тебя зовут?</label>
                 <input type="text" name="name" placeholder="Ваше имя" required>
@@ -906,11 +886,11 @@
                 <label>Какой у тебя опыт в вертикалях iGaming/Betting/Finance?</label>
                 <select name="experience" required>
                   <option value="" disabled selected>Выберите опыт</option>
-                  <option value="3+ года">3+ лет</option>
-                  <option value="1-2 года">1-2 лет</option>
+                  <option value="3+ года">3+ года</option>
+                  <option value="1-2 года">1-2 года</option>
                   <option value="6-12 месяцев">6-12 месяцев</option>
+                  <option value="менее 6 месяцев">менее 6 месяцев</option>
                 </select>
-                <option value="менее 6 месяцев">менее 6 месяцев</option>
                 <label>Твой источник?</label>
                 <select name="source" required>
                   <option value="" disabled selected>Выбери источник</option>
@@ -957,10 +937,9 @@
         `;
         document.body.appendChild(modal);
 
-        // Анимация появления
         setTimeout(() => modal.classList.add('active'), 10);
 
-        const positionSelect = modal.querySelector('select[name="status"]');
+        const positionSelect = modal.querySelector('select[name="position"]');
         if (positionSelect) {
           positionSelect.addEventListener('change', () => {
             const newFormContent = renderForm(positionSelect.value);
@@ -986,7 +965,7 @@
           e.preventDefault();
           const formData = new FormData(e.target);
           const telegram = formData.get('telegram');
-          if (!telegram.startsWith('@')) {
+          if (!telegram || !telegram.startsWith('@')) {
             tg.showPopup({
               title: 'Ошибка',
               message: 'Telegram должен начинаться с @',
@@ -1016,43 +995,39 @@
           sendToSheet(eventData);
           tg.showPopup({
             title: 'Успех!',
-            message: 'Ваш отклик отправлен! Мы свяжемся с вами через Telegram. Пожалуйста начни с нашего бота @Bot, отправляя /start.',
+            message: 'Ваш отклик отправлен! Мы свяжемся с вами через Telegram. Пожалуйста, начни с нашего бота @Bot, отправляя /start.',
             buttons: [{ type: 'ok' }]
           });
-          modal.remove();
+          modal.classList.remove('active');
+          setTimeout(() => modal.remove(), 300);
         });
       });
+    });
 
-      // Добавляем AOS для карточек и секций
-      document.querySelectorAll('.card, .section, .team-item, .actual-item').forEach(el => {
-        el.setAttribute('data-aos', 'fade-up');
-        el.setAttribute('data-aos-delay', '100');
-      });
+    function startCarousel() {
+      const slides = document.querySelectorAll('.carousel a');
+      const dots = document.querySelectorAll('.carousel-dots .dot');
+      let currentIndex = 0;
+      function showSlide(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === index);
+        });
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+        });
+        currentIndex = index;
+      }
 
-      function startCarousel() {
-        const slides = document.querySelectorAll('.carousel a');
-        const dots = document.querySelectorAll('.carousel .dot');
-        let currentIndex = 0;
-        function showSlide(index) {
-          slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === index);
-          });
-          document.querySelectorAll('.carousel-dots .dot').forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
-          });
-          currentIndex = index;
-        }
-
-        function nextSlide() {
-          currentIndex = (currentIndex + 1) % slides.length;
-          showSlide(currentIndex);
-        }
-
-        setInterval(nextSlide, 1000);
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % slides.length;
         showSlide(currentIndex);
       }
 
-      startCarousel();
-    </script>
-  </body>
+      setInterval(nextSlide, 3000);
+      showSlide(currentIndex);
+    }
+
+    startCarousel();
+  </script>
+</body>
 </html>
