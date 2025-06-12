@@ -4,8 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TMA Главная</title>
+  <!-- Подключаем AOS для анимаций -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Подключаем Font Awesome для иконок -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Твой текущий CSS остаётся без изменений */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
     body {
@@ -14,6 +17,15 @@
       background: #080808;
       color: #ffffff;
       overflow-y: auto;
+      position: relative; /* Для частиц */
+    }
+    #tsparticles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; /* Фон за контентом */
     }
     a { text-decoration: none; }
     ul { list-style: none; margin: 0; padding: 0; }
@@ -39,9 +51,14 @@
       top: 0;
       left: 0;
       opacity: 0;
-      transition: opacity .5s;
+      transition: opacity .5s, transform .5s;
+      transform: scale(1);
     }
-    .carousel a.active { opacity: 1; z-index: 1; }
+    .carousel a.active {
+      opacity: 1;
+      z-index: 1;
+      transform: scale(1.02); /* Лёгкое увеличение активного слайда */
+    }
     .carousel img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .carousel .hot {
       position: absolute;
@@ -67,8 +84,9 @@
       border-radius: 50%;
       background: rgba(255,255,255,0.3);
       cursor: pointer;
+      transition: background .3s;
     }
-    .carousel-dots .dot.active { background: rgba(255,255,255,0.9); }
+    .carousel-dots .dot.active { background: #d5fd02; }
 
     .menu {
       display: flex;
@@ -134,27 +152,31 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Уменьшено с 160px */
+      gap: 12px; /* Уменьшено с 16px */
     }
     .card {
       background: #111315;
       border: 1px solid #222;
       border-radius: 12px;
       color: #ccc;
-      transition: transform .2s;
+      transition: transform .2s, box-shadow .2s;
       position: relative;
       overflow: hidden;
+      padding: 8px; /* Уменьшено с 12px */
     }
-    .card:hover { transform: scale(1.02); }
+    .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(213, 253, 2, 0.2); /* Тень с акцентным цветом */
+    }
     #home .card img, #articles .card img, #cases .card img {
       width: 100%;
-      height: 120px;
+      height: 100px; /* Уменьшено с 120px */
       object-fit: cover;
       display: block;
     }
     #vacancies .card, #offers .card {
-      padding: 12px;
+      padding: 8px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -166,46 +188,50 @@
       left: 0;
       right: 0;
       background: rgba(0,0,0,0.6);
-      padding: 8px;
+      padding: 6px; /* Уменьшено с 8px */
     }
     .card strong {
       display: block;
-      font-size: 14px;
+      font-size: 13px; /* Уменьшено с 14px */
       color: #ffffff;
       margin-bottom: 4px;
     }
     .card p {
-      font-size: 12px;
+      font-size: 11px; /* Уменьшено с 12px */
       color: #bbb;
       margin: 0;
     }
     #vacancies .promo-card {
       grid-column: 1 / -1;
       background: #1a1d21;
-      padding: 16px;
+      padding: 12px; /* Уменьшено с 16px */
       text-align: center;
-      font-size: 16px;
+      font-size: 15px; /* Уменьшено с 16px */
       font-weight: 600;
       color: #d5fd02;
       border-radius: 12px;
       cursor: pointer;
     }
-    #vacancies .promo-card:hover { transform: scale(1.02); }
+    #vacancies .promo-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(213, 253, 2, 0.2);
+    }
 
     #team .card img {
-      width: 60px;
-      height: 60px;
+      width: 50px; /* Уменьшено с 60px */
+      height: 50px;
       object-fit: cover;
       margin-bottom: 8px;
       border-radius: 50%;
     }
 
-    .team-carousel {
+    .team-carousel, .actual-list-container {
       margin: 16px 0;
       max-width: 100%;
       overflow: hidden;
+      position: relative;
     }
-    .team-list {
+    .team-list, .actual-list {
       display: inline-flex;
       gap: 12px;
       padding: 0 16px;
@@ -217,17 +243,17 @@
       width: 100%;
       box-sizing: border-box;
     }
-    .team-list::-webkit-scrollbar { display: none; }
+    .team-list::-webkit-scrollbar, .actual-list::-webkit-scrollbar { display: none; }
     .team-item {
-      flex: 0 0 160px;
-      padding: 12px;
+      flex: 0 0 140px; /* Уменьшено с 160px */
+      padding: 8px; /* Уменьшено с 12px */
       text-align: center;
       transition: transform .2s;
     }
     .team-item:hover { transform: scale(1.02); }
     .team-item img {
-      width: 60px;
-      height: 60px;
+      width: 50px; /* Уменьшено с 60px */
+      height: 50px;
       object-fit: cover;
       border-radius: 50%;
       margin: 0 auto 8px;
@@ -235,34 +261,16 @@
     }
     .team-item strong {
       display: block;
-      font-size: 14px;
+      font-size: 13px; /* Уменьшено с 14px */
       color: #ffffff;
       margin-bottom: 4px;
     }
     .team-item p {
-      font-size: 12px;
+      font-size: 11px; /* Уменьшено с 12px */
       color: #bbb;
       margin: 0;
     }
-    .actual-list-container {
-      margin: 16px 0;
-      max-width: 100%;
-      overflow: hidden;
-    }
-    .actual-list {
-      display: inline-flex;
-      gap: 12px;
-      padding: 0 16px;
-      overflow-x: auto;
-      white-space: nowrap;
-      scroll-behavior: smooth;
-      touch-action: pan-x;
-      -webkit-overflow-scrolling: touch;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .actual-list::-webkit-scrollbar { display: none; }
-    .actual-item { flex: 0 0 160px; }
+    .actual-item { flex: 0 0 140px; /* Уменьшено с 160px */ }
     .actual-item .card {
       border-radius: 12px;
       overflow: hidden;
@@ -271,21 +279,21 @@
     .actual-item .card img {
       border-radius: 12px 12px 0 0;
       width: 100%;
-      height: 120px;
+      height: 100px; /* Уменьшено с 120px */
       object-fit: cover;
     }
     #offers .card {
-      padding: 16px;
+      padding: 12px; /* Уменьшено с 16px */
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px; /* Уменьшено с 8px */
     }
     #offers .card strong {
-      font-size: 16px;
+      font-size: 15px; /* Уменьшено с 16px */
       color: #d5fd02;
     }
     #offers .card p {
-      font-size: 14px;
+      font-size: 13px; /* Уменьшено с 14px */
       color: #ccc;
       margin: 0;
       line-height: 1.4;
@@ -294,7 +302,7 @@
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) scale(0.8);
       background: #111315;
       border: 1px solid #222;
       border-radius: 12px;
@@ -305,6 +313,12 @@
       max-height: 80vh;
       overflow-y: auto;
       box-sizing: border-box;
+      opacity: 0;
+      transition: transform .3s ease, opacity .3s ease;
+    }
+    .modal.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
     }
     .modal h3 {
       margin: 0 0 12px;
@@ -353,6 +367,9 @@
       font-weight: 600;
       cursor: pointer;
       font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .modal .apply-form button:hover { background: #b8e002; }
     .modal .apply-form .close-button {
@@ -365,23 +382,40 @@
       cursor: pointer;
       font-size: 14px;
       margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .modal .apply-form .close-button:hover { background: #333; }
+
+    /* Индикатор скролла */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: #d5fd02;
+      transition: width .3s;
+      z-index: 2;
+    }
   </style>
 </head>
 <body>
+  <!-- Добавляем контейнер для частиц -->
+  <div id="tsparticles"></div>
+
   <div class="menu-top">
-    <img class="logo" src="https://i.postimg.cc/90gRT1n1/Frame-277131232-2.png" alt="TMA Logo" />
+    <img class="logo" src="https://i.postimg.cc/90gRT1n1/Frame-2.png" alt="TMA Logo" />
   </div>
 
   <div class="carousel">
-    <a href="https://traffnews.com/intervju/kto-takoi-co-owner-kompanii/?utm_source=tg" target="_blank" class="active">
+    <a href="https://traff.com/intervju/kto-takoi-ka-owner-kompanii/?utm_source=abc" target="_blank" class="active">
       <img src="https://i.postimg.cc/yNL8QJ8S/owner-02-3.jpg" alt="Тихон" />
     </a>
-    <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank">
-      <img src="https://i.postimg.cc/bJqQWjv5/photo-2025-03-18-15-18-14.jpg" alt="SCAM кейс" />
+    <a href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-10" target="_blank">
+      <img src="https://i.postimg.cc/bJqQWjv5/actual-list.jpg" alt="SCAM кейс" />
     </a>
-    <a href="https://www.instagram.com/reel/DKHZPnYtjQD/?igsh=MTFobTRvMnpma3oxbA==" target="_blank">
+    <a href="https://www.instagram.com/reel/DKHZPnYtjQD/?igsh=1234567890" target="_blank">
       <img src="https://i.postimg.cc/Z57qjBRv/feat-mac.jpg" alt="мак" />
     </a>
     <div class="hot"></div>
@@ -524,7 +558,7 @@
           <p>Советы по гемблингу</p>
         </div>
       </a>
-      <a class="card" href="https://traffnews.com/intervju/kto-takoi-co-owner-kompanii/?utm_source=tg" target="_blank">
+      <a class="card" href="https://traff.com/intervju/kto-takoi-ka-owner-kompanii/?utm_source=abc" target="_blank">
         <img src="https://i.postimg.cc/gcKrhgfN/owner-01-3.jpg" alt="Тихон" />
         <div class="text-overlay">
           <strong>Кто такой Co-owner</strong>
@@ -600,7 +634,67 @@
   </section>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <!-- Подключаем tsParticles -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+  <!-- Подключаем AOS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
+    // Инициализация AOS
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100
+    });
+
+    // Настройка tsParticles
+    tsParticles.load("tsparticles", {
+      fpsLimit: 60,
+      particles: {
+        number: { value: 50, density: { enable: true, value_area: 800 } },
+        color: { value: "#d5fd02" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5, random: true },
+        size: { value: 3, random: { enable: true, minimumValue: 1 } },
+        links: { enable: false },
+        move: {
+          enable: true,
+          speed: 0.5,
+          direction: "none",
+          random: true,
+          outModes: { default: "out" }
+        }
+      },
+      interactivity: {
+        detectsOn: "window",
+        events: {
+          onHover: { enable: true, mode: "repulse" },
+          resize: { enable: true }
+        },
+        modes: {
+          repulse: { distance: 100, duration: 0.4 }
+        }
+      },
+      retina_detect: true
+    });
+
+    // Индикатор скролла для списков
+    function updateScrollIndicator(list) {
+      const indicator = list.parentElement.querySelector('.scroll-indicator');
+      if (!indicator) return;
+      const maxScroll = list.scrollWidth - list.clientWidth;
+      const scrollPercent = list.scrollLeft / maxScroll;
+      indicator.style.width = `${scrollPercent * 100}%`;
+    }
+
+    document.querySelectorAll('.team-list, .actual-list').forEach(list => {
+      const indicator = document.createElement('div');
+      indicator.className = 'scroll-indicator';
+      list.parentElement.appendChild(indicator);
+      list.addEventListener('scroll', () => updateScrollIndicator(list));
+      updateScrollIndicator(list);
+    });
+
+    // Модифицируем открытие/закрытие модального окна
     const tg = window.Telegram.WebApp;
     tg.expand();
 
@@ -785,57 +879,55 @@
                   <option value="ASO">ASO</option>
                   <option value="SEO">SEO</option>
                 </select>
-                <label>Какой бюджет в среднем отливаешь в месяц?</label>
+                <label>Какой бюджет в среднем отливаешь?</label>
                 <select name="budget" required>
                   <option value="" disabled selected>Выберите бюджет</option>
-                  <option value="Менее 1 000$">Менее 1 000$</option>
-                  <option value="$1 000-$5 000">$1 000-$5 000</option>
-                  <option value="$5 000-$10 000">$5 000-$10 000</option>
-                  <option value="$10 000-$20 000">$10 000-$20 000</option>
+                  <option value="Менее 1 000$">$1,000</option>
+                  <option value="$1,000-$5,000">$1,000-$5,000</option>
+                  <option value="$5,000-$10,000">$5,000-$10,000</option>
                 </select>
-                <label>Расскажи о своём последнем опыте на схожей позиции</label>
-                <textarea name="last_experience" placeholder="Оформленный и приложенный к заявке кейс или резюме будет плюсом ✌️" required></textarea>
+                <label>Расскажи о своём опыте</label>
+                <textarea name="actual" placeholder="Оформление кейса или резюме будет плюсом ✌️" required></textarea>
               `;
             } else {
               formContent += `
-                <label>На какой позиции находишься сейчас?</label>
-                <select name="position" required>
-                  <option value="" disabled selected>Выберите пункт</option>
+                <label>На какой стиль ты хочешь?</label>
+                <select name="style" required>
+                  <option value="" disabled selected>Выбери стиль</option>
                   <option value="Другое">Другое</option>
-                  <option value="Владелец команды">Владелец команды</option>
-                  <option value="Тимлид">Тимлид</option>
-                  <option value="Медиабаер">Медиабаер</option>
+                  <option value="Владелец">Владелец команды</option>
+                  <option value="Тимлид">Технический лидер</option>
+                  <option value="Медикабаер">Медиабайкер</option>
                 </select>
                 <label>Как тебя зовут?</label>
                 <input type="text" name="name" placeholder="Ваше имя" required>
                 <label>В каком городе ты живёшь?</label>
                 <input type="text" name="city" placeholder="Город" required>
-                <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
+                <label>Какой у тебя опыт в вертикалях iGaming/Betting/Finance?</label>
                 <select name="experience" required>
                   <option value="" disabled selected>Выберите опыт</option>
-                  <option value="3+ года">3+ года</option>
-                  <option value="1-2 года">1-2 года</option>
+                  <option value="3+ года">3+ лет</option>
+                  <option value="1-2 года">1-2 лет</option>
                   <option value="6-12 месяцев">6-12 месяцев</option>
-                  <option value="менее 6 месяцев">менее 6 месяцев</option>
                 </select>
+                <option value="менее 6 месяцев">менее 6 месяцев</option>
                 <label>Твой источник?</label>
                 <select name="source" required>
-                  <option value="" disabled selected>Выберите пункт</option>
+                  <option value="" disabled selected>Выбери источник</option>
                   <option value="FB">FB</option>
                   <option value="PPC">PPC</option>
                   <option value="ASO">ASO</option>
                   <option value="SEO">SEO</option>
                 </select>
-                <label>Какой бюджет в среднем отливаешь в месяц?</label>
+                <label>Какой бюджет в среднем ты используешь?</label>
                 <select name="budget" required>
-                  <option value="" disabled selected>Выберите пункт</option>
-                  <option value="Менее 1 000$">Менее 1 000$</option>
-                  <option value="$1 000-$5 000">$1 000-$5 000</option>
-                  <option value="$5 000-$10 000">$5 000-$10 000</option>
-                  <option value="$10 000-$20 000">$10 000-$20 000</option>
+                  <option value="" disabled selected>Выбери бюджет</option>
+                  <option value="Менее $1,000">$1,000</option>
+                  <option value="$1,000-$5,000">$1,000-$5,000</option>
+                  <option value="$5,000-$10,000">$5,000-$10,000</option>
                 </select>
-                <label>Расскажи о своём последнем опыте на схожей позиции</label>
-                <textarea name="last_experience" placeholder="Оформленный и приложенный кейс или резюме будет плюсом ✌️" required></textarea>
+                <label>Расскажи о своём опыте</label>
+                <textarea name="actual" placeholder="Оформление кейса или резюме будет плюсом ✌️" required></textarea>
               `;
             }
           } else {
@@ -844,9 +936,9 @@
               <input type="text" name="name" placeholder="Ваше имя" required>
               <label>В каком городе ты живёшь?</label>
               <input type="text" name="city" placeholder="Город" required>
-              <label>Расскажи о своём опыте на схожих позициях</label>
-              <textarea name="experience" placeholder="Опишите свой опыт" required></textarea>
-              <label>Ссылка на резюме (если есть)</label>
+              <label>Расскажи о своём опыте</label>
+              <textarea name="experience" placeholder="Опиши свой опыт" required></textarea>
+              <label>Ссылка на резюме</label>
               <input type="url" name="resume" placeholder="https://">
             `;
           }
@@ -859,26 +951,36 @@
           <p>${data.offers || ''}</p>
           <form class="apply-form">
             ${renderForm()}
-            <button type="submit">Отправить отклик</button>
-            <button type="button" class="close-button">Закрыть</button>
+            <button type="submit"><i class="fas fa-paper-plane"></i> Отправить</button>
+            <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
           </form>
         `;
         document.body.appendChild(modal);
 
-        const positionSelect = modal.querySelector('select[name="position"]');
+        // Анимация появления
+        setTimeout(() => modal.classList.add('active'), 10);
+
+        const positionSelect = modal.querySelector('select[name="status"]');
         if (positionSelect) {
           positionSelect.addEventListener('change', () => {
             const newFormContent = renderForm(positionSelect.value);
             const form = modal.querySelector('.apply-form');
-            form.innerHTML = newFormContent + `
-              <button type="submit">Отправить отклик</button>
-              <button type="button" class="close-button">Закрыть</button>
+            form.innerHTML = `
+              ${newFormContent}
+              <button type="submit"><i class="fas fa-paper-plane"></i> Отправить</button>
+              <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
             `;
-            form.querySelector('.close-button').addEventListener('click', () => modal.remove());
+            form.querySelector('.close-button').addEventListener('click', () => {
+              modal.classList.remove('active');
+              setTimeout(() => modal.remove(), 300);
+            });
           });
         }
 
-        modal.querySelector('.close-button').addEventListener('click', () => modal.remove());
+        modal.querySelector('.close-button').addEventListener('click', () => {
+          modal.classList.remove('active');
+          setTimeout(() => modal.remove(), 300);
+        });
 
         modal.querySelector('.apply-form').addEventListener('submit', (e) => {
           e.preventDefault();
@@ -887,7 +989,7 @@
           if (!telegram.startsWith('@')) {
             tg.showPopup({
               title: 'Ошибка',
-              message: 'Telegram-username должен начинаться с @',
+              message: 'Telegram должен начинаться с @',
               buttons: [{ type: 'ok' }]
             });
             return;
@@ -914,38 +1016,43 @@
           sendToSheet(eventData);
           tg.showPopup({
             title: 'Успех!',
-            message: 'Ваш отклик отправлен! Мы свяжемся с вами через Telegram. Пожалуйста, начните диалог с нашим ботом @CandidateBot, отправив /start.',
+            message: 'Ваш отклик отправлен! Мы свяжемся с вами через Telegram. Пожалуйста начни с нашего бота @Bot, отправляя /start.',
             buttons: [{ type: 'ok' }]
           });
           modal.remove();
         });
       });
-    });
 
-    function startCarousel() {
-      const slides = document.querySelectorAll('.carousel a');
-      const dots = document.querySelectorAll('.carousel-dots .dot');
-      let currentIndex = 0;
-      function showSlide(index) {
-        slides.forEach((slide, i) => {
-          slide.classList.toggle('active', i === index);
-        });
-        dots.forEach((dot, i) => {
-          dot.classList.toggle('active', i === index);
-        });
-        currentIndex = index;
-      }
+      // Добавляем AOS для карточек и секций
+      document.querySelectorAll('.card, .section, .team-item, .actual-item').forEach(el => {
+        el.setAttribute('data-aos', 'fade-up');
+        el.setAttribute('data-aos-delay', '100');
+      });
 
-      function nextSlide() {
-        currentIndex = (currentIndex + 1) % slides.length;
+      function startCarousel() {
+        const slides = document.querySelectorAll('.carousel a');
+        const dots = document.querySelectorAll('.carousel .dot');
+        let currentIndex = 0;
+        function showSlide(index) {
+          slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+          });
+          document.querySelectorAll('.carousel-dots .dot').forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+          });
+          currentIndex = index;
+        }
+
+        function nextSlide() {
+          currentIndex = (currentIndex + 1) % slides.length;
+          showSlide(currentIndex);
+        }
+
+        setInterval(nextSlide, 1000);
         showSlide(currentIndex);
       }
 
-      setInterval(nextSlide, 3000);
-      showSlide(currentIndex);
-    }
-
-    startCarousel();
-  </script>
-</body>
+      startCarousel();
+    </script>
+  </body>
 </html>
