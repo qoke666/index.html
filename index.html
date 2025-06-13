@@ -9,7 +9,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-    body {
+   body {
   margin: 0;
   font-family: 'Inter', sans-serif;
   background: #080808;
@@ -152,15 +152,15 @@ ul { list-style: none; margin: 0; padding: 0; }
   border: 1px solid #222;
   border-radius: 12px;
   color: #ccc;
-  transition: transform .2s, box-shadow .2s;
+  transition: transform .3s ease, box-shadow .3s ease;
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 .card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(213, 253, 2, 0.2);
+  transform: scale(1.03);
+  box-shadow: 0 6px 16px rgba(213, 253, 2, 0.4);
 }
 
 /* Убираем жёсткие height/aspect-ratio */
@@ -249,58 +249,53 @@ ul { list-style: none; margin: 0; padding: 0; }
   margin: 0;
 }
 
-/* Стили для вакансий и офферов */
+/* Улучшенные стили для вакансий и офферов */
 #vacancies .card, #offers .card {
   padding: 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   cursor: pointer;
-  background: linear-gradient(135deg, rgba(17, 19, 21, 0.6), rgba(30, 33, 38, 0.8));
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(213, 253, 2, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  background: linear-gradient(135deg, rgba(17, 19, 21, 0.5), rgba(34, 34, 34, 0.3)); /* Более прозрачный градиент */
+  backdrop-filter: blur(8px); /* Усиленное размытие */
+  border: 1px solid rgba(213, 253, 2, 0.3); /* Яркая граница */
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 #vacancies .card:hover, #offers .card:hover {
+  background: linear-gradient(135deg, rgba(17, 19, 21, 0.7), rgba(34, 34, 34, 0.5));
+  border-color: rgba(213, 253, 2, 0.5);
   transform: scale(1.03);
-  background: linear-gradient(135deg, rgba(17, 19, 21, 0.8), rgba(30, 33, 38, 1));
-  box-shadow: 0 8px 24px rgba(213, 253, 2, 0.4);
-}
-#vacancies .card strong, #offers .card strong {
-  font-size: 15px;
-  color: #d5fd02;
-  transform: translateY(0);
-  transition: transform 0.3s ease;
-}
-#vacancies .card p, #offers .card p {
-  font-size: 13px;
-  color: #ccc;
-  margin: 4px 0;
-  transform: translateY(0);
-  transition: transform 0.3s ease;
-}
-#vacancies .card:hover strong, #offers .card:hover strong,
-#vacancies .card:hover p, #offers .card:hover p {
-  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(213, 253, 2, 0.6);
 }
 #vacancies .promo-card {
   grid-column: 1 / -1;
-  background: linear-gradient(135deg, rgba(26, 29, 33, 0.6), rgba(40, 45, 50, 0.8));
+  background: linear-gradient(135deg, rgba(26, 29, 33, 0.5), rgba(34, 34, 34, 0.3));
   backdrop-filter: blur(8px);
   padding: 16px;
   text-align: center;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: #d5fd02;
-  border: 1px solid rgba(213, 253, 2, 0.1);
+  border: 1px solid rgba(213, 253, 2, 0.3);
   border-radius: 12px;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 #vacancies .promo-card:hover {
-  background: linear-gradient(135deg, rgba(26, 29, 33, 0.8), rgba(40, 45, 50, 1));
+  background: linear-gradient(135deg, rgba(26, 29, 33, 0.7), rgba(34, 34, 34, 0.5));
+  border-color: rgba(213, 253, 2, 0.5);
   transform: scale(1.03);
-  box-shadow: 0 8px 24px rgba(213, 253, 2, 0.4);
+  box-shadow: 0 10px 24px rgba(213, 253, 2, 0.6);
+}
+#offers .card strong {
+  font-size: 16px;
+  color: #d5fd02;
+}
+#offers .card p {
+  font-size: 14px;
+  color: #ccc;
+  margin: 0;
+  line-height: 1.5;
 }
 
 /* Team и прочее */
@@ -327,9 +322,9 @@ ul { list-style: none; margin: 0; padding: 0; }
   flex: 0 0 140px;
   padding: 8px;
   text-align: center;
-  transition: transform .2s;
+  transition: transform .3s ease;
 }
-.team-item:hover { transform: scale(1.02); }
+.team-item:hover { transform: scale(1.03); }
 .team-item img {
   width: 50px;
   height: 50px;
@@ -350,126 +345,34 @@ ul { list-style: none; margin: 0; padding: 0; }
   margin: 0;
 }
 
-/* Обновленная анимация модалки */
-@keyframes modalSlideIn {
-  0% { transform: translate(-50%, 50px); opacity: 0; }
-  100% { transform: translate(-50%, -50%); opacity: 1; }
-}
-@keyframes modalContentFade {
-  0% { opacity: 0; transform: translateY(8px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
+/* Улучшенная модалка */
 .modal {
   position: fixed;
-  top: 50%;
+  top: 60%;
   left: 50%;
-  transform: translate(-50%, 50px);
-  background: linear-gradient(135deg, rgba(17, 19, 21, 0.9), rgba(30, 33, 38, 1));
+  transform: translate(-50%, -50%) scale(0.7);
+  background: linear-gradient(135deg, rgba(17, 19, 21, 0.85), rgba(34, 34, 34, 0.65));
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(213, 253, 2, 0.2);
-  border-radius: 12px;
-  padding: 24px;
+  border: 1px solid rgba(213, 253, 2, 0.4);
+  border-radius: 16px;
+  padding: 32px;
   z-index: 9999;
   color: #fff;
   max-width: 90%;
-  max-height: 80vh;
+  max-height: 85vh;
   overflow-y: auto;
   box-sizing: border-box;
   opacity: 0;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.6s ease, box-shadow 0.6s ease;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
 }
 .modal.active {
-  animation: modalSlideIn 0.4s ease-out forwards;
-}
-.modal h3 {
-  margin: 0 0 12px;
-  color: #d5fd02;
-  font-size: 20px;
-  animation: modalContentFade 0.4s ease 0.05s forwards;
-  opacity: 0;
-}
-.modal p {
-  font-size: 14px;
-  color: #ccc;
-  margin: 8px 0;
-  animation: modalContentFade 0.4s ease 0.1s forwards;
-  opacity: 0;
-}
-.modal .apply-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 16px;
-  animation: modalContentFade 0.4s ease 0.15s forwards;
-  opacity: 0;
-}
-.modal .apply-form select,
-.modal .apply-form input,
-.modal .apply-form textarea {
-  padding: 8px;
-  border: 1px solid #222;
-  border-radius: 6px;
-  background: #111315;
-  color: #fff;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  transition: border-color 0.3s ease;
-}
-.modal .apply-form select:focus,
-.modal .apply-form input:focus,
-.modal .apply-form textarea:focus {
-  border-color: #d5fd02;
-}
-.modal .apply-form select {
-  appearance: none;
-  background-image: url('data:image/svg+xml;utf8,<svg fill="%23ccc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  background-size: 16px;
-}
-.modal .apply-form textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-.modal .apply-form button {
-  padding: 8px 16px;
-  background: #d5fd02;
-  color: #080808;
-  border: none;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-.modal .apply-form button:hover {
-  background: #b8e002;
-  transform: translateY(-2px);
-}
-.modal .apply-form .close-button {
-  padding: 8px 16px;
-  background: #222;
-  color: #fff;
-  border: 1px solid #444;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 14px;
-  margin-top: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-.modal .apply-form .close-button:hover {
-  background: #333;
-  transform: translateY(-2px);
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  box-shadow: 0 20px 48px rgba(213, 253, 2, 0.4);
 }
 
-/* Обновленное размытие фона */
+/* Размытие фона */
 body.modal-open {
   overflow: hidden;
 }
@@ -480,14 +383,116 @@ body.modal-open::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
-  backdrop-filter: blur(8px); /* Уменьшенное размытие для оптимизации */
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
   z-index: 9998;
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.6s ease;
 }
 body.modal-open::before {
   opacity: 1;
+}
+
+.modal h3 {
+  margin: 0 0 16px;
+  color: #d5fd02;
+  font-size: 22px;
+}
+.modal p {
+  font-size: 15px;
+  color: #ccc;
+  margin: 8px 0;
+}
+.modal .apply-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+.modal .apply-form select,
+.modal .apply-form input,
+.modal .apply-form textarea {
+  padding: 10px;
+  border: 1px solid #222;
+  border-radius: 8px;
+  background: #111315;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+}
+.modal .apply-form select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23ccc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 18px;
+}
+.modal .apply-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+.modal .apply-form button {
+  padding: 10px 20px;
+  background: #d5fd02;
+  color: #080808;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.modal .apply-form button:hover {
+  background: #b8e002;
+  transform: scale(1.05);
+}
+.modal .apply-form .close-button {
+  padding: 10px 20px;
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.modal .apply-form .close-button:hover {
+  background: #333;
+  transform: scale(1.05);
+}
+
+/* Стили для кнопки перехода в бот */
+.modal .apply-form .bot-button {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #d5fd02, #b8e002);
+  color: #080808;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+.modal .apply-form .bot-button:hover {
+  background: linear-gradient(135deg, #b8e002, #d5fd02);
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(213, 253, 2, 0.5);
+}
+.modal .apply-form .bot-button i {
+  font-size: 20px;
 }
 
 .scroll-indicator {
@@ -908,216 +913,241 @@ body.modal-open::before {
     };
 
     document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const vacancyId = card.dataset.vacancyId;
-        const data = vacancyData[vacancyId];
-        if (!data) return;
-        trackEvent('vacancy_view', { vacancy: data.title });
+  card.addEventListener('click', () => {
+    document.body.classList.add('modal-open');
+  });
+});
 
-        const modal = document.createElement('div');
-        modal.className = 'modal';
-        const renderForm = (position = '') => {
-          let formContent = `
-            <label>Ваш Telegram (например, @username)</label>
-            <input type="text" name="telegram" placeholder="@username" pattern="@[A-Za-z0-9_]{5,}" required>
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('close-button')) {
+    document.body.classList.remove('modal-open');
+  }
+});
+
+// Обработчик вакансий
+document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const vacancyId = card.dataset.vacancyId;
+    const data = vacancyData[vacancyId];
+    if (!data) return;
+    trackEvent('vacancy_view', { vacancy: data.title });
+
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    const renderForm = (position = '') => {
+      let formContent = `
+        <label>Ваш Telegram (например, @username)</label>
+        <input type="text" name="telegram" placeholder="@username" pattern="@[A-Za-z0-9_]{5,}" required>
+      `;
+      if (vacancyId === 'tlc_promo') {
+        if (position === 'Владелец команды') {
+          formContent += `
+            <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
+            <select name="experience" required>
+              <option value="" disabled selected>Выберите опыт</option>
+              <option value="3+ года">3+ года</option>
+              <option value="1-2 года">1-2 года</option>
+              <option value="6-12 месяцев">6-12 месяцев</option>
+              <option value="менее 6 месяцев">менее 6 месяцев</option>
+            </select>
+            <label>С каким источником работаешь?</label>
+            <select name="source" required>
+              <option value="" disabled selected>Выберите источник</option>
+              <option value="FB">FB</option>
+              <option value="PPC">PPC</option>
+              <option value="ASO">ASO</option>
+              <option value="SEO">SEO</option>
+            </select>
+            <label>Сколько человек в команде?</label>
+            <select name="team_size" required>
+              <option value="" disabled selected>Выберите размер</option>
+              <option value="1-4">1-4</option>
+              <option value="5-9">5-9</option>
+              <option value="10-14">10-14</option>
+              <option value="15+">15+</option>
+            </select>
+            <label>Каков средний спенд и профит команды в месяц за последние полгода?</label>
+            <textarea name="spend_profit" placeholder="Опишите спенд и профит" required></textarea>
+            <label>Почему вы решили привлечь инвестиции в свою команду?</label>
+            <textarea name="investment_reason" placeholder="Опишите причину" required></textarea>
           `;
-          if (vacancyId === 'tlc_promo') {
-            if (position === 'Владелец команды') {
-              formContent += `
-                <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
-                <select name="experience" required>
-                  <option value="" disabled selected>Выберите опыт</option>
-                  <option value="3+ года">3+ года</option>
-                  <option value="1-2 года">1-2 года</option>
-                  <option value="6-12 месяцев">6-12 месяцев</option>
-                  <option value="менее 6 месяцев">менее 6 месяцев</option>
-                </select>
-                <label>С каким источником работаешь?</label>
-                <select name="source" required>
-                  <option value="" disabled selected>Выберите источник</option>
-                  <option value="FB">FB</option>
-                  <option value="PPC">PPC</option>
-                  <option value="ASO">ASO</option>
-                  <option value="SEO">SEO</option>
-                </select>
-                <label>Сколько человек в команде?</label>
-                <select name="team_size" required>
-                  <option value="" disabled selected>Выберите размер</option>
-                  <option value="1-4">1-4</option>
-                  <option value="5-9">5-9</option>
-                  <option value="10-14">10-14</option>
-                  <option value="15+">15+</option>
-                </select>
-                <label>Каков средний спенд и профит команды в месяц за последние полгода?</label>
-                <textarea name="spend_profit" placeholder="Опишите спенд и профит" required></textarea>
-                <label>Почему вы решили привлечь инвестиции в свою команду?</label>
-                <textarea name="investment_reason" placeholder="Опишите причину" required></textarea>
-              `;
-            } else if (position === 'Тимлид' || position === 'Медиабаер') {
-              formContent += `
-                <label>Как тебя зовут?</label>
-                <input type="text" name="name" placeholder="Ваше имя" required>
-                <label>В каком городе ты живёшь?</label>
-                <input type="text" name="city" placeholder="Город" required>
-                <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
-                <select name="experience" required>
-                  <option value="" disabled selected>Выберите опыт</option>
-                  <option value="3+ года">3+ года</option>
-                  <option value="1-2 года">1-2 года</option>
-                  <option value="6-12 месяцев">6-12 месяцев</option>
-                  <option value="менее 6 месяцев">менее 6 месяцев</option>
-                </select>
-                <label>Твой источник?</label>
-                <select name="source" required>
-                  <option value="" disabled selected>Выберите источник</option>
-                  <option value="FB">FB</option>
-                  <option value="PPC">PPC</option>
-                  <option value="ASO">ASO</option>
-                  <option value="SEO">SEO</option>
-                </select>
-                <label>Какой бюджет в среднем отливаешь?</label>
-                <select name="budget" required>
-                  <option value="" disabled selected>Выберите бюджет</option>
-                  <option value="Менее $1,000">$1,000</option>
-                  <option value="$1,000-$5,000">$1,000-$5,000</option>
-                  <option value="$5,000-$10,000">$5,000-$10,000</option>
-                </select>
-                <label>Расскажи о своём опыте</label>
-                <textarea name="actual" placeholder="Оформление кейса или резюме будет плюсом ✌️" required></textarea>
-              `;
-            } else {
-              formContent += `
-                <label>На какую роль ты претендуешь?</label>
-                <select name="position" required>
-                  <option value="" disabled selected>Выбери роль</option>
-                  <option value="Владелец команды">Владелец команды</option>
-                  <option value="Тимлид">Тимлид</option>
-                  <option value="Медиабаер">Медиабаер</option>
-                </select>
-                <label>Как тебя зовут?</label>
-                <input type="text" name="name" placeholder="Ваше имя" required>
-                <label>В каком городе ты живёшь?</label>
-                <input type="text" name="city" placeholder="Город" required>
-                <label>Какой у тебя опыт в вертикалях iGaming/Betting/Finance?</label>
-                <select name="experience" required>
-                  <option value="" disabled selected>Выберите опыт</option>
-                  <option value="3+ года">3+ года</option>
-                  <option value="1-2 года">1-2 года</option>
-                  <option value="6-12 месяцев">6-12 месяцев</option>
-                  <option value="менее 6 месяцев">менее 6 месяцев</option>
-                </select>
-                <label>Твой источник?</label>
-                <select name="source" required>
-                  <option value="" disabled selected>Выбери источник</option>
-                  <option value="FB">FB</option>
-                  <option value="PPC">PPC</option>
-                  <option value="ASO">ASO</option>
-                  <option value="SEO">SEO</option>
-                </select>
-                <label>Какой бюджет в среднем ты используешь?</label>
-                <select name="budget" required>
-                  <option value="" disabled selected>Выбери бюджет</option>
-                  <option value="Менее $1,000">$1,000</option>
-                  <option value="$1,000-$5,000">$1,000-$5,000</option>
-                  <option value="$5,000-$10,000">$5,000-$10,000</option>
-                </select>
-                <label>Расскажи о своём опыте</label>
-                <textarea name="actual" placeholder="Оформление кейса или резюме будет плюсом ✌️" required></textarea>
-              `;
-            }
-          } else {
-            formContent += `
-              <label>Как тебя зовут?</label>
-              <input type="text" name="name" placeholder="Ваше имя" required>
-              <label>В каком городе ты живёшь?</label>
-              <input type="text" name="city" placeholder="Город" required>
-              <label>Расскажи о своём опыте</label>
-              <textarea name="experience" placeholder="Опиши свой опыт" required></textarea>
-              <label>Ссылка на резюме</label>
-              <input type="url" name="resume" placeholder="https://">
-            `;
-          }
-          return formContent;
-        };
-
-        modal.innerHTML = `
-          <h3>${data.title}</h3>
-          <p>${data.description || ''}</p>
-          <p>${data.offers || ''}</p>
-          <form class="apply-form">
-            ${renderForm()}
-            <button type="submit"><i class="fas fa-paper-plane"></i> Отправить</button>
-            <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
-          </form>
-        `;
-        document.body.appendChild(modal);
-
-        setTimeout(() => modal.classList.add('active'), 10);
-
-        const positionSelect = modal.querySelector('select[name="position"]');
-        if (positionSelect) {
-          positionSelect.addEventListener('change', () => {
-            const newFormContent = renderForm(positionSelect.value);
-            const form = modal.querySelector('.apply-form');
-            form.innerHTML = `
-              ${newFormContent}
-              <button type="submit"><i class="fas fa-paper-plane"></i> Отправить</button>
-              <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
-            `;
-            form.querySelector('.close-button').addEventListener('click', () => {
-              modal.classList.remove('active');
-              setTimeout(() => modal.remove(), 300);
-            });
-          });
+        } else if (position === 'Тимлид' || position === 'Медиабаер') {
+          formContent += `
+            <label>Как тебя зовут?</label>
+            <input type="text" name="name" placeholder="Ваше имя" required>
+            <label>В каком городе ты живёшь?</label>
+            <input type="text" name="city" placeholder="Город" required>
+            <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
+            <select name="experience" required>
+              <option value="" disabled selected>Выберите опыт</option>
+              <option value="3+ года">3+ года</option>
+              <option value="1-2 года">1-2 года</option>
+              <option value="6-12 месяцев">6-12 месяцев</option>
+              <option value="менее 6 месяцев">менее 6 месяцев</option>
+            </select>
+            <label>Твой источник?</label>
+            <select name="source" required>
+              <option value="" disabled selected>Выберите источник</option>
+              <option value="FB">FB</option>
+              <option value="PPC">PPC</option>
+              <option value="ASO">ASO</option>
+              <option value="SEO">SEO</option>
+            </select>
+            <label>Какой бюджет в среднем отливаешь?</label>
+            <select name="budget" required>
+              <option value="" disabled selected>Выберите бюджет</option>
+              <option value="Менее $1,000">$1,000</option>
+              <option value="$1,000-$5,000">$1,000-$5,000</option>
+              <option value="$5,000-$10,000">$5,000-$10,000</option>
+            </select>
+            <label>Расскажи о своём опыте</label>
+            <textarea name="actual" placeholder="Оформление кейса или резюме будет плюсом ✌️" required></textarea>
+          `;
+        } else {
+          formContent += `
+            <label>На какую роль ты претендуешь?</label>
+            <select name="position" required>
+              <option value="" disabled selected>Выбери роль</option>
+              <option value="Владелец команды">Владелец команды</option>
+              <option value="Тимлид">Тимлид</option>
+              <option value="Медиабаер">Медиабаер</option>
+            </select>
+            <label>Как тебя зовут?</label>
+            <input type="text" name="name" placeholder="Ваше имя" required>
+            <label>В каком городе ты живёшь?</label>
+            <input type="text" name="city" placeholder="Город" required>
+            <label>Какой у тебя опыт в вертикалях iGaming/Betting/Finance?</label>
+            <select name="experience" required>
+              <option value="" disabled selected>Выберите опыт</option>
+              <option value="3+ года">3+ года</option>
+              <option value="1-2 года">1-2 года</option>
+              <option value="6-12 месяцев">6-12 месяцев</option>
+              <option value="менее 6 месяцев">менее 6 месяцев</option>
+            </select>
+            <label>Твой источник?</label>
+            <select name="source" required>
+              <option value="" disabled selected>Выбери источник</option>
+              <option value="FB">FB</option>
+              <option value="PPC">PPC</option>
+              <option value="ASO">ASO</option>
+              <option value="SEO">SEO</option>
+            </select>
+            <label>Какой бюджет в среднем ты используешь?</label>
+            <select name="budget" required>
+              <option value="" disabled selected>Выбери бюджет</option>
+              <option value="Менее $1,000">$1,000</option>
+              <option value="$1,000-$5,000">$1,000-$5,000</option>
+              <option value="$5,000-$10,000">$5,000-$10,000</option>
+            </select>
+            <label>Расскажи о своём опыте</label>
+            <textarea name="actual" placeholder="Оформление кейса или резюме будет плюсом ✌️" required></textarea>
+          `;
         }
+      } else {
+        formContent += `
+          <label>Как тебя зовут?</label>
+          <input type="text" name="name" placeholder="Ваше имя" required>
+          <label>В каком городе ты живёшь?</label>
+          <input type="text" name="city" placeholder="Город" required>
+          <label>Расскажи о своём опыте</label>
+          <textarea name="experience" placeholder="Опиши свой опыт" required></textarea>
+          <label>Ссылка на резюме</label>
+          <input type="url" name="resume" placeholder="https://">
+        `;
+      }
+      return formContent;
+    };
 
-        modal.querySelector('.close-button').addEventListener('click', () => {
-          modal.classList.remove('active');
-          setTimeout(() => modal.remove(), 300);
-        });
+    modal.innerHTML = `
+      <h3>${data.title}</h3>
+      <p>${data.description || ''}</p>
+      <p>${data.offers || ''}</p>
+      <form class="apply-form">
+        ${renderForm()}
+        <button type="submit"><i class="fas fa-paper-plane"></i> Отправить</button>
+        <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
+      </form>
+    `;
+    document.body.appendChild(modal);
 
-        modal.querySelector('.apply-form').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const formData = new FormData(e.target);
-          const telegram = formData.get('telegram');
-          if (!telegram || !telegram.startsWith('@')) {
-            tg.showPopup({
-              title: 'Ошибка',
-              message: 'Telegram должен начинаться с @',
-              buttons: [{ type: 'ok' }]
-            });
-            return;
-          }
-          const response_id = generateUUID();
-          const additional = {
-            id: vacancyId,
-            title: data.title,
-            response_id
-          };
-          for (const [key, value] of formData.entries()) {
-            additional[key] = value;
-          }
-          console.log('Form data:', additional);
-          const eventData = {
-            event: 'vacancy_apply',
-            user_id,
-            username,
-            first_name,
-            last_name,
-            timestamp: new Date().toISOString(),
-            additional
-          };
-          sendToSheet(eventData);
-          tg.showPopup({
-            title: 'Успех!',
-            message: 'Ваш отклик отправлен! Мы свяжемся с вами через Telegram. Пожалуйста, начни с нашего бота @Bot, отправляя /start.',
-            buttons: [{ type: 'ok' }]
-          });
+    setTimeout(() => modal.classList.add('active'), 10);
+
+    const positionSelect = modal.querySelector('select[name="position"]');
+    if (positionSelect) {
+      positionSelect.addEventListener('change', () => {
+        const newFormContent = renderForm(positionSelect.value);
+        const form = modal.querySelector('.apply-form');
+        form.innerHTML = `
+          ${newFormContent}
+          <button type="submit"><i class="fas fa-paper-plane"></i> Отправить</button>
+          <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
+        `;
+        form.querySelector('.close-button').addEventListener('click', () => {
           modal.classList.remove('active');
+          document.body.classList.remove('modal-open');
           setTimeout(() => modal.remove(), 300);
         });
       });
+    }
+
+    modal.querySelector('.close-button').addEventListener('click', () => {
+      modal.classList.remove('active');
+      document.body.classList.remove('modal-open');
+      setTimeout(() => modal.remove(), 300);
     });
+
+    modal.querySelector('.apply-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const telegram = formData.get('telegram');
+      if (!telegram || !telegram.startsWith('@')) {
+        tg.showPopup({
+          title: 'Ошибка',
+          message: 'Telegram должен начинаться с @',
+          buttons: [{ type: 'ok' }]
+        });
+        return;
+      }
+      const response_id = generateUUID();
+      const additional = {
+        id: vacancyId,
+        title: data.title,
+        response_id
+      };
+      for (const [key, value] of formData.entries()) {
+        additional[key] = value;
+      }
+      const eventData = {
+        event: 'vacancy_apply',
+        user_id,
+        username,
+        first_name,
+        last_name,
+        timestamp: new Date().toISOString(),
+        additional
+      };
+      sendToSheet(eventData);
+
+      // Показываем сообщение и кнопку перехода в бот
+      modal.querySelector('.apply-form').innerHTML = `
+        <p style="text-align: center; font-size: 18px; color: #d5fd02;">Отклик отправлен!</p>
+        <p style="text-align: center; font-size: 15px; color: #ccc;">Ответ по вакансии придет в нашем боте.</p>
+        <a href="https://t.me/TMACandidateBot?start=${response_id}" class="bot-button">
+          <i class="fab fa-telegram-plane"></i> Перейти в бот
+        </a>
+        <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
+      `;
+      modal.querySelector('.close-button').addEventListener('click', () => {
+        modal.classList.remove('active');
+        document.body.classList.remove('modal-open');
+        setTimeout(() => modal.remove(), 300);
+      });
+
+      // Автоматическое перенаправление в бот
+      tg.openTelegramLink(`https://t.me/bbb909test_bot=${response_id}`);
+    });
+  });
+});
 
     function startCarousel() {
       const slides = document.querySelectorAll('.carousel a');
