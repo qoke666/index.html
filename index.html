@@ -161,42 +161,35 @@
 }
 #home .card, #articles .card, #cases .card {
   width: 100%;
-  height: 140px; /* Квадрат 140x140px */
-  overflow: hidden; /* Предотвращает вылезание содержимого */
-  background: #111315; /* Тёмный фон */
-  aspect-ratio: 1 / 1; /* Квадратные пропорции */
+  height: 140px;
+  overflow: hidden;
+  background: #111315;
+  aspect-ratio: 1 / 1;
+}
+#home .actual-item {
+  flex: 0 0 140px;
+  height: 140px;
 }
 #home .actual-list {
   display: flex;
   gap: 8px;
-  overflow-x: auto; /* Горизонтальный скролл */
-}
-#home .actual-item {
-  flex: 0 0 140px; /* Фиксированная ширина */
-  height: 140px; /* Квадрат */
-  aspect-ratio: 1 / 1; /* Квадрат */
 }
 #home .actual-item .card {
   width: 100%;
-  height: 140px; /* Квадрат */
+  height: 140px;
   background: #111315;
 }
 #articles .grid, #cases .grid {
-  display: flex; /* Flex вместо grid для унификации */
-  flex-wrap: wrap; /* Перенос на новую строку */
-  gap: 8px; /* Отступы между плитками */
-}
-#articles .grid .card, #cases .grid .card {
-  flex: 0 0 140px; /* Фиксированная ширина */
-  height: 140px; /* Квадрат */
-  aspect-ratio: 1 / 1; /* Квадрат */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
 }
 #home .card img, #articles .card img, #cases .card img, #home .actual-item .card img {
   width: 100%;
-  height: 100%; /* Заполняет всю плитку */
-  object-fit: fill; /* Растягивает без обрезки */
+  height: 100%;
+  object-fit: fill;
   display: block;
-  border-radius: 12px; /* Скругление углов */
+  border-radius: 12px;
 }
     #vacancies .card, #offers .card {
       padding: 8px;
