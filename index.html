@@ -1081,6 +1081,17 @@
     }
 
     startCarousel();
+  document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.body.classList.add('modal-open');
+  });
+});
+
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('close-button')) {
+    document.body.classList.remove('modal-open');
+  }
+});
   </script>
 </body>
 </html>
