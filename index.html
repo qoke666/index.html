@@ -159,68 +159,37 @@
   transform: scale(1.02); /* Из исходного кода */
   box-shadow: 0 4px 12px rgba(213, 253, 2, 0.2); /* добавил */
 }
-/* Общий стиль для всех плиток */
-#home .card,
-#articles .card,
-#cases .card {
+#home .card, #articles .card, #cases .card {
   width: 100%;
-  aspect-ratio: 1 / 1; /* Соотношение сторон 1:1 — идеально квадратные плитки */
-  overflow: hidden;
-  background: #111315;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-}
-/* Общий стиль плитки: чёткий размер */
-#home .card,
-#articles .card,
-#cases .card {
-  width: 140px;
   height: 140px;
-  background: #111315;
-  border-radius: 12px;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #111315;
+  aspect-ratio: 1 / 1;
 }
-
-/* Актуальные — горизонтальный список */
+#home .actual-item {
+  flex: 0 0 140px;
+  height: 140px;
+}
 #home .actual-list {
   display: flex;
   gap: 8px;
 }
-
-/* Элемент "Актуальное" — фикс. ширина */
-#home .actual-item {
-  flex: 0 0 140px;
-}
-
-/* Плитка внутри актуального */
 #home .actual-item .card {
-  width: 140px;
+  width: 100%;
   height: 140px;
+  background: #111315;
 }
-
-/* Сетка для кейсов и статей */
-#articles .grid,
-#cases .grid {
+#articles .grid, #cases .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 8px;
-  justify-content: center;
 }
-
-/* Изображение внутри плитки */
-#home .card img,
-#articles .card img,
-#cases .card img,
-#home .actual-item .card img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain; /* ❗️НЕ ОБРЕЗАЕТ текст или логотип */
-  border-radius: 12px;
+#home .card img, #articles .card img, #cases .card img, #home .actual-item .card img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
   display: block;
+  border-radius: 12px;
 }
     #vacancies .card, #offers .card {
       padding: 8px;
