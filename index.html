@@ -249,22 +249,22 @@ ul { list-style: none; margin: 0; padding: 0; }
   margin: 0;
 }
 
-/* Обновленные стили для вакансий и офферов */
+/* Стили для вакансий и офферов */
 #vacancies .card, #offers .card {
   padding: 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   cursor: pointer;
-  background: linear-gradient(135deg, rgba(17, 19, 21, 0.6), rgba(30, 33, 38, 0.8)); /* Градиентный фон */
-  backdrop-filter: blur(8px); /* Усиленное размытие */
-  border: 1px solid rgba(213, 253, 2, 0.1); /* Легкая зеленая граница */
+  background: linear-gradient(135deg, rgba(17, 19, 21, 0.6), rgba(30, 33, 38, 0.8));
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(213, 253, 2, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 #vacancies .card:hover, #offers .card:hover {
   transform: scale(1.03);
-  background: linear-gradient(135deg, rgba(17, 19, 21, 0.8), rgba(30, 33, 38, 1)); /* Менее прозрачно при ховере */
-  box-shadow: 0 8px 24px rgba(213, 253, 2, 0.4); /* Свечение */
+  background: linear-gradient(135deg, rgba(17, 19, 21, 0.8), rgba(30, 33, 38, 1));
+  box-shadow: 0 8px 24px rgba(213, 253, 2, 0.4);
 }
 #vacancies .card strong, #offers .card strong {
   font-size: 15px;
@@ -281,7 +281,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 #vacancies .card:hover strong, #offers .card:hover strong,
 #vacancies .card:hover p, #offers .card:hover p {
-  transform: translateY(-3px); /* Подъем текста при ховере */
+  transform: translateY(-3px);
 }
 #vacancies .promo-card {
   grid-column: 1 / -1;
@@ -350,23 +350,22 @@ ul { list-style: none; margin: 0; padding: 0; }
   margin: 0;
 }
 
-/* Обновленные стили для модалки */
+/* Обновленная анимация модалки */
 @keyframes modalSlideIn {
-  0% { transform: translate(-50%, 100px); opacity: 0; }
-  80% { transform: translate(-50%, -10px); opacity: 1; }
+  0% { transform: translate(-50%, 50px); opacity: 0; }
   100% { transform: translate(-50%, -50%); opacity: 1; }
 }
 @keyframes modalContentFade {
-  0% { opacity: 0; transform: translateY(10px); }
+  0% { opacity: 0; transform: translateY(8px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 .modal {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, 100px);
+  transform: translate(-50%, 50px);
   background: linear-gradient(135deg, rgba(17, 19, 21, 0.9), rgba(30, 33, 38, 1));
-  backdrop-filter: blur(12px); /* Усиленное размытие */
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(213, 253, 2, 0.2);
   border-radius: 12px;
   padding: 24px;
@@ -380,20 +379,20 @@ ul { list-style: none; margin: 0; padding: 0; }
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 .modal.active {
-  animation: modalSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: modalSlideIn 0.4s ease-out forwards;
 }
 .modal h3 {
   margin: 0 0 12px;
   color: #d5fd02;
   font-size: 20px;
-  animation: modalContentFade 0.5s ease 0.1s forwards;
+  animation: modalContentFade 0.4s ease 0.05s forwards;
   opacity: 0;
 }
 .modal p {
   font-size: 14px;
   color: #ccc;
   margin: 8px 0;
-  animation: modalContentFade 0.5s ease 0.2s forwards;
+  animation: modalContentFade 0.4s ease 0.1s forwards;
   opacity: 0;
 }
 .modal .apply-form {
@@ -401,7 +400,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   flex-direction: column;
   gap: 12px;
   margin-top: 16px;
-  animation: modalContentFade 0.5s ease 0.3s forwards;
+  animation: modalContentFade 0.4s ease 0.15s forwards;
   opacity: 0;
 }
 .modal .apply-form select,
@@ -419,7 +418,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 .modal .apply-form select:focus,
 .modal .apply-form input:focus,
 .modal .apply-form textarea:focus {
-  border-color: #d5fd02; /* Акцент при фокусе */
+  border-color: #d5fd02;
 }
 .modal .apply-form select {
   appearance: none;
@@ -470,7 +469,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   transform: translateY(-2px);
 }
 
-/* Размытие заднего фона */
+/* Обновленное размытие фона */
 body.modal-open {
   overflow: hidden;
 }
@@ -481,11 +480,11 @@ body.modal-open::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)); /* Радиальный градиент */
-  backdrop-filter: blur(12px); /* Усиленное размытие */
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
+  backdrop-filter: blur(8px); /* Уменьшенное размытие для оптимизации */
   z-index: 9998;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: opacity 0.4s ease;
 }
 body.modal-open::before {
   opacity: 1;
