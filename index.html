@@ -172,38 +172,12 @@
   align-items: center;
   justify-content: center;
 }
-
-/* "Актуальное" — горизонтальный список */
-#home .actual-list {
-  display: flex;
-  gap: 8px;
-}
-#home .actual-item {
-  flex: 0 0 130px;
-  height: 130px;
-}
-
-/* Сетка для кейсов и статей */
-#articles .grid,
-#cases .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 8px;
-  justify-content: center;
-}
-
-/* Изображения */
-#home .card img,
-#articles .card img,
-#cases .card img,
-#home .actual-item .card img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain; /* ✅ не обрезает */
-  display: block;
-  border-radius: 12px;
-}
-
+#home .card img, #articles .card img, #cases .card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      display: block;
+    }
     #vacancies .card, #offers .card {
       padding: 8px;
       display: flex;
