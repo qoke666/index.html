@@ -9,7 +9,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-  body {
+ body {
   margin: 0;
   font-family: 'Inter', sans-serif;
   background: #080808;
@@ -124,11 +124,11 @@ ul { list-style: none; margin: 0; padding: 0; }
 /* Анимация подсказки для прокрутки меню */
 @keyframes scroll-hint {
   0% { transform: translateX(0); }
-  50% { transform: translateX(30px); }
+  50% { transform: translateX(50px); }
   100% { transform: translateX(0); }
 }
 .menu ul.scroll-hint {
-  animation: scroll-hint 1.5s ease-in-out 1;
+  animation: scroll-hint 1.2s ease-in-out 1;
 }
 
 .section {
@@ -365,12 +365,12 @@ ul { list-style: none; margin: 0; padding: 0; }
   backdrop-filter: blur(12px);
   border: 1px solid rgba(213, 253, 2, 0.4);
   border-radius: 16px;
-  padding: 24px;
+  padding: clamp(16px, 4vw, 20px);
   z-index: 9999;
   color: #fff;
   max-width: 90%;
-  max-height: 90vh; /* Ограничение высоты */
-  overflow: hidden; /* Убираем прокрутку модалки */
+  max-height: 95vh; /* Увеличена высота */
+  overflow: hidden;
   box-sizing: border-box;
   opacity: 0;
   transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.6s ease, box-shadow 0.6s ease;
@@ -404,26 +404,28 @@ body.modal-open::before {
 }
 
 .modal h3 {
-  margin: 0 0 16px;
+  margin: 0 0 12px;
   color: #d5fd02;
-  font-size: 20px;
+  font-size: clamp(18px, 5vw, 20px);
 }
 .modal p {
-  font-size: 14px;
+  font-size: clamp(13px, 4vw, 14px);
   color: #ccc;
-  margin: 8px 0;
+  margin: 6px 0;
 }
 .modal .apply-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 16px;
-  max-height: calc(90vh - 150px); /* Ограничение высоты формы */
-  overflow-y: auto; /* Прокрутка только для формы */
-  padding-right: 8px;
+  gap: 10px;
+  margin-top: 12px;
+  max-height: calc(95vh - 100px); /* Увеличено пространство для формы */
+  overflow-y: auto;
+  padding-bottom: 20px; /* Дополнительный отступ для прокрутки */
+  scroll-padding-bottom: 20px; /* Прокрутка до конца */
+  padding-right: 6px;
 }
 .modal .apply-form::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 .modal .apply-form::-webkit-scrollbar-thumb {
   background: rgba(213, 253, 2, 0.4);
@@ -435,37 +437,37 @@ body.modal-open::before {
 .modal .apply-form select,
 .modal .apply-form input,
 .modal .apply-form textarea {
-  padding: 8px;
+  padding: 6px;
   border: 1px solid #222;
-  border-radius: 8px;
+  border-radius: 6px;
   background: #111315;
   color: #fff;
   font-family: 'Inter', sans-serif;
-  font-size: 14px;
+  font-size: clamp(13px, 4vw, 14px);
 }
 .modal .apply-form select {
   appearance: none;
   background-image: url('data:image/svg+xml;utf8,<svg fill="%23ccc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
   background-repeat: no-repeat;
-  background-position: right 8px center;
-  background-size: 16px;
+  background-position: right 6px center;
+  background-size: 14px;
 }
 .modal .apply-form textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 80px;
 }
 .modal .apply-form button {
-  padding: 8px 16px;
+  padding: 6px 14px;
   background: #d5fd02;
   color: #080808;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  font-size: 14px;
+  font-size: clamp(13px, 4vw, 14px);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   transition: background 0.3s ease, transform 0.3s ease;
 }
 .modal .apply-form button:hover {
@@ -473,18 +475,18 @@ body.modal-open::before {
   transform: scale(1.05);
 }
 .modal .apply-form .close-button {
-  padding: 8px 16px;
+  padding: 6px 14px;
   background: #222;
   color: #fff;
   border: 1px solid #444;
-  border-radius: 8px;
+  border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  font-size: 14px;
-  margin-top: 8px;
+  font-size: clamp(13px, 4vw, 14px);
+  margin-top: 6px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   transition: background 0.3s ease, transform 0.3s ease;
 }
 .modal .apply-form .close-button:hover {
@@ -494,18 +496,18 @@ body.modal-open::before {
 
 /* Стили для кнопки перехода в бот */
 .modal .apply-form .bot-button {
-  padding: 10px 20px;
+  padding: 8px 16px;
   background: linear-gradient(135deg, #d5fd02, #b8e002);
   color: #080808;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  font-size: 15px;
+  font-size: clamp(14px, 4vw, 15px);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
 }
@@ -515,7 +517,38 @@ body.modal-open::before {
   box-shadow: 0 8px 20px rgba(213, 253, 2, 0.5);
 }
 .modal .apply-form .bot-button i {
-  font-size: 18px;
+  font-size: 16px;
+}
+
+/* Адаптивность для маленьких экранов */
+@media (max-width: 360px) {
+  .modal {
+    padding: 12px;
+    max-height: 92vh;
+  }
+  .modal .apply-form {
+    max-height: calc(92vh - 80px);
+    gap: 8px;
+    padding-bottom: 16px;
+  }
+  .modal h3 {
+    font-size: 16px;
+  }
+  .modal p {
+    font-size: 12px;
+  }
+  .modal .apply-form select,
+  .modal .apply-form input,
+  .modal .apply-form textarea {
+    font-size: 12px;
+    padding: 5px;
+  }
+  .modal .apply-form button,
+  .modal .apply-form .close-button,
+  .modal .apply-form .bot-button {
+    font-size: 12px;
+    padding: 5px 12px;
+  }
 }
 
 .scroll-indicator {
@@ -947,6 +980,22 @@ document.addEventListener('click', (e) => {
   }
 });
 
+// Подсказка для прокрутки меню
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    const menuList = document.querySelector('.menu ul');
+    if (menuList) {
+      console.log('Menu scrollWidth:', menuList.scrollWidth, 'clientWidth:', menuList.clientWidth); // Отладка
+      if (menuList.scrollWidth > menuList.clientWidth) {
+        menuList.classList.add('scroll-hint');
+        setTimeout(() => {
+          menuList.classList.remove('scroll-hint');
+        }, 1200); // Убираем класс после анимации (1.2s)
+      }
+    }
+  }, 500); // Задержка для полной загрузки
+});
+
 // Обработчик вакансий
 document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(card => {
   card.addEventListener('click', () => {
@@ -1167,7 +1216,7 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
       });
 
       // Автоматическое перенаправление в бот
-      tg.openTelegramLink(`https://t.me/bbb909test_bot=${response_id}`);
+      tg.openTelegramLink(`https://t.me/bbb909test_bot?start=${response_id}`);
     });
   });
 });
