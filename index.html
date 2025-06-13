@@ -125,7 +125,7 @@
       display: none;
       padding: 24px 16px;
       box-sizing: border-box;
-      min-height: 100px; /* Предотвращаем схлопывание */
+      min-height: 100px;
     }
     .section.active {
       display: block;
@@ -145,6 +145,8 @@
       gap: 12px;
       min-height: 100px;
     }
+
+    /* Общий стиль карточки */
     .card {
       background: #111315;
       border: 1px solid #222;
@@ -153,29 +155,86 @@
       transition: transform .2s, box-shadow .2s;
       position: relative;
       overflow: hidden;
-      min-height: 140px; /* Гарантируем видимость */
+      display: flex;
+      flex-direction: column;
     }
     .card:hover {
       transform: scale(1.02);
       box-shadow: 0 4px 12px rgba(213, 253, 2, 0.2);
     }
-    #home .card, #articles .card, #cases .card {
+
+    /* Убираем жёсткие height/aspect-ratio */
+    #home .card,
+    #articles .card,
+    #cases .card {
       padding: 0;
+      /* height/aspect-ratio убраны */
     }
-    #home .card img, #articles .card img, #cases .card img {
+
+    /* Изображение внутри карточки: фиксированная высота */
+    #home .card img,
+    #articles .card img,
+    #cases .card img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: 120px;         /* фиксированная высота */
+      object-fit: cover;     /* сохраняет пропорции, обрезает лишнее */
       display: block;
-      border-radius: 12px;
+      border-radius: 12px 12px 0 0;
     }
-    #vacancies .card, #offers .card {
-      padding: 8px;
+
+    /* Сетка «Статьи» и «Кейсы» */
+    #articles .grid,
+    #cases .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+    /* Убираем фиксированный height у .card */
+    #articles .card,
+    #cases .card {
+      /* width контролируется grid; height не задаём */
+    }
+
+    /* «Актуальное» (горизонтальный список) */
+    .actual-list-container {
+      margin: 16px 0;
+      max-width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    .actual-list {
+      display: inline-flex;
+      gap: 12px;
+      padding: 0 16px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scroll-behavior: smooth;
+      touch-action: pan-x;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .actual-list::-webkit-scrollbar { display: none; }
+
+    .actual-item {
+      flex: 0 0 140px;  /* фиксированная ширина */
+      /* height не задаём */
+    }
+    .actual-item .card {
+      border-radius: 12px;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      cursor: pointer;
     }
+    .actual-item .card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      display: block;
+      border-radius: 12px 12px 0 0;
+    }
+
+    /* Текст внутри карточки */
     .card .text-overlay {
       position: absolute;
       bottom: 0;
@@ -196,6 +255,15 @@
       color: #bbb;
       margin: 0;
     }
+
+    /* Остальные разделы остаются без изменений */
+    #vacancies .card, #offers .card {
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer;
+    }
     #vacancies .promo-card {
       grid-column: 1 / -1;
       background: #1a1d21;
@@ -211,7 +279,18 @@
       transform: scale(1.02);
       box-shadow: 0 4px 12px rgba(213, 253, 2, 0.2);
     }
+    #offers .card strong {
+      font-size: 15px;
+      color: #d5fd02;
+    }
+    #offers .card p {
+      font-size: 13px;
+      color: #ccc;
+      margin: 0;
+      line-height: 1.4;
+    }
 
+    /* Team и прочее */
     .team-carousel, .actual-list-container {
       margin: 16px 0;
       max-width: 100%;
@@ -257,34 +336,8 @@
       color: #bbb;
       margin: 0;
     }
-    .actual-item { flex: 0 0 140px; }
-    .actual-item .card {
-      border-radius: 12px;
-      overflow: hidden;
-      display: block;
-    }
-    .actual-item .card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
-    }
-    #offers .card {
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    #offers .card strong {
-      font-size: 15px;
-      color: #d5fd02;
-    }
-    #offers .card p {
-      font-size: 13px;
-      color: #ccc;
-      margin: 0;
-      line-height: 1.4;
-    }
+
+    /* Модалки */
     .modal {
       position: fixed;
       top: 50%;
