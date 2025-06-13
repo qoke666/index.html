@@ -156,31 +156,28 @@
       min-height: 140px; /* Гарантируем видимость */
     }
     .card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 4px 12px rgba(213, 253, 2, 0.2);
-    }
-    #home .card, #articles .card, #cases .card {
-      padding: 0;
-    }
-   #home .card, #articles .card, #cases .card {
+  transform: scale(1.02); /* Из исходного кода */
+  box-shadow: 0 4px 12px rgba(213, 253, 2, 0.2); /* добавил */
+}
+#home .card, #articles .card, #cases .card {
   width: 100%;
-  height: 100px; /* Уменьшенная высота плиток */
+  height: 120px; /* Как в исходном коде */
   overflow: hidden;
   background: #111315; /* Фон для пустых областей */
 }
 #home .actual-item {
   flex: 0 0 140px; /* Ширина для скролла */
-  height: 100px; /* Соответствует .card */
+  height: 120px; /* Соответствует .card */
 }
 #home .actual-item .card {
   width: 100%;
-  height: 100px;
+  height: 120px;
   background: #111315;
 }
 #home .card img, #articles .card img, #cases .card img, #home .actual-item .card img {
   width: 100%;
-  height: 100px; /* Уменьшенная высота картинки */
-  object-fit: contain; /* Без растяжения, текст виден */
+  height: 120px; /* Как в исходном коде */
+  object-fit: cover; /* Как в исходном коде */
   display: block;
   border-radius: 12px;
 }
