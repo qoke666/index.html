@@ -161,18 +161,18 @@
 }
 #home .card, #articles .card, #cases .card {
   width: 100%;
-  height: 140px; /* Квадрат 140x140px */
+  height: 140px;
   overflow: hidden;
-  background: #111315; /* Фон */
-  aspect-ratio: 1 / 1; /* Квадратные пропорции */
+  background: #111315;
+  aspect-ratio: 1 / 1;
 }
 #home .actual-item {
-  flex: 0 0 140px; /* Ширина для скролла */
-  height: 140px; /* Квадрат */
+  flex: 0 0 140px;
+  height: 140px;
 }
 #home .actual-list {
   display: flex;
-  gap: 8px; /* Как в исходной сетке */
+  gap: 8px;
 }
 #home .actual-item .card {
   width: 100%;
@@ -181,13 +181,13 @@
 }
 #articles .grid, #cases .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Как в #cases */
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 8px;
 }
 #home .card img, #articles .card img, #cases .card img, #home .actual-item .card img {
   width: 100%;
-  height: 100%; /* Заполняет плитку */
-  object-fit: fill; /* Растягивает без обрезки */
+  height: 100%;
+  object-fit: fill;
   display: block;
   border-radius: 12px;
 }
