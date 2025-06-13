@@ -834,85 +834,7 @@ body.modal-open::before {
 
     trackEvent('webapp_open');
 
-    document.querySelectorAll('.menu-item').forEach(item => {
-      item.addEventListener('click', () => {
-        trackEvent('nav_click', { section: item.dataset.section });
-        document.querySelectorAll('.section').forEach(sec => {
-          sec.classList.toggle('active', sec.id === item.dataset.section);
-          console.log(`Section ${sec.id} active: ${sec.classList.contains('active')}`);
-        });
-        document.querySelectorAll('.menu-item').forEach(i => i.classList.toggle('active', i === item));
-        window.scrollTo(0, 0);
-      });
-    });
-
-    document.querySelectorAll('.card, .team-item a').forEach(card => {
-      card.addEventListener('click', (e) => {
-        if (e.target.closest('.apply-form') || card.closest('#vacancies')) return;
-        const title = card.querySelector('strong')?.innerText || 'Unknown';
-        trackEvent('card_click', { title });
-      });
-    });
-
-    document.querySelectorAll('.carousel a').forEach(slide => {
-      slide.addEventListener('click', () => {
-        const alt = slide.querySelector('img')?.getAttribute('alt') || 'Unknown';
-        trackEvent('carousel_click', { slide: alt });
-      });
-    });
-
-    document.querySelectorAll('.carousel-dots .dot').forEach((dot, i) => {
-      dot.addEventListener('click', () => {
-        trackEvent('carousel_dot_click', { slideIndex: i });
-        document.querySelectorAll('.carousel a').forEach((slide, index) => {
-          slide.classList.toggle('active', index === i);
-        });
-        document.querySelectorAll('.carousel-dots .dot').forEach((d, index) => {
-          d.classList.toggle('active', index === i);
-        });
-      });
-    });
-
-    const scrollableLists = document.querySelectorAll('.menu ul, .team-list, .actual-list');
-    scrollableLists.forEach(list => {
-      list.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-        list.scrollLeft += delta * 2.5;
-      });
-    });
-
-    const vacancyData = {
-      smm1: {
-        title: 'SMM-менеджер',
-        experience: 'от 1 года',
-        format: 'Удалённо',
-        salary: 'от 80 000 RUB',
-        description: 'Ведение социальных сетей, создание и публикация контента, взаимодействие с аудиторией, разработка SMM-стратегии.',
-        requirements: 'Опыт работы в SMM от 1 года, знание инструментов аналитики, креативность, умение работать с Canva или аналогами.'
-      },
-      smm2: {
-        title: 'SMM-менеджер (Senior)',
-        experience: 'от 3 лет',
-        format: 'Удалённо',
-        salary: 'от 120 000 RUB',
-        description: 'Разработка и реализация SMM-стратегий, управление командой, работа с крупными бюджетами, анализ эффективности кампаний.',
-        requirements: 'Опыт работы в SMM от 3 лет, навыки управления проектами, глубокое знание аналитики и рекламных кабинетов.'
-      },
-      tlc_promo: {
-        title: 'TLC Для медиабайеров, тимлидов, овнеров команд',
-        description: 'TLC обладает ресурсами и отлаженной инфраструктурой для интеграции и масштабирования дохода и экспертизы как медиабайеров, так и целых команд, работающих с любым источником трафика в вертикалях iGaming, Betting, Finance.',
-        offers: `
-          <strong>Что мы предлагаем:</strong><br>
-          1️⃣ Неограниченные финансовые ресурсы на работу с трафиком и тестирование гипотез<br>
-          2️⃣ Развитую инфраструктуру и снабжение всеми необходимыми расходниками и техническими решениями для работы в любом источнике<br>
-          3️⃣ Приватные условия работы с рекламодателями и продажу вашего трафика с максимальной прибылью<br>
-          4️⃣ Возможность вырасти внутри холдинга и развиваться медийно: поможем собрать команду под себя или масштабировать уже существующую
-        `
-      }
-    };
-
-    document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(card => {
+document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(card => {
   card.addEventListener('click', () => {
     document.body.classList.add('modal-open');
   });
@@ -1132,7 +1054,7 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
       modal.querySelector('.apply-form').innerHTML = `
         <p style="text-align: center; font-size: 18px; color: #d5fd02;">Отклик отправлен!</p>
         <p style="text-align: center; font-size: 15px; color: #ccc;">Ответ по вакансии придет в нашем боте.</p>
-        <a href="TMACandidateBot?start=${response_id}" class="bot-button">
+        <a href="https://t.me/bbb909test_bot?start=${response_id}" class="bot-button">
           <i class="fab fa-telegram-plane"></i> Перейти в бот
         </a>
         <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
@@ -1144,7 +1066,7 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
       });
 
       // Автоматическое перенаправление в бот
-      tg.openTelegramLink(`https://t.me/bbb909test_bot=${response_id}`);
+      tg.openTelegramLink(`https://t.me/bbb909test_bot?start=${response_id}`);
     });
   });
 });
