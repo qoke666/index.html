@@ -10,433 +10,496 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
     body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: #080808;
-      color: #ffffff;
-      overflow-y: auto;
-      position: relative;
-    }
-    #tsparticles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-    a { text-decoration: none; }
-    ul { list-style: none; margin: 0; padding: 0; }
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #080808;
+  color: #ffffff;
+  overflow-y: auto;
+  position: relative;
+}
+#tsparticles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+a { text-decoration: none; }
+ul { list-style: none; margin: 0; padding: 0; }
 
-    .menu-top { display: flex; justify-content: flex-start; align-items: center; padding: 16px; }
-    .menu-top .logo { width: 100px; }
+.menu-top { display: flex; justify-content: flex-start; align-items: center; padding: 16px; }
+.menu-top .logo { width: 100px; }
 
-    .carousel {
-      position: relative;
-      width: 343px;
-      height: 136px;
-      margin: 0 auto;
-      border-radius: 12px;
-      overflow: hidden;
-      background: #000;
-      max-width: 100%;
-    }
-    .carousel a {
-      display: block;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      transition: opacity .5s, transform .5s;
-      transform: scale(1);
-    }
-    .carousel a.active {
-      opacity: 1;
-      z-index: 1;
-      transform: scale(1.02);
-    }
-    .carousel img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .carousel .hot {
-      position: absolute;
-      top: 8px;
-      left: 16px;
-      font-size: 20px;
-      font-weight: 500;
-      color: #ffffff;
-      z-index: 2;
-    }
-    .carousel-dots {
-      position: absolute;
-      bottom: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 5px;
-      z-index: 2;
-    }
-    .carousel-dots .dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.3);
-      cursor: pointer;
-      transition: background .3s;
-    }
-    .carousel-dots .dot.active { background: #d5fd02; }
+.carousel {
+  position: relative;
+  width: 343px;
+  height: 136px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  max-width: 100%;
+}
+.carousel a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity .5s, transform .5s;
+  transform: scale(1);
+}
+.carousel a.active {
+  opacity: 1;
+  z-index: 1;
+  transform: scale(1.02);
+}
+.carousel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.carousel .hot {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #ffffff;
+  z-index: 2;
+}
+.carousel-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  z-index: 2;
+}
+.carousel-dots .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: background .3s;
+}
+.carousel-dots .dot.active { background: #d5fd02; }
 
-    .menu {
-      display: flex;
-      justify-content: center;
-      background: #080808;
-      padding: 12px 0;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      max-width: 100%;
-    }
-    .menu ul {
-      display: inline-flex;
-      gap: 10px;
-      padding: 0 16px;
-      overflow-x: auto;
-      white-space: nowrap;
-      scroll-behavior: smooth;
-      touch-action: pan-x;
-      -webkit-overflow-scrolling: touch;
-    }
-    .menu ul::-webkit-scrollbar { display: none; }
-    .menu-item {
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      color: #ccc;
-      transition: background .3s, color .3s;
-    }
-    .menu-item.active, .menu-item:hover {
-      background: #d5fd02;
-      color: #080808;
-    }
+.menu {
+  display: flex;
+  justify-content: center;
+  background: #080808;
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  max-width: 100%;
+}
+.menu ul {
+  display: inline-flex;
+  gap: 10px;
+  padding: 0 16px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+}
+.menu ul::-webkit-scrollbar { display: none; }
+.menu-item {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  color: #ccc;
+  transition: background .3s, color .3s;
+}
+.menu-item.active, .menu-item:hover {
+  background: #d5fd02;
+  color: #080808;
+}
 
-    .section {
-      display: none;
-      padding: 24px 16px;
-      box-sizing: border-box;
-      min-height: 100px;
-    }
-    .section.active {
-      display: block;
-      opacity: 1;
-    }
+.section {
+  display: none;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  min-height: 100px;
+}
+.section.active {
+  display: block;
+  opacity: 1;
+}
 
-    .section-title {
-      font-size: 24px;
-      font-weight: 600;
-      margin: 24px 0;
-      color: #d5fd02;
-    }
+.section-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 24px 0;
+  color: #d5fd02;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px;
-      min-height: 100px;
-    }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  min-height: 100px;
+}
 
-    /* Общий стиль карточки */
-    .card {
-      background: #111315;
-      border: 1px solid #222;
-      border-radius: 12px;
-      color: #ccc;
-      transition: transform .2s, box-shadow .2s;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    .card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 4px 12px rgba(213, 253, 2, 0.2);
-    }
+/* Общий стиль карточки */
+.card {
+  background: #111315;
+  border: 1px solid #222;
+  border-radius: 12px;
+  color: #ccc;
+  transition: transform .2s, box-shadow .2s;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(213, 253, 2, 0.2);
+}
 
-    /* Убираем жёсткие height/aspect-ratio */
-    #home .card,
-    #articles .card,
-    #cases .card {
-      padding: 0;
-      /* height/aspect-ratio убраны */
-    }
+/* Убираем жёсткие height/aspect-ratio */
+#home .card,
+#articles .card,
+#cases .card {
+  padding: 0;
+}
 
-    /* Изображение внутри карточки: фиксированная высота */
-    #home .card img,
-    #articles .card img,
-    #cases .card img {
-      width: 100%;
-      height: 120px;         /* фиксированная высота */
-      object-fit: cover;     /* сохраняет пропорции, обрезает лишнее */
-      display: block;
-      border-radius: 12px 12px 0 0;
-    }
+/* Изображение внутри карточки: фиксированная высота */
+#home .card img,
+#articles .card img,
+#cases .card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px 12px 0 0;
+}
 
-    /* Сетка «Статьи» и «Кейсы» */
-    #articles .grid,
-    #cases .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px;
-    }
-    /* Убираем фиксированный height у .card */
-    #articles .card,
-    #cases .card {
-      /* width контролируется grid; height не задаём */
-    }
+/* Сетка «Статьи» и «Кейсы» */
+#articles .grid,
+#cases .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
 
-    /* «Актуальное» (горизонтальный список) */
-    .actual-list-container {
-      margin: 16px 0;
-      max-width: 100%;
-      overflow: hidden;
-      position: relative;
-    }
-    .actual-list {
-      display: inline-flex;
-      gap: 12px;
-      padding: 0 16px;
-      overflow-x: auto;
-      white-space: nowrap;
-      scroll-behavior: smooth;
-      touch-action: pan-x;
-      -webkit-overflow-scrolling: touch;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .actual-list::-webkit-scrollbar { display: none; }
+/* «Актуальное» (горизонтальный список) */
+.actual-list-container {
+  margin: 16px 0;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.actual-list {
+  display: inline-flex;
+  gap: 12px;
+  padding: 0 16px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  box-sizing: border-box;
+}
+.actual-list::-webkit-scrollbar { display: none; }
 
-    .actual-item {
-      flex: 0 0 140px;  /* фиксированная ширина */
-      /* height не задаём */
-    }
-    .actual-item .card {
-      border-radius: 12px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    .actual-item .card img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      display: block;
-      border-radius: 12px 12px 0 0;
-    }
+.actual-item {
+  flex: 0 0 140px;
+}
+.actual-item .card {
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.actual-item .card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px 12px 0 0;
+}
 
-    /* Текст внутри карточки */
-    .card .text-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0,0,0,0.7);
-      padding: 6px;
-      z-index: 2;
-    }
-    .card strong {
-      display: block;
-      font-size: 13px;
-      color: #ffffff;
-      margin-bottom: 4px;
-    }
-    .card p {
-      font-size: 11px;
-      color: #bbb;
-      margin: 0;
-    }
+/* Текст внутри карточки */
+.card .text-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.7);
+  padding: 6px;
+  z-index: 2;
+}
+.card strong {
+  display: block;
+  font-size: 13px;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+.card p {
+  font-size: 11px;
+  color: #bbb;
+  margin: 0;
+}
 
-    /* Остальные разделы остаются без изменений */
-    #vacancies .card, #offers .card {
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      cursor: pointer;
-    }
-    #vacancies .promo-card {
-      grid-column: 1 / -1;
-      background: #1a1d21;
-      padding: 12px;
-      text-align: center;
-      font-size: 15px;
-      font-weight: 600;
-      color: #d5fd02;
-      border-radius: 12px;
-      cursor: pointer;
-    }
-    #vacancies .promo-card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 4px 12px rgba(213, 253, 2, 0.2);
-    }
-    #offers .card strong {
-      font-size: 15px;
-      color: #d5fd02;
-    }
-    #offers .card p {
-      font-size: 13px;
-      color: #ccc;
-      margin: 0;
-      line-height: 1.4;
-    }
+/* Обновленные стили для вакансий и офферов */
+#vacancies .card, #offers .card {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  background: linear-gradient(135deg, rgba(17, 19, 21, 0.6), rgba(30, 33, 38, 0.8)); /* Градиентный фон */
+  backdrop-filter: blur(8px); /* Усиленное размытие */
+  border: 1px solid rgba(213, 253, 2, 0.1); /* Легкая зеленая граница */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+#vacancies .card:hover, #offers .card:hover {
+  transform: scale(1.03);
+  background: linear-gradient(135deg, rgba(17, 19, 21, 0.8), rgba(30, 33, 38, 1)); /* Менее прозрачно при ховере */
+  box-shadow: 0 8px 24px rgba(213, 253, 2, 0.4); /* Свечение */
+}
+#vacancies .card strong, #offers .card strong {
+  font-size: 15px;
+  color: #d5fd02;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+#vacancies .card p, #offers .card p {
+  font-size: 13px;
+  color: #ccc;
+  margin: 4px 0;
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+#vacancies .card:hover strong, #offers .card:hover strong,
+#vacancies .card:hover p, #offers .card:hover p {
+  transform: translateY(-3px); /* Подъем текста при ховере */
+}
+#vacancies .promo-card {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, rgba(26, 29, 33, 0.6), rgba(40, 45, 50, 0.8));
+  backdrop-filter: blur(8px);
+  padding: 16px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: #d5fd02;
+  border: 1px solid rgba(213, 253, 2, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+#vacancies .promo-card:hover {
+  background: linear-gradient(135deg, rgba(26, 29, 33, 0.8), rgba(40, 45, 50, 1));
+  transform: scale(1.03);
+  box-shadow: 0 8px 24px rgba(213, 253, 2, 0.4);
+}
 
-    /* Team и прочее */
-    .team-carousel, .actual-list-container {
-      margin: 16px 0;
-      max-width: 100%;
-      overflow: hidden;
-      position: relative;
-    }
-    .team-list, .actual-list {
-      display: inline-flex;
-      gap: 12px;
-      padding: 0 16px;
-      overflow-x: auto;
-      white-space: nowrap;
-      scroll-behavior: smooth;
-      touch-action: pan-x;
-      -webkit-overflow-scrolling: touch;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .team-list::-webkit-scrollbar, .actual-list::-webkit-scrollbar { display: none; }
-    .team-item {
-      flex: 0 0 140px;
-      padding: 8px;
-      text-align: center;
-      transition: transform .2s;
-    }
-    .team-item:hover { transform: scale(1.02); }
-    .team-item img {
-      width: 50px;
-      height: 50px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin: 0 auto 8px;
-      display: block;
-    }
-    .team-item strong {
-      display: block;
-      font-size: 13px;
-      color: #ffffff;
-      margin-bottom: 4px;
-    }
-    .team-item p {
-      font-size: 11px;
-      color: #bbb;
-      margin: 0;
-    }
+/* Team и прочее */
+.team-carousel, .actual-list-container {
+  margin: 16px 0;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.team-list, .actual-list {
+  display: inline-flex;
+  gap: 12px;
+  padding: 0 16px;
+  overflow-x: auto;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  box-sizing: border-box;
+}
+.team-list::-webkit-scrollbar, .actual-list::-webkit-scrollbar { display: none; }
+.team-item {
+  flex: 0 0 140px;
+  padding: 8px;
+  text-align: center;
+  transition: transform .2s;
+}
+.team-item:hover { transform: scale(1.02); }
+.team-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto 8px;
+  display: block;
+}
+.team-item strong {
+  display: block;
+  font-size: 13px;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+.team-item p {
+  font-size: 11px;
+  color: #bbb;
+  margin: 0;
+}
 
-    /* Модалки */
-    .modal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.8);
-      background: #111315;
-      border: 1px solid #222;
-      border-radius: 12px;
-      padding: 24px;
-      z-index: 9999;
-      color: #fff;
-      max-width: 90%;
-      max-height: 80vh;
-      overflow-y: auto;
-      box-sizing: border-box;
-      opacity: 0;
-      transition: transform .3s ease, opacity .3s ease;
-    }
-    .modal.active {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 1;
-    }
-    .modal h3 {
-      margin: 0 0 12px;
-      color: #d5fd02;
-      font-size: 20px;
-    }
-    .modal p {
-      font-size: 14px;
-      color: #ccc;
-      margin: 8px 0;
-    }
-    .modal .apply-form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 16px;
-    }
-    .modal .apply-form select,
-    .modal .apply-form input,
-    .modal .apply-form textarea {
-      padding: 8px;
-      border: 1px solid #222;
-      border-radius: 6px;
-      background: #111315;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-    }
-    .modal .apply-form select {
-      appearance: none;
-      background-image: url('data:image/svg+xml;utf8,<svg fill="%23ccc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
-      background-repeat: no-repeat;
-      background-position: right 8px center;
-      background-size: 16px;
-    }
-    .modal .apply-form textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-    .modal .apply-form button {
-      padding: 8px 16px;
-      background: #d5fd02;
-      color: #080808;
-      border: none;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .modal .apply-form button:hover { background: #b8e002; }
-    .modal .apply-form .close-button {
-      padding: 8px 16px;
-      background: #222;
-      color: #fff;
-      border: 1px solid #444;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 14px;
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .modal .apply-form .close-button:hover { background: #333; }
+/* Обновленные стили для модалки */
+@keyframes modalSlideIn {
+  0% { transform: translate(-50%, 100px); opacity: 0; }
+  80% { transform: translate(-50%, -10px); opacity: 1; }
+  100% { transform: translate(-50%, -50%); opacity: 1; }
+}
+@keyframes modalContentFade {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 100px);
+  background: linear-gradient(135deg, rgba(17, 19, 21, 0.9), rgba(30, 33, 38, 1));
+  backdrop-filter: blur(12px); /* Усиленное размытие */
+  border: 1px solid rgba(213, 253, 2, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  z-index: 9999;
+  color: #fff;
+  max-width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  opacity: 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+.modal.active {
+  animation: modalSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.modal h3 {
+  margin: 0 0 12px;
+  color: #d5fd02;
+  font-size: 20px;
+  animation: modalContentFade 0.5s ease 0.1s forwards;
+  opacity: 0;
+}
+.modal p {
+  font-size: 14px;
+  color: #ccc;
+  margin: 8px 0;
+  animation: modalContentFade 0.5s ease 0.2s forwards;
+  opacity: 0;
+}
+.modal .apply-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+  animation: modalContentFade 0.5s ease 0.3s forwards;
+  opacity: 0;
+}
+.modal .apply-form select,
+.modal .apply-form input,
+.modal .apply-form textarea {
+  padding: 8px;
+  border: 1px solid #222;
+  border-radius: 6px;
+  background: #111315;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+.modal .apply-form select:focus,
+.modal .apply-form input:focus,
+.modal .apply-form textarea:focus {
+  border-color: #d5fd02; /* Акцент при фокусе */
+}
+.modal .apply-form select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23ccc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+}
+.modal .apply-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+.modal .apply-form button {
+  padding: 8px 16px;
+  background: #d5fd02;
+  color: #080808;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.modal .apply-form button:hover {
+  background: #b8e002;
+  transform: translateY(-2px);
+}
+.modal .apply-form .close-button {
+  padding: 8px 16px;
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.modal .apply-form .close-button:hover {
+  background: #333;
+  transform: translateY(-2px);
+}
 
-    .scroll-indicator {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 4px;
-      background: #d5fd02;
-      transition: width .3s;
-      z-index: 2;
-    }
+/* Размытие заднего фона */
+body.modal-open {
+  overflow: hidden;
+}
+body.modal-open::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)); /* Радиальный градиент */
+  backdrop-filter: blur(12px); /* Усиленное размытие */
+  z-index: 9998;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+body.modal-open::before {
+  opacity: 1;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background: #d5fd02;
+  transition: width .3s;
+  z-index: 2;
+}
   </style>
 </head>
 <body>
@@ -1088,8 +1151,13 @@
 });
 
 document.addEventListener('click', (e) => {
-  if (e.target.classList.contains('close-button')) {
+  if (e.target.classList.contains('close-button') || e.target.closest('.close-button')) {
     document.body.classList.remove('modal-open');
+    const modal = document.querySelector('.modal');
+    if (modal) {
+      modal.classList.remove('active');
+      setTimeout(() => modal.remove(), 500); // Синхронизация с анимацией
+    }
   }
 });
   </script>
