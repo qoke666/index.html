@@ -1224,20 +1224,7 @@ document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(ca
         additional
       };
       sendToSheet(eventData);
-      
-      // Отправляем команду /start after_apply через Google Apps Script
-const webhookData = {
-  message: {
-    from: { id: user_id },
-    chat: { id: user_id },
-    text: '/start after_apply'
-  }
-};
-fetch(SHEET_ENDPOINT, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(webhookData)
-}).then(() => console.log('Sent /start after_apply via webhook')).catch(err => console.error('Error sending /start after_apply:', err));
+
       // Показываем сообщение и кнопку перехода в бот
       modal.querySelector('.apply-form').innerHTML = `
         <p style="text-align: center; font-size: 18px; color: #d5fd02;">Отклик отправлен!</p>
