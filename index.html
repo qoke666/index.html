@@ -28,34 +28,8 @@ body {
 a { text-decoration: none; }
 ul { list-style: none; margin: 0; padding: 0; }
 
-.menu-top {
-  display: flex;
-  justify-content: space-between; /* Логотип слева, соцсети справа */
-  align-items: center;
-  padding: 8px 16px;
-}
-.menu-top .logo {
-  width: 100px;
-}
-.social-links {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* Отступ между текстом и иконками */
-}
-.social-title {
-  font-size: 12px;
-  font-weight: 500;
-  color: #ccc; /* Светло-серый для текста */
-}
-.social-link {
-  color: #d5fd02; /* Неоновый жёлто-зелёный для иконок */
-  font-size: 16px; /* Размер иконок */
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-.social-link:hover {
-  color: #b8e002; /* Чуть темнее при наведении */
-  transform: scale(1.1); /* Лёгкое увеличение */
-}
+.menu-top { display: flex; justify-content: flex-start; align-items: center; padding: 16px; }
+.menu-top .logo { width: 100px; }
 
 .carousel {
   position: relative;
@@ -617,15 +591,7 @@ body.modal-open::before {
 
   <div class="menu-top">
   <img class="logo" src="https://i.postimg.cc/90gRT1n1/Frame-2.png" alt="TMA Logo" />
-  <div class="social-links">
-    <span class="social-title">Наши соцсети</span>
-    <a href="https://t.me/TheLimitedClub" target="_blank" class="social-link" data-social="telegram">
-      <i class="fab fa-telegram-plane"></i>
-    </a>
-    <a href="https://www.instagram.com/the_limited_club" target="_blank" class="social-link" data-social="instagram">
-      <i class="fab fa-instagram"></i>
-    </a>
-  </div>
+</div>
 
   <div class="carousel">
     <a href="https://traffnews.com/cpa_partner/the-limited-club/" target="_blank" class="active">
@@ -974,13 +940,6 @@ body.modal-open::before {
         trackEvent('carousel_click', { slide: alt });
       });
     });
-
-document.querySelectorAll('.social-link').forEach(link => {
-  link.addEventListener('click', () => {
-    const social = link.dataset.social;
-    trackEvent('social_click', { platform: social });
-  });
-});
 
     document.querySelectorAll('.carousel-dots .dot').forEach((dot, i) => {
       dot.addEventListener('click', () => {
