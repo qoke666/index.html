@@ -112,6 +112,34 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 .carousel-dots .dot.active { background: #d5fd02; }
 
+.promo-button {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+  padding: 12px 24px;
+}
+.promo-button .promo-card {
+  background: linear-gradient(135deg, rgba(26, 29, 33, 0.5), rgba(34, 34, 34, 0.3));
+  backdrop-filter: blur(8px);
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #d5fd02;
+  border: 1px solid rgba(213, 253, 2, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  max-width: 300px;
+  width: 100%;
+}
+.promo-button .promo-card:hover {
+  background: linear-gradient(135deg, rgba(26, 29, 33, 0.7), rgba(34, 34, 34, 0.5));
+  border-color: rgba(213, 253, 2, 0.5);
+  transform: scale(1.03);
+  box-shadow: 0 6px 16px rgba(213, 253, 2, 0.3);
+}
+
 .menu {
   display: flex;
   justify-content: center;
@@ -278,7 +306,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   margin: 0;
 }
 
-#vacancies .card, #offers .card {
+#vacancies .card {
   padding: 12px;
   display: flex;
   flex-direction: column;
@@ -289,41 +317,11 @@ ul { list-style: none; margin: 0; padding: 0; }
   border: 1px solid rgba(213, 253, 2, 0.3);
   transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
-#vacancies .card:hover, #offers .card:hover {
+#vacancies .card:hover {
   background: linear-gradient(135deg, rgba(17, 19, 21, 0.7), rgba(34, 34, 34, 0.5));
   border-color: rgba(213, 253, 2, 0.5);
   transform: scale(1.03);
   box-shadow: 0 6px 16px rgba(213, 253, 2, 0.3);
-}
-#vacancies .promo-card {
-  grid-column: 1 / -1;
-  background: linear-gradient(135deg, rgba(26, 29, 33, 0.5), rgba(34, 34, 34, 0.3));
-  backdrop-filter: blur(8px);
-  padding: 16px;
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  color: #d5fd02;
-  border: 1px solid rgba(213, 253, 2, 0.3);
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-#vacancies .promo-card:hover {
-  background: linear-gradient(135deg, rgba(26, 29, 33, 0.7), rgba(34, 34, 34, 0.5));
-  border-color: rgba(213, 253, 2, 0.5);
-  transform: scale(1.03);
-  box-shadow: 0 6px 16px rgba(213, 253, 2, 0.3);
-}
-#offers .card strong {
-  font-size: 16px;
-  color: #d5fd02;
-}
-#offers .card p {
-  font-size: 14px;
-  color: #ccc;
-  margin: 0;
-  line-height: 1.5;
 }
 
 .team-carousel, .actual-list-container {
@@ -633,13 +631,18 @@ body.modal-open::before {
     </div>
   </div>
 
+  <div class="promo-button">
+    <div class="promo-card" data-vacancy-id="tlc_promo" data-aos="fade-up" data-aos-delay="100">
+      Работать с нами
+    </div>
+  </div>
+
   <nav class="menu">
     <ul>
       <li class="menu-item active" data-section="home">Главная</li>
       <li class="menu-item" data-section="articles">Статьи</li>
       <li class="menu-item" data-section="cases">Кейсы</li>
       <li class="menu-item" data-section="vacancies">Вакансии</li>
-      <li class="menu-item" data-section="offers">Офферы</li>
     </ul>
   </nav>
 
@@ -798,9 +801,6 @@ body.modal-open::before {
   <section id="vacancies" class="section">
     <h2 class="section-title">ВАКАНСИИ</h2>
     <div class="grid">
-      <div class="promo-card" data-vacancy-id="tlc_promo" data-aos="fade-up" data-aos-delay="100">
-        Для партнеров
-      </div>
       <div class="card" data-vacancy-id="support_sales" data-aos="fade-up" data-aos-delay="100">
         <strong>Support Manager Sales</strong>
         <p>Опыт: не требуется</p>
@@ -831,30 +831,6 @@ body.modal-open::before {
         <p>Формат: Удалённо</p>
         <p>График: 5/2, 8 часов</p>
       </div>
-    </div>
-  </section>
-
-  <section id="offers" class="section">
-    <h2 class="section-title">ОФФЕРЫ</h2>
-    <div class="grid">
-      <a class="card" href="https://limitedclub.affise.com/v2/sign/in" target="_blank" data-aos="fade-up" data-aos-delay="100">
-        <strong>Источник: ASO | FB</strong>
-        <p>ГЕО: BE FR DE IT</p>
-        <p>Ставка: под гео</p>
-        <p>Mindep: 20 EUR</p>
-      </a>
-      <a class="card" href="https://limitedclub.affise.com/v2/sign/in" target="_blank" data-aos="fade-up" data-aos-delay="100">
-        <strong>Источник: ASO | FB</strong>
-        <p>ГЕО: DE AT CH PL</p>
-        <p>Ставка: под гео</p>
-        <p>Mindep: 10 EUR</p>
-      </a>
-      <a class="card" href="https://limitedclub.affise.com/v2/sign/in" target="_blank" data-aos="fade-up" data-aos-delay="100">
-        <strong>Источник: ASO | FB</strong>
-        <p>ГЕО: CA DE AU PL PT KZ AZ</p>
-        <p>Ставка: под гео</p>
-        <p>Mindep: 20 EUR</p>
-      </a>
     </div>
   </section>
 
@@ -1063,7 +1039,7 @@ body.modal-open::before {
       }
     };
 
-    document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(card => {
+    document.querySelectorAll('#vacancies .card, #home .promo-card').forEach(card => {
       card.addEventListener('click', () => {
         document.body.classList.add('modal-open');
       });
@@ -1095,7 +1071,7 @@ body.modal-open::before {
       }, 500);
     });
 
-    document.querySelectorAll('#vacancies .card, #vacancies .promo-card').forEach(card => {
+    document.querySelectorAll('#vacancies .card, #home .promo-card').forEach(card => {
       card.addEventListener('click', () => {
         const vacancyId = card.dataset.vacancyId;
         const data = vacancyData[vacancyId];
@@ -1196,7 +1172,7 @@ body.modal-open::before {
                 </select>
                 <label>Твой источник?</label>
                 <select name="source" required>
-                  <option value="" disabled selected>Выбери источник</option>
+                  <option value="" disabled selected>Выберите источник</option>
                   <option value="FB">FB</option>
                   <option value="PPC">PPC</option>
                   <option value="ASO">ASO</option>
@@ -1204,7 +1180,7 @@ body.modal-open::before {
                 </select>
                 <label>Какой бюджет в среднем ты используешь?</label>
                 <select name="budget" required>
-                  <option value="" disabled selected>Выбери бюджет</option>
+                  <option value="" disabled selected>Выберите бюджет</option>
                   <option value="Менее $1,000">$1,000</option>
                   <option value="$1,000-$5,000">$1,000-$5,000</option>
                   <option value="$5,000-$10,000">$5,000-$10,000</option>
