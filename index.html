@@ -62,7 +62,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   width: 343px;
   height: 136px;
   margin: 8px auto;
-  border-radius: 12px;
+  border-radius: 6px;
   overflow: hidden;
   background: #000;
   max-width: 100%;
@@ -75,7 +75,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   top: 0;
   left: 0;
   opacity: 0;
-  transition: opacity .5s, transform .5s;
+  transition: opacity .5s linear, transform .5s linear;
   transform: scale(1);
 }
 .carousel a.active {
@@ -278,7 +278,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   margin: 0;
 }
 
-#vacancies .card, #offers .card {
+#vacancies .card {
   padding: 12px;
   display: flex;
   flex-direction: column;
@@ -289,7 +289,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   border: 1px solid rgba(213, 253, 2, 0.3);
   transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
-#vacancies .card:hover, #offers .card:hover {
+#vacancies .card:hover {
   background: linear-gradient(135deg, rgba(17, 19, 21, 0.7), rgba(34, 34, 34, 0.5));
   border-color: rgba(213, 253, 2, 0.5);
   transform: scale(1.03);
@@ -323,16 +323,6 @@ ul { list-style: none; margin: 0; padding: 0; }
 .promo-card i {
   font-size: 20px;
   color: #080808;
-}
-#offers .card strong {
-  font-size: 16px;
-  color: #d5fd02;
-}
-#offers .card p {
-  font-size: 14px;
-  color: #ccc;
-  margin: 0;
-  line-height: 1.5;
 }
 
 .team-carousel, .actual-list-container {
@@ -647,7 +637,6 @@ body.modal-open::before {
       <li class="menu-item" data-section="articles">Статьи</li>
       <li class="menu-item" data-section="cases">Кейсы</li>
       <li class="menu-item" data-section="vacancies">Вакансии</li>
-      <li class="menu-item" data-section="offers">Офферы</li>
     </ul>
   </nav>
 
@@ -695,7 +684,7 @@ body.modal-open::before {
     </div>
     <div class="grid">
       <div class="promo-card" data-vacancy-id="tlc_promo" data-aos="fade-up" data-aos-delay="100">
-        <i class="fas fa-handshake"></i> Начать сотрудничество
+        <i class="fas fa-handshake"></i> Для партнеров
       </div>
     </div>
     <h2 class="section-title">КОМАНДА</h2>
@@ -844,30 +833,6 @@ body.modal-open::before {
       <div class="promo-card hr-contact" data-aos="fade-up" data-aos-delay="100">
         <i class="fab fa-telegram-plane"></i> Связаться с HR
       </div>
-    </div>
-  </section>
-
-  <section id="offers" class="section">
-    <h2 class="section-title">ОФФЕРЫ</h2>
-    <div class="grid">
-      <a class="card" href="https://limitedclub.affise.com/v2/sign/in" target="_blank" data-aos="fade-up" data-aos-delay="100">
-        <strong>Источник: ASO | FB</strong>
-        <p>ГЕО: BE FR DE IT</p>
-        <p>Ставка: под гео</p>
-        <p>Mindep: 20 EUR</p>
-      </a>
-      <a class="card" href="https://limitedclub.affise.com/v2/sign/in" target="_blank" data-aos="fade-up" data-aos-delay="100">
-        <strong>Источник: ASO | FB</strong>
-        <p>ГЕО: DE AT CH PL</p>
-        <p>Ставка: под гео</p>
-        <p>Mindep: 10 EUR</p>
-      </a>
-      <a class="card" href="https://limitedclub.affise.com/v2/sign/in" target="_blank" data-aos="fade-up" data-aos-delay="100">
-        <strong>Источник: ASO | FB</strong>
-        <p>ГЕО: CA DE AU PL PT KZ AZ</p>
-        <p>Ставка: под гео</p>
-        <p>Mindep: 20 EUR</p>
-      </a>
     </div>
   </section>
 
@@ -1127,13 +1092,13 @@ body.modal-open::before {
           if (vacancyId === 'tlc_promo') {
             if (position === 'Владелец команды') {
               formContent += `
-                <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
+                <label>Каков твой опыт в вертикалях?</label>
                 <select name="experience" required>
                   <option value="" disabled selected>Выберите опыт</option>
                   <option value="3+ года">3+ года</option>
                   <option value="1-2 года">1-2 года</option>
                   <option value="6-12 месяцев">6-12 месяцев</option>
-                  <option value="менее 6 месяцев">менее 6 месяцев</option>
+                  <option value="менее 6 месяцев"></option>
                 </select>
                 <label>С каким источником работаешь?</label>
                 <select name="source" required>
@@ -1145,15 +1110,14 @@ body.modal-open::before {
                 </select>
                 <label>Сколько человек в команде?</label>
                 <select name="team_size" required>
-                  <option value="" disabled selected>Выберите размер</option>
+                  <option value="" disabled selected>1</option>
                   <option value="1-4">1-4</option>
-                  <option value="5-9">5-9</option>
-                  <option value="10-14">10-14</option>
-                  <option value="15+">15+</option>
+                  <option value="5-9">5</option>
+                  <option value="10-15">10-14</option>
                 </select>
                 <label>Каков средний спенд и профит команды в месяц за последние полгода?</label>
                 <textarea name="spend_profit" placeholder="Опишите спенд и профит" required></textarea>
-                <label>Почему вы решили привлечь инвестиции в свою команду?</label>
+                <label>Почему вы решили привлечь?</label>
                 <textarea name="investment_reason" placeholder="Опишите причину" required></textarea>
               `;
             } else if (position === 'Тимлид' || position === 'Медиабаер') {
@@ -1162,13 +1126,13 @@ body.modal-open::before {
                 <input type="text" name="name" placeholder="Ваше имя" required>
                 <label>В каком городе ты живёшь?</label>
                 <input type="text" name="city" placeholder="Город" required>
-                <label>Каков твой опыт в вертикалях iGaming/Betting/Finance?</label>
+                <label>Каков твой опыт?</label>
                 <select name="experience" required>
                   <option value="" disabled selected>Выберите опыт</option>
                   <option value="3+ года">3+ года</option>
                   <option value="1-2 года">1-2 года</option>
                   <option value="6-12 месяцев">6-12 месяцев</option>
-                  <option value="менее 6 месяцев">менее 6 месяцев</option>
+                  <option value="менее 6 месяцев"></option>
                 </select>
                 <label>Твой источник?</label>
                 <select name="source" required>
@@ -1201,13 +1165,13 @@ body.modal-open::before {
                 <input type="text" name="name" placeholder="Ваше имя" required>
                 <label>В каком городе ты живёшь?</label>
                 <input type="text" name="city" placeholder="Город" required>
-                <label>Какой у тебя опыт в вертикалях iGaming/Betting/Finance?</label>
+                <label>Какой у тебя опыт?</label>
                 <select name="experience" required>
                   <option value="" disabled selected>Выберите опыт</option>
                   <option value="3+ года">3+ года</option>
                   <option value="1-2 года">1-2 года</option>
                   <option value="6-12 месяцев">6-12 месяцев</option>
-                  <option value="менее 6 месяцев">менее 6 месяцев</option>
+                  <option value="менее 6 месяцев"></option>
                 </select>
                 <label>Твой источник?</label>
                 <select name="source" required>
@@ -1217,12 +1181,12 @@ body.modal-open::before {
                   <option value="ASO">ASO</option>
                   <option value="SEO">SEO</option>
                 </select>
-                <label>Какой бюджет в среднем ты используешь?</label>
+                <label>Какой бюджет в среднем ты использовал?</label>
                 <select name="budget" required>
-                  <option value="" disabled selected>Выбери бюджет</option>
+                  <option value="" disabled selected>Выберите бюджет</option>
                   <option value="Менее $1,000">$1,000</option>
                   <option value="$1,000-$5,000">$1,000-$5,000</option>
-                  <option value="$5,000-$10,000">$5,000-$10,000</option>
+                  <option value="$5,000-$10,000">$</option>
                 </select>
                 <label>Расскажи о своём опыте</label>
                 <textarea name="actual" placeholder="Оформление кейса или резюме будет плюсом ✌️" required></textarea>
@@ -1289,7 +1253,7 @@ body.modal-open::before {
           if (!telegram || !telegram.startsWith('@')) {
             tg.showPopup({
               title: 'Ошибка',
-              message: 'Telegram должен начинаться с @',
+              message: 'Ошибка в заполнении Telegram',
               buttons: [{ type: 'ok' }]
             });
             return;
@@ -1316,9 +1280,9 @@ body.modal-open::before {
 
           modal.querySelector('.apply-form').innerHTML = `
             <p style="text-align: center; font-size: 18px; color: #d5fd02;">Отклик отправлен!</p>
-            <p style="text-align: center; font-size: 15px; color: #ccc;">Ответ по вакансии придет в нашем боте.</p>
+            <p style="text-align: center; font-size: 15px; color: #ccc;">Ответ по вакансии придет в нашем чате.</p>
             <a href="https://t.me/TheLimitedClubHRBot?start=${response_id}" class="bot-button">
-              <i class="fab fa-telegram-plane"></i> Перейти в бот
+              <i class="fab fa-telegram-plane"></i> Перейти в чат
             </a>
             <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
           `;
