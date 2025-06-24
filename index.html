@@ -762,7 +762,7 @@
           </a>
         </li>
         <li class="team-item" data-aos="fade-up" data-aos-delay="100">
-          <a href="https://t.me/Denis_limited" target="_blank">
+          <a href="#" class="tg-link" data-link="https://t.me/Denis_limited">
             <img src="https://i.postimg.cc/GmQ3z0Zt/6-new.webp" alt="Denis" />
             <strong>Denis Limited</strong>
             <p>Head of Affiliate</p>
@@ -1405,6 +1405,18 @@
     }
 
     startCarousel();
+
+    document.querySelectorAll('.tg-link').forEach(el => {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      const link = this.dataset.link;
+      if (window.Telegram && Telegram.WebApp) {
+        Telegram.WebApp.openLink(link); // правильный способ
+      } else {
+        window.open(link, '_blank'); // fallback
+      }
+    });
+  });
   </script>
 </body>
 </html>
