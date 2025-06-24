@@ -282,7 +282,7 @@
       padding: 12px;
       display: flex;
       flex-direction: column;
-      justify-content обучайтесь в нашей академии!center;
+      justify-content: center;
       cursor: pointer;
       background: linear-gradient(135deg, rgba(17, 19, 21, 0.5), rgba(34, 34, 34, 0.3));
       backdrop-filter: blur(8px);
@@ -451,10 +451,14 @@
       transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
       text-decoration: none;
     }
-    .modal .contact-button:hover {
+    .modal
+
+ .contact-button:hover {
       background: linear-gradient(135deg, #b8e002, #d5fd02);
       transform: scale(1.05);
-      box-shadow: 0 6px 16px rgba(213, 253, 2, 0.3);
+      box-shadow: 0 6px 
+
+16px rgba(213, 253, 2, 0.3);
     }
     .modal .close-button {
       padding: 8px 16px;
@@ -579,7 +583,6 @@
       gap: 6px;
       transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
       text-decoration: none;
-      box-sizing: border-box;
     }
     .modal .apply-form .bot-button:hover {
       background: linear-gradient(135deg, #b8e002, #d5fd02);
@@ -661,7 +664,7 @@
     <img class="logo" src="https://i.postimg.cc/90gRT1n1/Frame-2.png" alt="TMA Logo" />
     <div class="social-links">
       <span class="social-title">Наши соцсети</span>
-      <a href="https://t.me/limitedclubcpa" target="_blank" class="social-link" data-social="telegram">
+      <a href="#" class="social-link tg-link" data-link="https://t.me/limitedclubcpa" data-social="telegram">
         <i class="fab fa-telegram-plane"></i>
       </a>
       <a href="https://www.instagram.com/thelimitedclub.cpa?igsh=MXkwcXppMWtlZGtm" target="_blank" class="social-link" data-social="instagram">
@@ -748,49 +751,49 @@
     <div class="team-carousel">
       <ul class="team-list">
         <li class="team-item" data-aos="fade-up" data-aos-delay="100">
-          <a href="https://t.me/Evgenii_Limited" target="_blank">
+          <a href="#" class="tg-link" data-link="https://t.me/Evgenii_Limited">
             <img src="https://i.postimg.cc/yN5SkL2P/3.webp" alt="Evgenii" />
             <strong>Evgenii Limited</strong>
             <p>Co-owner</p>
           </a>
         </li>
         <li class="team-item" data-aos="fade-up" data-aos-delay="100">
-          <a href="https://t.me/t_limited" target="_blank">
+          <a href="#" class="tg-link" data-link="https://t.me/t_limited">
             <img src="https://i.postimg.cc/KjgCWLjQ/4.webp" alt="Tikhon" />
             <strong>Tikhon Limited</strong>
             <p>Co-owner</p>
           </a>
         </li>
         <li class="team-item" data-aos="fade-up" data-aos-delay="100">
-          <a href="https://t.me/Denis_limited" target="_blank">
+          <a href="#" class="tg-link" data-link="https://t.me/Denis_limited">
             <img src="https://i.postimg.cc/GmQ3z0Zt/6-new.webp" alt="Denis" />
             <strong>Denis Limited</strong>
             <p>Head of Affiliate</p>
           </a>
         </li>
         <li class="team-item" data-aos="fade-up" data-aos-delay="100">
-          <a href="https://t.me/sasha_limited" target="_blank">
+          <a href="#" class="tg-link" data-link="https://t.me/sasha_limited">
             <img src="https://i.postimg.cc/gkyGkFcs/2.webp" alt="Aleksandra" />
             <strong>Aleksandra Limited</strong>
             <p>Head of Sales</p>
           </a>
         </li>
         <li class="team-item" data-aos="fade-up" data-aos-delay="100">
-          <a href="https://t.me/ksu_limited" target="_blank">
+          <a href="#" class="tg-link" data-link="https://t.me/ksu_limited">
             <img src="https://i.postimg.cc/SxDqC6Mz/1.webp" alt="Ksenia" />
             <strong>Ksenia Limited</strong>
             <p>Team Lead Affiliate Manager</p>
           </a>
         </li>
         <li class="team-item" data-aos="fade-up" data-aos-delay="100">
-          <a href="https://t.me/katerinaHR_limited" target="_blank">
+          <a href="#" class="tg-link" data-link="https://t.me/katerinaHR_limited">
             <img src="https://i.postimg.cc/hGvnrXLZ/7.jpg" alt="Katerina" />
             <strong>Katerina Limited</strong>
             <p>HRD</p>
           </a>
         </li>
         <li class="team-item" data-aos="fade-up" data-aos-delay="100">
-          <a href="https://t.me/Alexandr_limited" target="_blank">
+          <a href="#" class="tg-link" data-link="https://t.me/Alexandr_limited">
             <img src="https://i.postimg.cc/yNGHr7n1/5-new.webp" alt="Alexander" />
             <strong>Alexander Limited</strong>
             <p>Связь по PR и маркетингу</p>
@@ -887,7 +890,7 @@
         <p>Формат: Удалённо</p>
         <p>График: 5/2, 8 часов</p>
       </div>
-      <div class="promo-card hr-contact" data-aos="fade-up" data-aos-delay="100">
+      <div class="promo-card hr-contact" data-link="https://t.me/arina_limitedclub" data-aos="fade-up" data-aos-delay="100">
         <i class="fab fa-telegram-plane"></i> Связаться с HR
       </div>
     </div>
@@ -1034,6 +1037,18 @@
       link.addEventListener('click', () => {
         const social = link.dataset.social;
         trackEvent('social_click', { platform: social });
+      });
+    });
+
+    document.querySelectorAll('.tg-link').forEach(el => {
+      el.addEventListener('click', function (e) {
+        e.preventDefault();
+        const link = this.dataset.link;
+        if (/^https:\/\/t\.me\//.test(link) && window.Telegram && Telegram.WebApp) {
+          Telegram.WebApp.openLink(link);
+        } else {
+          window.open(link, '_blank');
+        }
       });
     });
 
@@ -1189,6 +1204,7 @@
               <option value="ASO">ASO</option>
               <option value="SEO">SEO</option>
             </select>
+            < تبلیغات
             <label>Какой бюджет в среднем ты использовал?</label>
             <select name="budget" required>
               <option value="" disabled selected>Выберите бюджет</option>
@@ -1215,15 +1231,6 @@
       return formContent;
     }
 
-    function openTelegramLink(link, role) {
-      trackEvent('contact_button_click', { role });
-      if (tg && tg.openTelegramLink) {
-        tg.openTelegramLink(link);
-      } else {
-        window.open(link, '_blank');
-      }
-    }
-
     document.querySelectorAll('.promo-card:not(.hr-contact), #vacancies .card').forEach(card => {
       card.addEventListener('click', () => {
         const vacancyId = card.dataset.vacancyId;
@@ -1239,10 +1246,10 @@
             <h3>${data.title}</h3>
             <p>${data.description || ''}</p>
             <div class="contact-buttons">
-              <button class="contact-button" data-link="https://t.me/Nick_Limited" data-role="рекламодатель">
+              <button class="contact-button tg-link" data-link="https://t.me/Nick_Limited" data-role="рекламодатель">
                 <i class="fab fa-telegram-plane"></i> как рекламодатель
               </button>
-              <button class="contact-button" data-link="https://t.me/Denis_limited" data-role="веб-мастер">
+              <button class="contact-button tg-link" data-link="https://t.me/Denis_limited" data-role="веб-мастер">
                 <i class="fab fa-telegram-plane"></i> как веб-мастер
               </button>
               <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
@@ -1265,11 +1272,17 @@
         setTimeout(() => modal.classList.add('active'), 10);
         document.body.classList.add('modal-open');
 
-        modal.querySelectorAll('.contact-button').forEach(button => {
-          button.addEventListener('click', () => {
+        modal.querySelectorAll('.tg-link').forEach(button => {
+          button.addEventListener('click', (e) => {
+            e.preventDefault();
             const link = button.dataset.link;
             const role = button.dataset.role;
-            openTelegramLink(link, role);
+            trackEvent('contact_button_click', { role });
+            if (/^https:\/\/t\.me\//.test(link) && window.Telegram && Telegram.WebApp) {
+              Telegram.WebApp.openLink(link);
+            } else {
+              window.open(link, '_blank');
+            }
           });
         });
 
@@ -1337,7 +1350,7 @@
             modal.querySelector('.apply-form').innerHTML = `
               <p style="text-align: center; font-size: 18px; color: #d5fd02;">Отклик отправлен!</p>
               <p style="text-align: center; font-size: 15px; color: #ccc;">Ответ по вакансии придет в нашем чате.</p>
-              <a href="https://t.me/TheLimitedClubHR_bot?start=${response_id}" class="bot-button">
+              <a href="#" class="bot-button tg-link" data-link="https://t.me/TheLimitedClubHR_bot?start=${response_id}">
                 <i class="fab fa-telegram-plane"></i> Перейти в чат
               </a>
               <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
@@ -1348,21 +1361,28 @@
               setTimeout(() => modal.remove(), 600);
             });
 
-            if (tg && tg.openTelegramLink) {
-              tg.openTelegramLink(`https://t.me/TheLimitedClubHR_bot?start=${response_id}`);
-            } else {
-              window.open(`https://t.me/TheLimitedClubHR_bot?start=${response_id}`, '_blank');
-            }
+            modal.querySelectorAll('.tg-link').forEach(button => {
+              button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const link = button.dataset.link;
+                if (/^https:\/\/t\.me\//.test(link) && window.Telegram && Telegram.WebApp) {
+                  Telegram.WebApp.openLink(link);
+                } else {
+                  window.open(link, '_blank');
+                }
+              });
+            });
           });
         }
       });
     });
 
-    document.querySelector('.hr-contact').addEventListener('click', () => {
+    document.querySelector('.hr-contact').addEventListener('click', (e) => {
+      e.preventDefault();
+      const link = document.querySelector('.hr-contact').dataset.link;
       trackEvent('hr_contact_click');
-      const link = 'https://t.me/arina_limitedclub';
-      if (tg && tg.openTelegramLink) {
-        tg.openTelegramLink(link);
+      if (/^https:\/\/t\.me\//.test(link) && window.Telegram && Telegram.WebApp) {
+        Telegram.WebApp.openLink(link);
       } else {
         window.open(link, '_blank');
       }
