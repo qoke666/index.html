@@ -298,10 +298,9 @@ ul { list-style: none; margin: 0; padding: 0; }
 .promo-card {
   grid-column: 1 / -1;
   background: linear-gradient(135deg, #d5fd02, #b8e002);
-  backdrop-filter: blur(8px);
-  padding: 20px;
+  padding: 12px;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   color: #080808;
   border: 2px solid rgba(213, 253, 2, 0.7);
@@ -321,7 +320,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   border-color: rgba(213, 253, 2, 1);
 }
 .promo-card i {
-  font-size: 20px;
+  font-size: 18px;
   color: #080808;
 }
 
@@ -429,6 +428,56 @@ body.modal-open::before {
   color: #ccc;
   margin: 6px 0;
 }
+.modal .contact-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+.modal .contact-button {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #d5fd02, #b8e002);
+  color: #080808;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: clamp(12px, 3.5vw, 13px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+.modal .contact-button:hover {
+  background: linear-gradient(135deg, #b8e002, #d5fd02);
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(213, 253, 2, 0.3);
+}
+.modal .close-button {
+  padding: 8px 16px;
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: clamp(12px, 3.5vw, 13px);
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.modal .close-button:hover {
+  background: #333;
+  transform: scale(1.05);
+}
+.modal .contact-button i {
+  font-size: 14px;
+}
+
 .modal .apply-form {
   display: flex;
   flex-direction: column;
@@ -559,6 +608,11 @@ body.modal-open::before {
   .modal p {
     font-size: 11px;
   }
+  .modal .contact-button,
+  .modal .close-button {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
   .modal .apply-form select,
   .modal .apply-form input,
   .modal .apply-form textarea {
@@ -583,6 +637,9 @@ body.modal-open::before {
     gap: 5px;
     padding-bottom: 25px;
     scroll-margin-bottom: 25px;
+  }
+  .modal .contact-buttons {
+    gap: 6px;
   }
 }
 
@@ -655,7 +712,7 @@ body.modal-open::before {
         </li>
         <li class="actual-item" data-aos="fade-up" data-aos-delay="100">
           <a class="card" href="https://blog.marlerino.group/post/britaincase" target="_blank" data-id="actual_2" data-title="SCAM кейс от AMERIO.BET">
-            <img src="https://i.postimg.cc/50yQktWK/280x240.png" alt="марлоны" /> 
+            <img src="https://i.postimg.cc/50yQktWK/280x240.png" alt="марлоны" />
             <div class="text-overlay">
               <strong>Кейс: 130к$ +</strong>
               <p></p>
@@ -664,7 +721,7 @@ body.modal-open::before {
         </li>
         <li class="actual-item" data-aos="fade-up" data-aos-delay="100">
           <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank" data-id="actual_3" data-title="Качество трафика в гемблинге">
-            <img src="https://i.postimg.cc/X7KQS6B4/scam.jpg" alt="SCAM кейс" /> 
+            <img src="https://i.postimg.cc/X7KQS6B4/scam.jpg" alt="SCAM кейс" />
             <div class="text-overlay">
               <strong>SCAM от AMERIO</strong>
               <p></p>
@@ -672,7 +729,7 @@ body.modal-open::before {
           </a>
         </li>
         <li class="actual-item" data-aos="fade-up" data-aos-delay="100">
-          <a class="card" href="https://traffhub.media/articles/gambling/nyuansy-vybora-gembling-offerov/" data-id="actual_4" data-title="Вакансия: Трафик менеджер">
+          <a class="card" href="https://traffhub.media/articles/gambling/nyuansy-vybora-gembling-offerov/" target="_blank" data-id="actual_4" data-title="Вакансия: Трафик менеджер">
             <img src="https://i.postimg.cc/kgyVJSnh/offer-2.jpg" alt="Вакансия" />
             <div class="text-overlay">
               <strong>Нюансы выбора</strong>
@@ -684,7 +741,7 @@ body.modal-open::before {
     </div>
     <div class="grid">
       <div class="promo-card" data-vacancy-id="tlc_promo" data-aos="fade-up" data-aos-delay="100">
-        <i class="fas fa-handshake"></i> Для сотрудничества
+        <i class="fas fa-handshake"></i> Начать сотрудничество
       </div>
     </div>
     <h2 class="section-title">КОМАНДА</h2>
@@ -847,7 +904,6 @@ body.modal-open::before {
     });
     window.addEventListener('load', () => {
       AOS.refresh();
-      console.log('AOS refreshed');
     });
 
     if (typeof tsParticles !== 'undefined') {
@@ -899,7 +955,7 @@ body.modal-open::before {
       ({ id: user_id, username, first_name, last_name } = tg.initDataUnsafe.user);
     }
 
-    const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxRK9cnnKCBM4AypS_cPFlYWkowUfBRiwFHbHYBcWNREHuy25nx1JvUVatPtVk1BzU_Mw/exec';
+    const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxRK9cnnKCBM4AypS_cPFlYWkowUfBRiwFHbHYBcWNREHuy25nx1jvUVatPtVk1BzU_Mw/exec';
 
     function generateUUID() {
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -909,7 +965,6 @@ body.modal-open::before {
     }
 
     function sendToSheet(data) {
-      console.log('Sending to sheet:', data);
       fetch(SHEET_ENDPOINT, {
         method: 'POST',
         mode: 'no-cors',
@@ -937,7 +992,6 @@ body.modal-open::before {
         trackEvent('nav_click', { section: item.dataset.section });
         document.querySelectorAll('.section').forEach(section => {
           section.classList.toggle('active', section.id === item.dataset.section);
-          console.log(`Section ${section.id} active: ${section.classList.contains('active')}`);
         });
         document.querySelectorAll('.menu-item').forEach(i => i.classList.toggle('active', i === item));
         window.scrollTo(0, 0);
@@ -989,29 +1043,22 @@ body.modal-open::before {
 
     const vacancyData = {
       tlc_promo: {
-        title: 'The Limited Club',
-        description: 'Это не просто партнёрская сеть, это закрытый клуб для сильнейших команд. Мы обеспечиваем максимум: по деньгам, по офферам, по результату. Забудь про заспамленные паблики и посредников. У нас — прямые рекламодатели, эксклюзивные офферы и условия, о которых другие сети не говорят. От тебя нужен результат, от нас — всё для его достижения.',
-        offers: `
-          <strong>Что мы предлагаем:</strong><br>
-          1️⃣ Эксклюзивные офферы: более 1500 прямых предложений в iGaming и беттинге, многие — недоступны в открытых сетях<br>
-          2️⃣ Профессиональная 24/7 поддержка: опытные менеджеры, быстрые выплаты по запросу<br>
-          3️⃣ Строгий отбор партнёров — The Limited Club принимает только тщательно проверенные команды, чтобы сохранять качество и эксклюзивность<br>
-          4️⃣ Возможности для роста: индивидуальные условия от рекламодателей
-        `
+        title: 'The Limited Partnership Club',
+        description: 'Это не просто партнёрская сеть, это закрытый клуб для сильнейших команд. Мы обеспечиваем максимум: по деньгам, по офферам, по результату. Забудь про заспамленные паблики и посредников. У нас — прямые рекламодатели, эксклюзивные офферы и условия, о которых другие сети не говорят. От тебя нужен результат, от нас — всё для его достижения.'
       },
       support_sales: {
         title: 'Support Manager Sales',
         experience: 'не требуется',
         format: 'Удалённо',
         schedule: '5/2, 8 часов',
-        description: 'Помогать коллегам из отдела. Поддерживать и развивать отношения с партнёрами. Мониторить рынок и подключать лучшие офферы. Контролировать выплаты, составлять отчёты, следить за процессами.'
+        description: 'Помогать коллегам из отдела. Поддерживать и развивать отношения с партнёрами. Мониторить рынок и подключать лучшие офферы. Контролировать сотруд.'
       },
       hr_manager: {
         title: 'HR Manager',
         experience: '1–3 года',
         format: 'Удалённо',
         schedule: '5/2, 8 часов',
-        description: 'Онбординг новых сотрудников: сопровождение и адаптация. Работа с корпоративной культурой и внутренними коммуникациями. Участие в развитии HR-процессов: автоматизация, документация, HR-аналитика. Проведение регулярной обратной связи и поддержка командного климата.',
+        description: 'Онбординг новых сотрудников: сопровождение и адаптация. Работа с корпоративной культурой и внутренними коммуникациями. Участие в развитии HR-процессов: автоматизация.',
         requirements: 'Опыт работы в HR от 1–2 лет (опыт в iGaming будет большим плюсом). Навыки выстраивания HR-процессов, развития корпоративной культуры. Гибкость, инициативность, ориентация на результат.'
       },
       finance_manager: {
@@ -1019,7 +1066,7 @@ body.modal-open::before {
         experience: '1–3 года',
         format: 'Удалённо',
         schedule: '5/2, 8 часов',
-        description: 'Взаимодействие и подготовка сверок для контрагентов. Расчеты с контрагентами по итогам месяца. Контроль кредиторской задолженности. Участие в расчете зарплат. Учет операций (включая криптовалюту). Составление финансовых отчетов.',
+        description: 'Взаимодействие и подготовка сверок для контрагентов. Расчеты с контрагентами по итогам месяца. Контроль кредиторской задолженности. Участие в расчете зарплат. Учет операций (включая криптовалюту).',
         requirements: 'Опыт в финансах от 1 года. Уверенное владение MS Excel/Google Sheets. Навыки анализа данных и предложения решений. Организованность и соблюдение сроков.'
       },
       affiliate_manager: {
@@ -1028,7 +1075,7 @@ body.modal-open::before {
         format: 'Удалённо',
         schedule: '5/2, 8 часов',
         description: 'Работа с командами-партнёрами, поддержка вебмастеров от подбора оффера до запуска трафика. Построение взаимовыгодного сотрудничества.',
-        requirements: 'Опыт работы Affiliate Manager от 2 лет. Навыки коммуникации и индивидуального подхода к вебмастерам. Желание реализовать потенциал.'
+        requirements: 'Опыт работы Affiliate Manager от 2 лет. Навыки коммуникации и индивидуального подхода к вебмастерам. Желание работать.'
       },
       pr_manager: {
         title: 'PR-менеджер',
@@ -1042,6 +1089,106 @@ body.modal-open::before {
 
     document.querySelectorAll('.promo-card:not(.hr-contact), #vacancies .card').forEach(card => {
       card.addEventListener('click', () => {
+        const vacancyId = card.dataset.vacancyId;
+        const data = vacancyData[vacancyId];
+        if (!data) return;
+        trackEvent('vacancy_open', { vacancy: vacancyId });
+
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        if (vacancyId === 'tlc_promo') {
+          modal.innerHTML = `
+            <h3>${data.title}</h3>
+            <p>${data.description}</p>
+            <div class="contact-buttons">
+              <a href="#" class="contact-button" data-contact="hr_manager" data-telegram="https://t.me/Nick_Limited">
+                <i class="fab fa-telegram-plane"></i> Как рекламодатель 
+              </a>
+              <a href="#" class="contact-button" data-contact="affiliate_manager" data-telegram="https://t.me/Denis_limited">
+                <i class="fab fa-telegram-plane"></i> Как веб-мастер
+              </a>
+              <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
+            </div>
+          `;
+          modal.querySelectorAll('.contact-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+              e.preventDefault();
+              const telegram = button.dataset.telegram;
+              const contact = button.dataset.contact;
+              trackEvent('partner_contact_click', { contact });
+              tg.openTelegramLink(telegram);
+            });
+          });
+        } else {
+          modal.innerHTML = `
+            <h3>${data.title}</h3>
+            <p>${data.description || ''}</p>
+            <p>${data.requirements ? '<strong>Наши ожидания:</strong><br>' + data.requirements : ''}</p>
+            <form class="apply-form">
+              <label>Ваш Telegram</label>
+              <input type="text" name="telegram" placeholder="@username" pattern="@[A-Za-z0-9_]{5,}" required>
+              <label>Как тебя зовут?</label>
+              <input type="text" name="name" placeholder="Your name" required>
+              <label>В каком городе ты живёшь?</label>
+              <input type="text" name="city" placeholder="City" required>
+              <label>Расскажи о своём опыте</label>
+              <textarea name="experience" placeholder="Describe your experience" required></textarea>
+              <label>Ссылка на резюме</label>
+              <input type="url" name="resume" placeholder="https://">
+              <button type="submit"><i sustenance-submitting class="fas fa-paper-plane"></i> Отправить</button>
+              <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
+            </form>
+          `;
+          modal.querySelector('.apply-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const telegram = formData.get('telegram');
+            if (!telegram || !telegram.startsWith('@')) {
+              tg.showPopup({
+                title: 'Ошибка',
+                message: 'Ошибка в заполнении Telegram',
+                buttons: [{ type: 'ok' }]
+              });
+              return;
+            }
+            const responseId = generateUUID();
+            const additional = {
+              id: vacancyId,
+              title: data.title,
+              response_id: responseId
+            };
+            for (const [key, value] of formData.entries()) {
+              additional[key] = value;
+            }
+            sendToSheet({
+              event: 'vacancy_apply',
+              user_id,
+              username,
+              first_name,
+              last_name,
+              timestamp: new Date().toISOString(),
+              additional
+            });
+            modal.querySelector('.apply-form').innerHTML = `
+              <p style="text-align: center; font-size: 18px; color: #d5fd02;">Отклик отправлен!</p>
+              <p style="text-align: center; font-size: 15px; color: #ccc;">Ответ по вакансии придет в нашем чате.</p>
+              <a href="https://t.me/TheLimitedClubHRBot?start=${responseId}" class="bot-button">
+                <i class="fab fa-telegram-plane"></i> Перейти в чат
+              </a>
+              <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
+            `;
+            tg.openTelegramLink(`https://t.me/TheLimitedClubHRBot?start=${responseId}`);
+          });
+        }
+
+        modal.querySelector('.close-button').addEventListener('click', () => {
+          modal.classList.remove('active');
+          document.body.classList.remove('modal-open');
+          setTimeout(() => modal.remove(), 600);
+        });
+
+        document.body.appendChild(modal);
+        setTimeout(() => modal.classList.add('active'), 10);
         document.body.classList.add('modal-open');
       });
     });
@@ -1066,234 +1213,11 @@ body.modal-open::before {
       setTimeout(() => {
         const menuList = document.querySelector('.menu ul');
         if (menuList) {
-          console.log('Menu scrollWidth:', menuList.scrollWidth, 'clientWidth:', menuList.clientWidth, 'isScrollable:', menuList.scrollWidth > menuList.clientWidth);
           menuList.classList.add('scroll-hint');
           setTimeout(() => {
             menuList.classList.remove('scroll-hint');
           }, 1500);
         }
-      }, 500);
-    });
-
-    document.querySelectorAll('.promo-card:not(.hr-contact), #vacancies .card').forEach(card => {
-      card.addEventListener('click', () => {
-        const vacancyId = card.dataset.vacancyId;
-        const data = vacancyData[vacancyId];
-        if (!data) return;
-        trackEvent('vacancy_view', { vacancy: data.title });
-
-        const modal = document.createElement('div');
-        modal.className = 'modal';
-        const renderForm = (position = '') => {
-          let formContent = `
-            <label>Ваш Telegram (например, @username)</label>
-            <input type="text" name="telegram" placeholder="@username" pattern="@[A-Za-z0-9_]{5,}" required>
-          `;
-          if (vacancyId === 'tlc_promo') {
-            if (position === 'Владелец команды') {
-              formContent += `
-                <label>Каков твой опыт в вертикалях?</label>
-                <select name="experience" required>
-                  <option value="" disabled selected>Выберите опыт</option>
-                  <option value="3+ года">3+ года</option>
-                  <option value="1-2 года">1-2 года</option>
-                  <option value="6-12 месяцев">6-12 месяцев</option>
-                  <option value="менее 6 месяцев"></option>
-                </select>
-                <label>С каким источником работаешь?</label>
-                <select name="source" required>
-                  <option value="" disabled selected>Выберите источник</option>
-                  <option value="FB">FB</option>
-                  <option value="PPC">PPC</option>
-                  <option value="ASO">ASO</option>
-                  <option value="SEO">SEO</option>
-                </select>
-                <label>Сколько человек в команде?</label>
-                <select name="team_size" required>
-                  <option value="" disabled selected>1</option>
-                  <option value="1-4">1-4</option>
-                  <option value="5-9">5</option>
-                  <option value="10-15">10-14</option>
-                </select>
-                <label>Каков средний спенд и профит команды в месяц за последние полгода?</label>
-                <textarea name="spend_profit" placeholder="Опишите спенд и профит" required></textarea>
-                <label>Почему вы решили привлечь?</label>
-                <textarea name="investment_reason" placeholder="Опишите причину" required></textarea>
-              `;
-            } else if (position === 'Тимлид' || position === 'Медиабаер') {
-              formContent += `
-                <label>Как тебя зовут?</label>
-                <input type="text" name="name" placeholder="Ваше имя" required>
-                <label>В каком городе ты живёшь?</label>
-                <input type="text" name="city" placeholder="Город" required>
-                <label>Каков твой опыт?</label>
-                <select name="experience" required>
-                  <option value="" disabled selected>Выберите опыт</option>
-                  <option value="3+ года">3+ года</option>
-                  <option value="1-2 года">1-2 года</option>
-                  <option value="6-12 месяцев">6-12 месяцев</option>
-                  <option value="менее 6 месяцев"></option>
-                </select>
-                <label>Твой источник?</label>
-                <select name="source" required>
-                  <option value="" disabled selected>Выберите источник</option>
-                  <option value="FB">FB</option>
-                  <option value="PPC">PPC</option>
-                  <option value="ASO">ASO</option>
-                  <option value="SEO">SEO</option>
-                </select>
-                <label>Какой бюджет в среднем отливаешь?</label>
-                <select name="budget" required>
-                  <option value="" disabled selected>Выберите бюджет</option>
-                  <option value="Менее $1,000">$1,000</option>
-                  <option value="$1,000-$5,000">$1,000-$5,000</option>
-                  <option value="$5,000-$10,000">$5,000-$10,000</option>
-                </select>
-                <label>Расскажи о своём опыте</label>
-                <textarea name="actual" placeholder="Оформление кейса или резюме будет плюсом ✌️" required></textarea>
-              `;
-            } else {
-              formContent += `
-                <label>На какую роль ты претендуешь?</label>
-                <select name="position" required>
-                  <option value="" disabled selected>Выбери роль</option>
-                  <option value="Владелец команды">Владелец команды</option>
-                  <option value="Тимлид">Тимлид</option>
-                  <option value="Медиабаер">Медиабаер</option>
-                </select>
-                <label>Как тебя зовут?</label>
-                <input type="text" name="name" placeholder="Ваше имя" required>
-                <label>В каком городе ты живёшь?</label>
-                <input type="text" name="city" placeholder="Город" required>
-                <label>Какой у тебя опыт?</label>
-                <select name="experience" required>
-                  <option value="" disabled selected>Выберите опыт</option>
-                  <option value="3+ года">3+ года</option>
-                  <option value="1-2 года">1-2 года</option>
-                  <option value="6-12 месяцев">6-12 месяцев</option>
-                  <option value="менее 6 месяцев"></option>
-                </select>
-                <label>Твой источник?</label>
-                <select name="source" required>
-                  <option value="" disabled selected>Выбери источник</option>
-                  <option value="FB">FB</option>
-                  <option value="PPC">PPC</option>
-                  <option value="ASO">ASO</option>
-                  <option value="SEO">SEO</option>
-                </select>
-                <label>Какой бюджет в среднем ты использовал?</label>
-                <select name="budget" required>
-                  <option value="" disabled selected>Выберите бюджет</option>
-                  <option value="Менее $1,000">$1,000</option>
-                  <option value="$1,000-$5,000">$1,000-$5,000</option>
-                  <option value="$5,000-$10,000">$</option>
-                </select>
-                <label>Расскажи о своём опыте</label>
-                <textarea name="actual" placeholder="Оформление кейса или резюме будет плюсом ✌️" required></textarea>
-              `;
-            }
-          } else {
-            formContent += `
-              <label>Как тебя зовут?</label>
-              <input type="text" name="name" placeholder="Ваше имя" required>
-              <label>В каком городе ты живёшь?</label>
-              <input type="text" name="city" placeholder="Город" required>
-              <label>Расскажи о своём опыте</label>
-              <textarea name="experience" placeholder="Опиши свой опыт" required></textarea>
-              <label>Ссылка на резюме</label>
-              <input type="url" name="resume" placeholder="https://">
-            `;
-          }
-          return formContent;
-        };
-
-        modal.innerHTML = `
-          <h3>${data.title}</h3>
-          <p>${data.description || ''}</p>
-          <p>${data.requirements ? '<strong>Наши ожидания:</strong><br>' + data.requirements : ''}</p>
-          <p>${data.offers || ''}</p>
-          <form class="apply-form" action="#">
-            ${renderForm()}
-            <button type="submit"><i class="fas fa-paper-plane"></i> Отправить</button>
-            <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
-          </form>
-        `;
-        document.body.appendChild(modal);
-
-        setTimeout(() => modal.classList.add('active'), 10);
-
-        const positionSelect = modal.querySelector('select[name="position"]');
-        if (positionSelect) {
-          positionSelect.addEventListener('change', () => {
-            const newFormContent = renderForm(positionSelect.value);
-            const form = modal.querySelector('.apply-form');
-            form.innerHTML = `
-              ${newFormContent}
-              <button type="submit"><i class="fas fa-paper-plane"></i> Отправить</button>
-              <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
-            `;
-            form.querySelector('.close-button').addEventListener('click', () => {
-              modal.classList.remove('active');
-              document.body.classList.remove('modal-open');
-              setTimeout(() => modal.remove(), 600);
-            });
-          });
-        }
-
-        modal.querySelector('.close-button').addEventListener('click', () => {
-          modal.classList.remove('active');
-          document.body.classList.remove('modal-open');
-          setTimeout(() => modal.remove(), 600);
-        });
-
-        modal.querySelector('.apply-form').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const formData = new FormData(e.target);
-          const telegram = formData.get('telegram');
-          if (!telegram || !telegram.startsWith('@')) {
-            tg.showPopup({
-              title: 'Ошибка',
-              message: 'Ошибка в заполнении Telegram',
-              buttons: [{ type: 'ok' }]
-            });
-            return;
-          }
-          const response_id = generateUUID();
-          const additional = {
-            id: vacancyId,
-            title: data.title,
-            response_id
-          };
-          for (const [key, value] of formData.entries()) {
-            additional[key] = value;
-          }
-          const eventData = {
-            event: 'vacancy_apply',
-            user_id,
-            username,
-            first_name,
-            last_name,
-            timestamp: new Date().toISOString(),
-            additional
-          };
-          sendToSheet(eventData);
-
-          modal.querySelector('.apply-form').innerHTML = `
-            <p style="text-align: center; font-size: 18px; color: #d5fd02;">Отклик отправлен!</p>
-            <p style="text-align: center; font-size: 15px; color: #ccc;">Ответ по вакансии придет в нашем чате.</p>
-            <a href="https://t.me/TheLimitedClubHR_bot?start=${response_id}" class="bot-button">
-              <i class="fab fa-telegram-plane"></i> Перейти в чат
-            </a>
-            <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
-          `;
-          modal.querySelector('.close-button').addEventListener('click', () => {
-            modal.classList.remove('active');
-            document.body.classList.remove('modal-open');
-            setTimeout(() => modal.remove(), 600);
-          });
-
-          tg.openTelegramLink(`https://t.me/TheLimitedClubHR_bot?start=${response_id}`);
-        });
       });
     });
 
