@@ -296,34 +296,34 @@
       box-shadow: 0 6px 16px rgba(213, 253, 2, 0.3);
     }
     .promo-card {
-  grid-column: 1 / -1;
-  background: linear-gradient(135deg, #d5fd02, #b8e002);
-  padding: 10px;
-  height: 48px;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 700;
-  color: #080808;
-  border: 2px solid rgba(213, 253, 2, 0.7);
-  border-radius: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: 0 8px 24px rgba(213, 253, 2, 0.5);
-}
-.promo-card:hover {
-  background: linear-gradient(135deg, #b8e002, #d5fd02);
-  transform: scale(1.05);
-  box-shadow: 0 12px 32px rgba(213, 253, 2, 0.7);
-  border-color: rgba(213, 253, 2, 1);
-}
-.promo-card i {
-  font-size: 16px;
-  color: #080808;
-}
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #d5fd02, #b8e002);
+      padding: 10px;
+      height: 48px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #080808;
+      border: 2px solid rgba(213, 253, 2, 0.7);
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(213, 253, 2, 0.5);
+    }
+    .promo-card:hover {
+      background: linear-gradient(135deg, #b8e002, #d5fd02);
+      transform: scale(1.05);
+      box-shadow: 0 12px 32px rgba(213, 253, 2, 0.7);
+      border-color: rgba(213, 253, 2, 1);
+    }
+    .promo-card i {
+      font-size: 16px;
+      color: #080808;
+    }
 
     .team-carousel, .actual-list-container {
       margin: 16px 0;
@@ -925,7 +925,7 @@
             outModes: { default: "out" }
           }
         },
-        interactivity: { events: { onHover: { enable: false } }, resize: { enable: true } },
+        interactivity: { events: { onHover: { enable: false }, onClick: { enable: false } }, modes: {} },
         retina_detect: true
       }).then(() => console.log('tsParticles loaded')).catch(err => console.error('tsParticles error:', err));
     } else {
@@ -948,8 +948,8 @@
       updateScrollIndicator(list);
     });
 
-    const tg = window.Telegram.WebApp;
-    tg.expand();
+    const tg = window.Telegram ? window.Telegram.WebApp : {};
+    if (tg.expand) tg.expand();
 
     let user_id = null, username = null, first_name = null, last_name = null;
     if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
@@ -1104,7 +1104,7 @@
               <option value="3+ года">3+ года</option>
               <option value="1-2 года">1-2 года</option>
               <option value="6-12 месяцев">6-12 месяцев</option>
-              <option value="менее 6 месяцев"></option>
+              <option value="менее 6 месяцев">менее 6 месяцев</option>
             </select>
             <label>С каким источником работаешь?</label>
             <select name="source" required>
@@ -1116,7 +1116,7 @@
             </select>
             <label>Сколько человек в команде?</label>
             <select name="team_size" required>
-              <option value="" disabled selected>1</option>
+              <option value="" disabled selected>Выберите размер</option>
               <option value="1-4">1-4</option>
               <option value="5-9">5-9</option>
               <option value="10-15">10-15</option>
@@ -1138,7 +1138,7 @@
               <option value="3+ года">3+ года</option>
               <option value="1-2 года">1-2 года</option>
               <option value="6-12 месяцев">6-12 месяцев</option>
-              <option value="менее 6 месяцев"></option>
+              <option value="менее 6 месяцев">менее 6 месяцев</option>
             </select>
             <label>Твой источник?</label>
             <select name="source" required>
@@ -1177,7 +1177,7 @@
               <option value="3+ года">3+ года</option>
               <option value="1-2 года">1-2 года</option>
               <option value="6-12 месяцев">6-12 месяцев</option>
-              <option value="менее 6 месяцев"></option>
+              <option value="менее 6 месяцев">менее 6 месяцев</option>
             </select>
             <label>Твой источник?</label>
             <select name="source" required>
@@ -1228,10 +1228,10 @@
             <h3>${data.title}</h3>
             <p>${data.description || ''}</p>
             <div class="contact-buttons">
-              <a href="https://t.me/Nick_Limited" class="contact-button" target="_blank">
+              <a href="https://t.me/Nick_Limited" class="contact-button" target="_blank" onclick="trackEvent('contact_click', { type: 'advertiser' })">
                 <i class="fab fa-telegram-plane"></i> как рекламодатель
               </a>
-              <a href="https://t.me/Denis_limited" class="contact-button" target="_blank">
+              <a href="https://t.me/Denis_limited" class="contact-button" target="_blank" onclick="trackEvent('contact_click', { type: 'webmaster' })">
                 <i class="fab fa-telegram-plane"></i> как веб-мастер
               </a>
               <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
@@ -1284,11 +1284,15 @@
             const formData = new FormData(e.target);
             const telegram = formData.get('telegram');
             if (!telegram || !telegram.startsWith('@')) {
-              tg.showPopup({
-                title: 'Ошибка',
-                message: 'Ошибка в заполнении Telegram',
-                buttons: [{ type: 'ok' }]
-              });
+              if (tg.showPopup) {
+                tg.showPopup({
+                  title: 'Ошибка',
+                  message: 'Ошибка в заполнении Telegram',
+                  buttons: [{ type: 'ok' }]
+                });
+              } else {
+                alert('Ошибка в заполнении Telegram');
+              }
               return;
             }
             const response_id = generateUUID();
@@ -1314,7 +1318,7 @@
             modal.querySelector('.apply-form').innerHTML = `
               <p style="text-align: center; font-size: 18px; color: #d5fd02;">Отклик отправлен!</p>
               <p style="text-align: center; font-size: 15px; color: #ccc;">Ответ по вакансии придет в нашем чате.</p>
-              <a href="https://t.me/TheLimitedClubHR_bot?start=${response_id}" class="bot-button">
+              <a href="https://t.me/TheLimitedClubHR_bot?start=${response_id}" class="bot-button" target="_blank" onclick="trackEvent('bot_button_click', { response_id: '${response_id}' })">
                 <i class="fab fa-telegram-plane"></i> Перейти в чат
               </a>
               <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
@@ -1325,7 +1329,7 @@
               setTimeout(() => modal.remove(), 600);
             });
 
-            tg.openTelegramLink(`https://t.me/TheLimitedClubHR_bot?start=${response_id}`);
+            window.open(`https://t.me/TheLimitedClubHR_bot?start=${response_id}`, '_blank');
           });
         }
       });
@@ -1333,7 +1337,7 @@
 
     document.querySelector('.hr-contact').addEventListener('click', () => {
       trackEvent('hr_contact_click');
-      tg.openTelegramLink('https://t.me/arina_limitedclub');
+      window.open('https://t.me/arina_limitedclub', '_blank');
     });
 
     document.addEventListener('DOMContentLoaded', () => {
