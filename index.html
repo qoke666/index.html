@@ -298,10 +298,9 @@ ul { list-style: none; margin: 0; padding: 0; }
 .promo-card {
   grid-column: 1 / -1;
   background: linear-gradient(135deg, #d5fd02, #b8e002);
-  backdrop-filter: blur(8px);
-  padding: 20px;
+  padding: 12px;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   color: #080808;
   border: 2px solid rgba(213, 253, 2, 0.7);
@@ -321,7 +320,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   border-color: rgba(213, 253, 2, 1);
 }
 .promo-card i {
-  font-size: 20px;
+  font-size: 18px;
   color: #080808;
 }
 
@@ -428,6 +427,55 @@ body.modal-open::before {
   font-size: clamp(12px, 3.5vw, 13px);
   color: #ccc;
   margin: 6px 0;
+}
+.modal .contact-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+.modal .contact-button {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #d5fd02, #b8e002);
+  color: #080808;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: clamp(12px, 3.5vw, 13px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+.modal .contact-button:hover {
+  background: linear-gradient(135deg, #b8e002, #d5fd02);
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(213, 253, 2, 0.3);
+}
+.modal .close-button {
+  padding: 8px 16px;
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: clamp(12px, 3.5vw, 13px);
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.modal .close-button:hover {
+  background: #333;
+  transform: scale(1.05);
+}
+.modal .contact-button i {
+  font-size: 14px;
 }
 .modal .apply-form {
   display: flex;
@@ -559,6 +607,11 @@ body.modal-open::before {
   .modal p {
     font-size: 11px;
   }
+  .modal .contact-button,
+  .modal .close-button {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
   .modal .apply-form select,
   .modal .apply-form input,
   .modal .apply-form textarea {
@@ -583,6 +636,9 @@ body.modal-open::before {
     gap: 5px;
     padding-bottom: 25px;
     scroll-margin-bottom: 25px;
+  }
+  .modal .contact-buttons {
+    gap: 6px;
   }
 }
 
@@ -655,7 +711,7 @@ body.modal-open::before {
         </li>
         <li class="actual-item" data-aos="fade-up" data-aos-delay="100">
           <a class="card" href="https://blog.marlerino.group/post/britaincase" target="_blank" data-id="actual_2" data-title="SCAM кейс от AMERIO.BET">
-            <img src="https://i.postimg.cc/50yQktWK/280x240.png" alt="марлоны" /> 
+            <img src="https://i.postimg.cc/50yQktWK/280x240.png" alt="марлоны" />
             <div class="text-overlay">
               <strong>Кейс: 130к$ +</strong>
               <p></p>
@@ -664,7 +720,7 @@ body.modal-open::before {
         </li>
         <li class="actual-item" data-aos="fade-up" data-aos-delay="100">
           <a class="card" href="https://telegra.ph/SCAM-kejs-ot-AMERIOBET-hronologiya-prufy-i-dolg-na-90-000-03-18" target="_blank" data-id="actual_3" data-title="Качество трафика в гемблинге">
-            <img src="https://i.postimg.cc/X7KQS6B4/scam.jpg" alt="SCAM кейс" /> 
+            <img src="https://i.postimg.cc/X7KQS6B4/scam.jpg" alt="SCAM кейс" />
             <div class="text-overlay">
               <strong>SCAM от AMERIO</strong>
               <p></p>
@@ -672,7 +728,7 @@ body.modal-open::before {
           </a>
         </li>
         <li class="actual-item" data-aos="fade-up" data-aos-delay="100">
-          <a class="card" href="https://traffhub.media/articles/gambling/nyuansy-vybora-gembling-offerov/" data-id="actual_4" data-title="Вакансия: Трафик менеджер">
+          <a class="card" href="https://traffhub.media/articles/gambling/nyuansy-vybora-gembling-offerov/" target="_blank" data-id="actual_4" data-title="Вакансия: Трафик менеджер">
             <img src="https://i.postimg.cc/kgyVJSnh/offer-2.jpg" alt="Вакансия" />
             <div class="text-overlay">
               <strong>Нюансы выбора</strong>
@@ -684,7 +740,7 @@ body.modal-open::before {
     </div>
     <div class="grid">
       <div class="promo-card" data-vacancy-id="tlc_promo" data-aos="fade-up" data-aos-delay="100">
-        <i class="fas fa-handshake"></i> Для сотрудничества
+        <i class="fas fa-handshake"></i> Начать сотрудничество
       </div>
     </div>
     <h2 class="section-title">КОМАНДА</h2>
@@ -899,7 +955,7 @@ body.modal-open::before {
       ({ id: user_id, username, first_name, last_name } = tg.initDataUnsafe.user);
     }
 
-    const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxRK9cnnKCBM4AypS_cPFlYWkowUfBRiwFHbHYBcWNREHuy25nx1JvUVatPtVk1BzU_Mw/exec';
+    const SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxRK9cnnKCBM4AypS_cPFlYWkowUfBRiwFHbHYBcWNREHuy25nx1jvUVatPtVk1BzU_Mw/exec';
 
     function generateUUID() {
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -989,15 +1045,8 @@ body.modal-open::before {
 
     const vacancyData = {
       tlc_promo: {
-        title: 'The Limited Club',
-        description: 'Это не просто партнёрская сеть, это закрытый клуб для сильнейших команд. Мы обеспечиваем максимум: по деньгам, по офферам, по результату. Забудь про заспамленные паблики и посредников. У нас — прямые рекламодатели, эксклюзивные офферы и условия, о которых другие сети не говорят. От тебя нужен результат, от нас — всё для его достижения.',
-        offers: `
-          <strong>Что мы предлагаем:</strong><br>
-          1️⃣ Эксклюзивные офферы: более 1500 прямых предложений в iGaming и беттинге, многие — недоступны в открытых сетях<br>
-          2️⃣ Профессиональная 24/7 поддержка: опытные менеджеры, быстрые выплаты по запросу<br>
-          3️⃣ Строгий отбор партнёров — The Limited Club принимает только тщательно проверенные команды, чтобы сохранять качество и эксклюзивность<br>
-          4️⃣ Возможности для роста: индивидуальные условия от рекламодателей
-        `
+        title: 'The Limited Partnership Club',
+        description: 'Это не просто партнёрская сеть, это закрытый клуб для сильнейших команд. Мы обеспечиваем максимум: по деньгам, по офферам, по результату. Забудь про заспамленные паблики и посредников. У нас — прямые рекламодатели, эксклюзивные офферы и условия, о которых другие сети не говорят. От тебя нужен результат, от нас — всё для его достижения.'
       },
       support_sales: {
         title: 'Support Manager Sales',
@@ -1042,41 +1091,6 @@ body.modal-open::before {
 
     document.querySelectorAll('.promo-card:not(.hr-contact), #vacancies .card').forEach(card => {
       card.addEventListener('click', () => {
-        document.body.classList.add('modal-open');
-      });
-    });
-
-    document.querySelector('.hr-contact').addEventListener('click', () => {
-      trackEvent('hr_contact_click');
-      tg.openTelegramLink('https://t.me/katerinaHR_limited');
-    });
-
-    document.addEventListener('click', (e) => {
-      if (e.target.classList.contains('close-button') || e.target.closest('.close-button')) {
-        document.body.classList.remove('modal-open');
-        const modal = document.querySelector('.modal');
-        if (modal) {
-          modal.classList.remove('active');
-          setTimeout(() => modal.remove(), 600);
-        }
-      }
-    });
-
-    document.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        const menuList = document.querySelector('.menu ul');
-        if (menuList) {
-          console.log('Menu scrollWidth:', menuList.scrollWidth, 'clientWidth:', menuList.clientWidth, 'isScrollable:', menuList.scrollWidth > menuList.clientWidth);
-          menuList.classList.add('scroll-hint');
-          setTimeout(() => {
-            menuList.classList.remove('scroll-hint');
-          }, 1500);
-        }
-      }, 500);
-    });
-
-    document.querySelectorAll('.promo-card:not(.hr-contact), #vacancies .card').forEach(card => {
-      card.addEventListener('click', () => {
         const vacancyId = card.dataset.vacancyId;
         const data = vacancyData[vacancyId];
         if (!data) return;
@@ -1084,143 +1098,174 @@ body.modal-open::before {
 
         const modal = document.createElement('div');
         modal.className = 'modal';
-        const renderForm = (position = '') => {
-          let formContent = `
-            <label>Ваш Telegram (например, @username)</label>
-            <input type="text" name="telegram" placeholder="@username" pattern="@[A-Za-z0-9_]{5,}" required>
+        if (vacancyId === 'tlc_promo') {
+          modal.innerHTML = `
+            <h3>${data.title}</h3>
+            <p>${data.description}</p>
+            <div class="contact-buttons">
+              <a href="#" class="contact-button" data-contact="nickrek" data-telegram="https://t.me/Nick_Limited">
+                <i class="fab fa-telegram-plane"></i> Как рекламодатель
+              </a>
+              <a href="#" class="contact-button" data-contact="denisveb" data-telegram="https://t.me/Denis_limited">
+                <i class="fab fa-telegram-plane"></i> Как вебмастер
+              </a>
+              <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
+            </div>
           `;
-          if (vacancyId === 'tlc_promo') {
-            if (position === 'Владелец команды') {
-              formContent += `
-                <label>Каков твой опыт в вертикалях?</label>
-                <select name="experience" required>
-                  <option value="" disabled selected>Выберите опыт</option>
-                  <option value="3+ года">3+ года</option>
-                  <option value="1-2 года">1-2 года</option>
-                  <option value="6-12 месяцев">6-12 месяцев</option>
-                  <option value="менее 6 месяцев"></option>
-                </select>
-                <label>С каким источником работаешь?</label>
-                <select name="source" required>
-                  <option value="" disabled selected>Выберите источник</option>
-                  <option value="FB">FB</option>
-                  <option value="PPC">PPC</option>
-                  <option value="ASO">ASO</option>
-                  <option value="SEO">SEO</option>
-                </select>
-                <label>Сколько человек в команде?</label>
-                <select name="team_size" required>
-                  <option value="" disabled selected>1</option>
-                  <option value="1-4">1-4</option>
-                  <option value="5-9">5</option>
-                  <option value="10-15">10-14</option>
-                </select>
-                <label>Каков средний спенд и профит команды в месяц за последние полгода?</label>
-                <textarea name="spend_profit" placeholder="Опишите спенд и профит" required></textarea>
-                <label>Почему вы решили привлечь?</label>
-                <textarea name="investment_reason" placeholder="Опишите причину" required></textarea>
-              `;
-            } else if (position === 'Тимлид' || position === 'Медиабаер') {
-              formContent += `
-                <label>Как тебя зовут?</label>
-                <input type="text" name="name" placeholder="Ваше имя" required>
-                <label>В каком городе ты живёшь?</label>
-                <input type="text" name="city" placeholder="Город" required>
-                <label>Каков твой опыт?</label>
-                <select name="experience" required>
-                  <option value="" disabled selected>Выберите опыт</option>
-                  <option value="3+ года">3+ года</option>
-                  <option value="1-2 года">1-2 года</option>
-                  <option value="6-12 месяцев">6-12 месяцев</option>
-                  <option value="менее 6 месяцев"></option>
-                </select>
-                <label>Твой источник?</label>
-                <select name="source" required>
-                  <option value="" disabled selected>Выберите источник</option>
-                  <option value="FB">FB</option>
-                  <option value="PPC">PPC</option>
-                  <option value="ASO">ASO</option>
-                  <option value="SEO">SEO</option>
-                </select>
-                <label>Какой бюджет в среднем отливаешь?</label>
-                <select name="budget" required>
-                  <option value="" disabled selected>Выберите бюджет</option>
-                  <option value="Менее $1,000">$1,000</option>
-                  <option value="$1,000-$5,000">$1,000-$5,000</option>
-                  <option value="$5,000-$10,000">$5,000-$10,000</option>
-                </select>
-                <label>Расскажи о своём опыте</label>
-                <textarea name="actual" placeholder="Оформление кейса или резюме будет плюсом ✌️" required></textarea>
-              `;
+          modal.querySelectorAll('.contact-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+              e.preventDefault();
+              const telegram = button.dataset.telegram;
+              const contact = button.dataset.contact;
+              trackEvent('partner_contact_click', { contact });
+              tg.openTelegramLink(telegram);
+            });
+          });
+        } else {
+          const renderForm = (position = '') => {
+            let formContent = `
+              <label>Ваш Telegram (например, @username)</label>
+              <input type="text" name="telegram" placeholder="@username" pattern="@[A-Za-z0-9_]{5,}" required>
+            `;
+            if (vacancyId === 'tlc_promo') {
+              if (position === 'Владелец команды') {
+                formContent += `
+                  <label>Каков твой опыт в вертикалях?</label>
+                  <select name="experience" required>
+                    <option value="" disabled selected>Выберите опыт</option>
+                    <option value="3+ года">3+ года</option>
+                    <option value="1-2 года">1-2 года</option>
+                    <option value="6-12 месяцев">6-12 месяцев</option>
+                    <option value="менее 6 месяцев"></option>
+                  </select>
+                  <label>С каким источником работаешь?</label>
+                  <select name="source" required>
+                    <option value="" disabled selected>Выберите источник</option>
+                    <option value="FB">FB</option>
+                    <option value="PPC">PPC</option>
+                    <option value="ASO">ASO</option>
+                    <option value="SEO">SEO</option>
+                  </select>
+                  <label>Сколько человек в команде?</label>
+                  <select name="team_size" required>
+                    <option value="" disabled selected>1</option>
+                    <option value="1-4">1-4</option>
+                    <option value="5-9">5</option>
+                    <option value="10-15">10-14</option>
+                  </select>
+                  <label>Каков средний спенд и профит команды в месяц за последние полгода?</label>
+                  <textarea name="spend_profit" placeholder="Опишите спенд и профит" required></textarea>
+                  <label>Почему вы решили привлечь?</label>
+                  <textarea name="investment_reason" placeholder="Опишите причину" required></textarea>
+                `;
+              } else if (position === 'Тимлид' || position === 'Медиабаер') {
+                formContent += `
+                  <label>Как тебя зовут?</label>
+                  <input type="text" name="name" placeholder="Ваше имя" required>
+                  <label>В каком городе ты живёшь?</label>
+                  <input type="text" name="city" placeholder="Город" required>
+                  <label>Каков твой опыт?</label>
+                  <select name="experience" required>
+                    <option value="" disabled selected>Выберите опыт</option>
+                    <option value="3+ года">3+ года</option>
+                    <option value="1-2 года">1-2 года</option>
+                    <option value="6-12 месяцев">6-12 месяцев</option>
+                    <option value="менее 6 месяцев"></option>
+                  </select>
+                  <label>Твой источник?</label>
+                  <select name="source" required>
+                    <option value="" disabled selected>Выберите источник</option>
+                    <option value="FB">FB</option>
+                    <option value="PPC">PPC</option>
+                    <option value="ASO">ASO</option>
+                    <option value="SEO">SEO</option>
+                  </select>
+                  <label>Какой бюджет в среднем отливаешь?</label>
+                  <select name="budget" required>
+                    <option value="" disabled selected>Выберите бюджет</option>
+                    <option value="Менее $1,000">$1,000</option>
+                    <option value="$1,000-$5,000">$1,000-$5,000</option>
+                    <option value="$5,000-$10,000">$5,000-$10,000</option>
+                  </select>
+                  <label>Расскажи о своём опыте</label>
+                  <textarea name="actual" placeholder="Оформление кейса или резюме будет плюсом ✌️" required></textarea>
+                `;
+              } else {
+                formContent += `
+                  <label>На какую роль ты претендуешь?</label>
+                  <select name="position" required>
+                    <option value="" disabled selected>Выбери роль</option>
+                    <option value="Владелец команды">Владелец команды</option>
+                    <option value="Тимлид">Тимлид</option>
+                    <option value="Медиабаер">Медиабаер</option>
+                  </select>
+                  <label>Как тебя зовут?</label>
+                  <input type="text" name="name" placeholder="Ваше имя" required>
+                  <label>В каком городе ты живёшь?</label>
+                  <input type="text" name="city" placeholder="Город" required>
+                  <label>Какой у тебя опыт?</label>
+                  <select name="experience" required>
+                    <option value="" disabled selected>Выберите опыт</option>
+                    <option value="3+ года">3+ года</option>
+                    <option value="1-2 года">1-2 года</option>
+                    <option value="6-12 месяцев">6-12 месяцев</option>
+                    <option value="менее 6 месяцев"></option>
+                  </select>
+                  <label>Твой источник?</label>
+                  <select name="source" required>
+                    <option value="" disabled selected>Выбери источник</option>
+                    <option value="FB">FB</option>
+                    <option value="PPC">PPC</option>
+                    <option value="ASO">ASO</option>
+                    <option value="SEO">SEO</option>
+                  </select>
+                  <label>Какой бюджет в среднем ты использовал?</label>
+                  <select name="budget" required>
+                    <option value="" disabled selected>Выберите бюджет</option>
+                    <option value="Менее $1,000">$1,000</option>
+                    <option value="$1,000-$5,000">$1,000-$5,000</option>
+                    <option value="$5,000-$10,000">$</option>
+                  </select>
+                  <label>Расскажи о своём опыте</label>
+                  <textarea name="actual" placeholder="Оформление кейса или резюме будет плюсом ✌️" required></textarea>
+                `;
+              }
             } else {
               formContent += `
-                <label>На какую роль ты претендуешь?</label>
-                <select name="position" required>
-                  <option value="" disabled selected>Выбери роль</option>
-                  <option value="Владелец команды">Владелец команды</option>
-                  <option value="Тимлид">Тимлид</option>
-                  <option value="Медиабаер">Медиабаер</option>
-                </select>
                 <label>Как тебя зовут?</label>
                 <input type="text" name="name" placeholder="Ваше имя" required>
                 <label>В каком городе ты живёшь?</label>
                 <input type="text" name="city" placeholder="Город" required>
-                <label>Какой у тебя опыт?</label>
-                <select name="experience" required>
-                  <option value="" disabled selected>Выберите опыт</option>
-                  <option value="3+ года">3+ года</option>
-                  <option value="1-2 года">1-2 года</option>
-                  <option value="6-12 месяцев">6-12 месяцев</option>
-                  <option value="менее 6 месяцев"></option>
-                </select>
-                <label>Твой источник?</label>
-                <select name="source" required>
-                  <option value="" disabled selected>Выбери источник</option>
-                  <option value="FB">FB</option>
-                  <option value="PPC">PPC</option>
-                  <option value="ASO">ASO</option>
-                  <option value="SEO">SEO</option>
-                </select>
-                <label>Какой бюджет в среднем ты использовал?</label>
-                <select name="budget" required>
-                  <option value="" disabled selected>Выберите бюджет</option>
-                  <option value="Менее $1,000">$1,000</option>
-                  <option value="$1,000-$5,000">$1,000-$5,000</option>
-                  <option value="$5,000-$10,000">$</option>
-                </select>
                 <label>Расскажи о своём опыте</label>
-                <textarea name="actual" placeholder="Оформление кейса или резюме будет плюсом ✌️" required></textarea>
+                <textarea name="experience" placeholder="Опиши свой опыт" required></textarea>
+                <label>Ссылка на резюме</label>
+                <input type="url" name="resume" placeholder="https://">
               `;
             }
-          } else {
-            formContent += `
-              <label>Как тебя зовут?</label>
-              <input type="text" name="name" placeholder="Ваше имя" required>
-              <label>В каком городе ты живёшь?</label>
-              <input type="text" name="city" placeholder="Город" required>
-              <label>Расскажи о своём опыте</label>
-              <textarea name="experience" placeholder="Опиши свой опыт" required></textarea>
-              <label>Ссылка на резюме</label>
-              <input type="url" name="resume" placeholder="https://">
-            `;
-          }
-          return formContent;
-        };
+            return formContent;
+          };
 
-        modal.innerHTML = `
-          <h3>${data.title}</h3>
-          <p>${data.description || ''}</p>
-          <p>${data.requirements ? '<strong>Наши ожидания:</strong><br>' + data.requirements : ''}</p>
-          <p>${data.offers || ''}</p>
-          <form class="apply-form" action="#">
-            ${renderForm()}
-            <button type="submit"><i class="fas fa-paper-plane"></i> Отправить</button>
-            <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
-          </form>
-        `;
+          modal.innerHTML = `
+            <h3>${data.title}</h3>
+            <p>${data.description || ''}</p>
+            <p>${data.requirements ? '<strong>Наши ожидания:</strong><br>' + data.requirements : ''}</p>
+            <form class="apply-form" action="#">
+              ${renderForm()}
+              <button type="submit"><i class="fas fa-paper-plane"></i> Отправить</button>
+              <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
+            </form>
+          `;
+        }
         document.body.appendChild(modal);
 
         setTimeout(() => modal.classList.add('active'), 10);
+        document.body.classList.add('modal-open');
+
+        modal.querySelector('.close-button').addEventListener('click', () => {
+          modal.classList.remove('active');
+          document.body.classList.remove('modal-open');
+          setTimeout(() => modal.remove(), 600);
+        });
 
         const positionSelect = modal.querySelector('select[name="position"]');
         if (positionSelect) {
@@ -1240,13 +1285,7 @@ body.modal-open::before {
           });
         }
 
-        modal.querySelector('.close-button').addEventListener('click', () => {
-          modal.classList.remove('active');
-          document.body.classList.remove('modal-open');
-          setTimeout(() => modal.remove(), 600);
-        });
-
-        modal.querySelector('.apply-form').addEventListener('submit', (e) => {
+        modal.querySelector('.apply-form')?.addEventListener('submit', (e) => {
           e.preventDefault();
           const formData = new FormData(e.target);
           const telegram = formData.get('telegram');
@@ -1295,6 +1334,35 @@ body.modal-open::before {
           tg.openTelegramLink(`https://t.me/TheLimitedClubHR_bot?start=${response_id}`);
         });
       });
+    });
+
+    document.querySelector('.hr-contact').addEventListener('click', () => {
+      trackEvent('hr_contact_click');
+      tg.openTelegramLink('https://t.me/katerinaHR_limited');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('close-button') || e.target.closest('.close-button')) {
+        document.body.classList.remove('modal-open');
+        const modal = document.querySelector('.modal');
+        if (modal) {
+          modal.classList.remove('active');
+          setTimeout(() => modal.remove(), 600);
+        }
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const menuList = document.querySelector('.menu ul');
+        if (menuList) {
+          console.log('Menu scrollWidth:', menuList.scrollWidth, 'clientWidth:', menuList.clientWidth, 'isScrollable:', menuList.scrollWidth > menuList.clientWidth);
+          menuList.classList.add('scroll-hint');
+          setTimeout(() => {
+            menuList.classList.remove('scroll-hint');
+          }, 1500);
+        }
+      }, 500);
     });
 
     function startCarousel() {
