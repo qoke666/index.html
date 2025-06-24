@@ -282,7 +282,7 @@
       padding: 12px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content обучайтесь в нашей академии!center;
       cursor: pointer;
       background: linear-gradient(135deg, rgba(17, 19, 21, 0.5), rgba(34, 34, 34, 0.3));
       backdrop-filter: blur(8px);
@@ -296,34 +296,34 @@
       box-shadow: 0 6px 16px rgba(213, 253, 2, 0.3);
     }
     .promo-card {
-  grid-column: 1 / -1;
-  background: linear-gradient(135deg, #d5fd02, #b8e002);
-  padding: 10px;
-  height: 48px;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 700;
-  color: #080808;
-  border: 2px solid rgba(213, 253, 2, 0.7);
-  border-radius: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: 0 8px 24px rgba(213, 253, 2, 0.5);
-}
-.promo-card:hover {
-  background: linear-gradient(135deg, #b8e002, #d5fd02);
-  transform: scale(1.05);
-  box-shadow: 0 12px 32px rgba(213, 253, 2, 0.7);
-  border-color: rgba(213, 253, 2, 1);
-}
-.promo-card i {
-  font-size: 16px;
-  color: #080808;
-}
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #d5fd02, #b8e022);
+      padding: 10px;
+      height: 48px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #080808;
+      border: 2px solid rgba(213, 253, 2, 0.7);
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(213, 253, 2, 0.5);
+    }
+    .promo-card:hover {
+      background: linear-gradient(135deg, #b8e002, #d5fd02);
+      transform: scale(1.05);
+      box-shadow: 0 12px 32px rgba(213, 253, 2, 0.7);
+      border-color: rgba(213, 253, 2, 1);
+    }
+    .promo-card i {
+      font-size: 16px;
+      color: #080808;
+    }
 
     .team-carousel, .actual-list-container {
       margin: 16px 0;
@@ -948,11 +948,13 @@
       updateScrollIndicator(list);
     });
 
-    const tg = window.Telegram.WebApp;
-    tg.expand();
+    const tg = window.Telegram?.WebApp;
+    if (tg) {
+      tg.expand();
+    }
 
     let user_id = null, username = null, first_name = null, last_name = null;
-    if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+    if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
       ({ id: user_id, username, first_name, last_name } = tg.initDataUnsafe.user);
     }
 
@@ -1213,6 +1215,15 @@
       return formContent;
     }
 
+    function openTelegramLink(link, role) {
+      trackEvent('contact_button_click', { role });
+      if (tg && tg.openTelegramLink) {
+        tg.openTelegramLink(link);
+      } else {
+        window.open(link, '_blank');
+      }
+    }
+
     document.querySelectorAll('.promo-card:not(.hr-contact), #vacancies .card').forEach(card => {
       card.addEventListener('click', () => {
         const vacancyId = card.dataset.vacancyId;
@@ -1228,12 +1239,12 @@
             <h3>${data.title}</h3>
             <p>${data.description || ''}</p>
             <div class="contact-buttons">
-              <a href="https://t.me/Nick_Limited" class="contact-button" target="_blank">
+              <button class="contact-button" data-link="https://t.me/Nick_Limited" data-role="рекламодатель">
                 <i class="fab fa-telegram-plane"></i> как рекламодатель
-              </a>
-              <a href="https://t.me/Denis_limited" class="contact-button" target="_blank">
+              </button>
+              <button class="contact-button" data-link="https://t.me/Denis_limited" data-role="веб-мастер">
                 <i class="fab fa-telegram-plane"></i> как веб-мастер
-              </a>
+              </button>
               <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
             </div>
           `;
@@ -1253,6 +1264,14 @@
         document.body.appendChild(modal);
         setTimeout(() => modal.classList.add('active'), 10);
         document.body.classList.add('modal-open');
+
+        modal.querySelectorAll('.contact-button').forEach(button => {
+          button.addEventListener('click', () => {
+            const link = button.dataset.link;
+            const role = button.dataset.role;
+            openTelegramLink(link, role);
+          });
+        });
 
         modal.querySelector('.close-button').addEventListener('click', () => {
           modal.classList.remove('active');
@@ -1284,11 +1303,15 @@
             const formData = new FormData(e.target);
             const telegram = formData.get('telegram');
             if (!telegram || !telegram.startsWith('@')) {
-              tg.showPopup({
-                title: 'Ошибка',
-                message: 'Ошибка в заполнении Telegram',
-                buttons: [{ type: 'ok' }]
-              });
+              if (tg && tg.showPopup) {
+                tg.showPopup({
+                  title: 'Ошибка',
+                  message: 'Ошибка в заполнении Telegram',
+                  buttons: [{ type: 'ok' }]
+                });
+              } else {
+                alert('Ошибка в заполнении Telegram');
+              }
               return;
             }
             const response_id = generateUUID();
@@ -1325,7 +1348,11 @@
               setTimeout(() => modal.remove(), 600);
             });
 
-            tg.openTelegramLink(`https://t.me/TheLimitedClubHR_bot?start=${response_id}`);
+            if (tg && tg.openTelegramLink) {
+              tg.openTelegramLink(`https://t.me/TheLimitedClubHR_bot?start=${response_id}`);
+            } else {
+              window.open(`https://t.me/TheLimitedClubHR_bot?start=${response_id}`, '_blank');
+            }
           });
         }
       });
@@ -1333,7 +1360,12 @@
 
     document.querySelector('.hr-contact').addEventListener('click', () => {
       trackEvent('hr_contact_click');
-      tg.openTelegramLink('https://t.me/arina_limitedclub');
+      const link = 'https://t.me/arina_limitedclub';
+      if (tg && tg.openTelegramLink) {
+        tg.openTelegramLink(link);
+      } else {
+        window.open(link, '_blank');
+      }
     });
 
     document.addEventListener('DOMContentLoaded', () => {
