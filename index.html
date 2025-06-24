@@ -1172,12 +1172,12 @@ body.modal-open::before {
             modal.querySelector('.apply-form').innerHTML = `
               <p style="text-align: center; font-size: 18px; color: #d5fd02;">Отклик отправлен!</p>
               <p style="text-align: center; font-size: 15px; color: #ccc;">Ответ по вакансии придет в нашем чате.</p>
-              <a href="https://t.me/TheLimitedClubHRBot?start=${responseId}" class="bot-button">
+              <a href="https://t.me/TheLimitedClubHR_bot?start=${responseId}" class="bot-button">
                 <i class="fab fa-telegram-plane"></i> Перейти в чат
               </a>
               <button type="button" class="close-button"><i class="fas fa-times"></i> Закрыть</button>
             `;
-            tg.openTelegramLink(`https://t.me/TheLimitedClubHRBot?start=${responseId}`);
+            tg.openTelegramLink(`https://t.me/TheLimitedClubHR_bot?start=${responseId}`);
           });
         }
 
