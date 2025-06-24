@@ -282,7 +282,7 @@
       padding: 12px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content обучайтесь в нашей академии!center;
       cursor: pointer;
       background: linear-gradient(135deg, rgba(17, 19, 21, 0.5), rgba(34, 34, 34, 0.3));
       backdrop-filter: blur(8px);
@@ -370,10 +370,6 @@
       color: #bbb;
       margin: 0;
     }
-    .team-link:active {
-      opacity: 0.7;
-      transition: opacity 0.1s;
-    }
 
     .modal {
       position: fixed;
@@ -459,10 +455,6 @@
       background: linear-gradient(135deg, #b8e002, #d5fd02);
       transform: scale(1.05);
       box-shadow: 0 6px 16px rgba(213, 253, 2, 0.3);
-    }
-    .modal .contact-button:active {
-      opacity: 0.7;
-      transition: opacity 0.1s;
     }
     .modal .close-button {
       padding: 8px 16px;
@@ -756,49 +748,49 @@
     <div class="team-carousel">
       <ul class="team-list">
         <li class="team-item" data-aos="fade-up" data-aos-delay="100">
-          <a data-link="https://t.me/Evgenii_Limited" class="team-link">
+          <a href="https://t.me/Evgenii_Limited" target="_blank">
             <img src="https://i.postimg.cc/yN5SkL2P/3.webp" alt="Evgenii" />
             <strong>Evgenii Limited</strong>
             <p>Co-owner</p>
           </a>
         </li>
         <li class="team-item" data-aos="fade-up" data-aos-delay="100">
-          <a data-link="https://t.me/t_limited" class="team-link">
+          <a href="https://t.me/t_limited" target="_blank">
             <img src="https://i.postimg.cc/KjgCWLjQ/4.webp" alt="Tikhon" />
             <strong>Tikhon Limited</strong>
             <p>Co-owner</p>
           </a>
         </li>
         <li class="team-item" data-aos="fade-up" data-aos-delay="100">
-          <a data-link="https://t.me/Denis_limited" class="team-link">
+          <a href="https://t.me/Denis_limited" target="_blank">
             <img src="https://i.postimg.cc/GmQ3z0Zt/6-new.webp" alt="Denis" />
             <strong>Denis Limited</strong>
             <p>Head of Affiliate</p>
           </a>
         </li>
         <li class="team-item" data-aos="fade-up" data-aos-delay="100">
-          <a data-link="https://t.me/sasha_limited" class="team-link">
+          <a href="https://t.me/sasha_limited" target="_blank">
             <img src="https://i.postimg.cc/gkyGkFcs/2.webp" alt="Aleksandra" />
             <strong>Aleksandra Limited</strong>
             <p>Head of Sales</p>
           </a>
         </li>
         <li class="team-item" data-aos="fade-up" data-aos-delay="100">
-          <a data-link="https://t.me/ksu_limited" class="team-link">
+          <a href="https://t.me/ksu_limited" target="_blank">
             <img src="https://i.postimg.cc/SxDqC6Mz/1.webp" alt="Ksenia" />
             <strong>Ksenia Limited</strong>
             <p>Team Lead Affiliate Manager</p>
           </a>
         </li>
         <li class="team-item" data-aos="fade-up" data-aos-delay="100">
-          <a data-link="https://t.me/katerinaHR_limited" class="team-link">
+          <a href="https://t.me/katerinaHR_limited" target="_blank">
             <img src="https://i.postimg.cc/hGvnrXLZ/7.jpg" alt="Katerina" />
             <strong>Katerina Limited</strong>
             <p>HRD</p>
           </a>
         </li>
         <li class="team-item" data-aos="fade-up" data-aos-delay="100">
-          <a data-link="https://t.me/Alexandr_limited" class="team-link">
+          <a href="https://t.me/Alexandr_limited" target="_blank">
             <img src="https://i.postimg.cc/yNGHr7n1/5-new.webp" alt="Alexander" />
             <strong>Alexander Limited</strong>
             <p>Связь по PR и маркетингу</p>
@@ -1224,17 +1216,10 @@
     }
 
     function openTelegramLink(link, role) {
-      trackEvent('contact_button_click', { role, link });
-      try {
-        if (tg && tg.openTelegramLink) {
-          console.log(`Opening Telegram link: ${link}`);
-          tg.openTelegramLink(link);
-        } else {
-          console.log(`Opening in new tab: ${link}`);
-          window.open(link, '_blank');
-        }
-      } catch (error) {
-        console.error(`Error opening Telegram link ${link}:`, error);
+      trackEvent('contact_button_click', { role });
+      if (tg && tg.openTelegramLink) {
+        tg.openTelegramLink(link);
+      } else {
         window.open(link, '_blank');
       }
     }
@@ -1281,8 +1266,7 @@
         document.body.classList.add('modal-open');
 
         modal.querySelectorAll('.contact-button').forEach(button => {
-          button.addEventListener('click', (e) => {
-            e.preventDefault();
+          button.addEventListener('click', () => {
             const link = button.dataset.link;
             const role = button.dataset.role;
             openTelegramLink(link, role);
@@ -1364,26 +1348,24 @@
               setTimeout(() => modal.remove(), 600);
             });
 
-            openTelegramLink(`https://t.me/TheLimitedClubHR_bot?start=${response_id}`, 'hr_bot');
+            if (tg && tg.openTelegramLink) {
+              tg.openTelegramLink(`https://t.me/TheLimitedClubHR_bot?start=${response_id}`);
+            } else {
+              window.open(`https://t.me/TheLimitedClubHR_bot?start=${response_id}`, '_blank');
+            }
           });
         }
       });
     });
 
-    document.querySelector('.hr-contact').addEventListener('click', (e) => {
-      e.preventDefault();
+    document.querySelector('.hr-contact').addEventListener('click', () => {
       trackEvent('hr_contact_click');
       const link = 'https://t.me/arina_limitedclub';
-      openTelegramLink(link, 'hr_contact');
-    });
-
-    document.querySelectorAll('.team-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const telegramLink = link.dataset.link;
-        trackEvent('team_member_click', { link: telegramLink });
-        openTelegramLink(telegramLink, 'team_member');
-      });
+      if (tg && tg.openTelegramLink) {
+        tg.openTelegramLink(link);
+      } else {
+        window.open(link, '_blank');
+      }
     });
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -1423,12 +1405,6 @@
     }
 
     startCarousel();
-
-    // Проверка платформы для отладки
-    const isMacOS = navigator.platform.toLowerCase().includes('mac');
-    if (isMacOS) {
-      console.log('Running on macOS, applying Telegram Web App fixes');
-    }
   </script>
 </body>
 </html>
